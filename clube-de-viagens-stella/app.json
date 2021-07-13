@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "clube-de-viagens-stella",
+    "slug": "clube-de-viagens-stella",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-stella.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ac092d"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.priferreira.clubedeviagensstella"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
