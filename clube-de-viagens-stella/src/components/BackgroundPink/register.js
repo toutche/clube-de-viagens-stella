@@ -3,67 +3,73 @@ import {
     View, 
     TouchableOpacity, 
     Text, 
+    Image,
     TextInput, 
     TouchableWithoutFeedback 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 
-import Title from '../../common/TitleInternalBkPink';
-import Copyright from '../common/Copyright';
+/*Componentes internos do app */
+import Title from '../common/titleInternalBkPink';
+import Copyright from '../common/copyright';
 import StyleBkPink from './Styles/StyleBackgroundPink';
 import AccessStyle from './Styles/AccessStyle';
 
 
-export default function Register() {
+export default function RegisterScreen({ navigation, route }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cel, setCel] = useState('');
   const [name, setName] = useState('');
+  const placeholderTextColor="#ffffff";
 
   return (
-    <View style={AccessStyle.containerAccess}>
+    <View style={StyleBkPink.container}>
+
+      <View style={StyleBkPink.spacearea}>
+        <View style={StyleBkPink.divRoundedWhite}>
+          <Image source={require('../../../assets/img/logoquadrado.png')} style={StyleBkPink.imgDivWhite}/>
+        </View>
+      </View>
+
       <Title titlePage="É novo aqui? Cadastre-se"/> 
      
         <View style={StyleBkPink.boxPink}>
-          <View style={AccessStyle.inputView}>      
+          <View style={AccessStyle.inputGroup}>      
             <TouchableWithoutFeedback>
                 <Icon style={AccessStyle.IconTextInput} name={'user'} size={20}/>  
             </TouchableWithoutFeedback>         
             <TextInput 
               style={AccessStyle.TextInput}
               placeholder='Insira o seu nome'
+              placeholderTextColor={placeholderTextColor}
               onChangeText={(name) => setName(name)}/>                 
           </View>
-        </View>
-
-        <View style={StyleBkPink.boxPink}>
-          <View style={AccessStyle.inputView}>      
+          
+          <View style={AccessStyle.inputGroup}>      
             <TouchableWithoutFeedback>
                 <Icon style={AccessStyle.IconTextInput} name={'mobile'} size={20}/>  
             </TouchableWithoutFeedback>         
             <TextInput 
               style={AccessStyle.TextInput}
               placeholder='Insira o seu celular'
+              placeholderTextColor={placeholderTextColor}
               onChangeText={(cel) => setCel(cel)}/>                 
           </View>
-        </View>
-
-        <View style={StyleBkPink.boxPink}>
-            <View style={AccessStyle.inputView}>      
+       
+          <View style={AccessStyle.inputGroup}>      
                 <TouchableWithoutFeedback>
                     <Icon style={AccessStyle.IconTextInput} name={'envelope'} size={20}/>  
                 </TouchableWithoutFeedback>         
                 <TextInput 
                   style={AccessStyle.TextInput}
                   placeholder='Insira o seu e-mail'
+                  placeholderTextColor={placeholderTextColor}
                   onChangeText={(email) => setEmail(email)}/>                 
             </View>
-        </View>
-
-        <View style={StyleBkPink.boxPink}>
-            <View style={AccessStyle.inputView}>      
+            <View style={AccessStyle.inputGroup}>      
                 <TouchableWithoutFeedback>
                     <Icon style={AccessStyle.IconTextInput} name={'lock'} size={20}/>  
                 </TouchableWithoutFeedback>         
@@ -71,6 +77,7 @@ export default function Register() {
                   style={AccessStyle.TextInput} 
                   secureTextEntry={true}
                   placeholder='Insira uma senha'
+                  placeholderTextColor={placeholderTextColor}
                   onChangeText={(password) => setPassword(password)}/>                 
             </View>
         </View>
@@ -82,11 +89,11 @@ export default function Register() {
               activeOpacity={0.5}>
               <Text style={StyleBkPink.buttonTextDark}> Cadastrar </Text>
             </TouchableOpacity>
-          </View>         
-        </View>
-
+          </View>                   
+        </View>       
+         
         <Copyright/> 
-      
+        
     </View>
   );
 }

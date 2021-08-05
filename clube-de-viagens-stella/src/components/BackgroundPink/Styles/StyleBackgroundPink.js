@@ -5,14 +5,13 @@ export default StyleSheet.create({
   container: {
     flex: 1, 
     flexDirection: "column",      
-    justifyContent: 'center',
-    alignContent: 'center',
-    textAlign: 'center',
+    justifyContent: 'flex-start',
+    //alignContent: 'center',
     backgroundColor: "#c70c34", 
     width: '100%',
     height: '100%'
   },
-  divRoundedWhite: {
+  /*divRoundedWhite: {
     flex: 1, 
     backgroundColor: "#fff", 
     width: '100%',
@@ -24,7 +23,21 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 40, 
     paddingTop: 20
-  },
+  },*/
+  spacearea: {
+    height: 180,
+    justifyContent: 'center',
+    alignContent: 'center'
+ },
+ divRoundedWhite: {
+   flex: 1,
+   backgroundColor: "#fff", 
+   borderBottomStartRadius: 500, 
+   borderBottomEndRadius: 500, 
+   borderStyle: 'solid', 
+   borderColor: '#df123e', 
+   justifyContent: 'flex-end',
+ },
   divPink: {
     flex: 3, 
     backgroundColor: "#c70c34", 
@@ -32,7 +45,6 @@ export default StyleSheet.create({
     height: '100%', 
     flexDirection: 'column',
     justifyContent: 'center',
-    marginTop: 130
   },
   imgDivWhite: {
     resizeMode: 'center',
@@ -63,7 +75,6 @@ export default StyleSheet.create({
   subtitle: {
     color: '#fff',
     fontSize: 16,
-    marginBottom: 25,
     marginHorizontal: 'auto',
     textAlign: 'center'
   },
@@ -87,6 +98,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
+    marginTop: 10
   },
   buttonFacebook: {
     flexDirection: 'row',
@@ -121,7 +133,6 @@ export default StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 15,
     paddingVertical: 10,
-    marginBottom: 12,    
   },
   buttonLoginEmail: {
     borderStyle: 'solid',
@@ -134,7 +145,6 @@ export default StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 15,
     paddingVertical: 10,    
-    marginBottom: 12
   },
   buttonImageIcon: {
     padding: 10,
@@ -157,8 +167,8 @@ export default StyleSheet.create({
     fontWeight: '700'
   },
   containerSeparator:{
-    marginBottom: 30,
-    marginTop: 30,
+    marginBottom: 15,
+    marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

@@ -1,10 +1,12 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import * as React from 'react';
+import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-import TitleInternal from '../../common/TitleInternalBkPink'
+/*Componentes internos do app */
+import TitleInternal from '../common/titleInternalBkPink'
 
-export default function Localization() {
+
+export default function LocalizationScreen({ navigation, route }){
   return (
     <View>
       <TitleInternal titlePage="Estamos buscando a sua localização"/>  

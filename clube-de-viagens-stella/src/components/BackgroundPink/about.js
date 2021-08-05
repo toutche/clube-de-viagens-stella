@@ -1,24 +1,15 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 
-
 import Title from '../common/titleBkPink';
-import StyleBkPink from './Styles/StyleBackgroundPink';
+import Style from './Styles/StyleBackgroundPink';
 import TermsConditionsStyle from './Styles/TermsConditionsStyle';
 
-
-export default function About({ navigation, route }){
-
-  return (
-    <View style={StyleBkPink.container}>
-      <Title titlePage="Sobre o Clube de Férias"/> 
-
-      <View style={TermsConditionsStyle.container}>
-        
-       {/*} <View style={TermsConditionsStyle.item}>
-            video Aqui!
-        </View>
-
+export default function About({ navigation, route }) {  
+    return (
+      <>
+      <View style={Style.container}>
+        <Title titlePage="Sobre o Clube de Férias"/> 
         <View style={TermsConditionsStyle.item}>
             <Text style={TermsConditionsStyle.text}>
             Ao acessar o site Stella Barros, concorda em cumprir estes termos de serviços.
@@ -28,7 +19,7 @@ export default function About({ navigation, route }){
             protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.
             </Text>
         </View>
-        
+
         <View style={TermsConditionsStyle.item}>
             <Text style={TermsConditionsStyle.text}>
             É concedida permissão para baixar temporáriamente uma cópia dos materiais 
@@ -43,9 +34,8 @@ export default function About({ navigation, route }){
             transitória pessoal e não comercial. Esta é a concessão de uma licença, 
             não uma transferência de título e, sob esta licença, você nã pode:
             </Text>
-        </View>*/}
-
+        </View>
       </View>
-    </View>
-  );
-}
+      </>
+    );
+  }

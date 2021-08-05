@@ -25,8 +25,6 @@ export default StyleSheet.create({
   },
   titleInternalBKP: {
     color: '#FFFFFF',
-    marginTop: 10,
-    marginBottom: 20,
     fontSize: 16,
     fontWeight: "bold",
     marginHorizontal: 'auto',
@@ -37,15 +35,12 @@ export default StyleSheet.create({
   },
   containerCopyright: {
     flexDirection: "column",  
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     flex: 3,
-    alignContent: 'center',
     width: '100%', 
-    marginBottom: 0,
-    marginTop: '45%',
+    marginBottom: 5,
   },
   copyrightBKP: {
-    /* formatação do texto de rodapé */
     color: '#FFFFFF',
     fontSize: 10,
     textAlign: 'center',

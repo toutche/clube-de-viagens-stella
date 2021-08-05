@@ -1,18 +1,22 @@
 import * as React from 'react';
-import { TouchableOpacity, Image, StyleSheet, Button, View, Text } from 'react-native';
+import { TouchableOpacity, Image, StyleSheet, View, Text } from 'react-native';
 
 
+/*Componentes internos do app */
 import StyleBkPink from './Styles/StyleBackgroundPink';
 import Copyright from '../common/copyright';
 import TitleBkPink from '../common/titleBkPink';
 
-export default function LoginScreen({ navigation, route }) {  
+
+export default function LoginScreen({ navigation }) {  
     return (
+    <>
+    <View style={StyleBkPink.container}>
 
-      <View style={StyleBkPink.container}>
-
-        <View style={StyleBkPink.divRoundedWhite}>
-          <Image source={require('../../../assets/img/logoquadrado.png')} style={StyleBkPink.imgDivWhite}/>
+        <View style={StyleBkPink.spacearea}>
+            <View style={StyleBkPink.divRoundedWhite}>
+                <Image source={require('../../../assets/img/logoquadrado.png')} style={StyleBkPink.imgDivWhite}/>
+            </View>
         </View>
 
         <View style={StyleBkPink.divPink}>
@@ -26,18 +30,20 @@ export default function LoginScreen({ navigation, route }) {
         
               <TouchableOpacity
                 style={StyleBkPink.buttonFacebook}
-                activeOpacity={0.5}>
-                {/*<Image
-                  source={require('../../../assets/img/facebook.png')}
-                  style={StyleBkPink.buttonImageIcon}
-                />*/}
+                activeOpacity={0.5}
+                onPress={() =>
+                  navigation.navigate('AddressNotFound'/*'Localization'*/)
+                }>
                 <Text style={StyleBkPink.buttonText}> FACEBOOK </Text>
               </TouchableOpacity>
 
 
               <TouchableOpacity
                 style={StyleBkPink.buttonGloogle}
-                activeOpacity={0.5}>
+                activeOpacity={0.5}
+                onPress={() =>
+                  navigation.navigate('AddressNotFound'/*'Localization'*/)
+                  }>
                 {/*<Image
                   source={require('../../../assets/img/google.png')}
                   style={StyleBkPink.buttonImageIcon}
@@ -56,7 +62,10 @@ export default function LoginScreen({ navigation, route }) {
             <View style={StyleBkPink.containerButtons}>        
               <TouchableOpacity
                 style={StyleBkPink.buttonLoginEmail}
-                activeOpacity={0.5}>
+                activeOpacity={0.5}
+                onPress={() =>
+                  navigation.navigate('Access')
+                }>
                 <Text style={StyleBkPink.buttonText}> Entre com seu e-mail </Text>
               </TouchableOpacity>
             </View>           
@@ -66,7 +75,10 @@ export default function LoginScreen({ navigation, route }) {
               <View style={StyleBkPink.containerButtons}>        
                 <TouchableOpacity
                   style={StyleBkPink.buttonRegister}
-                  activeOpacity={0.5}>
+                  activeOpacity={0.5}
+                  onPress={() =>
+                    navigation.navigate('Register')
+                  }>
                   <Text style={StyleBkPink.buttonTextDark}> É novo por aqui? Cadastre-se </Text>
                 </TouchableOpacity>
               </View>   
@@ -80,6 +92,7 @@ export default function LoginScreen({ navigation, route }) {
         </View>
 
       </View>
+    </>
     );
   }
 

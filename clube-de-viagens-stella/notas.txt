@@ -1,0 +1,40 @@
+ <View style={Style.boxPink}>
+            <View style={AccessStyle.inputView}>      
+                <TouchableWithoutFeedback>
+                    <Icon style={AccessStyle.IconTextInput} name={'envelope'} size={20}/>  
+                </TouchableWithoutFeedback>         
+                <TextInput style={AccessStyle.TextInput}
+                    onChangeText={(email) => setEmail(email)}/>                 
+            </View>
+        </View>
+
+        <View style={Style.boxPink}>
+            <View style={AccessStyle.inputView}>      
+                <TouchableWithoutFeedback>
+                    <Icon style={AccessStyle.IconTextInput} name={'lock'} size={20}/>  
+                </TouchableWithoutFeedback>         
+                <TextInput style={AccessStyle.TextInput} secureTextEntry={true}
+                    onChangeText={(password) => setPassword(password)}/>                 
+            </View>
+        </View>
+        
+        
+        <View style={Style.boxPink}>
+            <View style={Style.containerButtons}>        
+                <TouchableOpacity
+                style={Style.buttonRegister}
+                activeOpacity={0.5}>
+                <Text style={Style.buttonTextDark}> Entrar </Text>
+                </TouchableOpacity>
+            </View>         
+        </View>     
+        
+        <View style={{marginBottom: 50}}>
+            <Text 
+                style={Style.link} 
+                onPress={() => Linking.openURL('http://google.com')}>
+                Esqueceu a senha?
+            </Text>
+        </View>
+
+        <Copyright display='none'/>
