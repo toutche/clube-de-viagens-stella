@@ -9,6 +9,8 @@ import {
     Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import api from '../utils/api';
+import {loginSetToken, getToken} from '../utils/auth';
 
 
 /*Componentes internos do app */
@@ -17,13 +19,31 @@ import AccessStyle from './Styles/AccessStyle';
 import TitleInternalBkPink from '../common/titleInternalBkPink';
 import Copyright from '../common/copyright';
 
-
 export default function Access({ navigation, route }) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const placeholderTextColor="#ffffff";
     const titlePage='Entre com seu e-mail e senha';
+
+    const _login = () => {
+        api.post('/login', {
+            email: email,
+            password: password
+        })
+        .then(function (response) {
+            console.log(response.data);
+            if(response.data.access_token) {
+                loginSetToken(response.data.access_token);
+                navigation.navigate('HomeLogged');
+            } else {
+                alert("Usuário e/ou senha incorretos");
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
 
   return (
     <View style={Style.container}>
@@ -65,13 +85,7 @@ export default function Access({ navigation, route }) {
                     <TouchableOpacity
                     style={Style.buttonRegister}
                     activeOpacity={0.5}
-                    onPress={() => 
-                        navigation.navigate('HomeLogged',
-                        {
-                            email: email,
-                            password: password
-                        })
-                    }>
+                    onPress={_login}>
                     <Text style={Style.buttonTextDark}> Entrar </Text>
                     </TouchableOpacity>
                 </View>         
