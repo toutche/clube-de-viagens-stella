@@ -12,12 +12,13 @@ import AddressNotFoundScreen from './src/components/BackgroundPink/addressNotFou
 import CompleteAddressScreen from './src/components/BackgroundPink/completeAddress';
 import DreamTripScreen from './src/components/BackgroundWhite/dreamTrip';
 import HomeScreen from './src/components/common/home';
-import HomeLoggedScreen from './src/components/BackgroundPink/home-logged';
+import HomeLoggedScreen from './src/components/pages/home-logged';
 import HowItWorksScreen from './src/components/BackgroundWhite/howItWorks';
 import InsertCodeScreen from './src/components/BackgroundPink/insertCode';
 import LocalizationScreen from './src/components/BackgroundPink/localization';
 import LoginScreen from './src/components/BackgroundPink/login';
 import MemberPacksScreen from './src/components/BackgroundWhite/memberPacks';
+import PlanScreen from './src/components/BackgroundPink/plan';
 import RegisterScreen from './src/components/BackgroundPink/register';
 import RecoverPasswordScreen from './src/components/BackgroundPink/recoverPassword';
 import TermsConditionsScreen from './src/components/BackgroundPink/termsConditions';
@@ -83,10 +84,20 @@ const Drawer = createDrawerNavigator();
   );
 }*/
 
+/* TODO: desenvolvi as próximas telas sem passar pelo 
+fluxo de login para acelerar:
+  - HomeLogged
+  - Plan
+ */
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator
+      initialRouteName="Plan"
+      screenOptions={{
+        headerShown: false
+      }}
+      >
         <Stack.Screen name="About" component={AboutScreen}/> 
         <Stack.Screen name="Access" component={AccessScreen}/>
         <Stack.Screen name="AddressNotFound" component={AddressNotFoundScreen}/>
@@ -99,6 +110,7 @@ export default function App() {
         <Stack.Screen name="Localization" component={LocalizationScreen}/>
         <Stack.Screen name="Login" component={LoginScreen}/>
         <Stack.Screen name="MemberPacks" component={MemberPacksScreen}/>
+        <Stack.Screen name="Plan" component={PlanScreen}/> 
         <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
         <Stack.Screen name="Register" component={RegisterScreen}/> 
         <Stack.Screen name="TermsConditions" component={TermsConditionsScreen}/> 

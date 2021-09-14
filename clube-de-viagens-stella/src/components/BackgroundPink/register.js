@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { 
     View, 
     TouchableOpacity, 
+    ScrollView,
     Text, 
     Image,
     TextInput, 
@@ -9,8 +10,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-
 /*Componentes internos do app */
+import api from '../utils/api';
+import { loginSetToken } from '../utils/auth';
 import Title from '../common/titleInternalBkPink';
 import Copyright from '../common/copyright';
 import StyleBkPink from './Styles/StyleBackgroundPink';
@@ -19,22 +21,45 @@ import AccessStyle from './Styles/AccessStyle';
 
 export default function RegisterScreen({ navigation, route }) {
 
+  const [name, setName] = useState('');
+  const [phone_number, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [cel, setCel] = useState('');
-  const [name, setName] = useState('');
+
   const placeholderTextColor="#ffffff";
+  const titlePage='Entre com seu e-mail e senha';
+
+  const _register = () => {
+    api.post('/cadastrar', {
+        name: name,
+        last_name: 'aleatorio',
+        email: email,
+        password: password,
+        password_confirmation: password,
+        phone_number: phone_number,
+        gender: 'm'
+    })
+    .then(function (response) {
+        console.log('cadastrar: ',response.data);
+        loginSetToken(response.data.access_token);
+        alert("Usuário cadastrado com sucesso.");
+        navigation.navigate('Access');            
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+}
 
   return (
     <View style={StyleBkPink.container}>
-
-      <View style={StyleBkPink.spacearea}>
+      <ScrollView scrollEnabled={true}>
+        <View style={StyleBkPink.spacearea}>
         <View style={StyleBkPink.divRoundedWhite}>
           <Image source={require('../../../assets/img/logoquadrado.png')} style={StyleBkPink.imgDivWhite}/>
         </View>
       </View>
 
-      <Title titlePage="É novo aqui? Cadastre-se"/> 
+        <Title titlePage="É novo aqui? Cadastre-se"/> 
      
         <View style={StyleBkPink.boxPink}>
           <View style={AccessStyle.inputGroup}>      
@@ -56,7 +81,7 @@ export default function RegisterScreen({ navigation, route }) {
               style={AccessStyle.TextInput}
               placeholder='Insira o seu celular'
               placeholderTextColor={placeholderTextColor}
-              onChangeText={(cel) => setCel(cel)}/>                 
+              onChangeText={(phone_number) => setPhoneNumber(phone_number)}/>                 
           </View>
        
           <View style={AccessStyle.inputGroup}>      
@@ -86,14 +111,15 @@ export default function RegisterScreen({ navigation, route }) {
           <View style={StyleBkPink.containerButtons}>        
             <TouchableOpacity
               style={StyleBkPink.buttonRegister}
-              activeOpacity={0.5}>
+              activeOpacity={0.5}
+              onPress={_register}>
               <Text style={StyleBkPink.buttonTextDark}> Cadastrar </Text>
             </TouchableOpacity>
           </View>                   
         </View>       
          
         <Copyright/> 
-        
+      </ScrollView>
     </View>
   );
 }
