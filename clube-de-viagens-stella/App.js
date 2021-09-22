@@ -12,7 +12,7 @@ import AddressNotFoundScreen from './src/components/BackgroundPink/addressNotFou
 import CompleteAddressScreen from './src/components/BackgroundPink/completeAddress';
 import DreamTripScreen from './src/components/BackgroundWhite/dreamTrip';
 import HomeScreen from './src/components/common/home';
-import HomeLoggedScreen from './src/components/pages/home-logged';
+import HomeLoggedScreen from './src/components/pages/homeLogged/home-logged';
 import HowItWorksScreen from './src/components/BackgroundWhite/howItWorks';
 import InsertCodeScreen from './src/components/BackgroundPink/insertCode';
 import LocalizationScreen from './src/components/BackgroundPink/localization';
@@ -22,7 +22,8 @@ import PlanScreen from './src/components/BackgroundPink/plan';
 import RegisterScreen from './src/components/BackgroundPink/register';
 import RecoverPasswordScreen from './src/components/BackgroundPink/recoverPassword';
 import TermsConditionsScreen from './src/components/BackgroundPink/termsConditions';
-
+import ProfileScreen from './src/components/pages/profile';
+import FinancialAreaScreen from './src/components/pages/financialArea/index';
 
 /*teste de rotas */
 function CreatePostScreen({ navigation, route }) {
@@ -93,7 +94,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-      initialRouteName="Plan"
+      initialRouteName="FinancialArea"
       screenOptions={{
         headerShown: false
       }}
@@ -103,6 +104,7 @@ export default function App() {
         <Stack.Screen name="AddressNotFound" component={AddressNotFoundScreen}/>
         <Stack.Screen name="CompleteAddress" component={CompleteAddressScreen}/>
         <Stack.Screen name="DreamTrip" component={DreamTripScreen}/>
+        <Stack.Screen name="FinancialArea" component={FinancialAreaScreen}/>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="HomeLogged" component={HomeLoggedScreen}/> 
         <Stack.Screen name="HowItWorks" component={HowItWorksScreen}/>
@@ -111,6 +113,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen}/>
         <Stack.Screen name="MemberPacks" component={MemberPacksScreen}/>
         <Stack.Screen name="Plan" component={PlanScreen}/> 
+        <Stack.Screen name="Profile" component={ProfileScreen}/> 
         <Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
         <Stack.Screen name="Register" component={RegisterScreen}/> 
         <Stack.Screen name="TermsConditions" component={TermsConditionsScreen}/> 

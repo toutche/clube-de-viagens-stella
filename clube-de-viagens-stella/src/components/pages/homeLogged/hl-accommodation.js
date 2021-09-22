@@ -6,12 +6,11 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import Style from './styles/stylePages';
-import Header from '../common/header';
-import ContainerPkg from '../common/containerPkg';
+import Style from '../styles/stylePages';
+import ContainerPkg from '../../common/containerPkg';
 
 
-export default function HomeLoggedScreen({ navigation, route }) {
+export default function HomeLoggedContentScreen({ navigation, route }) {
 
   const informationText = 'Preços sujeito a alterações sem aviso prévio | confirmação sujeita a disponibilidade';
   const titlePage = 'Conquiste as suas férias dos sonhos';
@@ -26,8 +25,6 @@ export default function HomeLoggedScreen({ navigation, route }) {
   return (
   <ScrollView style={Style.container} scrollEnabled={true}>
     <View style={Style.bkRoundedpink}>
-
-      <Header></Header>
 
       <View style={Style.areaDrop}>
         <TouchableOpacity
