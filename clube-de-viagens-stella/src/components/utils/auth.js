@@ -1,5 +1,5 @@
-import {consts} from './consts';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {consts} from "./consts";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const loginSetToken = async (value) => {
     try {

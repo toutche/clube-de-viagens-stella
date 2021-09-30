@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import { 
     View,
     Text,
     ImageBackground,
     StyleSheet
-} from 'react-native';
-import ContainerData from './containerData';
+} from "react-native";
+import ContainerData from "./containerData";
 
 
 
@@ -20,9 +20,9 @@ export default function ContainerPkg() {
         },
         image: {
           flex: 1,
-          justifyContent: 'center',
-          alignContent: 'center',
-          alignItems: 'center'
+          justifyContent: "center",
+          alignContent: "center",
+          alignItems: "center"
         },
         text: {
           color: "#ffffff",
@@ -38,7 +38,7 @@ export default function ContainerPkg() {
         <ImageBackground 
             source={image} 
             resizeMode="stretch" 
-            imageStyle={{ borderRadius: 20, height: '100%', width: '100%'}}
+            imageStyle={{ borderRadius: 20, height: "100%", width: "100%"}}
             style={styles.image}>
             <ContainerData/>
         </ImageBackground>

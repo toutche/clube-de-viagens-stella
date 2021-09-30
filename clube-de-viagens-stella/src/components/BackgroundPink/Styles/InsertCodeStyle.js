@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet} from "react-native";
 
 export default StyleSheet.create({
    containerInsert: {
@@ -9,19 +9,19 @@ export default StyleSheet.create({
       flex: 1,
       flexDirection: "row",  
       justifyContent: "flex-start",
-      alignItems: 'flex-start',
-      marginHorizontal: 'auto'
+      alignItems: "flex-start",
+      marginHorizontal: "auto"
    },
    inputView: {
-      backgroundColor: 'transparent',
-      borderBottomColor: '#FFFFFF',
+      backgroundColor: "transparent",
+      borderBottomColor: "#FFFFFF",
       borderBottomWidth: 1,    
       width: 10,    
       paddingHorizontal: 30,
-      display: 'flex',
+      display: "flex",
       marginHorizontal: 5,
    }, 
    TextInput: {
-      color: '#FFFFFF',
+      color: "#FFFFFF",
    }, 
 });

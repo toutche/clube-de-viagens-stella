@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { 
     View,
     StyleSheet,
     Text, 
     Image,
     TouchableOpacity
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import Icon2 from 'react-native-vector-icons/Ionicons';
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome"
+import Icon2 from "react-native-vector-icons/Ionicons";
 
 
 export default function Card(props) {
@@ -22,21 +22,21 @@ export default function Card(props) {
             borderTopRightRadius: 10,
             borderTopLeftRadius: 10,       
             backgroundColor: props.bkColor,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
+            flexDirection: "row",
+            justifyContent: "space-around",
             paddingVertical: 10
         },
         card: { 
             borderRadius: 10,
             backgroundColor: props.bkColor,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
+            flexDirection: "row",
+            justifyContent: "space-around",
             paddingVertical: 10,
             paddingHorizontal: 10
         },
         bkImgUser: {
-            flexDirection: 'column',
-            justifyContent: 'center'
+            flexDirection: "column",
+            justifyContent: "center"
         },
         imgUser: {
             borderRadius: 50,
@@ -55,12 +55,12 @@ export default function Card(props) {
             backgroundColor: props.bkColorImg,
         },
         bkText: {
-            flexDirection: 'column',
-            justifyContent: 'center',
+            flexDirection: "column",
+            justifyContent: "center",
         },
         bkBtn: { 
-            flexDirection: 'column',
-            justifyContent: 'center'
+            flexDirection: "column",
+            justifyContent: "center"
         },
         btnActive: {
             borderRadius: 50,
@@ -68,46 +68,46 @@ export default function Card(props) {
             width: 30,
             borderWidth: 3,
             borderColor: props.borderColor,
-            backgroundColor: '#ffffff',
-            justifyContent: 'center',
-            alignItems: 'center'
+            backgroundColor: "#ffffff",
+            justifyContent: "center",
+            alignItems: "center"
         },
         btn: {
             borderRadius: 50,
             height: 30,
             width: 30,
             borderWidth: 1,
-            borderColor: '#ffffff',
-            justifyContent: 'center',
-            alignItems: 'center'
+            borderColor: "#ffffff",
+            justifyContent: "center",
+            alignItems: "center"
         },
         boxPromotion: {
             justifyContent: "center",
             backgroundColor: "#12AAEB",
             borderRadius: 50,
             height: 20,
-            width: '100%',     
+            width: "100%",     
             elevation: 7,         
         },
         textPromotion: {
-            textAlign: 'center',
-            color: '#ffffff',
+            textAlign: "center",
+            color: "#ffffff",
             fontSize: 10
         },   
         title: {
-            color: '#ffffff',
+            color: "#ffffff",
             fontSize: 22
         },
         value: {
-            color: '#ffffff',
+            color: "#ffffff",
             fontSize: 16
         },
         lineBottom: {
-            backgroundColor: '#FFFFFF',
+            backgroundColor: "#FFFFFF",
             borderBottomLeftRadius: 10,
             borderBottomRightRadius: 10,
-            flexDirection: 'row',
-            justifyContent: 'center',
+            flexDirection: "row",
+            justifyContent: "center",
         },
         startPlan: { 
             color: "#12AAEB",
@@ -116,7 +116,7 @@ export default function Card(props) {
     });
     
 
-    if(status==='active') {
+    if(status==="active") {
         return (
             <View style={styles.container}>
                 <View style={styles.cardActive}>
@@ -139,7 +139,7 @@ export default function Card(props) {
                         <TouchableOpacity style={styles.btnActive}>
                             <Icon 
                             size={18} 
-                            color={'#12AAEB'}
+                            color={"#12AAEB"}
                             name={"chevron-down"}/>  
                         </TouchableOpacity>          
                     </View>
@@ -151,7 +151,7 @@ export default function Card(props) {
                 </View>
             </View>     
         );
-    } else if(status==='disabled'){
+    } else if(status==="disabled"){
         return (
             <View style={styles.container}>
                 <View style={styles.card}>
@@ -173,7 +173,7 @@ export default function Card(props) {
                         <TouchableOpacity style={styles.btn}>
                             <Icon 
                             size={18} 
-                            color={'#ffffff'}
+                            color={"#ffffff"}
                             name={"angle-right"}/>  
                         </TouchableOpacity>                      
                     </View>

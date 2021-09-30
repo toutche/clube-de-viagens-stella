@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { ImageBackground, Image, StyleSheet, Button, View, Text } from 'react-native';
+import * as React from "react";
+import { ImageBackground, Image, StyleSheet, Button, View, Text } from "react-native";
 
 
 //const image = { uri: "https://docs.expo.io/static/images/tutorial/splash.png" };
-const image = require('../../../assets/img/conheca.png');
+const image = require("../../../assets/img/conheca.png");
 
 export default function HomeScreen({ navigation, route }) {
     React.useEffect(() => {
@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation, route }) {
         <View style={styles.container}>
             <Button
             title="Create post"
-            onPress={() => navigation.navigate('CreatePost')}
+            onPress={() => navigation.navigate("CreatePost")}
             />
             <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
         </View>
@@ -37,8 +37,8 @@ export default function HomeScreen({ navigation, route }) {
         flex: 1, 
     },
     imgbg: {
-        width: '100%',
-        height: '100%',
-        resizeMode: 'stretch'
+        width: "100%",
+        height: "100%",
+        resizeMode: "stretch"
     },
   });

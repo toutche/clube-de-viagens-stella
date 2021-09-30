@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Image } from 'react-native';
+import React from "react";
+import { View, Image } from "react-native";
 
-import Copyright from '../common/Copyright';
-import HomeStyle from './Styles/HomeStyle';
+import Copyright from "../common/Copyright";
+import HomeStyle from "./Styles/HomeStyle";
 
 export default function Home() {
   
@@ -17,7 +17,7 @@ export default function Home() {
                   <View style={HomeStyle.divRoundedPink2}>
                     <View style={HomeStyle.divRoundedPink1}>
                       <View style={HomeStyle.divRoundedWhite}>
-                        <Image source={require('../../../assets/img/logoquadrado.png')} style={HomeStyle.img}/>
+                        <Image source={require("../../../assets/img/logoquadrado.png")} style={HomeStyle.img}/>
                       </View>
                     </View>
                   </View>
@@ -28,7 +28,7 @@ export default function Home() {
         </View>      
       </View>
       <View style={{marginBottom: 10}}>
-      <Copyright display='none'/>
+      <Copyright display="none"/>
       </View>
     </View>
   );

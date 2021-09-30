@@ -1,32 +1,32 @@
-import React from 'react';
+import React from "react";
 import { 
     View,
     Text,
     Image,
     StyleSheet,
     TouchableWithoutFeedback,
-} from 'react-native';
+} from "react-native";
 
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from "react-native-vector-icons/FontAwesome"
 
 
 export default function Header() {
   
     const styles = StyleSheet.create({
         logo: {
-            width: '100%',
-            resizeMode: 'contain',
+            width: "100%",
+            resizeMode: "contain",
             marginTop: -10
         },
         iconBars: {
-            color: '#ffffff',
+            color: "#ffffff",
             paddingTop: 20
         },
         header: {
-            backgroundColor: 'transparent',
-            width: '100%',
+            backgroundColor: "transparent",
+            width: "100%",
             flexDirection: "row",
-            justifyContent: 'space-between',
+            justifyContent: "space-between",
             margin: 0
         },
         containerImg: {
@@ -40,19 +40,19 @@ export default function Header() {
         <View style={styles.header}>
             <View style={styles.containerIcon}>
                 <TouchableWithoutFeedback>
-                    <Icon style={styles.iconBars} name={'bars'} size={20}/>  
+                    <Icon style={styles.iconBars} name={"bars"} size={20}/>  
                 </TouchableWithoutFeedback> 
             </View>
             <View style={styles.containerImg}>        
                 <Image
                     style={styles.logo}
-                    source={require('../../../assets/img/logointerno.png')}
+                    source={require("../../../assets/img/logointerno.png")}
                 />
             </View>
 
             <View style={styles.containerIcon}>
                 <TouchableWithoutFeedback>
-                    <Icon style={styles.iconBars} name={'bell'} size={20}/>  
+                    <Icon style={styles.iconBars} name={"bell"} size={20}/>  
                 </TouchableWithoutFeedback>
             </View>
       </View>
