@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react"
 import { View } from "react-native"
-import Carousel, { Pagination } from 'react-native-snap-carousel'
-import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH, SLIDER_HEIGHT, ITEM_HEIGHT } from './CarouselCardItem'
+import Carousel, { Pagination } from "react-native-snap-carousel"
+import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH, SLIDER_HEIGHT, ITEM_HEIGHT } from "./CarouselCardItem"
 
 
 const CarouselCards = () => {
@@ -48,7 +48,7 @@ const CarouselCards = () => {
           height: 10,
           borderRadius: 5,
           marginHorizontal: 0,
-          backgroundColor: 'rgba(255, 255, 255, 0.92)',
+          backgroundColor: "rgba(255, 255, 255, 0.92)",
         }}
         inactiveDotOpacity={0.4}
         inactiveDotScale={0.6}

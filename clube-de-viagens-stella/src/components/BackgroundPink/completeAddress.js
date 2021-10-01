@@ -1,36 +1,38 @@
-import React, {useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, {useState} from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 
-import StyleBkPink from './Styles/StyleBackgroundPink';
-import CompleteStyle from './Styles/CompleteAddressStyle';
-import Title from '../common/titleInternalBkPink'
+import StyleBkPink from "./Styles/StyleBackgroundPink";
+import CompleteStyle from "./Styles/CompleteAddressStyle";
+import Title from "../common/titleInternal"
 
 
 export default function CompleteAddress() {
 
-  const [number, setNumber] = useState('');
-  const [complement, setComplement] = useState('');
-  const [referencePoint, setReferencePoint] = useState('');
+  const [number, setNumber] = useState("");
+  const [complement, setComplement] = useState("");
+  const [referencePoint, setReferencePoint] = useState("");
 
   return (
     <View style={{backgroundColor: "#c70c34"}}>
-      <Title titlePage="Complete o seu endereço"/>    
+      <Title 
+      styleTitle="titleBKColorful"
+      titlePage="Complete o seu endereço"/>    
 
       <View style={CompleteStyle.boxWhite}>
         
         <View style={{
-         // borderBottom: '1px solid #dcdcdc',
+         // borderBottom: "1px solid #dcdcdc",
           borderBottomWidth: 1,
-          //borderBottomStyle: 'solid',
-          borderBottomColor: '#dcdcdc',
+          //borderBottomStyle: "solid",
+          borderBottomColor: "#dcdcdc",
           paddingBottom: 10,
-          textAlign: 'left'
+          textAlign: "left"
           }}>
 
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: "row"}}>
             <Text style={StyleBkPink.textOff}>Endereço </Text>
             <Text style={StyleBkPink.linkBoxWhite} 
-                  onPress={() => Linking.openURL('http://google.com')}>
+                  onPress={() => Linking.openURL("http://google.com")}>
                   Editar
             </Text>
           </View>        

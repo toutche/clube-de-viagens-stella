@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+import * as React from "react";
+import { Button, View, Text } from "react-native";
 
 export default function HomeScreen({ navigation, route }) {
     React.useEffect(() => {
@@ -10,10 +10,10 @@ export default function HomeScreen({ navigation, route }) {
     }, [route.params?.post]);
   
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Button
           title="Create post"
-          onPress={() => navigation.navigate('CreatePost')}
+          onPress={() => navigation.navigate("CreatePost")}
         />
         <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
       </View>

@@ -1,18 +1,18 @@
-import React from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import React from "react";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 
-import TitleBkPink from '../common/titleBkPink';
-import ImgTopBkPink from '../common/ImgTopBkPink';
-import StyleBkPink from './Styles/StyleBackgroundPink';
-import Login from './Login';
-import Access from './Access';
-import Localization from './Localization';
-import AddressNotFound from './AddressNotFound';
-import CompleteAddress from './CompleteAddress';
-import Register from './Register';
-import RecoverPassword from './RecoverPassword';
-import TermsConditions from './TermsConditions';
-import About from './About';
+import Title from "../common/titleInternal"
+import ImgTopBkPink from "../common/ImgTopBkPink";
+import StyleBkPink from "./Styles/StyleBackgroundPink";
+import Login from "./Login";
+import Access from "./Access";
+import Localization from "./Localization";
+import AddressNotFound from "./AddressNotFound";
+import CompleteAddress from "./CompleteAddress";
+import Register from "./Register";
+import RecoverPassword from "./RecoverPassword";
+import TermsConditions from "./TermsConditions";
+import About from "./About";
 
 
 
@@ -20,7 +20,7 @@ export default function BasePink() {
   return (
     <View style={StyleBkPink.container}>
       <View style={StyleBkPink.divRoundedWhite}>
-        <ImgTopBkPink img='logo'/>
+        <ImgTopBkPink img="logo"/>
       </View>
 
       <View style={StyleBkPink.divPink}>

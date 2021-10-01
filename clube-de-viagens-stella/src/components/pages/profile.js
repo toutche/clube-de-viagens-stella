@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { 
     View,
     ScrollView,
     Text,
     TouchableOpacity,
-} from 'react-native';
+} from "react-native";
 
-import Style from './styles/stylePages';
-import Header from '../common/header';
+import Style from "./styles/stylePages";
+import Header from "../common/header";
 
 export default function ProfileScreen({ navigation, route }) {
 

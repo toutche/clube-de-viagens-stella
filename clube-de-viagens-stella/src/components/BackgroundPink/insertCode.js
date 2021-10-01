@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { 
     View, 
     Text, 
     TextInput, 
     Linking
-} from 'react-native';
+} from "react-native";
 
 
-import Title from '../common/titleInternalBkPink';
-import StyleBkPink from './Styles/StyleBackgroundPink';
-import InsertCodeStyle from './Styles/InsertCodeStyle';
+import Title from "../common/titleInternal";
+import StyleBkPink from "./Styles/StyleBackgroundPink";
+import InsertCodeStyle from "./Styles/InsertCodeStyle";
 
 export default function InsertCode() {
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
 
   return (
     <View style={StyleBkPink.container}>
-      <Title titlePage="É novo aqui? Cadastre-se"/> 
+      <Title 
+      styleTitle="titleBKColorful"
+      titlePage="É novo aqui? Cadastre-se"/> 
      
-      <View style={{marginBottom: 30, marginTop: '-10px'}}>
+      <View style={{marginBottom: 30, marginTop: "-10px"}}>
         <Text style={StyleBkPink.text}>
           Precisamos confirmar o seu e-mail.
         </Text>
@@ -59,7 +61,7 @@ export default function InsertCode() {
         <View style={InsertCodeStyle.boxDisplayFlex}>
             <Text 
                 style={StyleBkPink.link} 
-                onPress={() => Linking.openURL('http://google.com')}>
+                onPress={() => Linking.openURL("http://google.com")}>
                 Reenviar ódigo
             </Text>
         </View>

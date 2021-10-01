@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { 
     View,
     Text,
@@ -6,30 +6,30 @@ import {
     StyleSheet,
     TouchableWithoutFeedback,
     TouchableOpacity
-} from 'react-native';
+} from "react-native";
 
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from "react-native-vector-icons/FontAwesome"
 
 
 export default function Header() {
   
-    const textBtnUser = 'Olá Fernanda';
-    const textBtnUser2 = 'Crédito: R$ 6.900,00';
+    const textBtnUser = "Olá Fernanda";
+    const textBtnUser2 = "Crédito: R$ 6.900,00";
     const styles = StyleSheet.create({
         logo: {
-            width: '100%',
-            resizeMode: 'contain',
+            width: "100%",
+            resizeMode: "contain",
             marginTop: -10
         },
         iconBars: {
-            color: '#ffffff',
+            color: "#ffffff",
             paddingTop: 20
         },
         header: {
-            backgroundColor: 'transparent',
-            width: '100%',
+            backgroundColor: "transparent",
+            width: "100%",
             flexDirection: "row",
-            justifyContent: 'space-between',
+            justifyContent: "space-between",
             margin: 0
         },
         containerImg: {
@@ -38,25 +38,25 @@ export default function Header() {
         },
         containerIcon: {},
         btnUser:{
-            backgroundColor:'#DF123E',
-            borderColor: '#EF1F4B',
+            backgroundColor:"#DF123E",
+            borderColor: "#EF1F4B",
             borderWidth: 2,
-            color: '#ffffff',
+            color: "#ffffff",
             borderRadius: 50,
             height: 40,
             width: "50%",
             marginRight:2
           },
           btnUserText:{
-            color: '#ffffff',
+            color: "#ffffff",
             fontSize: 11,
-            textAlign: 'center',
+            textAlign: "center",
             paddingVertical: 5,
           },
           btnUserText2:{
-            color: '#ffffff',
+            color: "#ffffff",
             fontSize: 10,
-            textAlign: 'center',
+            textAlign: "center",
             paddingVertical: 10,
           },
       });
@@ -65,7 +65,7 @@ export default function Header() {
         <View style={styles.header}>
             <View style={styles.containerIcon}>
                 <TouchableWithoutFeedback>
-                    <Icon style={styles.iconBars} name={'bars'} size={20}/>  
+                    <Icon style={styles.iconBars} name={"bars"} size={20}/>  
                 </TouchableWithoutFeedback> 
             </View>
 
@@ -82,7 +82,7 @@ export default function Header() {
 
             <View style={styles.containerIcon}>
                 <TouchableWithoutFeedback>
-                    <Icon style={styles.iconBars} name={'bell'} size={20}/>  
+                    <Icon style={styles.iconBars} name={"bell"} size={20}/>  
                 </TouchableWithoutFeedback>
             </View>
       </View>

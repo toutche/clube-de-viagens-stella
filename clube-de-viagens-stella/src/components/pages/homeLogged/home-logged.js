@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { 
     View,
     ScrollView,
     Text,
     TouchableOpacity,
-} from 'react-native';
+} from "react-native";
 
-import Style from '../styles/stylePages';
-import Header from '../../common/header';
-import ContainerPkg from '../../common/containerPkg';
+import Style from "../styles/stylePages";
+import Header from "../../common/header";
+import ContainerPkg from "../../common/containerPkg";
 
 export default function HomeLoggeScreen({ navigation, route }) {
 
-  const informationText = 'Preços sujeito a alterações sem aviso prévio | confirmação sujeita a disponibilidade';
-  const titlePage = 'Conquiste as suas férias dos sonhos';
-  const textBtn1 = 'Pacotes de Viagens';
-  const textBtn2 = 'Hospedagem';
-  const numPackages = '154';
-  const textBtnUser = 'Olá Fernanda';
-  const textBtnUser2 = 'Crédito: R$ 6.900,00';
-  const textBtnDrop = 'Filtrar Pacotes';
+  const informationText = "Preços sujeito a alterações sem aviso prévio | confirmação sujeita a disponibilidade";
+  const titlePage = "Conquiste as suas férias dos sonhos";
+  const textBtn1 = "Pacotes de Viagens";
+  const textBtn2 = "Hospedagem";
+  const numPackages = "154";
+  const textBtnUser = "Olá Fernanda";
+  const textBtnUser2 = "Crédito: R$ 6.900,00";
+  const textBtnDrop = "Filtrar Pacotes";
 
   
   return (

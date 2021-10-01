@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { 
     View,
     ScrollView,
@@ -7,35 +7,35 @@ import {
     TextInput, 
     TouchableWithoutFeedback,
     Image
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome"
 
 /*Componentes internos do app */
-import api from '../utils/api';
-import {loginSetToken, getToken} from '../utils/auth';
-import Style from './Styles/StyleBackgroundPink';
-import AccessStyle from './Styles/AccessStyle';
-import TitleInternalBkPink from '../common/titleInternalBkPink';
-import Copyright from '../common/copyright';
+import api from "../utils/api";
+import {loginSetToken, getToken} from "../utils/auth";
+import Style from "./Styles/StyleBackgroundPink";
+import AccessStyle from "./Styles/AccessStyle";
+import TitleInternal from "../common/titleInternal";
+import Copyright from "../common/copyright";
 
 
 export default function Access({ navigation, route }) {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const placeholderTextColor="#ffffff";
-    const titlePage='Entre com seu e-mail e senha';
+    const titlePage="Entre com seu e-mail e senha";
 
     const _login = () => {
-        api.post('/login', {
+        api.post("/login", {
             email: email,
             password: password
         })
         .then(function (response) {
-            console.log('login: ',response.data);
+            console.log("login: ",response.data);
             if(response.data.access_token) {
                 loginSetToken(response.data.access_token);
-                navigation.navigate('HomeLoggedScreen');
+                navigation.navigate("HomeLoggedScreen");
             } else {
                 alert("Usuário e/ou senha incorretos");
             }
@@ -51,33 +51,33 @@ export default function Access({ navigation, route }) {
         <ScrollView scrollEnabled={true}>
             <View style={Style.spacearea}>
                 <View style={Style.divRoundedWhite}>
-                    <Image source={require('../../../assets/img/logoquadrado.png')} style={Style.imgDivWhite}/>
+                    <Image source={require("../../../assets/img/logoquadrado.png")} style={Style.imgDivWhite}/>
                 </View>
             </View>
             
             <View style={AccessStyle.containerAccess}>
-                <TitleInternalBkPink titlePage={titlePage}/>
+                <titleInternal titlePage={titlePage} styleTitle="titleIBKColorful"/>
                 
                 <View style={Style.boxPink}>
                     <View style={AccessStyle.inputGroup}>      
                         <TouchableWithoutFeedback>
-                            <Icon style={AccessStyle.IconTextInput} name={'envelope'} size={20}/>  
+                            <Icon style={AccessStyle.IconTextInput} name={"envelope"} size={20}/>  
                         </TouchableWithoutFeedback>         
                         <TextInput 
                         style={AccessStyle.TextInput}
-                        placeholder='Insira o seu e-mail'
+                        placeholder="Insira o seu e-mail"
                         placeholderTextColor={placeholderTextColor}
                         onChangeText={(email) => setEmail(email)}/>                 
                     </View>
 
                     <View style={AccessStyle.inputGroup}>      
                     <TouchableWithoutFeedback>
-                        <Icon style={AccessStyle.IconTextInput} name={'lock'} size={20}/>  
+                        <Icon style={AccessStyle.IconTextInput} name={"lock"} size={20}/>  
                     </TouchableWithoutFeedback>         
                     <TextInput
                     style={AccessStyle.TextInput} 
                     secureTextEntry={true}
-                    placeholder='Insira uma senha'
+                    placeholder="Insira uma senha"
                     placeholderTextColor={placeholderTextColor}
                     onChangeText={(password) => setPassword(password)}/>                 
                 </View>
@@ -92,14 +92,14 @@ export default function Access({ navigation, route }) {
                     </View>         
                     
                     <View style={{
-                        justifyContent: 'center', 
+                        justifyContent: "center", 
                         marginTop: 30, 
-                        flexDirection: 'row',
+                        flexDirection: "row",
                         }}>
                         <Text 
                             style={Style.link} 
                             onPress={() => 
-                                navigation.navigate('RecoverPassword')
+                                navigation.navigate("RecoverPassword")
                             }>
                             Esqueceu a senha?
                         </Text>
@@ -108,7 +108,7 @@ export default function Access({ navigation, route }) {
                 
             </View>
         
-            <Copyright display='none'/>
+            <Copyright display="none"/>
         </ScrollView>
 
     </View>
