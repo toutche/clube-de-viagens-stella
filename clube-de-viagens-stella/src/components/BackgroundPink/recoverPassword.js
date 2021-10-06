@@ -25,7 +25,7 @@ export default function RecoverPassword() {
 
       <View style={Styles.spacearea}>
         <View style={Styles.divRoundedWhite}>
-          <Image source={require("../../../assets/img/logoquadrado.png")} style={Styles.imgDivWhite}/>
+          <Image source={require("../../../assets/img/logo/logo-color.png")} style={Styles.imgDivWhite}/>
         </View>
       </View>
 

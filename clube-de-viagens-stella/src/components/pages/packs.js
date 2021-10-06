@@ -13,9 +13,9 @@ import React from "react";
     WIDTH 
   } from "../variables";
 
-export default function Club({ navigation, route }) {
+export default function Packs({ navigation, route }) {
   
-    const titleText = "Como funciona o clube?";
+    const titleText = "Quais são os pacotes?";
     const Style = StyleSheet.create({
       container: {
         flexDirection: "column",
@@ -111,13 +111,13 @@ export default function Club({ navigation, route }) {
   
           <View style={Style.buttonsLine}>        
             <TouchableOpacity
-              style={Style.btnActive}
+              style={Style.btn}
               activeOpacity={0.5}
               onPress={() => 
                 navigation.navigate("Club")
               }
             >
-              <Text style={Style.btnTextActive}> O Clube </Text>
+              <Text style={Style.btnText}> O Clube </Text>
             </TouchableOpacity>
   
             <TouchableOpacity
@@ -131,13 +131,13 @@ export default function Club({ navigation, route }) {
             </TouchableOpacity>
   
             <TouchableOpacity
-              style={Style.btn}
+              style={Style.btnActive}
               activeOpacity={0.5}
               onPress={() => 
                 navigation.navigate("Packs")
               }
             >
-              <Text style={Style.btnText}> Pacotes </Text>
+              <Text style={Style.btnTextActive}> Pacotes </Text>
             </TouchableOpacity>
           </View>        
   

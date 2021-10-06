@@ -3,7 +3,7 @@ import { ImageBackground, Image, StyleSheet, Button, View, Text } from "react-na
 
 
 //const image = { uri: "https://docs.expo.io/static/images/tutorial/splash.png" };
-const image = require("../../../assets/img/conheca.png");
+const image = require("../../../assets/img/img1.png");
 
 export default function HomeScreen({ navigation, route }) {
     React.useEffect(() => {

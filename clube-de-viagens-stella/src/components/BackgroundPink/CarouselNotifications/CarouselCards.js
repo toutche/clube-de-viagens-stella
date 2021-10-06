@@ -17,7 +17,7 @@ const CarouselCards = () => {
     },
     {
       title: "Prefere campo ou cidade?",
-      img: "../../../assets/img/logoquadrado.png",
+      img: "../../../assets/img/logo/logo-color.png",
       text: "Parabéns, agora conhecemos as suas preferências e podemos oferecer as melhores opções de viagens para você :)"
     },
     {

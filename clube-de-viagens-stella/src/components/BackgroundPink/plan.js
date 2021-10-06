@@ -68,7 +68,7 @@ export default function PlanScreen({ navigation, route }) {
         <ScrollView scrollEnabled={true}>
             <View style={styles.spacearea}>
                 <View style={Style.divRoundedWhite}>
-                    <Image source={require("../../../assets/img/logoquadrado.png")} style={Style.imgDivWhite}/>
+                    <Image source={require("../../../assets/img/logo/logo-color.png")} style={Style.imgDivWhite}/>
                 </View>
             </View>
             

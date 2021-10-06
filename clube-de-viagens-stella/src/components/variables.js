@@ -22,5 +22,6 @@ export const ITEM_SLIDE_HEIGHT = Math.round(HEIGHT * 0.7);
 export const FONT_SIZE_TITLE = 20;
 export const FONT_SIZE_SUBTITLE = 16;
 export const FONT_SIZE_BODY = 13;
+export const FONT_SIZE_COPYRIGHT = 10;
 
 
