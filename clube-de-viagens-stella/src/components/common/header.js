@@ -46,7 +46,7 @@ export default function Header() {
             <View style={styles.containerImg}>        
                 <Image
                     style={styles.logo}
-                    source={require("../../../assets/img/logointerno.png")}
+                    source={require("../../../assets/img/logo/logo-color.png")}
                 />
             </View>
 

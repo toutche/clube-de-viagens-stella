@@ -17,7 +17,7 @@ export default function Home() {
                   <View style={HomeStyle.divRoundedPink2}>
                     <View style={HomeStyle.divRoundedPink1}>
                       <View style={HomeStyle.divRoundedWhite}>
-                        <Image source={require("../../../assets/img/logoquadrado.png")} style={HomeStyle.img}/>
+                        <Image source={require("../../../assets/img/logo/logo-color.png")} style={HomeStyle.img}/>
                       </View>
                     </View>
                   </View>

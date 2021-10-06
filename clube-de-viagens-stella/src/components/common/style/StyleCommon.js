@@ -1,22 +1,8 @@
 import { StyleSheet } from "react-native";
+import { 
+  TEXT_COLOR_BKCOLORFUL, 
+  WIDTH, 
+  FONT_SIZE_COPYRIGHT 
+} from "../../variables";
 
-export default StyleSheet.create({
-  containerCopyright: {
-    flexDirection: "column",  
-    justifyContent: "flex-end",
-    flex: 3,
-    width: "100%", 
-    marginBottom: 5
-  },
-  copyrightBKP: {
-    color: "#FFFFFF",
-    fontSize: 10,
-    textAlign: "center"
-  },
-  linkCopyrightBKP:{
-    color: "#ffffff",
-    fontSize: 10,
-    textDecorationLine: "underline",
-    marginLeft: 2
-  },
-});
+export default StyleSheet.create({});

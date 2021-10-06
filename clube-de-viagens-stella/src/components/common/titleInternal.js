@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 import { 
   FONT_SIZE_SUBTITLE,
+  FONT_SIZE_TITLE,
   TITLE_COLOR_BKCOLORFUL, 
   TITLE_COLOR_BKWHITE 
 } from "../variables";
@@ -34,19 +35,16 @@ export default function TitleInternal(props) {
       return (
         <Text style={{
           color: TITLE_COLOR_BKCOLORFUL,
-          marginTop: 10,
           marginBottom: 20,
           fontSize: 22,
           fontWeight: "bold",
           marginHorizontal: 45,
           textAlign: "center",
-          paddingHorizontal: 20,
-          paddingVertical: 10,
         }}>
           {props.titlePage}
         </Text>   
         )     
-    }else if (props.styleTitle === "titleIBKColorful") {
+    } else if (props.styleTitle === "titleIBKColorful") {
       return (
         <Text style={{
           color: TITLE_COLOR_BKCOLORFUL,
@@ -61,7 +59,7 @@ export default function TitleInternal(props) {
           {props.titlePage}
         </Text>   
         )
-      }else if (props.styleTitle === "titleIBKColorLEFT") {
+      } else if (props.styleTitle === "titleIBKColorLEFT") {
         return (
           <Text style={{
             color: TITLE_COLOR_BKCOLORFUL,
@@ -74,5 +72,17 @@ export default function TitleInternal(props) {
             {props.titlePage}
           </Text>   
           )
-        }
+      } else if (props.styleTitle === "titleSimple") {
+        return (
+          <Text style={{
+            color: TITLE_COLOR_BKCOLORFUL,           
+            fontSize: FONT_SIZE_TITLE,
+            fontWeight: "bold",
+            textAlign: "center",
+          }}>
+            {props.titlePage}
+          </Text>   
+          )     
+      }
+      
 }

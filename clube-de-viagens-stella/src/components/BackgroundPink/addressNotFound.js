@@ -7,7 +7,7 @@ import StyleBkPink from "./Styles/StyleBackgroundPink";
 import AddressNotFoundStyle from "./Styles/AddressNotFoundStyle";
 
 export default function AddressNotFound() {
-  const imageTop = "../../../assets/img/logoquadrado.png"
+  const imageTop = "../../../assets/img/logo/logo-color.png"
   
   return (
 

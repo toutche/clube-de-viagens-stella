@@ -6,19 +6,19 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 /* Páginas para rotas */
 import AboutScreen from "./src/components/pages/about";/**PG PRONTA, FALTA TRANSIÇÃO e interação com API ---- nÃO ENCONTREI NO FLUXO NOVO*/
-import AccessScreen from "./src/components/BackgroundPink/access";
+import AccessScreen from "./src/components/pages/access/access"; /**PG PRONTA */
 import AddressNotFoundScreen from "./src/components/BackgroundPink/addressNotFound";
 import CompleteAddressScreen from "./src/components/BackgroundPink/completeAddress";
-import DreamTripScreen from "./src/components/pages/dreamTrip";/* */
+import AdvantagesScreen from "./src/components/pages/advantages";/**PG PRONTA, interação com API e verificar como funciona, acredito ser carrossel*/
 import HomeScreen from "./src/components/common/home";
 import HomeLoggedScreen from "./src/components/pages/homeLogged/home-logged";
-import ClubScreen from "./src/components/pages/club";/* */
-import InsertCodeScreen from "./src/components/BackgroundPink/insertCode";
+import ClubScreen from "./src/components/pages/club";/**PG PRONTA, interação com API e verificar como funciona, acredito ser carrossel*/
+import InsertCodeScreen from "./src/components/pages/insertCode";/**PG QUASE PRONTA, FALTA interação com API e conferir as regras dela pq coloque inputs separados mas não fez sentido*/
 import LocalizationScreen from "./src/components/BackgroundPink/localization";
-import LoginScreen from "./src/components/BackgroundPink/login";
-import PacksScreen from "./src/components/pages/memberPacks";/* */
+import LoginScreen from "./src/components/pages/login";/**PG PRONTA, FALTA acesso face e google */
+import PacksScreen from "./src/components/pages/packs";/**PG PRONTA, interação com API e verificar como funciona, acredito ser carrossel*/
 import PlanScreen from "./src/components/BackgroundPink/plan";
-import RegisterScreen from "./src/components/BackgroundPink/register";
+import RegisterScreen from "./src/components/pages/register/register"; /**PG PRONTA, FSLTS COLOCAR O ESPAÇO PARA ADD FOTO */
 import RecoverPasswordScreen from "./src/components/BackgroundPink/recoverPassword";
 import TermsConditionsScreen from "./src/components/pages/termsConditions";/**PG PRONTA, FALTA TRANSIÇÃO e interação com API */
 import ProfileScreen from "./src/components/pages/profile";
@@ -40,7 +40,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-      initialRouteName="DreamTrip"
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false
       }}
@@ -49,7 +49,7 @@ export default function App() {
         <Stack.Screen name="Access" component={AccessScreen}/>
         <Stack.Screen name="AddressNotFound" component={AddressNotFoundScreen}/>
         <Stack.Screen name="CompleteAddress" component={CompleteAddressScreen}/>
-        <Stack.Screen name="DreamTrip" component={DreamTripScreen}/>
+        <Stack.Screen name="Advantages" component={AdvantagesScreen}/>
         <Stack.Screen name="FinancialArea" component={FinancialAreaScreen}/>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="HomeLogged" component={HomeLoggedScreen}/> 
