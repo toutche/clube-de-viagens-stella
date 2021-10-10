@@ -19,7 +19,7 @@ import LoginScreen from "./src/components/pages/login";/**PG PRONTA, FALTA acess
 import PacksScreen from "./src/components/pages/packs";/**PG PRONTA, interação com API e verificar como funciona, acredito ser carrossel*/
 import PlanScreen from "./src/components/BackgroundPink/plan";
 import RegisterScreen from "./src/components/pages/register/register"; /**PG PRONTA, FSLTS COLOCAR O ESPAÇO PARA ADD FOTO */
-import RecoverPasswordScreen from "./src/components/BackgroundPink/recoverPassword";
+import RecoverPasswordScreen from "./src/components/pages/recoverPassword";/**PG PRONTA, FALTA TRANSIÇÃO e interação com API*/
 import TermsConditionsScreen from "./src/components/pages/termsConditions";/**PG PRONTA, FALTA TRANSIÇÃO e interação com API */
 import ProfileScreen from "./src/components/pages/profile";
 import FinancialAreaScreen from "./src/components/pages/financialArea/index";

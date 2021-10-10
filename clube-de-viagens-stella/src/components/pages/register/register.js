@@ -51,6 +51,7 @@ export default function RegisterScreen({ navigation, route }) {
 }
 
   return (
+    <>
       <ScrollView style={Style.container} scrollEnabled={true}>
         <View style={Style.divIMG}>
           <ImageBackground source={require("../../../../assets/img/img4.png")} style={Style.imgBk}>
@@ -121,7 +122,11 @@ export default function RegisterScreen({ navigation, route }) {
           </TouchableOpacity>
         </View>             
          
-        <Copyright display="model2"/> 
       </ScrollView>
+
+      <View style={Style.copyright}>
+        <Copyright display="model2"/> 
+      </View>
+    </>
   );
 }
