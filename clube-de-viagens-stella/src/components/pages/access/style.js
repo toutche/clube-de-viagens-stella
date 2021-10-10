@@ -3,7 +3,9 @@ import {
   FONT_SIZE_BODY,
   HEIGHT, 
   PRIMARY_COLOR, 
+  SECOND_COLOR, 
   TEXT_COLOR_BKCOLORFUL, 
+  TEXT_COLOR_BKWHITE, 
   WIDTH 
 } from "../../variables";
 
@@ -79,13 +81,12 @@ export default StyleSheet.create({
     alignItems: "center",
     height: 45,
     borderRadius: 25,
-    borderColor: TEXT_COLOR_BKCOLORFUL,
-    borderWidth: 2,
     paddingHorizontal: 15,
     paddingVertical: 10,
+    backgroundColor: SECOND_COLOR
   },
   buttonText: {
-    color: TEXT_COLOR_BKCOLORFUL,
+    color: PRIMARY_COLOR,
     fontSize: 12,
     marginHorizontal:"auto",
     textAlign: "center",
@@ -102,6 +103,12 @@ export default StyleSheet.create({
     color: TEXT_COLOR_BKCOLORFUL,
     fontSize: FONT_SIZE_BODY,
     marginLeft: 5,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textDecorationLine: "underline"
   },
+  copyright: {
+    flex: 3,
+    flexDirection: "column",  
+    justifyContent: "flex-end",
+  }
 });

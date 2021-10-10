@@ -129,9 +129,15 @@ export default function LoginScreen({ navigation }) {
       backgroundColor: SECOND_COLOR,
       marginHorizontal: 10,
     },
+    copyright: {
+      flex: 3,
+      flexDirection: "column",  
+      justifyContent: "flex-end",
+    }
     
   });
     return (
+      <>
       <ScrollView style={Style.containerScroll} scrollEnabled={false}>
         
         <View style={Style.divIMG}>
@@ -208,13 +214,14 @@ export default function LoginScreen({ navigation }) {
             </TouchableOpacity>
           
           </View>   
-
-          <Copyright display="model1"/>
-
         </View>          
         
       </ScrollView>
+
+      <View style={Style.copyright}>
+        <Copyright display="model1"/> 
+      </View>
+    </>
     );
   }
 
-  const styles = StyleSheet.create({ });

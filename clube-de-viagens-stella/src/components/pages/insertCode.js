@@ -78,7 +78,7 @@ export default function InsertCode() {
       marginHorizontal: 5,
     }, 
     TextInput: {
-      color: "#FFFFFF",
+      color: TEXT_COLOR_BKCOLORFUL,
     }, 
     link: {
       color: TEXT_COLOR_BKCOLORFUL,
@@ -90,64 +90,73 @@ export default function InsertCode() {
     text: {
       color: TEXT_COLOR_BKCOLORFUL,
       fontSize: FONT_SIZE_BODY
+    },
+    copyright: {
+      flex: 3,
+      flexDirection: "column",  
+      justifyContent: "flex-end",
     }
   });
 
   return (
-    <ScrollView style={Style.container} scrollEnabled={true}>
-      <View style={Style.divIMG}>
-        <ImageBackground source={require("../../../assets/img/img3.png")} style={Style.imgBk}>
-          <View style={Style.div}>                    
-            <View><Image source={require("../../../assets/img/vector2.png")} style={Style.img2}/></View> 
-          </View>                   
-        </ImageBackground>           
-      </View>
-
-      <Title 
-      styleTitle="titleBKColorful"
-      titlePage="Insira o código"/> 
-     
-      <View style={Style.containerInsert}>
-        <Text style={Style.text}> Precisamos confirmar o seu e-mail.</Text>
-        <Text style={Style.text}> Insira o código de 4 dígitos enviado.</Text>
-
-        <View style={Style.boxDisplayFlex}>
-          <View style={Style.inputView}>      
-            <TextInput 
-              style={Style.TextInput}
-              onChangeText={(numCode1) => setCode(code.concat(numCode1))}/>                 
-          </View>
-
-          <View style={Style.inputView}>      
-            <TextInput 
-              style={Style.TextInput}
-              onChangeText={(numCode2) => setCode(code.concat(numCode2))}/>                 
-          </View>
-
-          <View style={Style.inputView}>      
-            <TextInput 
-              style={Style.TextInput}
-              onChangeText={(numCode3) => setCode(code.concat(numCode3))}/>                 
-          </View>
-
-          <View style={Style.inputView}>      
-            <TextInput 
-              style={Style.TextInput}
-              onChangeText={(numCode4) => setCode(code.concat(numCode4))}/>                 
-          </View>
+    <>
+      <ScrollView style={Style.container} scrollEnabled={true}>
+        <View style={Style.divIMG}>
+          <ImageBackground source={require("../../../assets/img/img3.png")} style={Style.imgBk}>
+            <View style={Style.div}>                    
+              <View><Image source={require("../../../assets/img/vector2.png")} style={Style.img2}/></View> 
+            </View>                   
+          </ImageBackground>           
         </View>
 
-        <View style={Style.boxDisplayFlex}>
-            <Text 
-                style={Style.link} 
-                onPress={() => Linking.openURL("http://google.com")}>
-                Reenviar ódigo
-            </Text>
-        </View>
-        
-      </View>
+        <Title 
+        styleTitle="titleBKColorful"
+        titlePage="Insira o código"/> 
+      
+        <View style={Style.containerInsert}>
+          <Text style={Style.text}> Precisamos confirmar o seu e-mail.</Text>
+          <Text style={Style.text}> Insira o código de 4 dígitos enviado.</Text>
 
-      <Copyright display="none"/>
-    </ScrollView>
+          <View style={Style.boxDisplayFlex}>
+            <View style={Style.inputView}>      
+              <TextInput 
+                style={Style.TextInput}
+                onChangeText={(numCode1) => setCode(code.concat(numCode1))}/>                 
+            </View>
+
+            <View style={Style.inputView}>      
+              <TextInput 
+                style={Style.TextInput}
+                onChangeText={(numCode2) => setCode(code.concat(numCode2))}/>                 
+            </View>
+
+            <View style={Style.inputView}>      
+              <TextInput 
+                style={Style.TextInput}
+                onChangeText={(numCode3) => setCode(code.concat(numCode3))}/>                 
+            </View>
+
+            <View style={Style.inputView}>      
+              <TextInput 
+                style={Style.TextInput}
+                onChangeText={(numCode4) => setCode(code.concat(numCode4))}/>                 
+            </View>
+          </View>
+
+          <View style={Style.boxDisplayFlex}>
+              <Text 
+                  style={Style.link} 
+                  onPress={() => Linking.openURL("http://google.com")}>
+                  Reenviar ódigo
+              </Text>
+          </View>
+          
+        </View>
+
+      </ScrollView>
+      <View style={Style.copyright}>
+        <Copyright display="none"/> 
+      </View>
+    </>
   );
 }

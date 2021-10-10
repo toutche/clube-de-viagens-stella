@@ -88,4 +88,9 @@ export default StyleSheet.create({
     textTransform: "uppercase",
     fontWeight: "bold"
   },    
+  copyright: {
+    flex: 3,
+    flexDirection: "column",  
+    justifyContent: "flex-end",
+  }
 });
