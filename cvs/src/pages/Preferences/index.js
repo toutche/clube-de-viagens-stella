@@ -15,7 +15,7 @@ export default () => {
             <ImageHeader />
             <TextWelcome textStyle={styles.text} title={'Tudo bem Jéssica?'} subTitle={'Queremos saber mais sobre você :)'} />
             <AnimatedCarousel />
-            <Copyright display={'none'} />
+            <Copyright display={1} />
         </View>
     )
 }
