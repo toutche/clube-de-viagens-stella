@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
         borderColor: '#d1d1d1',
         borderRadius: 100,
         padding: 5,
+        elevation: 10
     },
     title: {
         paddingTop: 10,
