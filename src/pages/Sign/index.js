@@ -13,13 +13,12 @@ import {
   PRIMARY_COLOR,
   SECOND_COLOR,
   TEXT_COLOR_BKCOLORFUL,
-  WIDTH
 } from "../../utils/variables";
 import { AntDesign, Fontisto } from '@expo/vector-icons';
 import CustomButton from "../../components/CustomButton";
 import TextWithBold from "../../components/TextWithBold";
 
-export default function SignIn({ navigation }) {
+export default ({ navigation }) => {
 
   return (
     <View style={Style.container}>
@@ -93,7 +92,6 @@ export default function SignIn({ navigation }) {
   )
 }
 
-
 const Style = StyleSheet.create({
   container: {
     backgroundColor: PRIMARY_COLOR,
@@ -108,16 +106,6 @@ const Style = StyleSheet.create({
     flex: 1,
     paddingHorizontal: '10%',
     alignItems: 'center'
-  },
-  div: {
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    width: WIDTH,
-    height: 300
-  },
-  img2: {
-    height: 100,
-    width: WIDTH
   },
   title: {
     fontSize: 20,
