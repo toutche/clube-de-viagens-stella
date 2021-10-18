@@ -3,17 +3,17 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 
 import Title from "../common/titleInternal";
-import { 
-  FONT_SIZE_BODY, 
-  HEIGHT, 
-  PRIMARY_COLOR, 
-  SECOND_COLOR, 
-  TEXT_COLOR_BKCOLORFUL, 
-  TITLE_COLOR_BKCOLORFUL, 
-  WIDTH 
+import {
+  FONT_SIZE_BODY,
+  HEIGHT,
+  PRIMARY_COLOR,
+  SECOND_COLOR,
+  TEXT_COLOR_BKCOLORFUL,
+  TITLE_COLOR_BKCOLORFUL,
+  WIDTH
 } from "../variables";
 
-export default function  Advantages({ navigation, route }) {
+export default function Advantages({ navigation, route }) {
 
   const titleText = "Quais são as vantagens?";
   const Style = StyleSheet.create({
@@ -26,7 +26,7 @@ export default function  Advantages({ navigation, route }) {
       backgroundColor: PRIMARY_COLOR
     },
     topCarrossel: {
-      width: WIDTH, 
+      width: WIDTH,
       flexDirection: "row",
       justifyContent: "center",
       alignContent: "stretch",
@@ -66,7 +66,7 @@ export default function  Advantages({ navigation, route }) {
       borderStyle: "solid",
       borderWidth: 2,
     },
-    btnText:{
+    btnText: {
       color: TEXT_COLOR_BKCOLORFUL,
       fontWeight: "normal",
       fontSize: FONT_SIZE_BODY
@@ -80,7 +80,7 @@ export default function  Advantages({ navigation, route }) {
       borderStyle: "solid",
       borderWidth: 2,
     },
-    btnTextActive:{
+    btnTextActive: {
       color: PRIMARY_COLOR,
       fontWeight: "normal",
       fontSize: FONT_SIZE_BODY
@@ -95,25 +95,25 @@ export default function  Advantages({ navigation, route }) {
       paddingVertical: 10,
       flexDirection: "row",
       justifyContent: "flex-end",
-    },      
-  });
+    },
+  })
 
 
   return (
     <View style={Style.container}>
       <View style={Style.topCarrossel}>
-         <Image source={require("../../../assets/img/clube.png")} style={Style.imgBkg}></Image>
+        <Image source={require("../../../assets/img/clube.png")} style={Style.imgBkg}></Image>
       </View>
       <View style={Style.textArea}>
         <Title
           styleTitle="titleSimple"
           titlePage={titleText} />
 
-        <View style={Style.buttonsLine}>        
+        <View style={Style.buttonsLine}>
           <TouchableOpacity
             style={Style.btn}
             activeOpacity={0.5}
-            onPress={() => 
+            onPress={() =>
               navigation.navigate("Club")
             }
           >
@@ -123,7 +123,7 @@ export default function  Advantages({ navigation, route }) {
           <TouchableOpacity
             style={Style.btnActive}
             activeOpacity={0.5}
-            onPress={() => 
+            onPress={() =>
               navigation.navigate("Advantages")
             }
           >
@@ -133,22 +133,22 @@ export default function  Advantages({ navigation, route }) {
           <TouchableOpacity
             style={Style.btn}
             activeOpacity={0.5}
-            onPress={() => 
-              navigation.navigate("Packs") 
+            onPress={() =>
+              navigation.navigate("Packs")
             }
           >
             <Text style={Style.btnText}> Pacotes </Text>
           </TouchableOpacity>
-        </View>        
+        </View>
 
-        <View style={Style.buttonsLineRtl}>        
+        <View style={Style.buttonsLineRtl}>
           <TouchableOpacity
-          style={Style.linkBtnColor3}
-          activeOpacity={0.5}>
+            style={Style.linkBtnColor3}
+            activeOpacity={0.5}>
             <Text style={Style.btnText}> Pular </Text>
-            <Icon style={Style.IconBtn} name={"long-arrow-right"}/> 
+            <Icon style={Style.IconBtn} name={"long-arrow-right"} />
           </TouchableOpacity>
-        </View>    
+        </View>
       </View>
     </View>
   );

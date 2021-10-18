@@ -1,7 +1,14 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-export default ({ containerStyle, name, type, onPress, size, color }) => {
+export default ({
+    containerStyle,
+    name,
+    type,
+    onPress,
+    size,
+    color
+}) => {
     const Icon = type
     return (
         <TouchableOpacity onPress={onPress} style={containerStyle}>

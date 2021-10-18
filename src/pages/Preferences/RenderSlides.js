@@ -103,8 +103,9 @@ const styles = StyleSheet.create({
     text: {
         width: '90%',
         color: '#626262',
-        fontSize: 16,
+        fontSize: 17,
         paddingTop: 5,
+        paddingHorizontal: 15,
         textAlign: 'center'
     },
     toast: {
