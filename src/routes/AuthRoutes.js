@@ -3,13 +3,23 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 import Preferences from "../pages/Preferences"
 import Sign from "../pages/Sign"
+import SignIn from "../pages/Sign/SignIn"
+import SignUp from "../pages/Sign/SignUp"
+import RecoverPassword from "../pages/Sign/RecoverPassword"
+import TermsConditions from "../pages/TermsConditions"
+import PrivacyPolicy from "../pages/PrivacyPolicy"
 
 const AppStack = createStackNavigator()
 
 const AuthRoutes = () => (
-    <AppStack.Navigator screenOptions={screenOptions}>
+    <AppStack.Navigator screenOptions={screenOptions} initialRouteName={'PrivacyPolicy'}>
         <AppStack.Screen name="Sign" component={Sign} />
+        <AppStack.Screen name="SignIn" component={SignIn} />
+        <AppStack.Screen name="SignUp" component={SignUp} />
+        <AppStack.Screen name="RecoverPassword" component={RecoverPassword} />
         <AppStack.Screen name="Preferences" component={Preferences} />
+        <AppStack.Screen name="TermsConditions" component={TermsConditions} />
+        <AppStack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
     </AppStack.Navigator>
 )
 

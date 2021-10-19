@@ -3,6 +3,7 @@ import {
   ImageBackground,
   StyleSheet,
   View,
+  ScrollView,
   Text
 } from "react-native";
 
@@ -19,9 +20,8 @@ import CustomButton from "../../components/CustomButton";
 import TextWithBold from "../../components/TextWithBold";
 
 export default ({ navigation }) => {
-
   return (
-    <View style={Style.container}>
+    <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
       <ImageBackground source={require("../../../assets/header/Sign.png")} style={Style.image} />
 
@@ -68,7 +68,7 @@ export default ({ navigation }) => {
         <View style={Style.containerSignButtons}>
 
           <CustomButton
-            onPress={() => navigation.navigate("AddressNotFound"/*"Localization"*/)}
+            onPress={() => navigation.navigate("SignIn")}
             containerStyle={[Style.button, { marginBottom: 15 }]}
             titleStyle={Style.buttonText}
             title={'Entre com'}
@@ -76,7 +76,7 @@ export default ({ navigation }) => {
           />
 
           <CustomButton
-            onPress={() => navigation.navigate("AddressNotFound"/*"Localization"*/)}
+            onPress={() => navigation.navigate("SignUp")}
             containerStyle={Style.button}
             titleStyle={Style.buttonText}
             title={'É novo por aqui?'}
@@ -87,8 +87,7 @@ export default ({ navigation }) => {
 
       <Copyright display={1} />
 
-    </View>
-
+    </ScrollView>
   )
 }
 
@@ -97,10 +96,12 @@ const Style = StyleSheet.create({
     backgroundColor: PRIMARY_COLOR,
     flex: 1,
   },
+  content: {
+    justifyContent: 'space-between',
+    flexGrow: 1
+  },
   image: {
-    flex: 1,
-    width: '100%',
-    alignSelf: 'center'
+    aspectRatio: 1.5
   },
   body: {
     flex: 1,

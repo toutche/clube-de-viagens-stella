@@ -95,7 +95,6 @@ export default () => {
     }
 
     return (
-
         <SafeAreaView style={styles.container}>
             <Text style={styles.index}>{index + 1} de {Slides.length}</Text>
             <FlatList
