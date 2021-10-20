@@ -35,6 +35,7 @@ const OverflowButton = ({ index, onPress, data }) => {
                         onPress={onPress}
                         containerStyle={styles.button}
                         titleStyle={styles.buttonText}
+                        iconStyle={{ marginLeft: 5 }}
                         title={'Pular'}
                         type={AntDesign}
                         name={'arrowright'}
@@ -71,11 +72,9 @@ const styles = StyleSheet.create({
     },
     button: {
         flexDirection: 'row',
-        right: '15%',
+        right: '13%',
         position: 'absolute',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        width: 70
     },
     buttonText: {
         color: '#f9f0f0',

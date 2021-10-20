@@ -37,7 +37,7 @@ export default ({ navigation }) => {
 
         <View style={Style.containerButtons}>
           <CustomButton
-            onPress={() => navigation.navigate("AddressNotFound"/*"Localization"*/)}
+            onPress={() => navigation.navigate("PrivacyPolicy"/*"Localization"*/)}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#4167B2" }]}
             titleStyle={[Style.buttonText, { marginLeft: 5 }]}
             title={'Facebook'}
@@ -48,7 +48,7 @@ export default ({ navigation }) => {
           />
 
           <CustomButton
-            onPress={() => navigation.navigate("AddressNotFound"/*"Localization"*/)}
+            onPress={() => navigation.navigate("Preferences"/*"Localization"*/)}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#fbbc05" }]}
             titleStyle={Style.buttonText}
             title={'Google'}

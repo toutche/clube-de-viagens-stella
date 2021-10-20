@@ -4,6 +4,7 @@ import { TouchableOpacity, Text } from 'react-native';
 export default ({
     containerStyle,
     titleStyle,
+    iconStyle,
     title,
     boldText,
     onPress,
@@ -17,10 +18,10 @@ export default ({
 
     return (
         <TouchableOpacity onPress={onPress} style={containerStyle}>
-            {left && Icon && <Icon name={name} size={size || 24} color={color || "white"} />}
+            {left && Icon && <Icon style={iconStyle} name={name} size={size || 24} color={color || "white"} />}
             <Text style={titleStyle}>{title}
                 {boldText && <Text style={{ fontWeight: 'bold' }}> {boldText}</Text>}</Text>
-            {!left && Icon && <Icon name={name} size={size || 24} color={color || "white"} />}
+            {!left && Icon && <Icon style={iconStyle} name={name} size={size || 24} color={color || "white"} />}
         </TouchableOpacity>
     )
 }

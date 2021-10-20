@@ -41,9 +41,7 @@ export default ({ navigation }) => {
             } else {
                 alert("Usuário e/ou senha incorretos");
             }
-        }).catch(function (error) {
-            console.log(error);
-        })
+        }).catch((error) => console.log(error))
     }
 
     return (

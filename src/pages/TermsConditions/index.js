@@ -1,6 +1,5 @@
 import * as React from "react";
 import { View, Text, StyleSheet, ScrollView, ImageBackground } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome'
 import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
 
 import Title from "../../common/titleInternal"
