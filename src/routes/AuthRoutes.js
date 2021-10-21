@@ -10,6 +10,7 @@ import Preferences from "../pages/Preferences"
 import RecoverPassword from "../pages/Sign/RecoverPassword"
 import TermsConditions from "../pages/TermsConditions"
 import PrivacyPolicy from "../pages/PrivacyPolicy"
+import ConfirmEmail from "../pages/Sign/ConfirmEmail"
 
 const AppStack = createStackNavigator()
 
@@ -20,6 +21,7 @@ const AuthRoutes = () => (
         <AppStack.Screen name="SignIn" component={SignIn} />
         <AppStack.Screen name="SignUp" component={SignUp} />
         <AppStack.Screen name="RecoverPassword" component={RecoverPassword} />
+        <AppStack.Screen name="ConfirmEmail" component={ConfirmEmail} />
         <AppStack.Screen name="Preferences" component={Preferences} />
         <AppStack.Screen name="TermsConditions" component={TermsConditions} />
         <AppStack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />

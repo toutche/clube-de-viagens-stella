@@ -1,9 +1,7 @@
 import * as React from "react";
-import { View, Text, StyleSheet, ScrollView, ImageBackground } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome'
-import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
+import { View, Text, StyleSheet, ScrollView, ImageBackground, TouchableOpacity } from "react-native";
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
-import Title from "../../common/titleInternal"
 import CustomIcon from "../../components/CustomIcon";
 import {
     PRIMARY_COLOR,
@@ -12,10 +10,10 @@ import {
     FONT_SIZE_SUBTITLE,
     FONT_SIZE_BODY
 } from "../../utils/variables";
-import Copyright from "../../components/Copyright";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
-const image = require("../../../assets/img/topo-temporario.png")
+import Copyright from "../../components/Copyright";
+
+const image = require("../../../assets/header/TermsAndPolicy.jpg")
 
 const titlePage = "Política de Privacidade"
 
@@ -110,7 +108,7 @@ const Style = StyleSheet.create({
         backgroundColor: PRIMARY_COLOR,
     },
     image: {
-        aspectRatio: 1
+        aspectRatio: 1.5
     },
     icon: {
         left: 5,

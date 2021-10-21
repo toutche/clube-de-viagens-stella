@@ -8,9 +8,9 @@ import ChoiceButtons from './ChoiceButtons';
 const Slides = [
     {
         title: 'Conheça mais sobre o Clube de Férias!',
-        image: require('../../../assets/header/Intro.png'),
+        image: require('../../../assets/header/Intro-01.jpg'),
         button: 'O Clube',
-        aspectRatio: 0.9,
+        aspectRatio: 0.8,
     },
     {
         title: 'Conecte-se a sua viagem dos sonhos!',
@@ -21,10 +21,9 @@ const Slides = [
             'Tudo isso, sem comprometer o limite do seu cartão de crédito e sem fidelidade!',
             'E o melhor, você pode começar a usar a partir da primeira mensalidade!'
         ],
-        image: require('../../../assets/header/SignIn.png'),
+        image: require('../../../assets/header/Intro-02.jpg'),
         button: 'Vantagens',
-        aspectRatio: 1.5,
-        height: -50
+        aspectRatio: 1.1,
 
     },
     {
@@ -34,9 +33,9 @@ const Slides = [
             'E aí, tá preparado para sua próxima viagem?',
             'Embarque conosco, Faça parte do clube de férias!'
         ],
-        image: require('../../../assets/header/SignIn.png'),
+        image: require('../../../assets/header/Intro-03.jpg'),
         button: 'Produtos',
-        aspectRatio: 1.5,
+        aspectRatio: 1.1,
     }
 ]
 
@@ -80,7 +79,7 @@ export default ({ navigation }) => {
                         <View style={{ width }}>
                             <ImageBackground
                                 style={[styles.image, { aspectRatio: item.aspectRatio }]}
-                                resizeMode={'stretch'}
+                                resizeMode={'cover'}
                                 source={item.image}
                             />
                             <View style={styles.contentText}>

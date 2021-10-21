@@ -23,7 +23,7 @@ export default ({ navigation }) => {
   return (
     <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
-      <ImageBackground source={require("../../../assets/header/Sign.png")} style={Style.image} />
+      <ImageBackground resizeMode={'cover'} source={require("../../../assets/header/Sign.jpg")} style={Style.image} />
 
       <View style={Style.body}>
 
@@ -37,7 +37,7 @@ export default ({ navigation }) => {
 
         <View style={Style.containerButtons}>
           <CustomButton
-            onPress={() => navigation.navigate("PrivacyPolicy"/*"Localization"*/)}
+            onPress={() => navigation.navigate("TermsConditions"/*"Localization"*/)}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#4167B2" }]}
             titleStyle={[Style.buttonText, { marginLeft: 5 }]}
             title={'Facebook'}
@@ -101,7 +101,7 @@ const Style = StyleSheet.create({
     flexGrow: 1
   },
   image: {
-    aspectRatio: 1.5
+    aspectRatio: 1
   },
   body: {
     flex: 1,

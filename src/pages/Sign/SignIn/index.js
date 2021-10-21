@@ -9,7 +9,6 @@ import {
     Image,
     ImageBackground
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome"
 
 /*Componentes internos do app */
 import api from "../../../services/api";
@@ -47,7 +46,7 @@ export default ({ navigation }) => {
     return (
         <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
-            <ImageBackground source={require("../../../../assets/header/SignIn.png")} style={Style.image} />
+            <ImageBackground source={require("../../../../assets/header/SignIn.jpg")} style={Style.image} />
 
             <CustomIcon
                 onPress={() => navigation.goBack()}

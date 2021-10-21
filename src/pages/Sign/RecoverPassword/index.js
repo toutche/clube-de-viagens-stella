@@ -38,7 +38,7 @@ export default ({ navigation }) => {
   return (
     <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
-      <ImageBackground source={require("../../../../assets/header/SignIn.png")} style={Style.image} />
+      <ImageBackground source={require("../../../../assets/header/SignIn.jpg")} style={Style.image} />
 
       <CustomIcon
         onPress={() => navigation.goBack()}

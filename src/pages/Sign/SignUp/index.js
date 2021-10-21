@@ -51,7 +51,7 @@ export default ({ navigation }) => {
   return (
     <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
-      <ImageBackground source={require("../../../../assets/header/SignUp.png")} style={Style.image} />
+      <ImageBackground source={require("../../../../assets/header/SignUp.jpg")} style={Style.image} />
 
       <CustomIcon
         onPress={() => navigation.goBack()}
@@ -105,7 +105,7 @@ export default ({ navigation }) => {
         />
 
         <CustomButton
-          onPress={register}
+          onPress={() => navigation.navigate('ConfirmEmail')}
           containerStyle={Style.button}
           titleStyle={Style.buttonText}
           title={'Cadastrar'}

@@ -14,7 +14,7 @@ import {
 import Copyright from "../../components/Copyright";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const image = require("../../../assets/img/topo-temporario.png")
+const image = require("../../../assets/header/TermsAndPolicy.jpg")
 
 const titlePage = "Termos e condições de uso"
 
@@ -110,7 +110,7 @@ const Style = StyleSheet.create({
     backgroundColor: PRIMARY_COLOR,
   },
   image: {
-    aspectRatio: 1
+    aspectRatio: 1.5
   },
   icon: {
     left: 5,
