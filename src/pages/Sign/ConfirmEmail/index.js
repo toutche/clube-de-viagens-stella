@@ -27,14 +27,11 @@ import { loginSetToken, getToken } from "../../../services/auth";
 import CustomInput from "../../../components/CustomInput";
 import CustomButton from "../../../components/CustomButton";
 
-import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
 import Copyright from "../../../components/Copyright";
-import CustomIcon from "../../../components/CustomIcon";
 import InputConfirm from './InputConfirm'
 
 const titlePage = "Insira seu código"
 const subtitlePage = "Precisamos confirmar o seu e-mail.\nPor favor, insira o código enviado de 4 dígitos."
-
 
 const ConfirmEmail = () => {
     return (
@@ -50,6 +47,14 @@ const ConfirmEmail = () => {
 
                 <InputConfirm
                 />
+
+                <Text style={Style.quest}>Não recebeu o nosso e-mail?</Text>
+
+                <TouchableOpacity style={Style.buttonResend}>
+                    <Text style={Style.resend}>Reenviar Código</Text>
+                </TouchableOpacity>
+
+                <Text style={Style.text}>*Caso não esteja visualizando nosso e-mail na sua Caixa de Entrada, pode ser que tenha ido para sua caixa de Spam ou Lixo Eletrônico!</Text>
 
             </View>
 
@@ -91,7 +96,26 @@ const Style = StyleSheet.create({
     text: {
         color: TEXT_COLOR_BKCOLORFUL,
         fontSize: FONT_SIZE_BODY,
-        textTransform: 'uppercase'
+        paddingTop: 20,
+        textAlign: 'center'
+    },
+    quest: {
+        color: TEXT_COLOR_BKCOLORFUL,
+        opacity: 0.9,
+        fontSize: 13,
+        textAlign: 'center',
+        paddingTop: 10,
+    },
+    buttonResend: {
+        padding: 10,
+        marginTop: -5,
+    },
+    resend: {
+        color: TEXT_COLOR_BKCOLORFUL,
+        opacity: 0.9,
+        textDecorationLine: 'underline',
+        fontSize: 12,
+        textAlign: 'center'
     },
     containerButtons: {
         flexDirection: "row",
