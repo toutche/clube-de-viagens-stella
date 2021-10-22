@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
-  TouchableOpacity,
   ScrollView,
   Text,
-  Image,
-  ImageBackground,
-  TextInput,
-  TouchableWithoutFeedback
+  ImageBackground
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome"
 import CustomInput from "../../../components/CustomInput";
-import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 
 /*Componentes internos do app */
 import api from "../../../services/api";
@@ -30,28 +26,55 @@ export default ({ navigation }) => {
   const [phone_number, setPhoneNumber] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [image, setImage] = useState(null)
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!')
+        }
+      }
+    })()
+  }, [])
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    console.log(result)
+
+    if (!result.cancelled) {
+      setImage(result.uri)
+    }
+  }
 
   const register = () => {
     api.post("/cadastrar", {
-      name: name,
-      last_name: "aleatorio",
-      email: email,
-      password: password,
+      name,
+      email,
+      password,
       password_confirmation: password,
-      phone_number: phone_number,
-      gender: "m"
-    }).then((response) => {
-      console.log("cadastrar: ", response.data);
-      loginSetToken(response.data.access_token);
-      alert("Usuário cadastrado com sucesso.");
-      navigation.navigate("Access");
+      phone_number,
+      gender: "m",
+      image
+    }).then(({ data }) => {
+      navigation.replace('ConfirmEmail', { params: data.dados })
     }).catch((error) => console.log(error))
   }
 
   return (
     <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
-      <ImageBackground source={require("../../../../assets/header/SignUp.jpg")} style={Style.image} />
+      <ImageBackground
+        source={require("../../../../assets/header/SignUp.jpg")}
+        style={Style.image}
+      />
 
       <CustomIcon
         onPress={() => navigation.goBack()}
@@ -65,10 +88,13 @@ export default ({ navigation }) => {
 
         <Text style={Style.title}>{titlePage}</Text>
 
-        <CustomAvatar item={'https://www.lance.com.br/files/article_main/uploads/2021/02/28/603bdef934423.jpeg'} />
+        <CustomAvatar
+          handlerPress={pickImage}
+          item={image || 'https://www.lance.com.br/files/article_main/uploads/2021/02/28/603bdef934423.jpeg'}
+        />
 
         <CustomInput
-          placeholder="Qual seu nome"
+          placeholder="Qual seu nome?"
           size={16}
           type={FontAwesome}
           name={'user'}
@@ -77,8 +103,9 @@ export default ({ navigation }) => {
         />
 
         <CustomInput
-          placeholder="Seu celular"
+          placeholder="Seu celular?"
           size={18}
+          lenght={15}
           type={FontAwesome}
           name={'mobile'}
           value={phone_number}
@@ -105,7 +132,7 @@ export default ({ navigation }) => {
         />
 
         <CustomButton
-          onPress={() => navigation.navigate('ConfirmEmail')}
+          onPress={register}
           containerStyle={Style.button}
           titleStyle={Style.buttonText}
           title={'Cadastrar'}

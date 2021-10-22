@@ -9,8 +9,10 @@ const CustomInput = ({
     type,
     name,
     size,
+    lenght = 40,
     color,
-    placeholder
+    placeholder,
+    secureTextEntry = false
 }) => {
     const Icon = type || null
 
@@ -20,6 +22,8 @@ const CustomInput = ({
             <TextInput
                 style={[styles.input, inputStyle]}
                 value={value}
+                secureTextEntry={secureTextEntry}
+                maxLength={lenght}
                 placeholder={placeholder}
                 placeholderTextColor={'#d1d1d1'}
                 onChangeText={text => onChangeText(text)}

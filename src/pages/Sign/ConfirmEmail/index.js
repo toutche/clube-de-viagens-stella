@@ -22,18 +22,14 @@ import {
     WIDTH
 } from "../../../utils/variables";
 
-import api from "../../../services/api";
-import { loginSetToken, getToken } from "../../../services/auth";
-import CustomInput from "../../../components/CustomInput";
-import CustomButton from "../../../components/CustomButton";
-
 import Copyright from "../../../components/Copyright";
 import InputConfirm from './InputConfirm'
 
 const titlePage = "Insira seu código"
 const subtitlePage = "Precisamos confirmar o seu e-mail.\nPor favor, insira o código enviado de 4 dígitos."
 
-const ConfirmEmail = () => {
+const ConfirmEmail = ({ route, navigation }) => {
+    console.log(route.params)
     return (
         <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
@@ -116,55 +112,6 @@ const Style = StyleSheet.create({
         textDecorationLine: 'underline',
         fontSize: 12,
         textAlign: 'center'
-    },
-    containerButtons: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: 'center',
-        width: '100%'
-    },
-    containerSignButtons: {
-        width: '100%'
-    },
-    buttonSocial: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 50,
-        width: '47%',
-        borderRadius: 25,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-    },
-    button: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 50,
-        borderRadius: 25,
-        borderColor: TEXT_COLOR_BKCOLORFUL,
-        borderWidth: 1.5,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-    },
-    buttonText: {
-        paddingHorizontal: 5,
-        color: TEXT_COLOR_BKCOLORFUL,
-        fontSize: 12,
-        textAlign: "center",
-        textTransform: "uppercase",
-    },
-    containerSeparator: {
-        marginVertical: 20,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    separator: {
-        height: 1,
-        width: 100,
-        backgroundColor: SECOND_COLOR,
-        marginHorizontal: 15
     }
 })
 

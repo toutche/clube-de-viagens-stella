@@ -4,14 +4,14 @@ import { consts } from "../../utils/consts";
 
 const api = axios.create({
     baseURL: consts.URL,
-});
+})
 
 api.interceptors.request.use(async config => {
-    const token = getToken;
+    const token = getToken
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${token}`
     }
-    return config;
-});
+    return config
+})
 
-export default api;
+export default api
