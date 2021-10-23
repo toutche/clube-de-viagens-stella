@@ -101,7 +101,7 @@ const Style = StyleSheet.create({
     flexGrow: 1
   },
   image: {
-    aspectRatio: 1
+    aspectRatio: 1.1
   },
   body: {
     flex: 1,

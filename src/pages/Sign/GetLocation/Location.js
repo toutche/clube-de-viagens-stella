@@ -1,12 +1,19 @@
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
-import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
-const GetLocation = () => {
+const GetLocation = ({
+    text = '',
+    onChange
+}) => {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                <AntDesign size={22} color={'red'} name={'search1'} />
+                <AntDesign
+                    size={22}
+                    color={'red'}
+                    name={'search1'}
+                />
                 <TextInput
                     placeholder={'Digite o seu endereço'}
                     style={styles.input}

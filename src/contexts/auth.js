@@ -8,47 +8,69 @@ const AuthContext = createContext({})
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [loadingApi, setLoadingApi] = useState(false)
 
     useEffect(() => {
         async function loadStorage() {
             const storagedUser = await AsyncStorage.getItem('Auth')
-            if (storagedUser) {
+            if (storagedUser)
                 setUser(JSON.parse(storagedUser))
-            }
-            setLoading(false)
+            setTimeout(() => setLoading(false), 1500)
         }
         loadStorage()
     }, [])
 
-    const signIn = async (user) => {
-        api.post("/login", {
-            username: user.username,
-            password: user?.password
-        }).then(({ data }) => {
-            if (data.success) {
-                AsyncStorage.setItem('Auth', JSON.stringify(user)).then(() => {
-                    setUser(user)
-                }).catch((e) => console.log(e))
-            } else {
-                Alert.alert('Erro', data.msg)
-            }
-        }).catch(e => {
-            console.log(e)
-        })
+    const signIn = async ({ name, password }, navigation) => {
+        if (!loadingApi) {
+            setLoadingApi(true)
+            api.post("/login", {
+                name,
+                password,
+            }).then(({ data }) => {
+                console.log('data', data)
+                //navigation.replace('ConfirmEmail', { params: data })
+                setLoadingApi(false)
+            }).catch(e => {
+                console.log(e)
+                setLoadingApi(false)
+            })
+        }
+    }
+
+    const signUp = ({ name, email, password, phone_number, image }, navigation) => {
+        if (!loadingApi) {
+            setLoadingApi(true)
+            api.post("/cadastrar", {
+                name,
+                email,
+                password,
+                password_confirmation: password,
+                phone_number,
+                gender: "m",
+                image
+            }).then(({ data }) => {
+                console.log('data', data)
+                //navigation.replace('ConfirmEmail', { params: data })
+                setLoadingApi(false)
+            }).catch((error) => {
+                setLoadingApi(false)
+                console.log('e', error)
+            })
+        }
     }
 
     const signOut = () => {
         AsyncStorage.clear().then(() => setUser(null))
     }
 
-    if (loading) return null
-
     return (
         <AuthContext.Provider value={{
             signed: !!user,
             loading,
+            loadingApi,
             user,
             signIn,
+            signUp,
             signOut
         }}>
             {children}

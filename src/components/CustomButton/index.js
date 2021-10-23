@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 
 export default ({
     containerStyle,
@@ -12,6 +12,7 @@ export default ({
     name,
     size,
     color,
+    loadingApi = false,
     left = false
 }) => {
     const Icon = type || null
@@ -19,7 +20,7 @@ export default ({
     return (
         <TouchableOpacity onPress={onPress} style={containerStyle}>
             {left && Icon && <Icon style={iconStyle} name={name} size={size || 24} color={color || "white"} />}
-            <Text style={titleStyle}>{title}
+            <Text style={titleStyle}>{loadingApi ? <ActivityIndicator size={'small'} color={'red'} /> : title}
                 {boldText && <Text style={{ fontWeight: 'bold' }}> {boldText}</Text>}</Text>
             {!left && Icon && <Icon style={iconStyle} name={name} size={size || 24} color={color || "white"} />}
         </TouchableOpacity>

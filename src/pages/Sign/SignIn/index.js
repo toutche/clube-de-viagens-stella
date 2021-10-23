@@ -20,28 +20,17 @@ import CustomButton from "../../../components/CustomButton";
 import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
 import Copyright from "../../../components/Copyright";
 import CustomIcon from "../../../components/CustomIcon";
+import { useAuth } from "../../../contexts/auth";
 
 const titlePage = "Acesse seu Clube de Férias:"
 
 export default ({ navigation }) => {
+    const { signIn, loadingApi } = useAuth()
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-
-    const login = () => {
-        api.post("/login", {
-            email: email,
-            password: password
-        }).then(function (response) {
-            console.log("login: ", response.data);
-            if (response.data.access_token) {
-                loginSetToken(response.data.access_token);
-                navigation.navigate("HomeLoggedScreen");
-            } else {
-                alert("Usuário e/ou senha incorretos");
-            }
-        }).catch((error) => console.log(error))
-    }
+    const [user, setUser] = useState({
+        email: '',
+        password: ''
+    })
 
     return (
         <ScrollView style={Style.container} contentContainerStyle={Style.content}>
@@ -65,22 +54,30 @@ export default ({ navigation }) => {
                     size={16}
                     type={FontAwesome}
                     name={'envelope'}
-                    value={email}
-                    onChangeText={text => setEmail(text)}
+                    value={user.email}
+                    onChangeText={text => setUser({
+                        ...user,
+                        email: text
+                    })}
                 />
 
                 <CustomInput
                     placeholder="Insira uma senha"
                     size={16}
                     type={FontAwesome}
+                    secureTextEntry
                     name={'lock'}
-                    value={password}
-                    onChangeText={text => setPassword(text)}
+                    value={user.password}
+                    onChangeText={text => setUser({
+                        ...user,
+                        password: text
+                    })}
                 />
 
                 <CustomButton
-                    onPress={login}
+                    onPress={() => signIn(user, navigation)}
                     containerStyle={Style.button}
+                    loadingApi={loadingApi}
                     titleStyle={Style.buttonText}
                     title={'Entrar'}
                 />

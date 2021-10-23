@@ -31,6 +31,9 @@ const subtitlePage = "Você pode nos ajudar e indicar o seu endereço?."
 const text = "Sabendo um pouco mais de você, poderemos conectar você com a sua próxima viagem!"
 
 const GetLocation = () => {
+
+    const [address, setAddress] = useState('')
+
     return (
         <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
@@ -44,13 +47,19 @@ const GetLocation = () => {
 
                 <Text style={Style.subtitle}>{text}</Text>
 
-                <Location />
-
-                <CustomButton
-                    containerStyle={Style.button}
-                    titleStyle={Style.buttonText}
-                    title={'Confirmar'}
+                <Location
+                    text={address}
+                    onChange={text => setAddress(text)}
                 />
+
+                {address ?
+                    <CustomButton
+                        containerStyle={Style.button}
+                        titleStyle={Style.buttonText}
+                        title={'Confirmar'}
+                    />
+                    : null
+                }
 
             </View>
 
