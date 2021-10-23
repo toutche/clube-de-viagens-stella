@@ -22,10 +22,10 @@ export default ({ navigation }) => {
   const { signUp, loadingApi } = useAuth()
 
   const [user, setUser] = useState({
-    name: '',
-    email: '',
-    phone_number: '',
-    password: '',
+    name: 'eduardo',
+    email: 'eduardo_alvez51@outlook.com',
+    phone_number: '16997057588',
+    password: '123456',
     image: null
   })
 

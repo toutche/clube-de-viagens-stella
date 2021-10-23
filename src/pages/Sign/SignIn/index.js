@@ -28,8 +28,8 @@ export default ({ navigation }) => {
     const { signIn, loadingApi } = useAuth()
 
     const [user, setUser] = useState({
-        email: '',
-        password: ''
+        email: 'eduardo_alvez51@outlook.com',
+        password: '123456'
     })
 
     return (

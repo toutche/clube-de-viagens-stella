@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
+import { useAuth } from '../../../contexts/auth';
 
 const ConfirmEmail = ({
-
+    navigation
 }) => {
+    const { activeAccount, loadingApi } = useAuth()
+
     const input1 = useRef()
     const input2 = useRef()
     const input3 = useRef()
@@ -17,6 +20,13 @@ const ConfirmEmail = ({
     useEffect(() => {
         setTimeout(() => input1.current.focus(), 500)
     }, [])
+
+    useEffect(() => {
+        if (value1 && value2 && value3 && value4) {
+            let token = value1 + value2 + value3 + value4
+            activeAccount(token, navigation)
+        }
+    }, [value1, value2, value3, value4])
 
     return (
         <View style={styles.container}>

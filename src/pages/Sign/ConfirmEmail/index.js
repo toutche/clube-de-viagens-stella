@@ -29,6 +29,7 @@ const titlePage = "Insira seu código"
 const subtitlePage = "Precisamos confirmar o seu e-mail.\nPor favor, insira o código enviado de 4 dígitos."
 
 const ConfirmEmail = ({ route, navigation }) => {
+
     console.log(route.params)
     return (
         <ScrollView style={Style.container} contentContainerStyle={Style.content}>
@@ -42,6 +43,7 @@ const ConfirmEmail = ({ route, navigation }) => {
                 <Text style={Style.subtitle}>{subtitlePage}</Text>
 
                 <InputConfirm
+                    navigation={navigation}
                 />
 
                 <Text style={Style.quest}>Não recebeu o nosso e-mail?</Text>

@@ -1,14 +1,18 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import AuthRoutes from "./AuthRoutes"
 import AppRoutes from "./AppRoutes"
 
 import { useAuth } from "../contexts/auth"
-import { Image, View } from "react-native"
+import { Image, LogBox, View } from "react-native"
 import Copyright from "../components/Copyright"
 
 const Routes = () => {
     const { signed, loading } = useAuth()
+
+    useEffect(() => {
+        LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
+    }, [])
 
     if (loading) return (
         <View style={{

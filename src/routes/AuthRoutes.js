@@ -16,7 +16,7 @@ import GetLocation from "../pages/Sign/GetLocation"
 const AppStack = createStackNavigator()
 
 const AuthRoutes = () => (
-    <AppStack.Navigator screenOptions={screenOptions} initialRouteName={'Sign'}>
+    <AppStack.Navigator screenOptions={screenOptions} initialRouteName={'Intro'}>
         <AppStack.Screen name="Intro" component={Intro} />
         <AppStack.Screen name="Sign" component={Sign} />
         <AppStack.Screen name="SignIn" component={SignIn} />
