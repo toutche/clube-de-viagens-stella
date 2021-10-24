@@ -4,6 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import OverflowButton from './OverflowButton';
 import ChoiceButtons from './ChoiceButtons';
+import { PRIMARY_COLOR } from '../../utils/variables';
 
 const Slides = [
     {
@@ -115,7 +116,7 @@ export default ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: PRIMARY_COLOR,
         height: '100%'
     },
     content: {

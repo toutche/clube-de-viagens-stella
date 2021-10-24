@@ -2,11 +2,9 @@ import * as React from "react";
 import { View, Text, StyleSheet, ScrollView, ImageBackground } from "react-native";
 import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
 
-import Title from "../../common/titleInternal"
 import CustomIcon from "../../components/CustomIcon";
 import {
   PRIMARY_COLOR,
-  WIDTH,
   TEXT_COLOR_BKCOLORFUL,
   FONT_SIZE_SUBTITLE,
   FONT_SIZE_BODY
