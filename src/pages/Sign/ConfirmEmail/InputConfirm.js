@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
+import { TEXT_COLOR_BKCOLORFUL } from '../../../utils/variables';
 
 const ConfirmEmail = () => {
     const input1 = useRef()
@@ -43,7 +44,8 @@ const styles = StyleSheet.create({
     input: {
         borderBottomWidth: 1.5,
         borderColor: 'white',
-        marginHorizontal: 5
+        marginHorizontal: 5,
+        color: TEXT_COLOR_BKCOLORFUL
     }
 })
 

@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import OverflowButton from './OverflowButton';
 import ChoiceButtons from './ChoiceButtons';
-import { PRIMARY_COLOR } from '../../utils/variables';
+import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from '../../utils/variables';
 
 const Slides = [
     {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         fontSize: 20,
-        color: 'white',
+        color: TEXT_COLOR_BKCOLORFUL,
         fontWeight: 'bold',
         marginTop: 15,
         marginBottom: 5
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     text: {
         textAlign: 'center',
         fontSize: 14.5,
-        color: 'white',
+        color: TEXT_COLOR_BKCOLORFUL,
         marginBottom: 5,
         opacity: 0.8
     }

@@ -7,6 +7,7 @@ import CustomIcon from '../../components/CustomIcon';
 import TextWelcome from './TextWelcome';
 import Copyright from '../../components/Copyright';
 import CustomAvatar from '../../components/CustomAvatar';
+import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from '../../utils/variables';
 
 export default ({ navigation }) => {
     return (
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red',
+        backgroundColor: PRIMARY_COLOR,
     },
     avatar: {
         width: 70,
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
         marginBottom: 0
     },
     text: {
-        color: 'white',
+        color: TEXT_COLOR_BKCOLORFUL,
         fontSize: 15
     },
     icon: {

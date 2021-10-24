@@ -48,8 +48,7 @@ const ConfirmEmail = () => {
 
                 <Text style={Style.subtitle}>{subtitlePage}</Text>
 
-                <InputConfirm
-                />
+                <InputConfirm/>
 
             </View>
 

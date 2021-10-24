@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { FlatList, useWindowDimensions, Animated, View, StyleSheet, SafeAreaView, Text } from 'react-native';
 import { FlingGestureHandler, Directions, State } from 'react-native-gesture-handler';
+import { PRIMARY_COLOR } from '../../utils/variables';
 
 import OverflowButton from './OverflowButton';
 import RenderSlides from './RenderSlides';
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'red',
+        backgroundColor: PRIMARY_COLOR,
     },
     index: {
         color: '#ffd4d5',
