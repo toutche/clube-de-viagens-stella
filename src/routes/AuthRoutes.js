@@ -11,6 +11,7 @@ import RecoverPassword from "../pages/Sign/RecoverPassword"
 import TermsConditions from "../pages/TermsConditions"
 import PrivacyPolicy from "../pages/PrivacyPolicy"
 import ConfirmEmail from "../pages/Sign/ConfirmEmail"
+import GetLocation from "../pages/Sign/GetLocation"
 
 const AppStack = createStackNavigator()
 
@@ -25,6 +26,7 @@ const AuthRoutes = () => (
         <AppStack.Screen name="Preferences" component={Preferences} />
         <AppStack.Screen name="TermsConditions" component={TermsConditions} />
         <AppStack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+        <AppStack.Screen name="GetLocation" component={GetLocation} />
     </AppStack.Navigator>
 )
 

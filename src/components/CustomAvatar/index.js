@@ -1,15 +1,18 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
 
 const CustomAvatar = ({
     item,
     containerStyle,
-    imageStyle
+    imageStyle,
+    handlerPress
 }) => {
     return (
-        <View style={[styles.container, containerStyle]}>
-            <Image style={[styles.image, imageStyle]} source={{ uri: item }} />
-        </View>
+        <TouchableWithoutFeedback onPress={handlerPress}>
+            <View style={[styles.container, containerStyle]}>
+                <Image style={[styles.image, imageStyle]} source={{ uri: item }} />
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 

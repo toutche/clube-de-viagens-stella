@@ -2,24 +2,28 @@ import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
 const CustomInput = ({
-    value,
+    value = '',
     containerStyle,
     onChangeText,
     inputStyle,
     type,
     name,
     size,
+    lenght = 40,
     color,
-    placeholder
+    placeholder = '',
+    secureTextEntry = false
 }) => {
     const Icon = type || null
 
     return (
         <View style={[styles.container, containerStyle]}>
-            <Icon name={name} size={size || 24} color={color || "white"} />
+            {Icon && <Icon name={name} size={size || 24} color={color || "white"} />}
             <TextInput
                 style={[styles.input, inputStyle]}
                 value={value}
+                secureTextEntry={secureTextEntry}
+                maxLength={lenght}
                 placeholder={placeholder}
                 placeholderTextColor={'#d1d1d1'}
                 onChangeText={text => onChangeText(text)}

@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { copyrightSwitch } from "../../utils";
 
-export default function Copyright({ display }) {
+export default function Copyright({ display, containerStyle }) {
 
   const option = copyrightSwitch(display)
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <Text style={styles.text}>{option || ''}</Text>
     </View>
   )

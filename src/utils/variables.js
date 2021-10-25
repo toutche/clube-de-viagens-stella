@@ -14,8 +14,8 @@ export const TEXT_COLOR_BKWHITE = "#000000";
 /* Tamanhos */
 export const WIDTH = Dimensions.get("window").width;
 export const HEIGHT = Dimensions.get("window").height;
-export const ITEM_SLIDE_WIDTH = Math.round(WIDTH * 0.8);
-export const ITEM_SLIDE_HEIGHT = Math.round(HEIGHT * 0.7);
+export const ITEM_SLIDE_WIDTH = Math.round(WIDTH * 0.8)
+export const ITEM_SLIDE_HEIGHT = Math.round(HEIGHT * 0.7)
 
 
 /* Fontes */

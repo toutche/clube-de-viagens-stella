@@ -1,57 +1,68 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
-  TouchableOpacity,
   ScrollView,
   Text,
-  Image,
-  ImageBackground,
-  TextInput,
-  TouchableWithoutFeedback
+  ImageBackground
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome"
 import CustomInput from "../../../components/CustomInput";
-import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
-
-/*Componentes internos do app */
-import api from "../../../services/api";
-import { loginSetToken } from "../../../services/auth";
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import { useAuth } from "../../../contexts/auth";
 import Style from "./style";
 import Copyright from "../../../components/Copyright";
 import CustomButton from "../../../components/CustomButton";
 import CustomIcon from "../../../components/CustomIcon";
 import CustomAvatar from "../../../components/CustomAvatar";
+import { maskPhone } from '../../../utils/masks'
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
 export default ({ navigation }) => {
+  const { signUp, loadingApi } = useAuth()
 
-  const [name, setName] = useState("")
-  const [phone_number, setPhoneNumber] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [user, setUser] = useState({
+    name: 'eduardo',
+    email: 'eduardo_alvez51@outlook.com',
+    phone_number: '16997057588',
+    password: '123456',
+    image: null
+  })
 
-  const register = () => {
-    api.post("/cadastrar", {
-      name: name,
-      last_name: "aleatorio",
-      email: email,
-      password: password,
-      password_confirmation: password,
-      phone_number: phone_number,
-      gender: "m"
-    }).then((response) => {
-      console.log("cadastrar: ", response.data);
-      loginSetToken(response.data.access_token);
-      alert("Usuário cadastrado com sucesso.");
-      navigation.navigate("Access");
-    }).catch((error) => console.log(error))
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!')
+        }
+      }
+    })()
+  }, [])
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    })
+
+    if (!result.cancelled) {
+      setUser({
+        ...user,
+        image: result.uri
+      })
+    }
   }
 
   return (
     <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
-      <ImageBackground source={require("../../../../assets/header/SignUp.jpg")} style={Style.image} />
+      <ImageBackground
+        source={require("../../../../assets/header/SignUp.jpg")}
+        style={Style.image}
+      />
 
       <CustomIcon
         onPress={() => navigation.goBack()}
@@ -65,24 +76,34 @@ export default ({ navigation }) => {
 
         <Text style={Style.title}>{titlePage}</Text>
 
-        <CustomAvatar item={'https://www.lance.com.br/files/article_main/uploads/2021/02/28/603bdef934423.jpeg'} />
-
-        <CustomInput
-          placeholder="Qual seu nome"
-          size={16}
-          type={FontAwesome}
-          name={'user'}
-          value={name}
-          onChangeText={text => setName(text)}
+        <CustomAvatar
+          handlerPress={pickImage}
+          item={user.image || 'https://www.lance.com.br/files/article_main/uploads/2021/02/28/603bdef934423.jpeg'}
         />
 
         <CustomInput
-          placeholder="Seu celular"
+          placeholder="Qual seu nome?"
+          size={16}
+          type={FontAwesome}
+          name={'user'}
+          value={user.name}
+          onChangeText={text => setUser({
+            ...user,
+            name: text
+          })}
+        />
+
+        <CustomInput
+          placeholder="Seu celular?"
           size={18}
+          lenght={15}
           type={FontAwesome}
           name={'mobile'}
-          value={phone_number}
-          onChangeText={text => setPhoneNumber(text)}
+          value={user.phone_number}
+          onChangeText={text => setUser({
+            ...user,
+            phone_number: maskPhone(text)
+          })}
         />
 
         <CustomInput
@@ -90,8 +111,11 @@ export default ({ navigation }) => {
           size={16}
           type={FontAwesome}
           name={'envelope'}
-          value={email}
-          onChangeText={text => setEmail(text)}
+          value={user.email}
+          onChangeText={text => setUser({
+            ...user,
+            email: text
+          })}
         />
 
         <CustomInput
@@ -100,12 +124,16 @@ export default ({ navigation }) => {
           type={FontAwesome}
           name={'lock'}
           secureTextEntry
-          value={password}
-          onChangeText={text => setPassword(text)}
+          value={user.password}
+          onChangeText={text => setUser({
+            ...user,
+            password: text
+          })}
         />
 
         <CustomButton
-          onPress={() => navigation.navigate('ConfirmEmail')}
+          onPress={() => signUp(user, navigation)}
+          loadingApi={loadingApi}
           containerStyle={Style.button}
           titleStyle={Style.buttonText}
           title={'Cadastrar'}
