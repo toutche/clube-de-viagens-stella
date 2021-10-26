@@ -7,8 +7,11 @@ import CustomIcon from '../../components/CustomIcon';
 import TextWelcome from './TextWelcome';
 import Copyright from '../../components/Copyright';
 import CustomAvatar from '../../components/CustomAvatar';
+import { useAuth } from '../../contexts/auth';
 
 export default ({ navigation }) => {
+    const { user } = useAuth()
+
     return (
         <View style={styles.container}>
             <CustomIcon
@@ -24,10 +27,10 @@ export default ({ navigation }) => {
             />
             <TextWelcome
                 textStyle={styles.text}
-                title={'Tudo bem Jéssica?'}
+                title={`Tudo bem ${user?.name}?`}
                 subTitle={'Queremos saber mais sobre você :)'}
             />
-            <AnimatedCarousel />
+            <AnimatedCarousel navigation={navigation} />
             <Copyright display={1} />
         </View>
     )

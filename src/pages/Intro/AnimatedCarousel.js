@@ -48,7 +48,7 @@ export default ({ navigation }) => {
     const ListRef = useRef(null)
     const scrollX = useRef(new Animated.Value(0)).current
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current
-    const viewChanged = useCallback(({ viewableItems, changed }) => {
+    const viewChanged = useRef(({ viewableItems, changed }) => {
         setIndex(viewableItems[0].index)
     }, [])
 
@@ -63,7 +63,7 @@ export default ({ navigation }) => {
                 ref={ListRef}
                 data={data}
                 viewabilityConfig={viewConfig}
-                onViewableItemsChanged={viewChanged}
+                onViewableItemsChanged={viewChanged.current}
                 keyExtractor={(_, index) => String(index)}
                 onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
                     useNativeDriver: false,

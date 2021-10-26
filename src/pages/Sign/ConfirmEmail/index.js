@@ -28,9 +28,8 @@ import InputConfirm from './InputConfirm'
 const titlePage = "Insira seu código"
 const subtitlePage = "Precisamos confirmar o seu e-mail.\nPor favor, insira o código enviado de 4 dígitos."
 
-const ConfirmEmail = ({ route, navigation }) => {
+const ConfirmEmail = ({ navigation }) => {
 
-    console.log(route.params)
     return (
         <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 

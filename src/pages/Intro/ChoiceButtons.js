@@ -18,22 +18,22 @@ const ChoiceButtons = ({ data, index, onPress }) => {
                     </TouchableOpacity>
                 )
             })}
-        </View >
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         flex: 1,
         width: '100%',
-        paddingHorizontal: 20,
         alignSelf: 'center',
         flexDirection: 'row',
         marginTop: 10,
     },
     button: {
-        paddingHorizontal: 25,
+        paddingHorizontal: 20,
+        marginHorizontal: 7,
         borderColor: 'white',
         borderRadius: 100,
         height: 40,

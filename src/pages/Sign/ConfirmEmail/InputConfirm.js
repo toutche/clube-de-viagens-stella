@@ -5,7 +5,7 @@ import { useAuth } from '../../../contexts/auth';
 const ConfirmEmail = ({
     navigation
 }) => {
-    const { activeAccount, loadingApi } = useAuth()
+    const { activeAccount } = useAuth()
 
     const input1 = useRef()
     const input2 = useRef()

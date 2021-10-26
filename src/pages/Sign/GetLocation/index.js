@@ -27,16 +27,14 @@ import {
 
 import Copyright from "../../../components/Copyright";
 import Location from './Location';
-import CustomButton from "../../../components/CustomButton";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Input } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import { consts } from "../../../utils/consts";
 const titlePage = "Poxa, não achamos o seu endereço :("
 const subtitlePage = "Você pode nos ajudar e indicar o seu endereço?."
 const text = "Sabendo um pouco mais de você, poderemos conectar você com a sua próxima viagem!"
 
-const GetLocation = () => {
+const GetLocation = ({ navigation }) => {
     const googleRef = useRef()
 
     const [isKeyboard, setIsKeyboard] = useState(false)
@@ -102,6 +100,7 @@ const GetLocation = () => {
                         numberAddress={number}
                         onChange={text => setAddress(text)}
                         changePanel={index => setPanel(index)}
+                        navigation={navigation}
                     />
                     :
                     <GooglePlacesAutocomplete

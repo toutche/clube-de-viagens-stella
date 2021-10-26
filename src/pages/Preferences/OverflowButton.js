@@ -5,7 +5,14 @@ import { AntDesign } from '@expo/vector-icons';
 
 import Dot from '../../components/Dot';
 import CustomButton from '../../components/CustomButton';
-const OverflowButton = ({ index, onPress, data }) => {
+import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from '../../utils/variables';
+
+const OverflowButton = ({
+    index,
+    onPress,
+    data,
+    loadingApi
+}) => {
 
     const { width } = useWindowDimensions()
 
@@ -19,14 +26,14 @@ const OverflowButton = ({ index, onPress, data }) => {
         <View style={[styles.container, { width }]}>
             {index === 5 ?
                 <View style={styles.renderComponent}>
-                    <Button
+                    <CustomButton
                         onPress={onPress}
-                        buttonStyle={styles.buttonStyleElements}
-                        containerStyle={styles.containerStyleElements}
-                        titleStyle={styles.titleStyleElements}
+                        loadingApi={loadingApi}
+                        containerStyle={styles.sendButton}
+                        titleStyle={styles.sendButtonText}
                         title="Finalizar Pesquisa"
-                        loading={false}
                     />
+
                 </View>
                 :
                 <View style={styles.renderComponent}>
@@ -57,18 +64,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    buttonStyleElements: {
+    sendButton: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: 'center',
         height: 50,
-        borderRadius: 100,
-        backgroundColor: 'white',
+        width: '80%',
+        borderRadius: 25,
+        borderColor: TEXT_COLOR_BKCOLORFUL,
+        backgroundColor: TEXT_COLOR_BKCOLORFUL,
+        borderWidth: 1
     },
-    containerStyleElements: {
-        width: '80%'
-    },
-    titleStyleElements: {
-        color: '#e10717',
-        textTransform: 'uppercase',
-        fontSize: 14.5
+    sendButtonText: {
+        paddingHorizontal: 5,
+        color: PRIMARY_COLOR,
+        fontWeight: 'bold',
+        fontSize: 14,
+        textAlign: "center",
+        textTransform: "uppercase"
     },
     button: {
         flexDirection: 'row',

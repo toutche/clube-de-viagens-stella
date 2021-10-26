@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import CustomButton from '../../../components/CustomButton';
+import { useAuth } from '../../../contexts/auth';
 import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from '../../../utils/variables';
 
 
@@ -8,8 +9,10 @@ const GetLocation = ({
     isKeyboard,
     address = '',
     numberAddress = '',
-    changePanel
+    changePanel,
+    navigation
 }) => {
+    const { updateUser, loadingApi } = useAuth()
 
     const [number, setNumber] = useState(numberAddress)
     const [complement, setComplement] = useState('')
@@ -45,6 +48,8 @@ const GetLocation = ({
                 />
             </View>
             <CustomButton
+                loadingApi={loadingApi}
+                onPress={() => updateUser({ address: `${address} ${number} ${complement}` }, navigation)}
                 containerStyle={styles.button}
                 titleStyle={styles.buttonText}
                 title={'Confirmar'}

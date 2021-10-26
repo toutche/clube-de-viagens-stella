@@ -12,6 +12,8 @@ import {
 } from "../../utils/variables";
 
 import Copyright from "../../components/Copyright";
+import CustomButton from "../../components/CustomButton";
+import { useAuth } from "../../contexts/auth";
 
 const image = require("../../../assets/header/TermsAndPolicy.jpg")
 
@@ -40,6 +42,7 @@ const box3 = "Tentar descompilar ou fazer engenharia reversa de qualquer\
   direitos autorais ou outras notações de propriedade dos materiais;"
 
 export default ({ navigation }) => {
+    const { loadingApi, updateUser } = useAuth()
 
     return (
         <ScrollView style={Style.container}>
@@ -95,6 +98,14 @@ export default ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
+            <CustomButton
+                onPress={() => updateUser({ accept_privacy: true }, navigation)}
+                loadingApi={loadingApi}
+                containerStyle={Style.button}
+                titleStyle={Style.buttonText}
+                title={'Aceitar'}
+            />
+
             <Copyright display={1} />
 
         </ScrollView>
@@ -109,6 +120,27 @@ const Style = StyleSheet.create({
     },
     image: {
         aspectRatio: 1.5
+    },
+    button: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: 'center',
+        height: 50,
+        width: '80%',
+        marginTop: 15,
+        borderRadius: 25,
+        borderColor: TEXT_COLOR_BKCOLORFUL,
+        backgroundColor: TEXT_COLOR_BKCOLORFUL,
+        borderWidth: 1,
+    },
+    buttonText: {
+        paddingHorizontal: 5,
+        color: PRIMARY_COLOR,
+        fontWeight: 'bold',
+        fontSize: 14,
+        textAlign: "center",
+        textTransform: "uppercase",
     },
     icon: {
         left: 5,
