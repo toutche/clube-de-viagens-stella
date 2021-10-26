@@ -78,7 +78,7 @@ export default ({ navigation }) => {
 
         <CustomAvatar
           handlerPress={pickImage}
-          item={user.image || 'https://www.lance.com.br/files/article_main/uploads/2021/02/28/603bdef934423.jpeg'}
+          item={user.image || 'https://www.globaltec.com.br/wp-content/uploads/2021/01/laptop-user-1-1179329.png'}
         />
 
         <CustomInput

@@ -23,7 +23,7 @@ export default ({ navigation }) => {
             />
             <CustomAvatar
                 containerStyle={styles.avatar}
-                item={'https://www.lance.com.br/files/article_main/uploads/2021/02/28/603bdef934423.jpeg'}
+                item={'https://www.globaltec.com.br/wp-content/uploads/2021/01/laptop-user-1-1179329.png'}
             />
             <TextWelcome
                 textStyle={styles.text}
