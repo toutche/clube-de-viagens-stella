@@ -3,12 +3,8 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 
 import {
-    FONT_SIZE_BODY,
     HEIGHT,
     PRIMARY_COLOR,
-    SECOND_COLOR,
-    TEXT_COLOR_BKCOLORFUL,
-    TITLE_COLOR_BKCOLORFUL,
     WIDTH
 } from "../../utils/variables";
 import AnimatedCarousel from "./AnimatedCarousel";

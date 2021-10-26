@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
+import { TEXT_COLOR_BKCOLORFUL } from '../../../utils/variables';
 import { useAuth } from '../../../contexts/auth';
 
 const ConfirmEmail = ({
     navigation
 }) => {
     const { activeAccount } = useAuth()
+
 
     const input1 = useRef()
     const input2 = useRef()
@@ -33,6 +35,7 @@ const ConfirmEmail = ({
             <TextInput
                 ref={input1}
                 style={styles.input}
+                keyboardType={'numeric'}
                 value={value1}
                 onChangeText={text => {
                     setValue1(text)
@@ -42,19 +45,23 @@ const ConfirmEmail = ({
             />
             <TextInput
                 style={styles.input}
+                keyboardType={'numeric'}
                 ref={input2}
                 value={value2}
                 onChangeText={text => {
                     setValue2(text)
                     if (text) input3.current.focus()
+                    else input1.current.focus()
                 }}
                 maxLength={1}
             />
             <TextInput
                 value={value3}
+                keyboardType={'numeric'}
                 onChangeText={text => {
                     setValue3(text)
                     if (text) input4.current.focus()
+                    else input2.current.focus()
                 }}
                 style={styles.input}
                 ref={input3}
@@ -63,8 +70,12 @@ const ConfirmEmail = ({
             <TextInput
                 style={styles.input}
                 ref={input4}
+                keyboardType={'numeric'}
                 value={value4}
-                onChangeText={text => setValue4(text)}
+                onChangeText={text => {
+                    setValue4(text)
+                    if (!text) input2.current.focus()
+                }}
                 maxLength={1}
             />
         </View>
@@ -81,11 +92,11 @@ const styles = StyleSheet.create({
     input: {
         borderBottomWidth: 1.5,
         borderColor: 'white',
+        marginHorizontal: 5,
+        color: TEXT_COLOR_BKCOLORFUL,
         textAlign: 'center',
-        color: 'white',
         fontSize: 15,
         paddingHorizontal: 5,
-        marginHorizontal: 10
     }
 })
 

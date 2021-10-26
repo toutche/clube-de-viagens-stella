@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
             setTimeout(() => {
                 setUser(data.message[0])
                 setLoadingApi(false)
-            }, 1000)
+            }, 100)
         }).catch(e => console.log('me', e))
     }
 
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
                 console.log('signUp', data.success)
                 if (data.success)
                     navigation.replace('ConfirmEmail')
-                setTimeout(() => setLoadingApi(false), 1000)
+                setTimeout(() => setLoadingApi(false), 100)
             }).catch((error) => {
                 setLoadingApi(false)
                 console.log('e', error)
@@ -91,8 +91,10 @@ export const AuthProvider = ({ children }) => {
     const activeAccount = (token, navigation) => {
         if (!loadingApi) {
             api.post("/ativa-conta", { token }).then(({ data }) => {
-                if (data.message === "Conta ativada com sucesso.")
+                if (data.message === "Conta ativada com sucesso.") {
+                    alert('Sua conta foi ativada com sucesso!')
                     navigation.replace('SignIn')
+                }
                 else
                     alert(data.message)
             }).catch((error) => {
@@ -142,7 +144,7 @@ export const AuthProvider = ({ children }) => {
             if (question.data.message)
                 setAuth(true)
 
-            setTimeout(() => setLoadingApi(false), 1000)
+            setTimeout(() => setLoadingApi(false), 100)
         }
     }
 

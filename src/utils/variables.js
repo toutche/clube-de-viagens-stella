@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 
 
 /* Cores */
-export const PRIMARY_COLOR = "#e10015";
+export const PRIMARY_COLOR = "#E10717";//"#ff0015";
 export const SECOND_COLOR = "#FFFFFF";
 
 export const TITLE_COLOR_BKCOLORFUL = "#FFFFFF";
