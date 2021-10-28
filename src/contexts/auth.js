@@ -26,14 +26,15 @@ export const AuthProvider = ({ children }) => {
         api.get("/usuario/me").then(({ data }) => {
             if (data.status === "Token is Expired")
                 logout().then(() => {
+                    setRoute('Sign')
                     alert('Seu token expirou, faça login novamente')
                 }).catch((e) => console.log(e))
             else if (data.message[0].accept_terms !== 'Y')
                 navigation ? navigation.replace('TermsConditions') : setRoute('TermsConditions')
             //else if (data.message[0].accept_privacy !== 'Y')
-            //  navigation ? navigation.replace('PrivacyPolicy') : setRoute('PrivacyPolicy')
-            else if (!data.message[0].address)
-                navigation ? navigation.replace('GetLocation') : setRoute('GetLocation')
+            //navigation ? navigation.replace('PrivacyPolicy') : setRoute('PrivacyPolicy')
+            //else if (!data.message[0].address)
+            //navigation ? navigation.replace('GetLocation') : setRoute('GetLocation')
             else
                 api.get("/questionario/listar").then(({ data }) => {
                     if (data.length > 0)
@@ -43,7 +44,8 @@ export const AuthProvider = ({ children }) => {
                 })
 
             setTimeout(() => {
-                setUser(data.message[0])
+                if (data.status !== "Token is Expired")
+                    setUser(data.message[0])
                 setLoadingApi(false)
             }, 100)
         }).catch(e => console.log('me', e))
@@ -58,7 +60,7 @@ export const AuthProvider = ({ children }) => {
                 }).catch(e => console.log('setToken', e))
             }).catch(e => {
                 alert('Email ou senha inválidos')
-                console.log(e)
+                console.log('SignIn', e)
                 setLoadingApi(false)
             })
         }
@@ -98,48 +100,47 @@ export const AuthProvider = ({ children }) => {
                 else
                     alert(data.message)
             }).catch((error) => {
-                console.log('e', error)
+                console.log('activeAccount', error)
             })
         }
     }
 
 
     const updateUser = (update, navigation) => {
-        api.get("/usuario/me").then(({ data }) => {
-            let id = data.message[0].id
-            if (!loadingApi) {
-                setLoadingApi(true)
-                api.put(`/usuario/${id}/atualizar`, update).then(({ data }) => {
-                    console.log(data, update)
-                    if (data.message === 'Usuario Atualizado')
-                        verifyUser(navigation)
-                    else
-                        setLoadingApi(false)
-                }).catch((error) => {
+        if (!loadingApi) {
+            setLoadingApi(true)
+            api.post(`/usuario/atualizar`, update).then(({ data }) => {
+                console.log(data, update)
+                if (data.message === 'Usuario Atualizado')
+                    verifyUser(navigation)
+                else
                     setLoadingApi(false)
-                    console.log('e', error)
-                })
-            }
-        })
+            }).catch((error) => {
+                setLoadingApi(false)
+                console.log('updateUser', error)
+            })
+        }
     }
+
+
 
     const questionary = async (questions, activities, navigation) => {
         if (!loadingApi) {
             setLoadingApi(true)
             const question = await api.post("/questionario/criar", {
-                question_1: questions[0] || 'Y',
-                question_2: questions[1] || 'Y',
-                question_3: questions[2] || 'Y',
-                question_4: questions[3] || 'Y',
-                question_5: questions[4] || 'Y',
+                question_1: questions[0] || null,
+                question_2: questions[1] || null,
+                question_3: questions[2] || null,
+                question_4: questions[3] || null,
+                question_5: questions[4] || null,
             })
 
-            /*
+
+            let id = [1, 2, 3, 4]
             const activity = await api.post("/interesses/criar", {
+                id
+            }).then((res) => console.log(res))
 
-
-            })
-            */
             console.log(question.data)
             if (question.data.message)
                 setAuth(true)

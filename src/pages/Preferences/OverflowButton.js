@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
-import { Button } from "react-native-elements";
 import { AntDesign } from '@expo/vector-icons';
 
 import Dot from '../../components/Dot';

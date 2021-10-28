@@ -4,9 +4,16 @@ import CustomIcon from '../../components/CustomIcon';
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import { CheckBox } from 'react-native-elements';
 
-const RenderSlides = ({ item, index, pressCheck, pressClose, checkItem, ITEM_WIDTH, ITEM_HEIGHT, width }) => {
-
-
+const RenderSlides = ({
+    item,
+    index,
+    pressCheck,
+    pressClose,
+    checkItem,
+    ITEM_WIDTH,
+    ITEM_HEIGHT,
+    width
+}) => {
 
     const renderModelOne = () => (
         <View style={{

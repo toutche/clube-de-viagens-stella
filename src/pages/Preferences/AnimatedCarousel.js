@@ -1,77 +1,20 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { FlatList, useWindowDimensions, Animated, View, StyleSheet, SafeAreaView, Text } from 'react-native';
 import { useAuth } from '../../contexts/auth';
+import api from '../../services/api';
 import { PRIMARY_COLOR } from '../../utils/variables';
 
 import OverflowButton from './OverflowButton';
 import RenderSlides from './RenderSlides';
 
-const Slides = [
-    {
-        text: 'Você costuma fazer viagens em família?',
-        toast: 'Família',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
-    {
-        text: 'Você normalmente viaja pelo Brasil?',
-        toast: 'Destino nacional',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
-    {
-        text: 'Suas viagens duram mais de 4 dias?',
-        toast: 'Tempo de viagem',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
-    {
-        text: 'Consegue viajar mais de uma vez ao ano?',
-        toast: 'Frêquencia de viagem',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
-    {
-        text: 'Em suas viagens, você costuma se hospedar em hotéis econômicos?',
-        toast: 'Hotéis econômicos',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
 
-    {
-        title: 'Estamos finalizando!',
-        subTitle: 'Só mais uma pergunta! Para que possamos entender um pouco mais do seu perfil, conte-nos sobre seus interesses e os meses que normalmente você faz as suas viagens?',
-        note: 'Selecione quantos desejar :)',
-        activitiesText: 'Atividades',
-        activities: [
-            {
-                name: 'Praia',
-                id: 2,
-                check: false
-            },
-            {
-                name: 'Montanha',
-                check: false
-            },
-            {
-                name: 'Natureza',
-                check: false
-            },
-            {
-                name: 'Gastronomia',
-                check: false
-            },
-            {
-                name: 'Resort',
-                check: false
-            }
-        ]
-    }
-]
-
-export default ({ navigation }) => {
+export default ({ data = [], navigation }) => {
     const { questionary, loadingApi } = useAuth()
     const { width, height } = useWindowDimensions()
 
     const ITEM_WIDTH = width * 0.8
     const ITEM_HEIGHT = height * 0.5
 
-    const data = Slides
     const [index, setIndex] = useState(0)
     const [questions, setQuestions] = useState([])
     const [refreshing, setRefreshing] = useState(false)
@@ -117,7 +60,7 @@ export default ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.index}>{index + 1} de {Slides.length}</Text>
+            <Text style={styles.index}>{index + 1} de {data.length}</Text>
             <FlatList
                 ref={ListRef}
                 data={data}
@@ -178,7 +121,7 @@ export default ({ navigation }) => {
             />
             <OverflowButton
                 loadingApi={loadingApi}
-                data={Slides}
+                data={data}
                 index={index}
                 onPress={handlerPress}
             />

@@ -49,7 +49,13 @@ const GetLocation = ({
             </View>
             <CustomButton
                 loadingApi={loadingApi}
-                onPress={() => updateUser({ address: `${address} ${number} ${complement}` }, navigation)}
+                onPress={() => updateUser({
+                    address,
+                    number,
+                    complement,
+                },
+                    navigation
+                )}
                 containerStyle={styles.button}
                 titleStyle={styles.buttonText}
                 title={'Confirmar'}
