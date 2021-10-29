@@ -43,38 +43,7 @@ const Slides = data => ([
         subTitle: 'Só mais uma pergunta! Para que possamos entender um pouco mais do seu perfil, conte-nos sobre seus interesses e os meses que normalmente você faz as suas viagens?',
         note: 'Selecione quantos desejar :)',
         activitiesText: 'Atividades',
-        activities: [
-            {
-                name: 'Praia',
-                id: 1,
-                check: false
-            },
-            {
-                name: 'Montanha',
-                id: 2,
-                check: false
-            },
-            {
-                name: 'Natureza',
-                id: 3,
-                check: false
-            },
-            {
-                name: 'Gastronomia',
-                id: 4,
-                check: false
-            },
-            {
-                name: 'Resort',
-                id: 5,
-                check: false
-            },
-            {
-                name: 'Internacional',
-                id: 6,
-                check: false
-            }
-        ]
+        activities: data
     }
 ])
 
@@ -87,8 +56,8 @@ export default ({ navigation }) => {
             api.get('/interesses/listar').then(({ data }) => {
                 setTimeout(() => {
                     setData(Slides(data))
-                    //console.log(data)
-                }, 1000)
+                    console.log(data)
+                }, 500)
             }).catch((e) => {
                 console.log(e)
             })

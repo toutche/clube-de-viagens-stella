@@ -72,7 +72,7 @@ const GetLocation = ({ navigation }) => {
     }
 
     return (
-        <View style={Style.container}>
+        <View keyboardShouldPersistTaps style={Style.container}>
 
             {!isKeyboard ?
                 <ImageBackground source={require("../../../../assets/header/Location.jpg")} style={Style.image} />

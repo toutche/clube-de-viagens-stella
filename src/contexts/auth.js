@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react"
 import api from "../services/api";
 import { getToken, logout, setToken } from "../services/auth";
+import * as FileSystem from 'expo-file-system';
 
 const AuthContext = createContext({})
 
@@ -14,7 +15,6 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         async function loadStorage() {
             const storagedUser = await getToken()
-            console.log('token', storagedUser)
             if (storagedUser)
                 verifyUser()
             setTimeout(() => setLoading(false), 1500)
@@ -29,12 +29,8 @@ export const AuthProvider = ({ children }) => {
                     setRoute('Sign')
                     alert('Seu token expirou, faça login novamente')
                 }).catch((e) => console.log(e))
-            else if (data.message[0].accept_terms !== 'Y')
-                navigation ? navigation.replace('TermsConditions') : setRoute('TermsConditions')
-            //else if (data.message[0].accept_privacy !== 'Y')
-            //navigation ? navigation.replace('PrivacyPolicy') : setRoute('PrivacyPolicy')
-            //else if (!data.message[0].address)
-            //navigation ? navigation.replace('GetLocation') : setRoute('GetLocation')
+            else if (!data.message[0].address)
+                navigation ? navigation.replace('GetLocation') : setRoute('GetLocation')
             else
                 api.get("/questionario/listar").then(({ data }) => {
                     if (data.length > 0)
@@ -66,27 +62,43 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const signUp = ({ name, email, password, phone_number, image }, navigation) => {
+    const getMimeType = (ext) => {
+        switch (ext) {
+            case 'pdf': return 'application/pdf';
+            case 'jpg': return 'image/jpeg';
+            case 'jpeg': return 'image/jpeg';
+            case 'png': return 'image/png';
+        }
+    }
+
+    const signUp = async ({ name, email, password, phone_number, image }, navigation) => {
         if (!loadingApi) {
             setLoadingApi(true)
-            api.post("/cadastrar", {
-                name,
-                last_name: name,
-                email,
-                password,
-                password_confirmation: password,
-                phone_number,
-                gender: "m",
-                image
-            }).then(({ data }) => {
-                console.log('signUp', data.success)
-                if (data.success)
-                    navigation.replace('ConfirmEmail')
-                setTimeout(() => setLoadingApi(false), 100)
-            }).catch((error) => {
-                setLoadingApi(false)
-                console.log('e', error)
+
+            let fileUri = image
+            let filename = fileUri.split('/').pop()
+            let extArr = /\.(\w+)$/.exec(filename)
+            let type = getMimeType(extArr[1])
+
+            let formData = new FormData()
+            formData.append('name', name)
+            formData.append('last_name', name)
+            formData.append('email', email)
+            formData.append('password', password)
+            formData.append('password_confirmation', password)
+            formData.append('phone_number', phone_number)
+            formData.append('gender', 'm')
+            formData.append('phone_number', 'Y')
+            formData.append('phone_number', 'Y')
+            formData.append('image', { uri: fileUri, name: filename, type })
+
+            const { data } = await api.post('/cadastrar', formData, {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
             })
+            console.log(data)
+            setLoadingApi(false)
         }
     }
 
@@ -109,7 +121,7 @@ export const AuthProvider = ({ children }) => {
     const updateUser = (update, navigation) => {
         if (!loadingApi) {
             setLoadingApi(true)
-            api.post(`/usuario/atualizar`, update).then(({ data }) => {
+            api.put(`/usuario/atualizar`, update).then(({ data }) => {
                 console.log(data, update)
                 if (data.message === 'Usuario Atualizado')
                     verifyUser(navigation)
@@ -127,6 +139,7 @@ export const AuthProvider = ({ children }) => {
     const questionary = async (questions, activities, navigation) => {
         if (!loadingApi) {
             setLoadingApi(true)
+
             const question = await api.post("/questionario/criar", {
                 question_1: questions[0] || null,
                 question_2: questions[1] || null,
@@ -135,14 +148,15 @@ export const AuthProvider = ({ children }) => {
                 question_5: questions[4] || null,
             })
 
-
-            let id = [1, 2, 3, 4]
+            let id = activities.filter(i => i.check === true)
+            id = id.map((item) => item.id)
             const activity = await api.post("/interesses/criar", {
                 id
-            }).then((res) => console.log(res))
+            })
+            console.log(id)
+            console.log(activity.data, question.data)
 
-            console.log(question.data)
-            if (question.data.message)
+            if (activity.success && question.success)
                 setAuth(true)
 
             setTimeout(() => setLoadingApi(false), 100)
