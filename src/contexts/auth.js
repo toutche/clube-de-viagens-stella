@@ -1,12 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from "react"
 import api from "../services/api";
 import { getToken, logout, setToken } from "../services/auth";
-import * as FileSystem from 'expo-file-system';
 
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState(false)
+    const [auth, setAuth] = useState(true)
     const [user, setUser] = useState({})
     const [initialRoute, setRoute] = useState('Intro')
     const [loading, setLoading] = useState(true)
@@ -74,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     const signUp = async ({ name, email, password, phone_number, image }, navigation) => {
         if (!loadingApi) {
             setLoadingApi(true)
-
+            console.log('image', image)
             let fileUri = image
             let filename = fileUri.split('/').pop()
             let extArr = /\.(\w+)$/.exec(filename)
@@ -88,8 +87,8 @@ export const AuthProvider = ({ children }) => {
             formData.append('password_confirmation', password)
             formData.append('phone_number', phone_number)
             formData.append('gender', 'm')
-            formData.append('phone_number', 'Y')
-            formData.append('phone_number', 'Y')
+            formData.append('accept_terms', 'Y')
+            formData.append('accept_privacy', 'Y')
             formData.append('image', { uri: fileUri, name: filename, type })
 
             const { data } = await api.post('/cadastrar', formData, {
@@ -97,6 +96,7 @@ export const AuthProvider = ({ children }) => {
                     'content-type': 'multipart/form-data',
                 },
             })
+
             console.log(data)
             setLoadingApi(false)
         }
@@ -153,8 +153,6 @@ export const AuthProvider = ({ children }) => {
             const activity = await api.post("/interesses/criar", {
                 id
             })
-            console.log(id)
-            console.log(activity.data, question.data)
 
             if (activity.success && question.success)
                 setAuth(true)
@@ -165,7 +163,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
-            signed: auth,
+            auth,
             user,
             initialRoute,
             loading,

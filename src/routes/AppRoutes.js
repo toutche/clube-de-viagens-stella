@@ -12,10 +12,14 @@ const AuthRoutes = () => {
     const { signOut } = useAuth()
 
     return (
-        <AuthStack.Navigator>
+        <AuthStack.Navigator screenOptions={screenOptions} >
             <AuthStack.Screen name="Dashboard" component={Dashboard} />
         </AuthStack.Navigator>
     )
+}
+
+const screenOptions = {
+    headerShown: false
 }
 
 export default AuthRoutes

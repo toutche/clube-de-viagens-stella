@@ -20,7 +20,7 @@ const AuthRoutes = () => {
     const { initialRoute } = useAuth()
 
     return (
-        <AppStack.Navigator screenOptions={screenOptions} initialRouteName={'PrivacyPolicy'}>
+        <AppStack.Navigator screenOptions={screenOptions} initialRouteName={initialRoute}>
             <AppStack.Screen name="Intro" component={Intro} />
             <AppStack.Screen name="Sign" component={Sign} />
             <AppStack.Screen name="SignIn" component={SignIn} />
