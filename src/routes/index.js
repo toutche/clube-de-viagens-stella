@@ -8,7 +8,7 @@ import { Image, LogBox, View } from "react-native"
 import Copyright from "../components/Copyright"
 
 const Routes = () => {
-    const { signed, loading } = useAuth()
+    const { auth, loading } = useAuth()
 
     useEffect(() => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
@@ -40,7 +40,7 @@ const Routes = () => {
         </View>
     )
 
-    return signed ? <AppRoutes /> : <AuthRoutes />
+    return auth ? <AppRoutes /> : <AuthRoutes />
 }
 
 export default Routes
