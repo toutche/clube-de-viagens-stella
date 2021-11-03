@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -29,14 +29,14 @@ const text36 = 'Para garantir que o usuário que pretende exercer seus direitos 
 export default function item8() {
     return (
         <>
-        <View style={Style.item}>
+            <View style={Style.item}>
                 <Text style={Style.titleItem}>{titleTerm8}</Text>
                 <Text style={Style.boxTerms}>
-                    <FontAwesome 
-                        color={TEXT_COLOR_BKCOLORFUL} 
+                    <FontAwesome
+                        color={TEXT_COLOR_BKCOLORFUL}
                         size={9}
-                        name={"circle"} 
-                    /> 
+                        name={"circle"}
+                    />
                     <Text style={Style.text}>{text33}</Text>
                 </Text>
                 {subText7.map((item, index) => (

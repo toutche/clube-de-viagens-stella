@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -16,17 +16,17 @@ const text45 = ' Para esclarecer quaisquer dúvidas sobre esta Política de Priv
 export default function item6() {
     return (
         <>
-        <View style={Style.item}>
-            <Text style={Style.titleItem}>{titleTerm13}</Text>
-            <Text style={Style.boxTerms}>
-                <FontAwesome 
-                    color={TEXT_COLOR_BKCOLORFUL} 
-                    size={9}
-                    name={"circle"} 
-                /> 
-                <Text style={Style.text}>{text45}</Text>
-            </Text>      
-        </View>
+            <View style={Style.item}>
+                <Text style={Style.titleItem}>{titleTerm13}</Text>
+                <Text style={Style.boxTerms}>
+                    <FontAwesome
+                        color={TEXT_COLOR_BKCOLORFUL}
+                        size={9}
+                        name={"circle"}
+                    />
+                    <Text style={Style.text}>{text45}</Text>
+                </Text>
+            </View>
         </>
     )
 }

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -16,14 +16,14 @@ const text32 = ' Cada operação de tratamento de dados pessoais precisa ter um 
 export default function item7() {
     return (
         <>
-        <View style={Style.item}>
+            <View style={Style.item}>
                 <Text style={Style.titleItem}>{titleTerm7}</Text>
                 <Text style={Style.boxTerms}>
-                    <FontAwesome 
-                        color={TEXT_COLOR_BKCOLORFUL} 
+                    <FontAwesome
+                        color={TEXT_COLOR_BKCOLORFUL}
                         size={9}
-                        name={"circle"} 
-                    /> 
+                        name={"circle"}
+                    />
                     <Text style={Style.text}>{text32}</Text>
                 </Text>
             </View>

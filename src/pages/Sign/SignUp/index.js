@@ -26,7 +26,7 @@ export default ({ navigation }) => {
     email: 'eduardo_alvez51@outlook.com',
     phone_number: '16997057588',
     password: '123456',
-    image: 'file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540alveduardo%252Fclube-de-viagens-stella/ImagePicker/ccb4f426-8a49-4d02-a9af-74189b668de4.jpg'
+    image: null
   })
 
   useEffect(() => {

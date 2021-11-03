@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -16,17 +16,17 @@ const text46 = ' O Clube de Férias Stella Barros examinará e responderá, dent
 export default function item6() {
     return (
         <>
-        <View style={Style.item}>
-            <Text style={Style.titleItem}>{titleTerm14}</Text>
-            <Text style={Style.boxTerms}>
-                <FontAwesome 
-                    color={TEXT_COLOR_BKCOLORFUL} 
-                    size={9}
-                    name={"circle"} 
-                /> 
-                <Text style={Style.text}>{text46}</Text>
-            </Text>      
-        </View>
+            <View style={Style.item}>
+                <Text style={Style.titleItem}>{titleTerm14}</Text>
+                <Text style={Style.boxTerms}>
+                    <FontAwesome
+                        color={TEXT_COLOR_BKCOLORFUL}
+                        size={9}
+                        name={"circle"}
+                    />
+                    <Text style={Style.text}>{text46}</Text>
+                </Text>
+            </View>
         </>
     )
 }

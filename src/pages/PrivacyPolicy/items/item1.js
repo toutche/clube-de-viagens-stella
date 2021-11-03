@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import {
@@ -62,7 +62,7 @@ export default function item1() {
                     <Text key={index} style={Style.text}>{item}</Text>
                 ))}
             </View>
-            <View style={Style.item}>                
+            <View style={Style.item}>
                 <Text style={Style.text}>{text5}</Text>
                 <Text style={Style.text}>{text6}</Text>
                 <Text style={Style.text}>{text7}</Text>
@@ -78,12 +78,12 @@ export default function item1() {
             </View>
             <View style={Style.itemInternal}>
                 <Text style={Style.titleItem}>{subTitle1}</Text>
-                <Text style={Style.text}>{text9} 
+                <Text style={Style.text}>{text9}
                     <TouchableOpacity>
                         <Text style={Style.linkBold}>{link1}</Text>
                     </TouchableOpacity>
-                    {text10} 
-                </Text>                
+                    {text10}
+                </Text>
             </View>
             <View style={Style.itemInternal}>
                 <Text style={Style.titleItem}>{subTitle2}</Text>
@@ -91,7 +91,7 @@ export default function item1() {
                     <Text key={index} style={Style.text}>{item}</Text>
                 ))}
             </View>
-            </>
+        </>
     )
 }
 

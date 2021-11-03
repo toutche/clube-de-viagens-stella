@@ -1,97 +1,78 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import CustomIcon from '../../components/CustomIcon';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import ProfileAvatar from '../../components/ProfileAvatar';
-import CustomButton from '../../components/CustomButton';
+import CustomStatusBar from '../../components/CustomStatusBar';
+import { PRIMARY_COLOR } from '../../utils/variables';
+import SlidesDashboard from './SlidesDashboard';
+import ButtonsChoice from './ButtonsChoice';
 
 
-const HeaderDashboard = () => {
-
-
+const HeaderDashboard = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <CustomIcon
-                size={26}
-                onPress={() => navigation.goBack()}
-                type={AntDesign}
-                name={'arrowleft'}
-                containerStyle={styles.iconLeft}
-            />
-            <CustomIcon
-                size={26}
-                onPress={() => navigation.goBack()}
-                type={Ionicons}
-                name={'notifications-outline'}
-                containerStyle={styles.iconRight}
-            />
-            <ProfileAvatar />
+            <CustomStatusBar />
 
-            <Text style={styles.title}>Valor disponível para viagem :(</Text>
-            <Text style={styles.subTitle}>R$ 0,00</Text>
+            <View style={styles.profile}>
+                <CustomIcon
+                    size={22}
+                    onPress={() => navigation.goBack()}
+                    type={SimpleLineIcons}
+                    name={'menu'}
+                    containerStyle={styles.iconLeft}
+                />
 
-            <CustomButton
-                containerStyle={styles.button}
-                titleStyle={styles.buttonText}
-                title="Contratar Plano"
-            />
+                <CustomIcon
+                    size={26}
+                    onPress={() => navigation.goBack()}
+                    type={Ionicons}
+                    name={'notifications-outline'}
+                    containerStyle={styles.iconRight}
+                />
 
-            <Text style={styles.text}>
-                É necessário contratar um plano para iniciar o seu projeto da viagem dos sonhos
-            </Text>
+                <ProfileAvatar />
+            </View>
+
+            <SlidesDashboard />
+
+            <Text style={styles.title}>Hospedagens em locais incríveis</Text>
+            <Text style={styles.subTitle}>com preços exclusivos</Text>
+
+            <ButtonsChoice />
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'red',
+        backgroundColor: PRIMARY_COLOR,
+    },
+    profile: {
         justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: 40,
-        paddingBottom: 20,
-        paddingHorizontal: '10%'
-    },
-    button: {
-        backgroundColor: '#287dfd',
-        borderRadius: 100,
-        width: '100%',
-        height: 45,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 15
-    },
-    buttonText: {
-        fontSize: 16,
-        color: 'white'
-    },
-    text: {
-        fontSize: 13,
-        color: 'white',
-        textAlign: 'center'
-    },
-    title: {
-        fontSize: 17,
-        color: 'white',
-        marginTop: 5,
-        textAlign: 'center'
-    },
-    subTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'white',
-        textAlign: 'center'
+        alignItems: 'center'
     },
     iconLeft: {
-        left: 5,
-        top: 25,
         padding: 10,
-        position: 'absolute'
+        position: 'absolute',
+        left: 5
     },
     iconRight: {
-        right: 5,
-        top: 25,
         padding: 10,
+        right: 5,
         position: 'absolute'
+    },
+    title: {
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 15
+    },
+    subTitle: {
+        fontSize: 12.5,
+        textAlign: 'center',
+        color: 'white',
+        marginBottom: 10
     }
 })
 

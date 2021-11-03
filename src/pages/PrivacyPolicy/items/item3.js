@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -47,13 +47,13 @@ remoção das preferências do usuário que eventualmente tiverem sido salvas, p
 export default function item3() {
     return (
         <>
-         <View style={Style.item}>
+            <View style={Style.item}>
                 <Text style={Style.titleItem}>{titleTerm3}</Text>
                 <Text style={Style.boxTerms}>
-                    <FontAwesome 
-                    color={TEXT_COLOR_BKCOLORFUL} 
-                    size={9} name={"circle"} 
-                    /> 
+                    <FontAwesome
+                        color={TEXT_COLOR_BKCOLORFUL}
+                        size={8} name={"circle"}
+                    />
                     <Text style={Style.text}>{text12}</Text>
                 </Text>
             </View>
@@ -70,31 +70,31 @@ export default function item3() {
                 </Text>
             </View>
 
-            <View style={Style.itemInternal}>                
+            <View style={Style.itemInternal}>
                 <Text style={Style.text}>{text15}</Text>
                 <TouchableOpacity>
                     <Text style={Style.links}>{link2}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={Style.itemInternal}>                
+            <View style={Style.itemInternal}>
                 <Text style={Style.text}>{text16}</Text>
                 <TouchableOpacity>
                     <Text style={Style.links}>{link3}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={Style.itemInternal}>                
+            <View style={Style.itemInternal}>
                 <Text style={Style.text}>{text17}</Text>
                 <TouchableOpacity>
                     <Text style={Style.links}>{link4}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={Style.itemInternal}>                
+            <View style={Style.itemInternal}>
                 <Text style={Style.text}>{text18}</Text>
                 <TouchableOpacity>
                     <Text style={Style.links}>{link5}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={Style.itemInternal}>                
+            <View style={Style.itemInternal}>
                 <Text style={Style.text}>{text19}</Text>
                 <TouchableOpacity>
                     <Text style={Style.links}>{link6}</Text>
@@ -131,7 +131,7 @@ const Style = StyleSheet.create({
         textDecorationLine: 'underline',
         color: TEXT_COLOR_BKCOLORFUL,
         fontSize: 12,
-        flexWrap:"wrap",
+        flexWrap: "wrap",
         paddingLeft: 5,
         margin: -5,
     }

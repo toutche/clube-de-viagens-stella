@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -17,18 +17,18 @@ const text44 = 'Sempre que houver uma modificação, nossos usuários serão not
 export default function item6() {
     return (
         <>
-        <View style={Style.item}>
-            <Text style={Style.titleItem}>{titleTerm12}</Text>
-            <Text style={Style.boxTerms}>
-                <FontAwesome 
-                    color={TEXT_COLOR_BKCOLORFUL} 
-                    size={9}
-                    name={"circle"} 
-                /> 
-                <Text style={Style.text}>{text43}</Text>
-                <Text style={Style.text}>{text44}</Text>
-            </Text>      
-        </View>
+            <View style={Style.item}>
+                <Text style={Style.titleItem}>{titleTerm12}</Text>
+                <Text style={Style.boxTerms}>
+                    <FontAwesome
+                        color={TEXT_COLOR_BKCOLORFUL}
+                        size={9}
+                        name={"circle"}
+                    />
+                    <Text style={Style.text}>{text43}</Text>
+                    <Text style={Style.text}>{text44}</Text>
+                </Text>
+            </View>
         </>
     )
 }

@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import HeaderDashboard from './HeaderDashboard';
 
-const Dashboard = () => {
+
+const Dashboard = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <HeaderDashboard />
+            <HeaderDashboard
+                navigation={navigation}
+            />
         </View>
     )
 }
@@ -13,14 +16,8 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    icon: {
-        left: 5,
-        top: 25,
-        padding: 10,
-        position: 'absolute'
     }
 })
 
 
-export default Dashboard
+export default Dashboard;

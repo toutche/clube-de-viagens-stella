@@ -11,8 +11,6 @@ import {
 } from "../../utils/variables";
 
 import Copyright from "../../components/Copyright";
-import CustomButton from "../../components/CustomButton";
-import { useAuth } from "../../contexts/auth";
 import Item1 from './items/item1';
 import Item2 from './items/item2';
 import Item3 from './items/item3';
@@ -53,8 +51,6 @@ Privacidade, entre em contato conosco por meio do seguinte canal de e-mail:';
 const emailContato = ' contato@clubedeferias.com'
 
 export default ({ navigation }) => {
-    const { loadingApi, updateUser } = useAuth()
-
     return (
         <ScrollView style={Style.container}>
 
@@ -88,21 +84,21 @@ export default ({ navigation }) => {
                 </Text>
             </View>
 
-            <Item1/>
-            <Item2/>
-            <Item3/>
-            <Item4/>
-            <Item5/>
-            <Item6/>
-            <Item7/>
-            <Item8/>
-            <Item9/>
-            <Item10/>
-            <Item11/>
-            <Item12/>
-            <Item13/>
-            <Item14/>
-       
+            <Item1 />
+            <Item2 />
+            <Item3 />
+            <Item4 />
+            <Item5 />
+            <Item6 />
+            <Item7 />
+            <Item8 />
+            <Item9 />
+            <Item10 />
+            <Item11 />
+            <Item12 />
+            <Item13 />
+            <Item14 />
+
             <View style={Style.bottom}>
                 <TouchableOpacity>
                     <Text style={Style.itemBottom}>Baixar termos e condições</Text>
@@ -112,14 +108,6 @@ export default ({ navigation }) => {
                     <Text style={Style.itemBottom}>Política de Privacidade</Text>
                 </TouchableOpacity>
             </View>
-
-            <CustomButton
-                onPress={() => updateUser({ accept_privacy: true }, navigation)}
-                loadingApi={loadingApi}
-                containerStyle={Style.button}
-                titleStyle={Style.buttonText}
-                title={'Aceitar'}
-            />
 
             <Copyright display={1} />
 

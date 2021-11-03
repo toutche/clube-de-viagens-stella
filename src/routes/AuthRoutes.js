@@ -1,5 +1,6 @@
 import React from "react"
-import { createStackNavigator } from "@react-navigation/stack"
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { useAuth } from "../contexts/auth"
 
 import Intro from "../pages/Intro"
@@ -13,8 +14,7 @@ import PrivacyPolicy from "../pages/PrivacyPolicy"
 import ConfirmEmail from "../pages/Sign/ConfirmEmail"
 import GetLocation from "../pages/Sign/GetLocation"
 
-
-const AppStack = createStackNavigator()
+const AppStack = createNativeStackNavigator()
 
 const AuthRoutes = () => {
     const { initialRoute } = useAuth()

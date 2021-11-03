@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -32,19 +32,17 @@ const subTitle5 = 'Transferência internacional de dados'
 const text29 = 'O Clube de Férias poderá compartilhar os dados fornecidos pelo titular de dados com parceiros e terceiros, dentro do território nacional ou internacional, sempre respeitando às finalidades do tratamento de dados devido ao seu compartilhamento, sendo certo que, para tal, o Clube de Férias solicitará seu consentimento.'
 const text30 = 'Devido à internet ser um sistema global, certos serviços oferecidos pelo Clube de Férias podem demandar a transferência dos seus dados para outros países. Nessas situações, os dados são tratados de acordo com a LGPD (Lei Geral de Proteção de Dados) e demais legislações de proteção, como por exemplo a GDPR (General Data Protection Regulation). Deste modo, tomamos medidas para garantir que quaisquer informações coletadas sejam tratadas com segurança, de acordo com nossas políticas e cláusulas padrão nos contratos com fornecedores e prestadores de serviço.'
 
-
-
 export default function item5() {
     return (
         <>
-        <View style={Style.item}>
+            <View style={Style.item}>
                 <Text style={Style.titleItem}>{titleTerm5}</Text>
                 <Text style={Style.boxTerms}>
-                    <FontAwesome 
-                        color={TEXT_COLOR_BKCOLORFUL} 
+                    <FontAwesome
+                        color={TEXT_COLOR_BKCOLORFUL}
                         size={9}
-                        name={"circle"} 
-                    /> 
+                        name={"circle"}
+                    />
                     <Text style={Style.text}>{text26}</Text>
                 </Text>
             </View>

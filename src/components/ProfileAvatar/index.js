@@ -1,14 +1,21 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { formatMoneyToBRL } from '../../utils';
 import { PRIMARY_COLOR } from '../../utils/variables';
 
 
-const ProfileAvatar = () => {
+const ProfileAvatar = ({
+    leftSize = 50,
+    credit = 0
+}) => {
     const item = 'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg'
 
     return (
         <View style={styles.container}>
-            <View style={styles.left}>
+            <View style={[styles.left, {
+                width: leftSize,
+                height: leftSize
+            }]}>
                 <Image
                     style={styles.image}
                     source={{ uri: item }}
@@ -16,6 +23,7 @@ const ProfileAvatar = () => {
             </View>
             <View style={styles.right}>
                 <Text style={styles.text}>Olá Fernanda</Text>
+                {credit !== null && <Text style={styles.text}>Crédito: R${formatMoneyToBRL(credit)}</Text>}
             </View>
         </View>
     )
@@ -34,31 +42,29 @@ const styles = StyleSheet.create({
     },
     left: {
         zIndex: 1,
-        left: 10,
-        width: 55,
-        height: 55,
+        left: 20,
         borderWidth: 2,
         borderRadius: 100,
-        padding: 2.5,
+        padding: 3,
         borderColor: '#f0c61e',
         backgroundColor: PRIMARY_COLOR,
-        elevation: 12,
+        elevation: 6,
     },
     right: {
-        height: 45,
         justifyContent: 'center',
-        paddingLeft: 20,
-        paddingRight: 30,
+        paddingHorizontal: 30,
+        paddingVertical: 4,
         borderTopRightRadius: 30,
         borderBottomRightRadius: 30,
         backgroundColor: '#ef091a',
         borderWidth: 1,
-        elevation: 11,
-        borderColor: 'rgba(0,0,0,0.05)',
+        elevation: 5,
+        borderColor: 'rgba(0,0,0,0.01)',
     },
     text: {
-        fontSize: 15,
-        color: 'white'
+        fontSize: 13,
+        fontWeight: 'bold',
+        color: 'white',
     }
 })
 

@@ -1,19 +1,16 @@
 import React from "react"
-import { createStackNavigator } from "@react-navigation/stack"
-import { TouchableOpacity, Text } from "react-native"
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Dashboard from "../pages/Dashboard"
+import Wallet from "../pages/Wallet"
 
-import { useAuth } from "../contexts/auth"
-
-const AuthStack = createStackNavigator()
+const AuthStack = createNativeStackNavigator()
 
 const AuthRoutes = () => {
-    const { signOut } = useAuth()
-
     return (
-        <AuthStack.Navigator screenOptions={screenOptions} >
+        <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={'Dashboard'}>
             <AuthStack.Screen name="Dashboard" component={Dashboard} />
+            <AuthStack.Screen name="Wallet" component={Wallet} />
         </AuthStack.Navigator>
     )
 }
