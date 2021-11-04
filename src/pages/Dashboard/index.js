@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import BodyDashboard from './BodyDashboard';
 import HeaderDashboard from './HeaderDashboard';
 
 
@@ -9,6 +10,7 @@ const Dashboard = ({ navigation }) => {
             <HeaderDashboard
                 navigation={navigation}
             />
+            <BodyDashboard />
         </View>
     )
 }

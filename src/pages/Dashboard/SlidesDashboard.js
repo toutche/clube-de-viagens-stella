@@ -26,6 +26,10 @@ const itens = [
     {
         title: 'Gastronomia',
         image: 'https://lojaenoeventos.com.br/imagens/filtros.png'
+    },
+    {
+        title: 'Gastronomia',
+        image: 'https://lojaenoeventos.com.br/imagens/filtros.png'
     }
 ]
 
@@ -39,8 +43,7 @@ const SlidesDashboard = () => {
                     source={{ uri: item.image }}
                 />
             </TouchableOpacity>
-
-            <Text style={styles.title}>{item.title}</Text>
+            <Text numberOfLines={1} style={styles.title}>{item.title}</Text>
         </View>
     )
 
@@ -51,8 +54,8 @@ const SlidesDashboard = () => {
             <FlatList
                 data={itens}
                 horizontal
-                showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={separator}
+                showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
                 contentContainerStyle={styles.contentFlatlist}
                 keyboardShouldPersistTaps={'always'}
@@ -67,6 +70,9 @@ const styles = StyleSheet.create({
         backgroundColor: PRIMARY_COLOR,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    separator: {
+        margin: 2
     },
     imageView: {
         height: 50,
@@ -84,20 +90,21 @@ const styles = StyleSheet.create({
     contentFlatlist: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 12
+        paddingHorizontal: 8
     },
-    separator: {
-        marginHorizontal: 8
-    },
+
     item: {
         justifyContent: 'center',
         alignItems: 'center',
         paddingBottom: 10,
+        width: 60,
     },
     title: {
         color: 'white',
         fontSize: 13,
-        marginTop: 2
+        marginTop: 2,
+        width: '100%',
+        textAlign: 'center',
     }
 })
 
