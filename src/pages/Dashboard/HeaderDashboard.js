@@ -9,7 +9,7 @@ import SlidesDashboard from './SlidesDashboard';
 import ButtonsChoice from './ButtonsChoice';
 
 
-const HeaderDashboard = ({ navigation }) => {
+const HeaderDashboard = ({ navigation, option, setOption }) => {
     return (
         <View style={styles.container}>
             <CustomStatusBar />
@@ -31,7 +31,7 @@ const HeaderDashboard = ({ navigation }) => {
                     containerStyle={styles.iconRight}
                 />
 
-                <ProfileAvatar />
+                <ProfileAvatar title={`Olá Fernanda`} />
             </View>
 
             <SlidesDashboard />
@@ -39,7 +39,10 @@ const HeaderDashboard = ({ navigation }) => {
             <Text style={styles.title}>Hospedagens em locais incríveis</Text>
             <Text style={styles.subTitle}>com preços exclusivos</Text>
 
-            <ButtonsChoice />
+            <ButtonsChoice
+                value={option}
+                onPress={value => setOption(value)}
+            />
         </View>
     )
 }
@@ -50,7 +53,8 @@ const styles = StyleSheet.create({
     },
     profile: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 10
     },
     iconLeft: {
         padding: 10,

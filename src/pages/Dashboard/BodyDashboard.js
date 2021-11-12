@@ -11,6 +11,14 @@ const itens = [
         price: 5999,
         oldPrice: 7999,
         image: 'https://www.submarinoviagens.com.br/bora-nessa-trip/wp-content/uploads/2020/05/maldivas-bangalos-1500-840269698.jpg'
+    },
+    {
+        title: 'Ilhas maldivas - All Inclusive',
+        description: '7 dias | Aéreo + Hotel c/ café da manhã',
+        saveMoney: 2000,
+        price: 5999,
+        oldPrice: 7999,
+        image: 'https://www.submarinoviagens.com.br/bora-nessa-trip/wp-content/uploads/2020/05/maldivas-bangalos-1500-840269698.jpg'
     }
 ]
 
@@ -129,7 +137,6 @@ const BodyDashboard = () => {
             </View>
         </View>
     )
-
 
     const header = () => <Text style={styles.text}>Confirmação e preço sujeito a disponibilidade</Text>
 

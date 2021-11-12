@@ -5,8 +5,11 @@ import { PRIMARY_COLOR } from '../../utils/variables';
 
 
 const ProfileAvatar = ({
+    title = 'Olá User',
     leftSize = 50,
-    credit = 0
+    credit = 0,
+    isHide = false,
+    Plan = 'default'
 }) => {
     const item = 'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg'
 
@@ -22,8 +25,14 @@ const ProfileAvatar = ({
                 />
             </View>
             <View style={styles.right}>
-                <Text style={styles.text}>Olá Fernanda</Text>
-                {credit !== null && <Text style={styles.text}>Crédito: R${formatMoneyToBRL(credit)}</Text>}
+                {isHide &&
+                    <View style={styles.viewHide}>
+                        <Text style={styles.iconHide}>●</Text>
+                        <Text style={styles.textHide}>{Plan}</Text>
+                    </View>
+                }
+                <Text style={[styles.title, isHide && { top: 3 }]}>{title}</Text>
+                {credit !== null && <Text style={[styles.subTitle, isHide && { top: 1 }]}>Crédito: R${formatMoneyToBRL(credit)}</Text>}
             </View>
         </View>
     )
@@ -31,18 +40,48 @@ const ProfileAvatar = ({
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    viewHide: {
+        position: 'absolute',
+        top: -10,
+        left: 22,
+        backgroundColor: '#e8bc0d',
+        paddingVertical: 1,
+        paddingHorizontal: 8,
+        borderRadius: 100,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    iconHide: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: 'white',
+        marginRight: 1,
+    },
+    textHide: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: 'white',
+        marginLeft: 1
+    },
+    title: {
+        fontSize: 12.5,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    subTitle: {
+        fontSize: 11,
+        color: 'white',
     },
     image: {
         flex: 1,
         borderRadius: 100
     },
     left: {
-        zIndex: 1,
-        left: 20,
         borderWidth: 2,
         borderRadius: 100,
         padding: 3,
@@ -51,20 +90,17 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     right: {
+        right: 20,
         justifyContent: 'center',
         paddingHorizontal: 30,
-        paddingVertical: 4,
+        paddingTop: 5,
+        paddingBottom: 5,
         borderTopRightRadius: 30,
         borderBottomRightRadius: 30,
         backgroundColor: '#ef091a',
         borderWidth: 1,
         elevation: 5,
         borderColor: 'rgba(0,0,0,0.01)',
-    },
-    text: {
-        fontSize: 13,
-        fontWeight: 'bold',
-        color: 'white',
     }
 })
 

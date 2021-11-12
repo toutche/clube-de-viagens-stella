@@ -2,19 +2,21 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 
-const ButtonsChoice = () => {
+const ButtonsChoice = ({ value, onPress }) => {
     return (
         <View style={styles.container}>
             <CustomButton
+                onPress={() => onPress(0)}
                 containerStyle={[styles.button, {
-                    backgroundColor: 'transparent'
+                    backgroundColor: value === 0 ? '#cf0110' : 'transparent'
                 }]}
                 titleStyle={styles.text}
                 title={'Pacote de viagens'}
             />
             <CustomButton
+                onPress={() => onPress(1)}
                 containerStyle={[styles.button, {
-                    backgroundColor: '#cf0110'
+                    backgroundColor: value === 1 ? '#cf0110' : 'transparent'
                 }]}
                 titleStyle={styles.text}
                 title={'Hospedagem'}
