@@ -54,10 +54,12 @@ export default ({ navigation }) => {
     useEffect(() => {
         const renderQuestionary = () => {
             api.get('/interesses/listar').then(({ data }) => {
-                setTimeout(() => {
-                    setData(Slides(data))
-                    console.log(data)
-                }, 500)
+                if (data.status !== 'Authorization Token not found') {
+                    setTimeout(() => {
+                        setData(Slides(data))
+                        console.log('renderQuestionary', data)
+                    }, 500)
+                }
             }).catch((e) => {
                 console.log(e)
             })

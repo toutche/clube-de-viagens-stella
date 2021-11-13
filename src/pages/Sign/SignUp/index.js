@@ -3,7 +3,8 @@ import {
   View,
   ScrollView,
   Text,
-  ImageBackground
+  ImageBackground,
+  Alert
 } from "react-native";
 import CustomInput from "../../../components/CustomInput";
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
@@ -15,11 +16,15 @@ import CustomButton from "../../../components/CustomButton";
 import CustomIcon from "../../../components/CustomIcon";
 import CustomAvatar from "../../../components/CustomAvatar";
 import { maskPhone } from '../../../utils/masks'
+import { CheckBox } from 'react-native-elements';
+import { MaterialIcons } from '@expo/vector-icons';
+import { PRIMARY_COLOR } from "../../../utils/variables";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
 export default ({ navigation }) => {
   const { signUp, loadingApi } = useAuth()
+  const [check, setCheck] = useState(false)
 
   const [user, setUser] = useState({
     name: 'eduardo',
@@ -56,6 +61,13 @@ export default ({ navigation }) => {
     }
   }
 
+  const handlerPress = () => {
+    if (check)
+      signUp(user, navigation)
+    else
+      Alert.alert('Aviso', 'Para continuar aceite os termos')
+  }
+
   return (
     <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
@@ -78,7 +90,7 @@ export default ({ navigation }) => {
 
         <CustomAvatar
           handlerPress={pickImage}
-          item={user.image || 'https://www.globaltec.com.br/wp-content/uploads/2021/01/laptop-user-1-1179329.png'}
+          item={user.image || 'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg'}
         />
 
         <CustomInput
@@ -131,8 +143,29 @@ export default ({ navigation }) => {
           })}
         />
 
+        <CheckBox
+          onPress={() => setCheck(!check)}
+          checked={check}
+          title={'Aceitar política de privacidade e termos e condições'}
+          textStyle={{
+            color: 'white',
+            fontSize: 14,
+          }}
+          center
+          size={28}
+          containerStyle={{
+            width: '95%',
+            backgroundColor: 'transparent',
+            borderWidth: 0,
+            marginTop: 0,
+            marginBottom: 10
+          }}
+          checkedIcon={<MaterialIcons name="check-box" size={28} color={'white'} />}
+          uncheckedIcon={<MaterialIcons name="check-box-outline-blank" size={28} color="white" />}
+        />
+
         <CustomButton
-          onPress={() => signUp(user, navigation)}
+          onPress={handlerPress}
           loadingApi={loadingApi}
           containerStyle={Style.button}
           titleStyle={Style.buttonText}

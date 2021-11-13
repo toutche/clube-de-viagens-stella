@@ -29,6 +29,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 100,
         elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
         borderColor: 'rgba(0,0,0,0.01)',
     },
     text: {
@@ -51,6 +55,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 100,
         elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
         borderColor: 'rgba(0,0,0,0.01)'
     },
 })

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react"
+import { Alert } from "react-native";
 import api from "../services/api";
 import { getToken, logout, setToken } from "../services/auth";
 
@@ -28,8 +29,8 @@ export const AuthProvider = ({ children }) => {
                     setRoute('Sign')
                     alert('Seu token expirou, faça login novamente')
                 }).catch((e) => console.log(e))
-            else if (!data.message[0].address)
-                navigation ? navigation.replace('GetLocation') : setRoute('GetLocation')
+            //else if (!data.message[0].address)
+            //navigation ? navigation.replace('GetLocation') : setRoute('GetLocation')
             else
                 api.get("/questionario/listar").then(({ data }) => {
                     if (data.length > 0)
@@ -61,43 +62,26 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const getMimeType = (ext) => {
-        switch (ext) {
-            case 'pdf': return 'application/pdf';
-            case 'jpg': return 'image/jpeg';
-            case 'jpeg': return 'image/jpeg';
-            case 'png': return 'image/png';
-        }
-    }
-
     const signUp = async ({ name, email, password, phone_number, image }, navigation) => {
         if (!loadingApi) {
             setLoadingApi(true)
-            console.log('image', image)
-            let fileUri = image
-            let filename = fileUri.split('/').pop()
-            let extArr = /\.(\w+)$/.exec(filename)
-            let type = getMimeType(extArr[1])
 
-            let formData = new FormData()
-            formData.append('name', name)
-            formData.append('last_name', name)
-            formData.append('email', email)
-            formData.append('password', password)
-            formData.append('password_confirmation', password)
-            formData.append('phone_number', phone_number)
-            formData.append('gender', 'm')
-            formData.append('accept_terms', 'Y')
-            formData.append('accept_privacy', 'Y')
-            formData.append('image', { uri: fileUri, name: filename, type })
-
-            const { data } = await api.post('/cadastrar', formData, {
-                headers: {
-                    'content-type': 'multipart/form-data',
-                },
+            const { data } = await api.post('/cadastrar', {
+                name,
+                last_name: name,
+                email,
+                password,
+                password_confirmation: password,
+                phone_number,
+                gender: 'm',
+                accept_terms: 'Y',
+                accept_privacy: 'Y',
+                image
             })
 
-            console.log(data)
+            if (data.success) navigation.navigate('ConfirmEmail')
+            else if (data.error) Alert.alert('Aviso', `Aconteceu um erro, tente novamente mais tarde  ${data.error.email}`)
+            else Alert.alert('Erro', 'Tente novamente mais tarde')
             setLoadingApi(false)
         }
     }

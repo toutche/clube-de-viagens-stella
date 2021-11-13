@@ -28,9 +28,13 @@ const s = StyleSheet.create({
   icon: {
     position: 'absolute',
     right: 10,
-    top: 6,
-    height: 35,
-    width: 35
+    bottom: '40%',
+    height: '50%',
+    width: undefined,
+    aspectRatio: 1.5
+  },
+  container: {
+    justifyContent: 'center'
   }
 });
 
@@ -92,7 +96,7 @@ export default class CCInput extends Component {
     const Icons = { ...defaultIcons, ...customIcons };
 
     return (
-      <View style={[containerStyle]}>
+      <View style={[containerStyle, s.container]}>
         {!!label && <Text style={s.baseTextStyle}>{label}</Text>}
         <TextInput
           {...additionalInputProps}

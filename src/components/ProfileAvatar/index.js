@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
         borderRadius: 100
     },
     left: {
+        zIndex: 2,
         borderWidth: 2,
         borderRadius: 100,
         padding: 3,
@@ -90,6 +91,10 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     right: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
         right: 20,
         marginRight: -20,
         justifyContent: 'center',
