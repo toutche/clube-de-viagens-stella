@@ -34,16 +34,12 @@ const styles = StyleSheet.create({
     text: {
         left: 10,
         fontSize: 14.5,
-        fontWeight: 'bold',
         color: 'white',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     textButton: {
         fontSize: 14.5,
         color: '#e8bc0d',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     button: {
         paddingVertical: 5,

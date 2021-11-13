@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Image, Text } from 'react-native';
 import CustomButton from '../../components/CustomButton';
+import LikeIcon from '../../components/LikeIcon';
+import FavIcon from '../../components/FavIcon';
 import { formatMoneyToBRL } from '../../utils/index'
 
 const itens = [
@@ -10,7 +12,7 @@ const itens = [
         saveMoney: 2000,
         price: 5999,
         oldPrice: 7999,
-        image: 'https://www.submarinoviagens.com.br/bora-nessa-trip/wp-content/uploads/2020/05/maldivas-bangalos-1500-840269698.jpg'
+        image: 'https://cf.bstatic.com/xdata/images/hotel/max500/287247695.jpg?k=9e970ba4942b0de846312e33881dc3e4559a98df343748bb02d3a7cdc617b9bf&o=&hp=1'
     },
     {
         title: 'Ilhas maldivas - All Inclusive',
@@ -31,6 +33,9 @@ const BodyDashboard = () => {
                 style={styles.image}
                 source={{ uri: item.image }}
             />
+            <FavIcon />
+
+            <LikeIcon />
 
             <View style={styles.bodyItem}>
 
@@ -140,14 +145,12 @@ const BodyDashboard = () => {
 
     const header = () => <Text style={styles.text}>Confirmação e preço sujeito a disponibilidade</Text>
 
-    const separator = () => <View style={styles.separator} />
 
     return (
         <View style={styles.container}>
             <FlatList
                 data={itens}
                 ListHeaderComponent={header}
-                ItemSeparatorComponent={separator}
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
                 contentContainerStyle={styles.contentFlatlist}
@@ -193,8 +196,8 @@ const styles = StyleSheet.create({
         top: -30
     },
     bodyItem: {
-        width: '85%',
-        top: '-8%',
+        width: '82%',
+        top: -30,
         paddingTop: 35,
         paddingBottom: 5,
         backgroundColor: 'white',
@@ -212,9 +215,6 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         color: '#777'
     },
-    separator: {
-        margin: 2
-    },
     containerFlatlist: {
 
     },
@@ -223,8 +223,9 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '90%',
-        height: 200,
-        borderRadius: 15
+        height: undefined,
+        aspectRatio: 1.5,
+        borderRadius: 20
     },
     containerButtons: {
         height: 40,

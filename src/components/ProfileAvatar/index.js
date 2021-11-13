@@ -6,10 +6,10 @@ import { PRIMARY_COLOR } from '../../utils/variables';
 
 const ProfileAvatar = ({
     title = 'Olá User',
-    leftSize = 50,
+    leftSize = 55,
     credit = 0,
     isHide = false,
-    Plan = 'default'
+    Plan = 'Ouro'
 }) => {
     const item = 'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg'
 
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     viewHide: {
         position: 'absolute',
@@ -63,18 +63,18 @@ const styles = StyleSheet.create({
         marginRight: 1,
     },
     textHide: {
-        fontSize: 10,
+        fontSize: 11,
         fontWeight: 'bold',
         color: 'white',
         marginLeft: 1
     },
     title: {
-        fontSize: 12.5,
+        fontSize: 13,
         fontWeight: 'bold',
         color: 'white',
     },
     subTitle: {
-        fontSize: 11,
+        fontSize: 12,
         color: 'white',
     },
     image: {
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     },
     right: {
         right: 20,
+        marginRight: -20,
         justifyContent: 'center',
         paddingHorizontal: 30,
         paddingTop: 5,

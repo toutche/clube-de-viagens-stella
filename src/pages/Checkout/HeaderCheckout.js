@@ -8,7 +8,7 @@ import { PRIMARY_COLOR } from '../../utils/variables';
 import InsertCupom from './InsertCupom';
 import SubscribeNow from './SubscribeNow';
 
-const HeaderCheckout = () => {
+const HeaderCheckout = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <CustomStatusBar />
@@ -23,9 +23,10 @@ const HeaderCheckout = () => {
 
             <View style={styles.header}>
                 <ProfileAvatar
-                    title={`Olá Fernanda`}
+                    title={`Fernanda Lima`}
                     isHide
                 />
+                <View style={styles.separator} />
                 <SubscribeNow />
             </View>
 
@@ -39,6 +40,9 @@ const HeaderCheckout = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: PRIMARY_COLOR,
+    },
+    separator: {
+        marginHorizontal: 5
     },
     header: {
         paddingBottom: 5,

@@ -3,12 +3,10 @@ import { View } from 'react-native';
 import BodyCheckout from './BodyCheckout';
 import HeaderCheckout from './HeaderCheckout';
 
-// import { Container } from './styles';
-
-const Checkout = () => {
+const Checkout = ({ navigation }) => {
     return (
-        <View>
-            <HeaderCheckout />
+        <View style={{ flex: 1 }}>
+            <HeaderCheckout navigation={navigation} />
             <BodyCheckout />
         </View>
     )

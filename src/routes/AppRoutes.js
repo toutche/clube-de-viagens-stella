@@ -9,7 +9,7 @@ const AuthStack = createNativeStackNavigator()
 
 const AuthRoutes = () => {
     return (
-        <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={'Checkout'}>
+        <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={'Dashboard'}>
             <AuthStack.Screen name="Dashboard" component={Dashboard} />
             <AuthStack.Screen name="Checkout" component={Checkout} />
             <AuthStack.Screen name="Wallet" component={Wallet} />

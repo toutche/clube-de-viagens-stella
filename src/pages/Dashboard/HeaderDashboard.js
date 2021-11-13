@@ -17,7 +17,7 @@ const HeaderDashboard = ({ navigation, option, setOption }) => {
             <View style={styles.profile}>
                 <CustomIcon
                     size={22}
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate('Checkout')}
                     type={SimpleLineIcons}
                     name={'menu'}
                     containerStyle={styles.iconLeft}
@@ -25,7 +25,7 @@ const HeaderDashboard = ({ navigation, option, setOption }) => {
 
                 <CustomIcon
                     size={26}
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate('Wallet')}
                     type={Ionicons}
                     name={'notifications-outline'}
                     containerStyle={styles.iconRight}
