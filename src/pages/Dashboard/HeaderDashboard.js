@@ -9,7 +9,7 @@ import SlidesDashboard from './SlidesDashboard';
 import ButtonsChoice from './ButtonsChoice';
 
 
-const HeaderDashboard = ({ navigation, option, setOption }) => {
+const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
     return (
         <View style={styles.container}>
             <CustomStatusBar />
@@ -17,7 +17,7 @@ const HeaderDashboard = ({ navigation, option, setOption }) => {
             <View style={styles.profile}>
                 <CustomIcon
                     size={22}
-                    onPress={() => navigation.navigate('Checkout')}
+                    onPress={menuOpen}
                     type={SimpleLineIcons}
                     name={'menu'}
                     containerStyle={styles.iconLeft}

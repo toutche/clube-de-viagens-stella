@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 8
     },
-
     item: {
         justifyContent: 'center',
         alignItems: 'center',
