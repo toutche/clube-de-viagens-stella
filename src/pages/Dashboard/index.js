@@ -14,7 +14,9 @@ const Dashboard = ({ navigation }) => {
                 setOption={value => setOption(value)}
                 navigation={navigation}
             />
-            <BodyDashboard />
+            <BodyDashboard
+                display={option}
+            />
         </View>
     )
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Image, Text } from 'react-native';
-import CustomButton from '../../components/CustomButton';
-import LikeIcon from '../../components/LikeIcon';
-import FavIcon from '../../components/FavIcon';
-import { formatMoneyToBRL } from '../../utils/index'
+import { View, FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import ListItem from '../../components/ListItem';
+import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { PRIMARY_COLOR } from '../../utils/variables';
 
 const itens = [
     {
@@ -25,137 +24,42 @@ const itens = [
 ]
 
 
-const BodyDashboard = () => {
+const BodyDashboard = ({
+    display = 1
+}) => {
 
-    const renderRow = ({ item, index }) => (
-        <View style={styles.containerItem}>
-            <Image
-                style={styles.image}
-                source={{ uri: item.image }}
-            />
-            <FavIcon />
+    const Item = (title, icon, name, size, left) => {
+        const Icon = icon
+        return (
+            <TouchableOpacity style={styles.button}>
+                <Icon name={name} size={size} color={PRIMARY_COLOR} />
+                <Text style={[styles.textButton, { marginLeft: left }]}>{title}</Text>
+            </TouchableOpacity>
+        )
+    }
 
-            <LikeIcon />
-
-            <View style={styles.bodyItem}>
-
-                <View style={styles.priceItem}>
-
-                    <View style={styles.saveMoneyItem}>
-                        <Text style={styles.textSaveMoney}>Economize até R$ {formatMoneyToBRL(item.saveMoney)}</Text>
-                    </View>
-
-                    <View style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}>
-                        <Text style={{
-                            color: '#777',
-                            fontSize: 15
-                        }}>R$ {formatMoneyToBRL(item.oldPrice)}</Text>
-
-                        <Text style={{
-                            fontSize: 10,
-                            color: '#287dfd',
-                            marginHorizontal: 2
-                        }}>●</Text>
-
-                        <Text style={{
-                            color: '#287dfd',
-                            fontSize: 15
-                        }}>R$ {formatMoneyToBRL(item.price)}</Text>
-
-                        <Text style={{
-                            fontSize: 16,
-                            color: '#287dfd',
-                            marginHorizontal: 3,
-                            bottom: 1
-                        }}>|</Text>
-
-                        <View style={{
-                            bottom: 1.5
-                        }}>
-                            <Text style={{
-                                fontSize: 10,
-                                marginBottom: -2,
-                                color: '#287dfd'
-                            }}>por</Text>
-                            <Text style={{
-                                fontSize: 10,
-                                marginTop: -2,
-                                color: '#287dfd'
-                            }}>pessoa</Text>
-                        </View>
-                    </View>
-                    <Text style={{
-                        color: '#777',
-                        fontSize: 12,
-                        marginTop: -4
-                    }}>Preço exclusivo para membros</Text>
-                </View>
-
-                <View style={{
-                    borderBottomWidth: 1,
-                    marginHorizontal: 15,
-                    borderColor: '#d1d1d1',
-                    marginBottom: 10,
-                    paddingBottom: 5
-                }}>
-                    <Text style={{
-                        fontSize: 14,
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                        color: '#444'
-                    }}>{item.title}</Text>
-
-                    <Text style={{
-                        color: '#777',
-                        fontSize: 13,
-                        textAlign: 'center'
-                    }}>{item.description}</Text>
-                </View>
-
-                <View style={styles.containerButtons}>
-                    <CustomButton
-                        containerStyle={[styles.button, {
-                            backgroundColor: 'white',
-                            borderColor: '#d1d1d1',
-                            borderWidth: 1,
-                            flex: 0.35
-                        }]}
-                        titleStyle={[styles.textButton, {
-                            color: '#287dfd'
-                        }]}
-                        title={'Detalhes'}
-                    />
-                    <CustomButton
-                        containerStyle={[styles.button, {
-                            backgroundColor: '#287dfd',
-                            flex: 0.55
-                        }]}
-                        titleStyle={styles.textButton}
-                        title={'Faça parte do Clube'}
-                    />
-                </View>
-
-                <Text style={styles.textFooterItem}>Total para 2 viajantes R$11.888,00</Text>
+    const ListHeaderItem = () => (
+        <>
+            <View style={styles.containerButtons}>
+                {Item('Local', MaterialCommunityIcons, 'map-marker-outline', 22, 0)}
+                {Item('Data', MaterialCommunityIcons, 'calendar-month', 22, 1)}
+                {Item('Pessoas', SimpleLineIcons, 'user', 18, 3)}
             </View>
-        </View>
+            <Text style={styles.text}>
+                Confirmação e preço sujeito a disponibilidade
+            </Text>
+        </>
     )
-
-    const header = () => <Text style={styles.text}>Confirmação e preço sujeito a disponibilidade</Text>
-
 
     return (
         <View style={styles.container}>
             <FlatList
                 data={itens}
-                ListHeaderComponent={header}
+                ListHeaderComponent={ListHeaderItem}
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
-                contentContainerStyle={styles.contentFlatlist}
                 keyboardShouldPersistTaps={'always'}
-                renderItem={renderRow}
+                renderItem={({ item, index }) => ListItem({ item, index, display })}
             />
         </View>
     )
@@ -164,50 +68,7 @@ const BodyDashboard = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    saveMoneyItem: {
-        backgroundColor: '#12aaeb',
-        position: 'absolute',
-        width: '80%',
-        height: 25,
-        borderRadius: 100,
-        alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        top: -12.5
-    },
-    textSaveMoney: {
-        color: 'white',
-        fontSize: 11.5,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    priceItem: {
-        backgroundColor: 'white',
-        position: 'absolute',
-        paddingTop: 15,
-        paddingBottom: 5,
-        elevation: 5,
-        width: '80%',
-        borderRadius: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        top: -30
-    },
-    bodyItem: {
-        width: '82%',
-        top: -30,
-        paddingTop: 35,
-        paddingBottom: 5,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        elevation: 2
-    },
-    textFooterItem: {
-        color: '#44aa43',
-        textAlign: 'center',
-        marginVertical: 10
+        backgroundColor: '#e1e1e1'
     },
     text: {
         textAlign: 'center',
@@ -215,33 +76,26 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         color: '#777'
     },
-    containerFlatlist: {
-
-    },
-    containerItem: {
-        alignItems: 'center',
-    },
-    image: {
-        width: '90%',
-        height: undefined,
-        aspectRatio: 1.5,
-        borderRadius: 20
-    },
     containerButtons: {
-        height: 40,
-        justifyContent: 'space-evenly',
         flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        marginTop: 15,
+        width: '95%',
+        alignSelf: 'center'
     },
     button: {
-        height: '100%',
-        borderRadius: 100,
-        justifyContent: 'center',
+        flexDirection: 'row',
         alignItems: 'center',
+        borderRadius: 100,
+        width: '30%',
+        maxWidth: 150,
+        paddingVertical: 8,
+        justifyContent: 'center',
+        backgroundColor: 'white'
     },
     textButton: {
-        fontSize: 15,
-        color: 'white',
-        fontWeight: 'bold'
+        textAlign: 'center',
+        fontSize: 13.5
     }
 })
 

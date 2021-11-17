@@ -36,8 +36,8 @@ const HeaderDashboard = ({ navigation, option, setOption }) => {
 
             <SlidesDashboard />
 
-            <Text style={styles.title}>Hospedagens em locais incríveis</Text>
-            <Text style={styles.subTitle}>com preços exclusivos</Text>
+            <Text style={styles.title}>{option === 0 ? 'Conquiste as suas férias dos sonhos' : 'Hospedagens em locais incríveis'}</Text>
+            <Text style={styles.subTitle}>{option === 0 ? 'Pacotes com preços exclusivos' : 'com preços exclusivos'}</Text>
 
             <ButtonsChoice
                 value={option}
