@@ -22,21 +22,14 @@ import {
     WIDTH
 } from "../../../utils/variables";
 
-import api from "../../../services/api";
-import { loginSetToken, getToken } from "../../../services/auth";
-import CustomInput from "../../../components/CustomInput";
-import CustomButton from "../../../components/CustomButton";
-
-import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
 import Copyright from "../../../components/Copyright";
-import CustomIcon from "../../../components/CustomIcon";
 import InputConfirm from './InputConfirm'
 
 const titlePage = "Insira seu código"
 const subtitlePage = "Precisamos confirmar o seu e-mail.\nPor favor, insira o código enviado de 4 dígitos."
 
+const ConfirmEmail = ({ navigation }) => {
 
-const ConfirmEmail = () => {
     return (
         <ScrollView style={Style.container} contentContainerStyle={Style.content}>
 
@@ -49,7 +42,16 @@ const ConfirmEmail = () => {
                 <Text style={Style.subtitle}>{subtitlePage}</Text>
 
                 <InputConfirm
+                    navigation={navigation}
                 />
+
+                <Text style={Style.quest}>Não recebeu o nosso e-mail?</Text>
+
+                <TouchableOpacity style={Style.buttonResend}>
+                    <Text style={Style.resend}>Reenviar Código</Text>
+                </TouchableOpacity>
+
+                <Text style={Style.text}>*Caso não esteja visualizando nosso e-mail na sua Caixa de Entrada, pode ser que tenha ido para sua caixa de Spam ou Lixo Eletrônico!</Text>
 
             </View>
 
@@ -91,56 +93,26 @@ const Style = StyleSheet.create({
     text: {
         color: TEXT_COLOR_BKCOLORFUL,
         fontSize: FONT_SIZE_BODY,
-        textTransform: 'uppercase'
+        paddingTop: 20,
+        textAlign: 'center'
     },
-    containerButtons: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: 'center',
-        width: '100%'
-    },
-    containerSignButtons: {
-        width: '100%'
-    },
-    buttonSocial: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 50,
-        width: '47%',
-        borderRadius: 25,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-    },
-    button: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 50,
-        borderRadius: 25,
-        borderColor: TEXT_COLOR_BKCOLORFUL,
-        borderWidth: 1.5,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-    },
-    buttonText: {
-        paddingHorizontal: 5,
+    quest: {
         color: TEXT_COLOR_BKCOLORFUL,
+        opacity: 0.9,
+        fontSize: 13,
+        textAlign: 'center',
+        paddingTop: 10,
+    },
+    buttonResend: {
+        padding: 10,
+        marginTop: -5,
+    },
+    resend: {
+        color: TEXT_COLOR_BKCOLORFUL,
+        opacity: 0.9,
+        textDecorationLine: 'underline',
         fontSize: 12,
-        textAlign: "center",
-        textTransform: "uppercase",
-    },
-    containerSeparator: {
-        marginVertical: 20,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    separator: {
-        height: 1,
-        width: 100,
-        backgroundColor: SECOND_COLOR,
-        marginHorizontal: 15
+        textAlign: 'center'
     }
 })
 

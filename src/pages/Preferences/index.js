@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import AnimatedCarousel from './AnimatedCarousel';
@@ -7,27 +7,94 @@ import CustomIcon from '../../components/CustomIcon';
 import TextWelcome from './TextWelcome';
 import Copyright from '../../components/Copyright';
 import CustomAvatar from '../../components/CustomAvatar';
+import { useAuth } from '../../contexts/auth';
+import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from '../../utils/variables';
+import api from '../../services/api';
+
+const Slides = data => ([
+    {
+        text: 'Você costuma fazer viagens em família?',
+        toast: 'Família',
+        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
+    },
+    {
+        text: 'Você normalmente viaja pelo Brasil?',
+        toast: 'Destino nacional',
+        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
+    },
+    {
+        text: 'Suas viagens duram mais de 4 dias?',
+        toast: 'Tempo de viagem',
+        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
+    },
+    {
+        text: 'Consegue viajar mais de uma vez ao ano?',
+        toast: 'Frêquencia de viagem',
+        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
+    },
+    {
+        text: 'Em suas viagens, você costuma se hospedar em hotéis econômicos?',
+        toast: 'Hotéis econômicos',
+        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
+    },
+
+    {
+        title: 'Estamos finalizando!',
+        subTitle: 'Só mais uma pergunta! Para que possamos entender um pouco mais do seu perfil, conte-nos sobre seus interesses e os meses que normalmente você faz as suas viagens?',
+        note: 'Selecione quantos desejar :)',
+        activitiesText: 'Atividades',
+        activities: data
+    }
+])
 
 export default ({ navigation }) => {
+    const { user } = useAuth()
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        const renderQuestionary = () => {
+            api.get('/interesses/listar').then(({ data }) => {
+                if (data.status !== 'Authorization Token not found') {
+                    setTimeout(() => {
+                        setData(Slides(data))
+                        console.log('renderQuestionary', data)
+                    }, 500)
+                }
+            }).catch((e) => {
+                console.log(e)
+            })
+        }
+        renderQuestionary()
+    }, [])
+
+    if (data.length === 0) return (
+        <View style={styles.container}>
+            <ActivityIndicator color={'white'} size={'large'} />
+        </View>
+    )
+
     return (
         <View style={styles.container}>
             <CustomIcon
                 size={26}
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.goBack() || navigation.replace('Sign')}
                 type={AntDesign}
                 name={'arrowleft'}
                 containerStyle={styles.icon}
             />
             <CustomAvatar
                 containerStyle={styles.avatar}
-                item={'https://www.lance.com.br/files/article_main/uploads/2021/02/28/603bdef934423.jpeg'}
+                item={user?.image || 'https://www.globaltec.com.br/wp-content/uploads/2021/01/laptop-user-1-1179329.png'}
             />
             <TextWelcome
                 textStyle={styles.text}
-                title={'Tudo bem Jéssica?'}
+                title={`Tudo bem ${user?.name}?`}
                 subTitle={'Queremos saber mais sobre você :)'}
             />
-            <AnimatedCarousel />
+            <AnimatedCarousel
+                data={data}
+                navigation={navigation}
+            />
             <Copyright display={1} />
         </View>
     )
@@ -38,7 +105,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red',
+        backgroundColor: PRIMARY_COLOR,
     },
     avatar: {
         width: 70,
@@ -48,7 +115,7 @@ const styles = StyleSheet.create({
         marginBottom: 0
     },
     text: {
-        color: 'white',
+        color: TEXT_COLOR_BKCOLORFUL,
         fontSize: 15
     },
     icon: {

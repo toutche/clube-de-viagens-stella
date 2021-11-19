@@ -4,6 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import OverflowButton from './OverflowButton';
 import ChoiceButtons from './ChoiceButtons';
+import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from '../../utils/variables';
 
 const Slides = [
     {
@@ -48,7 +49,7 @@ export default ({ navigation }) => {
     const ListRef = useRef(null)
     const scrollX = useRef(new Animated.Value(0)).current
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current
-    const viewChanged = useCallback(({ viewableItems, changed }) => {
+    const viewChanged = useRef(({ viewableItems, changed }) => {
         setIndex(viewableItems[0].index)
     }, [])
 
@@ -63,7 +64,7 @@ export default ({ navigation }) => {
                 ref={ListRef}
                 data={data}
                 viewabilityConfig={viewConfig}
-                onViewableItemsChanged={viewChanged}
+                onViewableItemsChanged={viewChanged.current}
                 keyExtractor={(_, index) => String(index)}
                 onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
                     useNativeDriver: false,
@@ -115,7 +116,7 @@ export default ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: PRIMARY_COLOR,
         height: '100%'
     },
     content: {
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         fontSize: 20,
-        color: 'white',
+        color: TEXT_COLOR_BKCOLORFUL,
         fontWeight: 'bold',
         marginTop: 15,
         marginBottom: 5
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
     text: {
         textAlign: 'center',
         fontSize: 14.5,
-        color: 'white',
+        color: TEXT_COLOR_BKCOLORFUL,
         marginBottom: 5,
         opacity: 0.8
     }

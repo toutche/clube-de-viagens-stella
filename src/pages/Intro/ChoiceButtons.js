@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 
+import {
+    PRIMARY_COLOR
+} from "../../utils/variables";
+
 const ChoiceButtons = ({ data, index, onPress }) => {
     return (
         <View style={styles.container}>
@@ -13,27 +17,27 @@ const ChoiceButtons = ({ data, index, onPress }) => {
                         borderWidth: !bool ? 1 : 0
                     }]} key={key}>
                         <Text style={[styles.text, {
-                            color: bool ? 'red' : 'white'
+                            color: bool ? PRIMARY_COLOR : 'white'
                         }]}>{item.button}</Text>
                     </TouchableOpacity>
                 )
             })}
-        </View >
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         flex: 1,
         width: '100%',
-        paddingHorizontal: 15,
         alignSelf: 'center',
         flexDirection: 'row',
         marginTop: 10,
     },
     button: {
-        paddingHorizontal: 25,
+        paddingHorizontal: 20,
+        marginHorizontal: 7,
         borderColor: 'white',
         borderRadius: 100,
         height: 40,

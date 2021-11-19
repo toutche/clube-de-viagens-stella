@@ -1,107 +1,71 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { FlatList, useWindowDimensions, Animated, View, StyleSheet, SafeAreaView, Text } from 'react-native';
-import { FlingGestureHandler, Directions, State } from 'react-native-gesture-handler';
+import { useAuth } from '../../contexts/auth';
+import api from '../../services/api';
+import { PRIMARY_COLOR } from '../../utils/variables';
 
 import OverflowButton from './OverflowButton';
 import RenderSlides from './RenderSlides';
 
-const Slides = [
-    {
-        text: 'Você costuma fazer viagens em família?',
-        toast: 'Família',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
-    {
-        text: 'Você normalmente viaja pelo Brasil?',
-        toast: 'Destino nacional',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
-    {
-        text: 'Suas viagens duram mais de 4 dias?',
-        toast: 'Tempo de viagem',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
-    {
-        text: 'Consegue viajar mais de uma vez ao ano?',
-        toast: 'Frêquencia de viagem',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
-    {
-        text: 'Em suas viagens, você costuma se hospedar em hotéis econômicos?',
-        toast: 'Hotéis econômicos',
-        poster: 'https://mfiles.alphacoders.com/806/806684.jpg'
-    },
 
-    {
-        title: 'Estamos finalizando!',
-        subTitle: 'Só mais uma pergunta! Para que possamos entender um pouco mais do seu perfil, conte-nos sobre seus interesses e os meses que normalmente você faz as suas viagens?',
-        note: 'Selecione quantos desejar :)',
-        activitiesText: 'Atividades',
-        activities: [
-            {
-                name: 'Praia',
-                id: 2,
-                check: true
-            },
-            {
-                name: 'Montanha',
-                check: false
-            },
-            {
-                name: 'Natureza',
-                check: true
-            },
-            {
-                name: 'Gastronomia',
-                check: false
-            },
-            {
-                name: 'Resort',
-                check: false
-            }
-        ]
-    }
-]
-
-export default () => {
+export default ({ data = [], navigation }) => {
+    const { questionary, loadingApi } = useAuth()
     const { width, height } = useWindowDimensions()
 
     const ITEM_WIDTH = width * 0.8
     const ITEM_HEIGHT = height * 0.5
 
-    const [data, setData] = useState(Slides)
     const [index, setIndex] = useState(0)
-
+    const [questions, setQuestions] = useState([])
+    const [refreshing, setRefreshing] = useState(false)
 
     const ListRef = useRef(null)
     const scrollX = useRef(new Animated.Value(0)).current
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current
-    const viewChanged = useCallback(({ viewableItems, changed }) => {
+    const viewChanged = useRef(({ viewableItems, changed }) => {
         setIndex(viewableItems[0].index)
     }, [])
 
+    const checkItem = index => {
+        let list = data[5]
+        list.activities[index].check = !list.activities[index].check
+        setRefreshing(!refreshing)
+    }
 
     const pressCheck = () => {
+        let array = questions.slice()
+        array[index] = true
+        setQuestions(array)
         ListRef.current.scrollToIndex({ animated: true, index: index + 1, viewPosition: 0 })
     }
 
     const pressClose = () => {
+        let array = questions.slice()
+        array[index] = false
+        setQuestions(array)
         ListRef.current.scrollToIndex({ animated: true, index: index + 1, viewPosition: 0 })
     }
 
-    const jumpButton = () => {
-        ListRef.current.scrollToIndex({ animated: false, index: 5, viewPosition: 0 })
-        setIndex(5)
+    const handlerPress = () => {
+        if (index === 5)
+            questionary(
+                questions,
+                data[5].activities
+            )
+        else {
+            ListRef.current.scrollToIndex({ animated: false, index: 5, viewPosition: 0 })
+            setIndex(5)
+        }
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.index}>{index + 1} de {Slides.length}</Text>
+            <Text style={styles.index}>{index + 1} de {data.length}</Text>
             <FlatList
                 ref={ListRef}
                 data={data}
                 viewabilityConfig={viewConfig}
-                onViewableItemsChanged={viewChanged}
+                onViewableItemsChanged={viewChanged.current}
                 keyExtractor={(_, index) => String(index)}
                 onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
                     useNativeDriver: false,
@@ -149,15 +113,17 @@ export default () => {
                                 ITEM_HEIGHT={ITEM_HEIGHT}
                                 pressCheck={pressCheck}
                                 pressClose={pressClose}
+                                checkItem={checkItem}
                             />
                         </>
                     )
                 }}
             />
             <OverflowButton
-                data={Slides}
+                loadingApi={loadingApi}
+                data={data}
                 index={index}
-                onPress={jumpButton}
+                onPress={handlerPress}
             />
         </SafeAreaView>
 
@@ -170,7 +136,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'red',
+        backgroundColor: PRIMARY_COLOR,
     },
     index: {
         color: '#ffd4d5',

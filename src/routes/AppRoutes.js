@@ -1,21 +1,26 @@
 import React from "react"
-import { createStackNavigator } from "@react-navigation/stack"
-import { TouchableOpacity, Text } from "react-native"
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Dashboard from "../pages/Dashboard"
+import Wallet from "../pages/Wallet"
+import Checkout from "../pages/Checkout"
+import Details from "../pages/Details";
 
-import { useAuth } from "../contexts/auth"
-
-const AuthStack = createStackNavigator()
+const AuthStack = createNativeStackNavigator()
 
 const AuthRoutes = () => {
-    const { signOut } = useAuth()
-
     return (
-        <AuthStack.Navigator>
+        <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={'Dashboard'}>
             <AuthStack.Screen name="Dashboard" component={Dashboard} />
+            <AuthStack.Screen name="Details" component={Details} />
+            <AuthStack.Screen name="Checkout" component={Checkout} />
+            <AuthStack.Screen name="Wallet" component={Wallet} />
         </AuthStack.Navigator>
     )
+}
+
+const screenOptions = {
+    headerShown: false
 }
 
 export default AuthRoutes

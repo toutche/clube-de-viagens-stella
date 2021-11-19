@@ -37,7 +37,7 @@ export default ({ navigation }) => {
 
         <View style={Style.containerButtons}>
           <CustomButton
-            onPress={() => navigation.navigate("TermsConditions"/*"Localization"*/)}
+            onPress={() => navigation.navigate("PrivacyPolicy")}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#4167B2" }]}
             titleStyle={[Style.buttonText, { marginLeft: 5 }]}
             title={'Facebook'}
@@ -48,7 +48,7 @@ export default ({ navigation }) => {
           />
 
           <CustomButton
-            onPress={() => navigation.navigate("Preferences"/*"Localization"*/)}
+            onPress={() => navigation.navigate("Preferences")}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#fbbc05" }]}
             titleStyle={Style.buttonText}
             title={'Google'}
@@ -101,7 +101,7 @@ const Style = StyleSheet.create({
     flexGrow: 1
   },
   image: {
-    aspectRatio: 1
+    aspectRatio: 1.1
   },
   body: {
     flex: 1,

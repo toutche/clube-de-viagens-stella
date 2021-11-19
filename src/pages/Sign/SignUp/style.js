@@ -50,7 +50,6 @@ export default StyleSheet.create({
     alignItems: "center",
     height: 50,
     width: '100%',
-    marginTop: 15,
     borderRadius: 25,
     borderColor: TEXT_COLOR_BKCOLORFUL,
     backgroundColor: TEXT_COLOR_BKCOLORFUL,

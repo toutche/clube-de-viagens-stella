@@ -4,7 +4,16 @@ import CustomIcon from '../../components/CustomIcon';
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import { CheckBox } from 'react-native-elements';
 
-const RenderSlides = ({ item, index, pressCheck, pressClose, ITEM_WIDTH, ITEM_HEIGHT, width }) => {
+const RenderSlides = ({
+    item,
+    index,
+    pressCheck,
+    pressClose,
+    checkItem,
+    ITEM_WIDTH,
+    ITEM_HEIGHT,
+    width
+}) => {
 
     const renderModelOne = () => (
         <View style={{
@@ -25,14 +34,16 @@ const RenderSlides = ({ item, index, pressCheck, pressClose, ITEM_WIDTH, ITEM_HE
                     borderTopRightRadius: 12
                 }}
             />
+
             <Text style={styles.toast}>{item.toast}</Text>
             <Text style={styles.text}>{item.text}</Text>
+
             <View style={styles.viewButtons}>
                 <CustomIcon
                     onPress={pressClose}
                     type={AntDesign}
                     color={'#e10717'}
-                    size={28}
+                    size={30}
                     name={'close'}
                     containerStyle={styles.icon}
                 />
@@ -40,7 +51,7 @@ const RenderSlides = ({ item, index, pressCheck, pressClose, ITEM_WIDTH, ITEM_HE
                     onPress={pressCheck}
                     type={AntDesign}
                     color={'#287dfd'}
-                    size={28}
+                    size={30}
                     name={'check'}
                     containerStyle={styles.icon}
                 />
@@ -62,10 +73,11 @@ const RenderSlides = ({ item, index, pressCheck, pressClose, ITEM_WIDTH, ITEM_HE
             <Text style={styles.activitiesText}>{item.activitiesText} <Text style={styles.subActivitiesText}>({item.activities.length})</Text></Text>
 
             <ScrollView style={styles.ScrollViewMap}>
-                {item.activities.map((it, ind) => {
+                {item.activities.map((it, id) => {
                     return (
                         <CheckBox
-                            key={ind}
+                            onPress={() => checkItem(id)}
+                            key={id}
                             title={it.name}
                             checked={it.check}
                             textStyle={{
@@ -124,6 +136,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flex: 1,
+        marginBottom: 5
     },
     icon: {
         borderWidth: 1,

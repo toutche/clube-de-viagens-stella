@@ -2,19 +2,19 @@ import * as React from "react";
 import { View, Text, StyleSheet, ScrollView, ImageBackground } from "react-native";
 import { AntDesign, Fontisto, FontAwesome } from '@expo/vector-icons';
 
-import Title from "../../common/titleInternal"
 import CustomIcon from "../../components/CustomIcon";
 import {
   PRIMARY_COLOR,
-  WIDTH,
   TEXT_COLOR_BKCOLORFUL,
   FONT_SIZE_SUBTITLE,
   FONT_SIZE_BODY
 } from "../../utils/variables";
 import Copyright from "../../components/Copyright";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import CustomButton from "../../components/CustomButton";
 
 const image = require("../../../assets/header/TermsAndPolicy.jpg")
+import { useAuth } from "../../contexts/auth";
 
 const titlePage = "Termos e condições de uso"
 
@@ -42,6 +42,7 @@ const box3 = "Tentar descompilar ou fazer engenharia reversa de qualquer\
 
 export default ({ navigation }) => {
 
+  const { loadingApi, updateUser } = useAuth()
 
   return (
     <ScrollView style={Style.container}>
@@ -97,6 +98,14 @@ export default ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
+      <CustomButton
+        onPress={() => updateUser({ accept_terms: true }, navigation)}
+        loadingApi={loadingApi}
+        containerStyle={Style.button}
+        titleStyle={Style.buttonText}
+        title={'Aceitar'}
+      />
+
       <Copyright display={1} />
 
     </ScrollView>
@@ -108,6 +117,27 @@ const Style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: PRIMARY_COLOR,
+  },
+  button: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: 'center',
+    height: 50,
+    width: '80%',
+    marginTop: 15,
+    borderRadius: 25,
+    borderColor: TEXT_COLOR_BKCOLORFUL,
+    backgroundColor: TEXT_COLOR_BKCOLORFUL,
+    borderWidth: 1,
+  },
+  buttonText: {
+    paddingHorizontal: 5,
+    color: PRIMARY_COLOR,
+    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: "center",
+    textTransform: "uppercase",
   },
   image: {
     aspectRatio: 1.5

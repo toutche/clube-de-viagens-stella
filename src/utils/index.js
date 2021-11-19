@@ -5,3 +5,6 @@ export const copyrightSwitch = option => {
         default: return `Sorry, we are out of ${option}.`
     }
 }
+
+export const formatMoneyToBRL = money => money.toFixed(2).toString().replace('.', ',')
+

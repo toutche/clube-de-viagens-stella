@@ -5,42 +5,52 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import CustomIcon from "../../components/CustomIcon";
 import {
     PRIMARY_COLOR,
-    WIDTH,
     TEXT_COLOR_BKCOLORFUL,
     FONT_SIZE_SUBTITLE,
     FONT_SIZE_BODY
 } from "../../utils/variables";
 
 import Copyright from "../../components/Copyright";
+import Item1 from './items/item1';
+import Item2 from './items/item2';
+import Item3 from './items/item3';
+import Item4 from './items/item4';
+import Item5 from './items/item5';
+import Item6 from './items/item6';
+import Item7 from './items/item7';
+import Item8 from './items/item8';
+import Item9 from './items/item9';
+import Item10 from './items/item10';
+import Item11 from './items/item11';
+import Item12 from './items/item12';
+import Item13 from './items/item13';
+import Item14 from './items/item14';
+
 
 const image = require("../../../assets/header/TermsAndPolicy.jpg")
-
 const titlePage = "Política de Privacidade"
 
-const titleTerm1 = "1. Termos"
-const term1 = "Ao acessar o site Stella Barros, concorda em cumprir estes termos de serviços.\
-  Todas as leis e regulamentos aplicáveis e concorda que é responsável pelo cumprimento\
-  de todas as leis locais aplicáveis. Se você não concordar com algum desses termos,\
-  está proíbido de usar ou acessar este site. Os materiais contidos neste site são\
-  protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis."
+const text1 = 'Este site e aplicativo são mantidos e operados por Assetur Viagens e Tursimo Ltda, \
+neste documento identificado como “Clube de Férias”. Nós coletamos e utilizamos alguns dados pessoais \
+que pertencem àqueles que utilizam nosso site. Ao fazê-lo, agimos na qualidade de controlador desses \
+dados e estamos sujeitos às disposições da Lei Federal n. 13.709/2018 (Lei Geral de Proteção de Dados \
+Pessoais - LGPD). Nós cuidamos da proteção de seus dados pessoais e, por isso, disponibilizamos esta \
+política de privacidade, que contém informações importantes sobre: '
 
-
-const titleTerm2 = "2. Uso de licença"
-const term2 = "É concedida permissão para baixar temporáriamente uma cópia dos materiais\
-  (informações ou software) no site Stella Barros, apenas para visualização\
-  transitória pessoal e não comercial. Esta é a concessão de uma licença,\
-  não uma transferência de título e, sob esta licença, você nã pode:"
-
-const box1 = "Modificar ou copiar os materiais"
-
-const box2 = "Usar os materiais para qualquer finalidade comercialou para exibição pública (comercial ou não comercial);"
-
-const box3 = "Tentar descompilar ou fazer engenharia reversa de qualquer\
-  software contido no site Stella Barros: remover quaisquer\
-  direitos autorais ou outras notações de propriedade dos materiais;"
+const subText1 = [
+    '- Quem deve utilizar nossas plataformas;',
+    '- Quais dados coletamos e o que fazemos com eles;',
+    '- Seus direitos em relação aos seus dados pessoais;',
+    '- Como entrar em contato conosco.'
+]
+const text2 = 'O Clube de Férias se reserva no direito de alterar esta Política de Privacidade para \
+adaptá-la à legislação aplicável ou às boas práticas comerciais de uso da internet. O Clube de Férias \
+comunicará eventuais mudanças em seu App e/ou site com a devida antecedência.'
+const text3 = 'Caso tenha dúvidas ou precise tratar de qualquer assunto relacionado a este Aviso de \
+Privacidade, entre em contato conosco por meio do seguinte canal de e-mail:';
+const emailContato = ' contato@clubedeferias.com'
 
 export default ({ navigation }) => {
-
     return (
         <ScrollView style={Style.container}>
 
@@ -58,32 +68,36 @@ export default ({ navigation }) => {
             <Text style={Style.title}>{titlePage}</Text>
 
             <View style={Style.item}>
-                <Text style={Style.titleItem}>{titleTerm1}</Text>
-                <Text style={Style.text}>{term1}</Text>
+                <Text style={Style.text}>{text1}</Text>
             </View>
 
             <View style={Style.item}>
-                <Text style={Style.titleItem}>{titleTerm2}</Text>
-                <Text style={Style.text}>{term2}</Text>
+                {subText1.map((item, index) => (
+                    <Text key={index} style={Style.text}>{item}</Text>
+                ))}
             </View>
 
             <View style={Style.item}>
-                <Text style={Style.boxTerms}>
-                    <FontAwesome color={TEXT_COLOR_BKCOLORFUL} size={9} name={"circle"} /> {box1}
+                <Text style={Style.text}>{text2}</Text>
+                <Text style={Style.text}>{text3}
+                    <Text style={Style.email}>{emailContato}</Text>
                 </Text>
             </View>
 
-            <View style={Style.item}>
-                <Text style={Style.boxTerms}>
-                    <FontAwesome color={TEXT_COLOR_BKCOLORFUL} size={9} name={"circle"} /> {box2}
-                </Text>
-            </View>
-
-            <View style={Style.item}>
-                <Text style={Style.boxTerms}>
-                    <FontAwesome color={TEXT_COLOR_BKCOLORFUL} size={9} name={"circle"} /> {box3}
-                </Text>
-            </View>
+            <Item1 />
+            <Item2 />
+            <Item3 />
+            <Item4 />
+            <Item5 />
+            <Item6 />
+            <Item7 />
+            <Item8 />
+            <Item9 />
+            <Item10 />
+            <Item11 />
+            <Item12 />
+            <Item13 />
+            <Item14 />
 
             <View style={Style.bottom}>
                 <TouchableOpacity>
@@ -110,6 +124,27 @@ const Style = StyleSheet.create({
     image: {
         aspectRatio: 1.5
     },
+    button: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: 'center',
+        height: 50,
+        width: '80%',
+        marginTop: 15,
+        borderRadius: 25,
+        borderColor: TEXT_COLOR_BKCOLORFUL,
+        backgroundColor: TEXT_COLOR_BKCOLORFUL,
+        borderWidth: 1,
+    },
+    buttonText: {
+        paddingHorizontal: 5,
+        color: PRIMARY_COLOR,
+        fontWeight: 'bold',
+        fontSize: 14,
+        textAlign: "center",
+        textTransform: "uppercase",
+    },
     icon: {
         left: 5,
         top: 25,
@@ -126,23 +161,18 @@ const Style = StyleSheet.create({
     body: {
         flex: 1
     },
-    titleItem: {
-        color: TEXT_COLOR_BKCOLORFUL,
-        fontSize: FONT_SIZE_SUBTITLE - 2,
-        fontWeight: "bold"
-    },
     text: {
         color: TEXT_COLOR_BKCOLORFUL,
         fontSize: FONT_SIZE_BODY
     },
-    item: {
-        marginHorizontal: 30,
-        paddingBottom: 15,
-    },
-    boxTerms: {
-        alignItems: "center",
+    email: {
         color: TEXT_COLOR_BKCOLORFUL,
-        fontSize: FONT_SIZE_BODY
+        fontSize: FONT_SIZE_BODY,
+        fontStyle: "italic"
+    },
+    item: {
+        marginHorizontal: 20,
+        paddingBottom: 15,
     },
     bottom: {
         flexDirection: 'row',
