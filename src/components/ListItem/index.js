@@ -4,9 +4,9 @@ import CustomButton from '../../components/CustomButton';
 import LikeIcon from '../../components/LikeIcon';
 import ShareIcon from '../../components/ShareIcon';
 import { formatMoneyToBRL } from '../../utils/index'
-import Hide from './Hide';
+import Hide from '../Hide';
 
-const ListItem = ({ item, index, display }) => {
+const ListItem = ({ item, index, display, navigation }) => {
     return (
         <View style={styles.containerItem}>
             <Image
@@ -14,11 +14,11 @@ const ListItem = ({ item, index, display }) => {
                 source={{ uri: item.image }}
             />
 
-            <Hide />
+            <Hide containerStyle={styles.hide} />
 
-            <LikeIcon />
+            <LikeIcon containerStyle={styles.like} />
 
-            <ShareIcon />
+            <ShareIcon containerStyle={styles.share} />
 
             <View style={styles.bodyItem}>
 
@@ -110,6 +110,13 @@ const ListItem = ({ item, index, display }) => {
                             color: '#287dfd'
                         }]}
                         title={'Detalhes'}
+                        onPress={() => navigation.navigate({
+                            name: 'Details',
+                            params: {
+                                item
+                            },
+                            merge: true
+                        })}
                     />
                     <CustomButton
                         containerStyle={[styles.button, {
@@ -131,6 +138,42 @@ const ListItem = ({ item, index, display }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    hide: {
+        position: 'absolute',
+        top: 10,
+        right: 30,
+        backgroundColor: '#e8bc0d',
+        paddingVertical: 1,
+        paddingHorizontal: 15,
+        borderRadius: 100,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    like: {
+        height: 45,
+        width: 45,
+        borderRadius: 100,
+        left: 30,
+        top: 15,
+        position: 'absolute',
+        elevation: 5,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    share: {
+        height: 45,
+        width: 45,
+        borderRadius: 100,
+        left: 30,
+        top: 68,
+        position: 'absolute',
+        elevation: 5,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     saveMoneyItem: {
         backgroundColor: '#12aaeb',

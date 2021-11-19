@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Dashboard from "../pages/Dashboard"
 import Wallet from "../pages/Wallet"
 import Checkout from "../pages/Checkout"
+import Details from "../pages/Details";
 
 const AuthStack = createNativeStackNavigator()
 
@@ -11,6 +12,7 @@ const AuthRoutes = () => {
     return (
         <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={'Dashboard'}>
             <AuthStack.Screen name="Dashboard" component={Dashboard} />
+            <AuthStack.Screen name="Details" component={Details} />
             <AuthStack.Screen name="Checkout" component={Checkout} />
             <AuthStack.Screen name="Wallet" component={Wallet} />
         </AuthStack.Navigator>

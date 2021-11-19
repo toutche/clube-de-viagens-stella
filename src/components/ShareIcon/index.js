@@ -3,7 +3,9 @@ import { TouchableWithoutFeedback, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 
-const ShareIcon = () => {
+const ShareIcon = ({
+    containerStyle
+}) => {
     const [share, setShare] = useState(false)
 
     const pressHandler = () => {
@@ -13,7 +15,7 @@ const ShareIcon = () => {
 
     return (
         <TouchableWithoutFeedback onPress={pressHandler}>
-            <View style={styles.container}
+            <View style={containerStyle}
                 useNativeDriver
                 duration={1000}>
                 <Ionicons
@@ -28,18 +30,6 @@ const ShareIcon = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        height: 45,
-        width: 45,
-        borderRadius: 100,
-        left: 30,
-        top: 68,
-        position: 'absolute',
-        elevation: 5,
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     icon: {
         right: 1,
         top: 1

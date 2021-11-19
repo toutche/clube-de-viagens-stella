@@ -22,6 +22,7 @@ const Dashboard = ({ navigation }) => {
                 navigation={navigation}
             />
             <BodyDashboard
+                navigation={navigation}
                 display={option}
             />
         </View>

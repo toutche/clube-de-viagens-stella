@@ -25,9 +25,9 @@ const itens = [
 
 
 const BodyDashboard = ({
-    display = 1
+    display = 1,
+    navigation
 }) => {
-
     const Item = (title, icon, name, size, left) => {
         const Icon = icon
         return (
@@ -59,7 +59,7 @@ const BodyDashboard = ({
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
                 keyboardShouldPersistTaps={'always'}
-                renderItem={({ item, index }) => ListItem({ item, index, display })}
+                renderItem={({ item, index }) => ListItem({ item, index, display, navigation })}
             />
         </View>
     )

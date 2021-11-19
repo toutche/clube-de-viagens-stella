@@ -4,7 +4,9 @@ import { AntDesign } from '@expo/vector-icons';
 import { PRIMARY_COLOR } from '../../utils/variables';
 import * as Animatable from 'react-native-animatable';
 
-const LikeIcon = () => {
+const LikeIcon = ({
+    containerStyle
+}) => {
     const buttonRef = useRef(null)
     const [like, setLike] = useState(false)
 
@@ -15,7 +17,7 @@ const LikeIcon = () => {
 
     return (
         <TouchableWithoutFeedback onPress={pressHandler}>
-            <Animatable.View style={styles.container}
+            <Animatable.View style={containerStyle}
                 ref={buttonRef}
                 useNativeDriver
                 duration={1000}>
@@ -31,18 +33,6 @@ const LikeIcon = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        height: 45,
-        width: 45,
-        borderRadius: 100,
-        left: 30,
-        top: 15,
-        position: 'absolute',
-        elevation: 5,
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     icon: {
         top: 2
     }
