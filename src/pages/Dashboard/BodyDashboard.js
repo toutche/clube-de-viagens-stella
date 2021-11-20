@@ -26,12 +26,13 @@ const itens = [
 
 const BodyDashboard = ({
     display = 1,
-    navigation
+    navigation,
+    shareOpen
 }) => {
     const Item = (title, icon, name, size, left) => {
         const Icon = icon
         return (
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={[styles.button, { marginVertical: left === 2 ? 10 : 0 }]}>
                 <Icon name={name} size={size} color={PRIMARY_COLOR} />
                 <Text style={[styles.textButton, { marginLeft: left }]}>{title}</Text>
             </TouchableOpacity>
@@ -41,9 +42,9 @@ const BodyDashboard = ({
     const ListHeaderItem = () => (
         <>
             <View style={styles.containerButtons}>
-                {Item('Local', MaterialCommunityIcons, 'map-marker-outline', 22, 0)}
-                {Item('Data', MaterialCommunityIcons, 'calendar-month', 22, 1)}
-                {Item('Pessoas', SimpleLineIcons, 'user', 18, 3)}
+                {Item('Destino', MaterialCommunityIcons, 'map-marker-outline', 22, 0)}
+                {Item('Data - Check-in - Check-out', MaterialCommunityIcons, 'calendar-month', 22, 2)}
+                {Item(`${0} Adulto - ${0} Criança - ${0} Quarto`, SimpleLineIcons, 'user', 18, 3)}
             </View>
             <Text style={styles.text}>
                 Confirmação e preço sujeito a disponibilidade
@@ -59,7 +60,7 @@ const BodyDashboard = ({
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
                 keyboardShouldPersistTaps={'always'}
-                renderItem={({ item, index }) => ListItem({ item, index, display, navigation })}
+                renderItem={({ item, index }) => ListItem({ item, index, display, navigation, shareOpen })}
             />
         </View>
     )
@@ -77,8 +78,8 @@ const styles = StyleSheet.create({
         color: '#777'
     },
     containerButtons: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
+        alignItems: 'center',
         marginTop: 15,
         width: '95%',
         alignSelf: 'center'
@@ -87,9 +88,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 100,
-        width: '30%',
-        maxWidth: 150,
-        paddingVertical: 8,
+        width: '90%',
+        height: 40,
         justifyContent: 'center',
         backgroundColor: 'white'
     },

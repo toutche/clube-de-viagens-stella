@@ -18,7 +18,6 @@ import CustomAvatar from "../../../components/CustomAvatar";
 import { maskPhone } from '../../../utils/masks'
 import { CheckBox } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
-import { PRIMARY_COLOR } from "../../../utils/variables";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 

@@ -1,27 +1,34 @@
-import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import SlidesDetails from './SlidesDetails';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Image } from 'react-native';
+import ShareModal from '../../components/ShareModal';
+import BodyDetails from './BodyDetails';
+import HeaderDetails from './HeaderDetails';
 
-const Details = ({ route }) => {
+const Details = ({ route, navigation }) => {
     const { item } = route.params
+    const [isVisible, setVisible] = useState(false)
 
     return (
-        <View style={styles.container}>
-            <SlidesDetails
+        <ScrollView style={styles.container}>
+            <ShareModal
+                onClose={() => setVisible(!isVisible)}
+                isVisible={isVisible}
+            />
+            <HeaderDetails
+                shareOpen={() => setVisible(!isVisible)}
+                navigation={navigation}
                 item={item}
             />
-        </View>
+            <BodyDetails
+                item={item}
+            />
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-    },
-    image: {
-        width: '100%',
-        height: undefined,
-        aspectRatio: 1.5,
+        flexGrow: 1
     }
 })
 

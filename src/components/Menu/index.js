@@ -13,6 +13,7 @@ const Menu = ({
 
     return (
         <Modal
+            statusBarTranslucent
             animationType="fade"
             transparent={true}
             visible={isVisible}
@@ -113,8 +114,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,.5)'
     },
     content: {
+        paddingTop: 40,
         backgroundColor: 'white',
-        paddingVertical: 20
+        paddingBottom: 20
     },
     line: {
         justifyContent: 'space-evenly',
