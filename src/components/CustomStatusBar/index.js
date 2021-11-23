@@ -5,7 +5,7 @@ import { PRIMARY_COLOR } from '../../utils/variables';
 const CustomStatusBar = () => {
     return <View style={{
         backgroundColor: PRIMARY_COLOR,
-        height: 20
+        height: 22
     }} />
 }
 

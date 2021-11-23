@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { PRIMARY_COLOR } from '../../utils/variables';
 import { CreditCardInput } from "../../components/CreditInput";
 import { CheckBox } from 'react-native-elements';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import CustomButton from '../../components/CustomButton';
 
 const BodyCheckout = () => {

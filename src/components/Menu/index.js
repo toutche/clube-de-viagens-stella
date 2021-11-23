@@ -72,7 +72,7 @@ const Menu = ({
                             onClose={onClose}
                         />
                         <RenderItem
-                            id={'Dashboar'}
+                            id={'Contact'}
                             text={'Contato'}
                             onClose={onClose}
                         />
