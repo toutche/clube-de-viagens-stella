@@ -57,7 +57,6 @@ const BodyDashboard = ({
             <FlatList
                 data={itens}
                 ListHeaderComponent={ListHeaderItem}
-                showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
                 keyboardShouldPersistTaps={'always'}
                 renderItem={({ item, index }) => ListItem({ item, index, display, navigation, shareOpen })}
