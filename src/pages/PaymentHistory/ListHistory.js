@@ -9,7 +9,11 @@ const ListHistory = ({
 }) => {
     return (
         <View style={styles.container}>
-            <AntDesign name="checkcircleo" size={35} color="#287dfd" />
+            <AntDesign
+                name="checkcircleo"
+                size={35}
+                color="#287dfd"
+            />
 
             <View>
                 <Text style={styles.title}>Pagamento</Text>
