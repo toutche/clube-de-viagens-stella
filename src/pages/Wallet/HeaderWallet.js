@@ -41,6 +41,7 @@ const HeaderWallet = ({ navigation }) => {
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'red',

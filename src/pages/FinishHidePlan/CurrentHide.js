@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     },
     discount: {
         color: 'rgba(255,255,255,.8)'
-
     }
 })
 
