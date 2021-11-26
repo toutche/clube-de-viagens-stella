@@ -9,7 +9,9 @@ const PaymentHistory = ({ navigation }) => {
             <HeaderPaymentHistory
                 navigation={navigation}
             />
-            <BodyPaymentHistory />
+            <BodyPaymentHistory
+                navigation={navigation}
+            />
         </View>
     )
 }

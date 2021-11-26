@@ -4,6 +4,7 @@ import CustomIcon from '../../components/CustomIcon';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import ProfileAvatar from '../../components/ProfileAvatar';
 import CustomButton from '../../components/CustomButton';
+import { PRIMARY_COLOR } from '../../utils/variables';
 
 
 const HeaderWallet = ({ navigation }) => {
@@ -44,7 +45,7 @@ const HeaderWallet = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'red',
+        backgroundColor: PRIMARY_COLOR,
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: 40,
