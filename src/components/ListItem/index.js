@@ -120,7 +120,7 @@ const ListItem = ({
                         }]}
                         title={'Detalhes'}
                         onPress={() => navigation.navigate({
-                            name: 'Details',
+                            name: 'DetailsPackages',
                             params: {
                                 item
                             },

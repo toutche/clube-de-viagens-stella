@@ -3,13 +3,13 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomHeader from '../../components/CustomHeader';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import BoardingPlace from './BoardingPlace';
-import Travel from './Travel';
+import Travel from '../../components/Travel';
 import Travelers from './Travelers';
-import TravelCard from './TravelCard';
+import TravelCard from '../../components/TravelCard';
 import Note from './Note';
 import CustomButton from '../../components/CustomButton';
 
-const Schedulin = () => {
+const Scheduling = () => {
     return (
         <View style={styles.container}>
             <CustomHeader
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Schedulin;
+export default Scheduling

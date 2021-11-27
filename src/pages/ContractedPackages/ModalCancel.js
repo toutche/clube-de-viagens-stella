@@ -28,7 +28,6 @@ const ModalCancel = ({
                             name={'exclamationcircle'}
                             color={'#287dfd'}
                             size={16}
-                            iconStyle={styles.icon}
                             containerStyle={styles.button}
                             titleStyle={styles.textButton}
                             title={`Verificar política de cancelamento`}

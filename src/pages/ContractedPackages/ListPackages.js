@@ -54,7 +54,7 @@ const ListPackages = ({
                 name={'checkcircleo'}
                 color={'white'}
                 size={25}
-                iconStyle={styles.iconBottom}
+                iconStyle={styles.iconButton}
                 containerStyle={styles.buttonTop}
                 titleStyle={styles.textButtonTop}
                 title={`Detalhes do pacote`}
@@ -66,7 +66,7 @@ const ListPackages = ({
                 name={'closecircleo'}
                 color={PRIMARY_COLOR}
                 size={25}
-                iconStyle={styles.iconBottom}
+                iconStyle={styles.iconButton}
                 containerStyle={styles.buttonBottom}
                 titleStyle={styles.textButtonBottom}
                 title={`Realizar cancelamento`}
@@ -83,11 +83,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         elevation: 5
     },
-    iconTop: {
-        position: 'absolute',
-        left: 10
-    },
-    iconBottom: {
+    iconButton: {
         position: 'absolute',
         left: 10
     },

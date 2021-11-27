@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import AlertCovid from './AlertCovid';
+import AlertCovid from '../../components/AlertCovid';
 import Map from './Map';
 
-// import { Container } from './styles';
 
 const BodyDetails = ({
     item
@@ -57,7 +56,6 @@ const BodyDetails = ({
                 <Text style={styles.subTitle}>Estacionamento e transporte</Text>
                 <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
             </View>
-
 
             <Map />
         </View>

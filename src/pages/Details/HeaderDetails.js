@@ -8,7 +8,7 @@ import { formatMoneyToBRL } from '../../utils';
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
-const SlidesDetails = ({ item, navigation, shareOpen }) => {
+const HeaderDetails = ({ item, navigation, shareOpen }) => {
 
   console.log(item)
 
@@ -203,4 +203,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SlidesDetails
+export default HeaderDetails

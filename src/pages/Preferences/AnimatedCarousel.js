@@ -1,12 +1,10 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { FlatList, useWindowDimensions, Animated, View, StyleSheet, SafeAreaView, Text } from 'react-native';
 import { useAuth } from '../../contexts/auth';
-import api from '../../services/api';
 import { PRIMARY_COLOR } from '../../utils/variables';
 
 import OverflowButton from './OverflowButton';
 import RenderSlides from './RenderSlides';
-
 
 export default ({ data = [], navigation }) => {
     const { questionary, loadingApi } = useAuth()

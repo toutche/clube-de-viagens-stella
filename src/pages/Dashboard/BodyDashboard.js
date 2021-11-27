@@ -29,25 +29,41 @@ const BodyDashboard = ({
     navigation,
     shareOpen
 }) => {
-    const Item = (title, icon, name, size, left) => {
+    const Item = (title, icon, name, size, left, button) => {
         const Icon = icon
         return (
-            <TouchableOpacity style={[styles.button, { marginVertical: left === 2 ? 10 : 0 }]}>
+            <TouchableOpacity style={[button, { marginVertical: left === 2 ? 10 : 0 }]}>
                 <Icon name={name} size={size} color={PRIMARY_COLOR} />
                 <Text style={[styles.textButton, { marginLeft: left }]}>{title}</Text>
             </TouchableOpacity>
         )
     }
 
-    const ListHeaderItem = () => (
+    const ListHeaderItemAccommodation = () => (
         <>
             <View style={styles.containerButtons}>
-                {Item('Destino', MaterialCommunityIcons, 'map-marker-outline', 22, 0)}
-                {Item('Data - Check-in - Check-out', MaterialCommunityIcons, 'calendar-month', 22, 2)}
-                {Item(`${0} Adulto - ${0} Criança - ${0} Quarto`, SimpleLineIcons, 'user', 18, 3)}
+                {Item('Destino', MaterialCommunityIcons, 'map-marker-outline', 22, 0, styles.button)}
+                {Item('Data - Check-in - Check-out', MaterialCommunityIcons, 'calendar-month', 22, 2, styles.button)}
+                {Item(`${0} Adulto - ${0} Criança - ${0} Quarto`, SimpleLineIcons, 'user', 18, 3, styles.button)}
             </View>
             <Text style={styles.text}>
                 Confirmação e preço sujeito a disponibilidade
+            </Text>
+        </>
+    )
+
+    const ListHeaderItemPackages = () => (
+        <>
+            <View style={styles.containerButtons}>
+                {Item('Origem', MaterialCommunityIcons, 'map-marker-outline', 22, 0, styles.button)}
+                {Item('Destino', MaterialCommunityIcons, 'map-marker-outline', 22, 2, styles.button)}
+                <View style={styles.twoButtons}>
+                    {Item(`Quantos dias?`, MaterialCommunityIcons, 'calendar-month', 22, 3, styles.buttonRow)}
+                    {Item(`Qual mês?`, MaterialCommunityIcons, 'calendar-month', 22, 3, styles.buttonRow)}
+                </View>
+            </View>
+            <Text style={styles.textPackage}>
+                Destinos mais procurados
             </Text>
         </>
     )
@@ -56,7 +72,7 @@ const BodyDashboard = ({
         <View style={styles.container}>
             <FlatList
                 data={itens}
-                ListHeaderComponent={ListHeaderItem}
+                ListHeaderComponent={display === 1 ? ListHeaderItemAccommodation : ListHeaderItemPackages}
                 keyExtractor={(item, index) => index.toString()}
                 keyboardShouldPersistTaps={'always'}
                 renderItem={({ item, index }) => ListItem({ item, index, display, navigation, shareOpen })}
@@ -70,6 +86,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#e1e1e1'
     },
+    textPackage: {
+        fontSize: 15,
+        color: PRIMARY_COLOR,
+        marginVertical: 15,
+        textAlign: 'center',
+        textTransform: 'uppercase'
+    },
     text: {
         textAlign: 'center',
         fontSize: 14,
@@ -80,21 +103,37 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 15,
-        width: '95%',
+        width: '90%',
         alignSelf: 'center'
+    },
+    twoButtons: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    buttonRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 100,
+        width: '48%',
+        height: 40,
+        justifyContent: 'center',
+        backgroundColor: 'white'
     },
     button: {
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 100,
-        width: '90%',
+        width: '100%',
         height: 40,
         justifyContent: 'center',
         backgroundColor: 'white'
     },
     textButton: {
         textAlign: 'center',
-        fontSize: 13.5
+        fontSize: 13.5,
+        color: PRIMARY_COLOR
     }
 })
 

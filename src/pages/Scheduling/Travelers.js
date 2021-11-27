@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import CustomButton from '../../components/CustomButton';
+import QuantifyTravel from '../../components/QuantifyTravel';
+import { BLUE_COLOR } from '../../utils/variables';
 
 const Travelers = () => {
 
@@ -22,11 +24,8 @@ const Travelers = () => {
         <View style={styles.container}>
             <Text style={styles.title}>Viajantes</Text>
 
-            <View style={styles.content}>
-                {renderItem('2 adultos')}
-                <View style={styles.separator} />
-                {renderItem('+1 criança (4 anos)')}
-            </View>
+            <QuantifyTravel />
+
 
             <CustomButton
                 containerStyle={styles.button}
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     button: {
-        borderColor: '#287dfd',
+        borderColor: BLUE_COLOR,
         borderWidth: 1.5,
         borderRadius: 100,
         height: 50,
