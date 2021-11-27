@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Fontisto, AntDesign } from '@expo/vector-icons';
 import { BLUE_COLOR } from '../../utils/variables';
+import QuantifyTravel from '../QuantifyTravel';
 
 const InfoHotel = ({
     display = 0
@@ -31,7 +32,7 @@ const InfoHotel = ({
                 </View>
                 :
                 <View style={styles.two}>
-
+                    <QuantifyTravel />
                 </View>
             }
         </View>

@@ -11,16 +11,20 @@ import PaymentHistory from "../pages/PaymentHistory";
 import Scheduling from "../pages/Scheduling";
 import ContractedPackages from "../pages/ContractedPackages";
 import DetailsPackages from "../pages/DetailsPackages";
+import HiringPackageDetails from "../pages/HiringPackageDetails";
+import NewTraveler from "../pages/NewTraveler";
 
 const AuthStack = createNativeStackNavigator()
 
 const AuthRoutes = () => {
     return (
-        <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={'Scheduling'}>
+        <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={'NewTraveler'}>
             <AuthStack.Screen name="Dashboard" component={Dashboard} />
             <AuthStack.Screen name="Details" component={Details} />
+            <AuthStack.Screen name="NewTraveler" component={NewTraveler} />
             <AuthStack.Screen name="Checkout" component={Checkout} />
             <AuthStack.Screen name="Wallet" component={Wallet} />
+            <AuthStack.Screen name="HiringPackageDetails" component={HiringPackageDetails} />
             <AuthStack.Screen name="ContractedPackages" component={ContractedPackages} />
             <AuthStack.Screen name="DetailsPackages" component={DetailsPackages} />
             <AuthStack.Screen name="PaymentHistory" component={PaymentHistory} />

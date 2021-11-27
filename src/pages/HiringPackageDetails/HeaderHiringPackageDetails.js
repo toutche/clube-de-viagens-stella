@@ -6,9 +6,9 @@ import ProfileAvatar from '../../components/ProfileAvatar';
 import CustomStatusBar from '../../components/CustomStatusBar';
 import { PRIMARY_COLOR } from '../../utils/variables';
 import InsertCupom from '../../components/InsertCupom';
-import SubscribeNow from './SubscribeNow';
+import ValuePackage from './ValuePackage';
 
-const HeaderCheckout = ({ navigation }) => {
+const HeaderHiringPackageDetails = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <CustomStatusBar />
@@ -27,7 +27,7 @@ const HeaderCheckout = ({ navigation }) => {
                     isHide
                 />
                 <View style={styles.separator} />
-                <SubscribeNow />
+                <ValuePackage />
             </View>
 
             <InsertCupom />
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HeaderCheckout
+export default HeaderHiringPackageDetails

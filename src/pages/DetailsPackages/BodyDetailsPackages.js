@@ -49,10 +49,11 @@ const BodyDetailsPackages = () => {
                 name={'exclamationcircle'}
                 color={BLUE_COLOR}
                 size={16}
-                containerStyle={styles.buttonCancel}
-                titleStyle={styles.textButtonCancel}
+                containerStyle={styles.buttonPolicy}
+                titleStyle={styles.textButtonPolicy}
                 title={`Verificar política de cancelamento`}
             />
+
             <AlertCovid
                 containerStyle={styles.covid}
             />
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         marginTop: 2,
         marginBottom: 10
     },
-    buttonCancel: {
+    buttonPolicy: {
         marginTop: 20,
         marginBottom: 25,
         flexDirection: 'row',
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    textButtonCancel: {
+    textButtonPolicy: {
         fontSize: 13.5,
         color: BLUE_COLOR,
         textAlign: 'center',

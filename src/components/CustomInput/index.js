@@ -10,6 +10,7 @@ const CustomInput = ({
     name,
     size,
     lenght = 40,
+    keyboardType = 'default',
     color,
     placeholder = '',
     placeholderTextColor = '#d1d1d1',
@@ -26,6 +27,7 @@ const CustomInput = ({
                 value={value}
                 secureTextEntry={secureTextEntry}
                 maxLength={lenght}
+                keyboardType={keyboardType}
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
                 onChangeText={text => onChangeText(text)}

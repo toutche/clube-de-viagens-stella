@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomHeader from '../../components/CustomHeader';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import BoardingPlace from './BoardingPlace';
 import Travel from '../../components/Travel';
 import Travelers from './Travelers';
