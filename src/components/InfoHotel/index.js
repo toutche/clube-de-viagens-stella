@@ -20,8 +20,12 @@ const InfoHotel = ({
                     <Text style={styles.subTitle}>Meeru island Resort And Spa</Text>
                 </View>
             </View>
-            <View style={styles.separator} />
-            {display === 0 ?
+
+            {display !== 2 &&
+                <View style={styles.separator} />
+            }
+
+            {display === 0 &&
                 <View style={styles.one}>
                     <AntDesign
                         name="checkcircleo"
@@ -30,7 +34,9 @@ const InfoHotel = ({
                     />
                     <Text style={styles.oneText}>All Inclusive</Text>
                 </View>
-                :
+            }
+
+            {display === 1 &&
                 <View style={styles.two}>
                     <QuantifyTravel />
                 </View>

@@ -3,7 +3,9 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 
-const Travel = () => {
+const Travel = ({
+    display = 0
+}) => {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -18,19 +20,23 @@ const Travel = () => {
                 </View>
             </View>
 
-            <View style={styles.separator} />
+            {display !== 1 &&
+                < View style={styles.separator} />
+            }
 
-            <View style={styles.content}>
-                <AntDesign
-                    name="checkcircleo"
-                    size={22}
-                    color="#287dfd"
-                />
-                <View style={styles.contentText}>
-                    <Text style={styles.title}>Horário do Voo</Text>
-                    <Text style={styles.subTitle}>14:30</Text>
+            {display === 0 &&
+                <View style={styles.content}>
+                    <AntDesign
+                        name="checkcircleo"
+                        size={22}
+                        color="#287dfd"
+                    />
+                    <View style={styles.contentText}>
+                        <Text style={styles.title}>Horário do Voo</Text>
+                        <Text style={styles.subTitle}>14:30</Text>
+                    </View>
                 </View>
-            </View>
+            }
         </View>
     )
 }
@@ -66,7 +72,7 @@ const styles = StyleSheet.create({
     subTitle: {
         color: "#287dfd",
         fontSize: 13,
-        marginTop: -4
+        marginTop: -3
     },
 })
 

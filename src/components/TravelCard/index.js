@@ -31,6 +31,14 @@ const TravelCard = ({
                         </View>
                     </View>
                 }
+
+                {display === 2 &&
+                    <View style={styles.details}>
+                        <Text style={styles.oldValue}>R$ 17.999,00</Text>
+                        <Text style={styles.ball}> ● </Text>
+                        <Text style={styles.newValue}>R$ 15.999,00</Text>
+                    </View>
+                }
             </View>
         </View>
     )
@@ -46,6 +54,11 @@ const styles = StyleSheet.create({
         elevation: 3,
         borderRadius: 10,
         flexDirection: 'row'
+    },
+    ball: {
+        textAlignVertical: 'center',
+        fontSize: 10,
+        color: BLUE_COLOR
     },
     arrow: {
         position: 'absolute',
