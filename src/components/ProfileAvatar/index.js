@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         borderTopRightRadius: 30,
         borderBottomRightRadius: 30,
-        backgroundColor: '#ef091a',
-        borderWidth: 1,
+        backgroundColor: '#ff1324',
+        borderWidth: 2,
         elevation: 5,
         borderColor: 'rgba(0,0,0,0.01)',
     }

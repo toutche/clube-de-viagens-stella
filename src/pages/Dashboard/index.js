@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Menu from '../../components/Menu';
+import ShareModal from '../../components/ShareModal';
 import BodyDashboard from './BodyDashboard';
 import HeaderDashboard from './HeaderDashboard';
 
 
 const Dashboard = ({ navigation }) => {
     const [option, setOption] = useState(0)
-    const [isVisible, setVisible] = useState(false)
+    const [isVisibleMenu, setVisibleMenu] = useState(false)
+    const [isVisibleShare, setVisibleShare] = useState(false)
 
     return (
         <View style={styles.container}>
             <Menu
-                onClose={() => setVisible(!isVisible)}
-                isVisible={isVisible}
+                onClose={() => setVisibleMenu(!isVisibleMenu)}
+                isVisible={isVisibleMenu}
+            />
+            <ShareModal
+                onClose={() => setVisibleShare(!isVisibleShare)}
+                isVisible={isVisibleShare}
             />
             <HeaderDashboard
-                menuOpen={() => setVisible(!isVisible)}
+                menuOpen={() => setVisibleMenu(!isVisibleMenu)}
                 option={option}
                 setOption={value => setOption(value)}
                 navigation={navigation}
             />
             <BodyDashboard
+                shareOpen={() => setVisibleShare(!isVisibleShare)}
                 navigation={navigation}
                 display={option}
             />

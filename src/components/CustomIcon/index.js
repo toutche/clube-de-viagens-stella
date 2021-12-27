@@ -7,12 +7,13 @@ export default ({
     type,
     onPress,
     size,
-    color
+    color,
+    styleIcon = {}
 }) => {
     const Icon = type
     return (
         <TouchableOpacity onPress={onPress} style={containerStyle}>
-            <Icon name={name} size={size || 24} color={color || "white"} />
+            <Icon name={name} size={size || 24} color={color || "white"} style={styleIcon} />
         </TouchableOpacity>
     )
 }

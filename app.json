@@ -32,6 +32,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "permissions": [
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "FOREGROUND_SERVICE"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA7buS3Lhe5HxHDPZFf9xGgWtzaxlsFT-g"
+        }
+      },
       "package": "com.priferreira.clubedeviagensstella"
     },
     "web": {

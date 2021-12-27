@@ -13,6 +13,7 @@ const Menu = ({
 
     return (
         <Modal
+            statusBarTranslucent
             animationType="fade"
             transparent={true}
             visible={isVisible}
@@ -46,7 +47,7 @@ const Menu = ({
                             onClose={onClose}
                         />
                         <RenderItem
-                            id={'Dashboar'}
+                            id={'Wallet'}
                             text={'Carteira'}
                             onClose={onClose}
                         />
@@ -71,7 +72,7 @@ const Menu = ({
                             onClose={onClose}
                         />
                         <RenderItem
-                            id={'Dashboar'}
+                            id={'Contact'}
                             text={'Contato'}
                             onClose={onClose}
                         />
@@ -113,8 +114,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,.5)'
     },
     content: {
+        paddingTop: 40,
         backgroundColor: 'white',
-        paddingVertical: 20
+        paddingBottom: 20
     },
     line: {
         justifyContent: 'space-evenly',
