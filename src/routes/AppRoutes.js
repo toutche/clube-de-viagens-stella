@@ -20,7 +20,7 @@ const AuthStack = createNativeStackNavigator();
 
 const AuthRoutes = () => {
   return (
-    <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={"Alert"}>
+    <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={"Dashboard"}>
       <AuthStack.Screen name='Dashboard' component={Dashboard} />
       <AuthStack.Screen name='Details' component={Details} />
       <AuthStack.Screen name='NewTraveler' component={NewTraveler} />

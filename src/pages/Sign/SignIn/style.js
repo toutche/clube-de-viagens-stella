@@ -1,14 +1,5 @@
 import { StyleSheet } from "react-native";
-import {
-  FONT_SIZE_BODY,
-  FONT_SIZE_SUBTITLE,
-  HEIGHT,
-  PRIMARY_COLOR,
-  SECOND_COLOR,
-  TEXT_COLOR_BKCOLORFUL,
-  TEXT_COLOR_BKWHITE,
-  WIDTH
-} from "../../../utils/variables";
+import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from "../../../utils/variables";
 
 export default StyleSheet.create({
   container: {
@@ -16,42 +7,45 @@ export default StyleSheet.create({
     flex: 1,
   },
   content: {
-    justifyContent: 'space-between',
-    flexGrow: 1
+    justifyContent: "space-between",
+    flexGrow: 1,
   },
   image: {
-    aspectRatio: 1.5
+    aspectRatio: 1.5,
+    width: "100%",
+    height: undefined,
+    marginBottom: 5,
   },
   icon: {
     left: 5,
-    top: 25,
+    top: 30,
     padding: 10,
-    position: 'absolute'
+    position: "absolute",
   },
   recoverText: {
     color: TEXT_COLOR_BKCOLORFUL,
     padding: 10,
     marginVertical: 15,
-    textDecorationLine: 'underline'
+    textDecorationLine: "underline",
   },
   body: {
     flex: 1,
-    paddingHorizontal: '10%',
-    alignItems: 'center'
+    paddingHorizontal: "10%",
+    alignItems: "center",
   },
   title: {
     fontSize: 20,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
     marginBottom: 10,
-    marginTop: 5
+    marginTop: 5,
   },
   button: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     height: 50,
-    width: '100%',
+    width: "100%",
     marginTop: 15,
     borderRadius: 25,
     borderColor: TEXT_COLOR_BKCOLORFUL,
@@ -61,9 +55,9 @@ export default StyleSheet.create({
   buttonText: {
     paddingHorizontal: 5,
     color: PRIMARY_COLOR,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 14,
     textAlign: "center",
     textTransform: "uppercase",
-  }
-})
+  },
+});
