@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
       if (storagedUser) verifyUser();
       setTimeout(() => setLoading(false), 1500);
     }
-
+    //logout();
     loadStorage();
   }, []);
 
@@ -40,8 +40,8 @@ export const AuthProvider = ({ children }) => {
           navigation ? navigation.replace("GetLocation") : (initialRoute.current = "GetLocation");
         else
           api.get("/questionario/listar").then(res => {
-            console.log("this", res);
-            if (data.length > 0) setAuth(true);
+            //console.log("this", res.data);
+            if (res.data.length >= 0) setAuth(true);
             else
               navigation
                 ? navigation.replace("Preferences")

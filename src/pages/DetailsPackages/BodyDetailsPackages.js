@@ -1,170 +1,108 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import CustomButton from '../../components/CustomButton';
-import { BLUE_COLOR, GREEN_COLOR, PRIMARY_COLOR } from '../../utils/variables';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import Travel from '../../components/Travel';
-import TravelCard from '../../components/TravelCard';
-import AlertCovid from '../../components/AlertCovid';
-import InfoHotel from '../../components/InfoHotel';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import AlertCovid from "../../components/AlertCovid";
+import Map from "./Map";
 
-const BodyDetailsPackages = () => {
-    return (
-        <View style={styles.container}>
+const BodyDetailsPackages = ({ item }) => {
+  return (
+    <View style={styles.container}>
+      <View
+        style={{
+          borderBottomWidth: 1,
+          borderColor: "#d1d1d1",
+          marginBottom: 10,
+          marginHorizontal: 15,
+          paddingBottom: 10,
+        }}>
+        <Text
+          style={{
+            fontSize: 19,
+            textAlign: "center",
+            color: "#333",
+          }}>
+          {item.name}
+        </Text>
 
-            <CustomButton
-                type={AntDesign}
-                name={'checkcircleo'}
-                color={'white'}
-                size={25}
-                iconStyle={styles.icon}
-                containerStyle={styles.buttonTop}
-                titleStyle={styles.textButtonTop}
-                title={'Pacote contratado para 15 de Maio / ás 14h'}
-            />
+        <Text
+          style={{
+            color: "#287dfd",
+            fontSize: 17,
+            textAlign: "center",
+          }}>
+          {item.name}
+        </Text>
+      </View>
 
-            <CustomButton
-                type={AntDesign}
-                name={'closecircleo'}
-                color={PRIMARY_COLOR}
-                size={25}
-                iconStyle={styles.icon}
-                containerStyle={styles.buttonBottom}
-                titleStyle={styles.textButtonBottom}
-                title={'Realizar cancelamento'}
-            />
+      <AlertCovid />
 
-            <TravelCard
-                display={1}
-            />
+      <View style={styles.details}>
+        <Text style={styles.title}>Ellaidhoo Maldives by Cinnamon</Text>
+        <Text style={styles.text}>
+          Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode
+          tomar sol
+        </Text>
 
-            <Travel />
+        <Text style={styles.title}>Ellaidhoo Maldives by Cinnamon</Text>
+        <Text style={styles.text}>
+          Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode
+          tomar sol
+        </Text>
 
-            <InfoHotel
-            />
+        <Text style={styles.title}>Ellaidhoo Maldives by Cinnamon</Text>
+        <Text style={styles.text}>
+          Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode
+          tomar sol
+        </Text>
 
-            <CustomButton
-                left
-                type={AntDesign}
-                name={'exclamationcircle'}
-                color={BLUE_COLOR}
-                size={16}
-                containerStyle={styles.buttonPolicy}
-                titleStyle={styles.textButtonPolicy}
-                title={`Verificar política de cancelamento`}
-            />
+        <Text style={styles.title}>Comodidades do estabelecimento</Text>
 
-            <AlertCovid
-                containerStyle={styles.covid}
-            />
+        <Text style={styles.subTitle}>Internet</Text>
+        <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
 
-            <View style={styles.details}>
-                <Text style={styles.title}>Ellaidhoo Maldives by Cinnamon</Text>
-                <Text style={styles.text}>Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode tomar sol</Text>
+        <Text style={styles.subTitle}>Estacionamento e transporte</Text>
+        <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
 
-                <Text style={styles.title}>Ellaidhoo Maldives by Cinnamon</Text>
-                <Text style={styles.text}>Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode tomar sol</Text>
+        <Text style={styles.subTitle}>Estacionamento e transporte</Text>
+        <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
 
+        <Text style={styles.subTitle}>Estacionamento e transporte</Text>
+        <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
+      </View>
 
-                <Text style={styles.title}>Ellaidhoo Maldives by Cinnamon</Text>
-                <Text style={styles.text}>Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode tomar sol</Text>
-
-                <Text style={styles.title}>Comodidades do estabelecimento</Text>
-                <Text style={styles.text}>Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode tomar sol</Text>
-
-            </View>
-        </View>
-    )
-}
+      <Map />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        top: -30,
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
-        width: '100%',
-        paddingHorizontal: 15,
-        paddingTop: 30,
-        marginBottom: -20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    covid: {
-        width: '100%'
-    },
-    details: {
-        paddingHorizontal: 10,
-    },
-    title: {
-        color: '#333',
-        fontSize: 15,
-    },
-    text: {
-        fontSize: 12.5,
-        color: '#777',
-        marginTop: 2,
-        marginBottom: 10
-    },
-    buttonPolicy: {
-        marginTop: 20,
-        marginBottom: 25,
-        flexDirection: 'row',
-        borderWidth: 1.5,
-        borderColor: BLUE_COLOR,
-        borderRadius: 100,
-        height: 40,
-        width: '100%',
-        alignSelf: 'center',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    textButtonPolicy: {
-        fontSize: 13.5,
-        color: BLUE_COLOR,
-        textAlign: 'center',
-        marginLeft: 10
-    },
-    icon: {
-        position: 'absolute',
-        left: 10
-    },
-    buttonTop: {
-        height: 45,
-        width: '95%',
-        marginBottom: 10,
-        maxWidth: 600,
-        alignSelf: 'center',
-        elevation: 3,
-        borderRadius: 100,
-        backgroundColor: GREEN_COLOR,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textButtonTop: {
-        fontSize: 14,
-        maxWidth: '60%',
-        textAlign: 'center',
-        color: 'white',
-    },
-    buttonBottom: {
-        borderWidth: 1.5,
-        borderColor: PRIMARY_COLOR,
-        height: 45,
-        marginBottom: 15,
-        width: '95%',
-        maxWidth: 600,
-        alignSelf: 'center',
-        elevation: 3,
-        borderRadius: 100,
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textButtonBottom: {
-        fontSize: 16,
-        color: PRIMARY_COLOR,
-    },
-})
+  container: {
+    flex: 1,
+  },
+  details: {
+    paddingHorizontal: 20,
+    paddingBottom: 15,
+  },
+  title: {
+    color: "#333",
+    fontSize: 15,
+  },
+  text: {
+    fontSize: 12.5,
+    color: "#777",
+    marginTop: 2,
+    marginBottom: 10,
+  },
+  subTitle: {
+    color: "#287dfd",
+    fontSize: 15,
+    marginLeft: 10,
+    marginTop: 5,
+  },
+  subText: {
+    marginLeft: 10,
+    marginTop: 2,
+    color: "#777",
+  },
+});
 
-export default BodyDetailsPackages
+export default BodyDetailsPackages;
