@@ -8,8 +8,7 @@ const Hide = ({
 }) => {
     return (
         <View style={containerStyle}>
-            <Text style={styles.icon}>●</Text>
-            <Text style={styles.text}>{Plan}</Text>
+
         </View>
     )
 }

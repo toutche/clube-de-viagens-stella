@@ -10,9 +10,12 @@ const CustomInput = ({
     name,
     size,
     lenght = 40,
+    keyboardType = 'default',
     color,
     placeholder = '',
-    secureTextEntry = false
+    placeholderTextColor = '#d1d1d1',
+    secureTextEntry = false,
+    multiline = false
 }) => {
     const Icon = type || null
 
@@ -24,9 +27,11 @@ const CustomInput = ({
                 value={value}
                 secureTextEntry={secureTextEntry}
                 maxLength={lenght}
+                keyboardType={keyboardType}
                 placeholder={placeholder}
-                placeholderTextColor={'#d1d1d1'}
+                placeholderTextColor={placeholderTextColor}
                 onChangeText={text => onChangeText(text)}
+                multiline={multiline}
             />
         </View>
     )

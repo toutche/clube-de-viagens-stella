@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import ProfileAvatar from '../../components/ProfileAvatar';
 import CustomStatusBar from '../../components/CustomStatusBar';
 import { PRIMARY_COLOR } from '../../utils/variables';
-import InsertCupom from './InsertCupom';
+import InsertCupom from '../../components/InsertCupom';
 import SubscribeNow from './SubscribeNow';
 
 const HeaderCheckout = ({ navigation }) => {

@@ -14,7 +14,7 @@ const RenderItem = ({
     const navigation = useNavigation()
 
     const onGo = () => {
-        navigation.navigate(id === name ? id : 'Checkout')
+        navigation.navigate(id)
         onClose()
     }
 

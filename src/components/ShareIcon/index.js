@@ -1,23 +1,15 @@
-import React, { useRef, useState } from 'react';
-import { TouchableWithoutFeedback, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 
 const ShareIcon = ({
-    containerStyle
+    containerStyle,
+    shareOpen
 }) => {
-    const [share, setShare] = useState(false)
-
-    const pressHandler = () => {
-        setShare(!share)
-        alert('click')
-    }
-
     return (
-        <TouchableWithoutFeedback onPress={pressHandler}>
-            <View style={containerStyle}
-                useNativeDriver
-                duration={1000}>
+        <TouchableWithoutFeedback onPress={shareOpen}>
+            <View style={containerStyle}>
                 <Ionicons
                     style={styles.icon}
                     name={'share-social-sharp'}

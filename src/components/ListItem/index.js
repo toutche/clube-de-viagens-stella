@@ -6,7 +6,13 @@ import ShareIcon from '../../components/ShareIcon';
 import { formatMoneyToBRL } from '../../utils/index'
 import Hide from '../Hide';
 
-const ListItem = ({ item, index, display, navigation }) => {
+const ListItem = ({
+    item,
+    index,
+    display,
+    navigation,
+    shareOpen
+}) => {
     return (
         <View style={styles.containerItem}>
             <Image
@@ -18,7 +24,10 @@ const ListItem = ({ item, index, display, navigation }) => {
 
             <LikeIcon containerStyle={styles.like} />
 
-            <ShareIcon containerStyle={styles.share} />
+            <ShareIcon
+                shareOpen={shareOpen}
+                containerStyle={styles.share}
+            />
 
             <View style={styles.bodyItem}>
 
@@ -111,7 +120,7 @@ const ListItem = ({ item, index, display, navigation }) => {
                         }]}
                         title={'Detalhes'}
                         onPress={() => navigation.navigate({
-                            name: 'Details',
+                            name: 'DetailsPackages',
                             params: {
                                 item
                             },
@@ -143,9 +152,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 10,
         right: 30,
-        backgroundColor: '#e8bc0d',
-        paddingVertical: 1,
-        paddingHorizontal: 15,
+        backgroundColor: 'rgba(232,188,13,.7)',
+        height: 45,
+        width: 45,
         borderRadius: 100,
         flexDirection: 'row',
         justifyContent: 'center',
@@ -155,8 +164,8 @@ const styles = StyleSheet.create({
         height: 45,
         width: 45,
         borderRadius: 100,
-        left: 30,
-        top: 15,
+        right: 30,
+        top: 65,
         position: 'absolute',
         elevation: 5,
         backgroundColor: 'white',
@@ -167,8 +176,8 @@ const styles = StyleSheet.create({
         height: 45,
         width: 45,
         borderRadius: 100,
-        left: 30,
-        top: 68,
+        right: 30,
+        top: 120,
         position: 'absolute',
         elevation: 5,
         backgroundColor: 'white',
@@ -233,7 +242,7 @@ const styles = StyleSheet.create({
     image: {
         width: '90%',
         height: undefined,
-        aspectRatio: 1.5,
+        aspectRatio: 1.3,
         borderRadius: 20
     },
     containerButtons: {

@@ -11,7 +11,7 @@ const ButtonsChoice = ({ value, onPress }) => {
                     backgroundColor: value === 0 ? '#cf0110' : 'transparent'
                 }]}
                 titleStyle={styles.text}
-                title={'Pacote de viagens'}
+                title={'Pacotes de viagens'}
             />
             <CustomButton
                 onPress={() => onPress(1)}

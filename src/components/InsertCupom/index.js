@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../CustomButton';
 
 const InsertCupom = () => {
     return (
