@@ -6,9 +6,9 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 const item =
   "https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg";
 
-const ProfileAvatar = ({ leftSize = 55, isHide = false, Plan = "Ouro" }) => {
+const ProfileAvatar = ({ leftSize = 55, isHide = false }) => {
   const { user } = useAuth();
-
+  //console.log(user.plan);
   return (
     <View style={styles.container}>
       <View
@@ -22,15 +22,16 @@ const ProfileAvatar = ({ leftSize = 55, isHide = false, Plan = "Ouro" }) => {
         <Image style={styles.image} source={{ uri: item }} />
       </View>
       <View style={styles.right}>
-        {isHide && (
+        {isHide && user.plan && (
           <View style={styles.viewHide}>
             <Text style={styles.iconHide}>●</Text>
-            <Text style={styles.textHide}>{Plan}</Text>
+            <Text style={styles.textHide}>{user?.plan?.name?.split(" ")[1]}</Text>
           </View>
         )}
-        <Text style={[styles.title, isHide && { top: 3 }]}>{`Olá ${user.name}`}</Text>
-        <Text style={[styles.subTitle, isHide && { top: 1 }]}>
-          Crédito: R${user?.wallet?.credit || 0.0}
+        <Text
+          style={[styles.title, isHide && user.plan && { top: 3.5 }]}>{`Olá ${user.name}`}</Text>
+        <Text style={[styles.subTitle, isHide && user.plan && { top: 1 }]}>
+          Crédito: R${parseFloat(user?.amount?.credit) || 0}
         </Text>
       </View>
     </View>
@@ -45,10 +46,9 @@ const styles = StyleSheet.create({
   },
   viewHide: {
     position: "absolute",
-    top: -10,
+    top: -9.5,
     left: 22,
     backgroundColor: "#e8bc0d",
-    paddingVertical: 1,
     paddingHorizontal: 8,
     borderRadius: 100,
     flexDirection: "row",
@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   iconHide: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: "bold",
     color: "white",
     marginRight: 1,
   },
   textHide: {
-    fontSize: 11,
+    fontSize: 10.5,
     fontWeight: "bold",
     color: "white",
     marginLeft: 1,
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   subTitle: {
+    top: -1.5,
     fontSize: 12,
     color: "white",
   },

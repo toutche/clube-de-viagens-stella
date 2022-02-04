@@ -15,7 +15,7 @@ import TextWithBold from "../../components/TextWithBold";
 
 export default ({ navigation }) => {
   return (
-    <ScrollView style={Style.container} contentContainerStyle={Style.content}>
+    <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
       <Image
         resizeMode={"cover"}
         source={require("../../../assets/header/Sign.jpg")}

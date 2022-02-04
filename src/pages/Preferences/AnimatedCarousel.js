@@ -8,8 +8,8 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 import OverflowButton from "./OverflowButton";
 import RenderSlides from "./RenderSlides";
 
-export default ({ data = [] }) => {
-  const { questionary, loadingApi } = useAuth();
+export default ({ data = [], navigation }) => {
+  const { verifyUser } = useAuth();
   const { width, height } = useWindowDimensions();
 
   const ITEM_WIDTH = width * 0.8;
@@ -18,6 +18,7 @@ export default ({ data = [] }) => {
   const [index, setIndex] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const ListRef = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -46,9 +47,28 @@ export default ({ data = [] }) => {
     ListRef.current.scrollToIndex({ animated: true, index: index + 1, viewPosition: 0 });
   };
 
-  const handlerPress = () => {
-    if (index === 5) questionary(questions, data[5].activities);
-    else {
+  const handlerPress = async () => {
+    if (index === 5) {
+      const activities = data[5].activities;
+      setLoading(true);
+      const question = await api.post("/questionario/criar", {
+        question_1: questions[0] || null,
+        question_2: questions[1] || null,
+        question_3: questions[2] || null,
+        question_4: questions[3] || null,
+        question_5: questions[4] || null,
+      });
+
+      let id = activities.filter(i => i.check === true);
+      id = id.map(item => item.id);
+
+      const activity = await api.post("/interesses/criar", {
+        id,
+      });
+
+      if (activity.data && question.data) verifyUser(navigation);
+      setLoading(false);
+    } else {
       ListRef.current.scrollToIndex({ animated: false, index: 5, viewPosition: 0 });
       setIndex(5);
     }
@@ -121,7 +141,7 @@ export default ({ data = [] }) => {
           );
         }}
       />
-      <OverflowButton loadingApi={loadingApi} data={data} index={index} onPress={handlerPress} />
+      <OverflowButton loadingApi={loading} data={data} index={index} onPress={handlerPress} />
       <Copyright display={1} isTransparent={index === 5 && height < 600 ? true : false} />
     </View>
   );

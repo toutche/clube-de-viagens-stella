@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { SimpleLineIcons, Ionicons } from "@expo/vector-icons";
@@ -7,8 +7,22 @@ import CustomStatusBar from "../../components/CustomStatusBar";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import SlidesDashboard from "./SlidesDashboard";
 import ButtonsChoice from "./ButtonsChoice";
+import api from "../../services/api";
 
 const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
+  const [filter, setFilter] = useState([]);
+  const [data, setData] = useState([]);
+
+  useLayoutEffect(() => {
+    api.get("/interesses/show-filtrar").then(res => {
+      setFilter(res.data);
+    });
+
+    api.get("/interesses/listar").then(res => {
+      setData(res.data);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -33,7 +47,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
         <ProfileAvatar />
       </View>
 
-      <SlidesDashboard />
+      <SlidesDashboard filter={filter} data={data} />
 
       <Text style={styles.title}>
         {option === 0 ? "Conquiste as suas férias dos sonhos" : "Hospedagens em locais incríveis"}

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, Platform } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import FavoriteIcon from "../FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
@@ -28,11 +28,11 @@ const ListItem = ({ item, index, display, navigation, shareOpen }) => {
               flexDirection: "row",
               alignItems: "center",
             }}>
-            <Text style={styles.price_discount}> R${item.price_discount}</Text>
+            <Text style={styles.price_discount}> R${item.price}</Text>
 
             <Text
               style={{
-                fontSize: 10,
+                fontSize: Platform.OS === "ios" ? 6 : 12,
                 color: BLUE_COLOR,
                 marginHorizontal: 2,
               }}>
@@ -44,7 +44,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen }) => {
                 color: BLUE_COLOR,
                 fontSize: 15,
               }}>
-              R$ {item.price}
+              R$ {item.price_discount}
             </Text>
 
             <Text
@@ -52,6 +52,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen }) => {
                 fontSize: 16,
                 color: BLUE_COLOR,
                 bottom: 1,
+                marginHorizontal: Platform.OS === "ios" ? 3 : undefined,
               }}>
               │
             </Text>
@@ -82,7 +83,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen }) => {
             style={{
               color: "#777",
               fontSize: 12,
-              marginTop: -4,
+              marginTop: Platform.OS === "ios" ? -2 : -4,
             }}>
             Preço exclusivo para assinantes
           </Text>
@@ -118,14 +119,16 @@ const ListItem = ({ item, index, display, navigation, shareOpen }) => {
               }}>
               {item.date.display}
             </Text>
-            <Text
-              style={{
-                color: "#777",
-                fontSize: 16,
-                textAlign: "center",
-              }}>
-              {item.number_days}
-            </Text>
+            {item.number_days && (
+              <Text
+                style={{
+                  color: "#777",
+                  fontSize: 16,
+                  textAlign: "center",
+                }}>
+                {"│" + item.number_days}
+              </Text>
+            )}
           </View>
         </View>
 
@@ -151,7 +154,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen }) => {
               navigation.navigate({
                 name: display ? "DetailsContractedPackages" : "DetailsPackages",
                 params: {
-                  item,
+                  id: item.id,
                 },
                 merge: true,
               })
@@ -172,7 +175,11 @@ const ListItem = ({ item, index, display, navigation, shareOpen }) => {
 
         <Text style={styles.textLatest}>
           {item.latest_information.text}
-          <Text style={[styles.textLatest, { fontWeight: "bold" }]}>
+          <Text
+            style={[
+              styles.textLatest,
+              { fontWeight: "bold", marginRight: Platform.OS === "ios" ? 5 : undefined },
+            ]}>
             {` R$${item.latest_information.total_amount_people}`}
           </Text>
         </Text>
@@ -185,6 +192,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   hideIcon: {
     position: "absolute",
@@ -244,6 +256,10 @@ const styles = StyleSheet.create({
     textDecorationLine: "line-through",
   },
   priceItem: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
     backgroundColor: "white",
     position: "absolute",
     paddingTop: 15,
@@ -257,6 +273,10 @@ const styles = StyleSheet.create({
     top: -30,
   },
   bodyItem: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
     width: "82%",
     top: -30,
     paddingTop: 35,
@@ -286,7 +306,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   containerButtons: {
-    height: 35,
+    height: 40,
     justifyContent: "space-evenly",
     flexDirection: "row",
   },

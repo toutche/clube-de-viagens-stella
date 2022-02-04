@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, Platform } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import Hide from "../../components/Hide";
 import FavoriteIcon from "../../components/FavoriteIcon";
@@ -7,11 +7,12 @@ import ShareIcon from "../../components/ShareIcon";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import { LIGHT_BLUE } from "../../utils/variables";
+import Carousel from "../../components/Carousel";
 
-const HeaderDetailsPackages = ({ item, navigation, shareOpen }) => {
+const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: item.img }} />
+      <Carousel data={item.gallery} />
 
       <CustomIcon
         onPress={() => navigation.goBack()}
@@ -21,9 +22,9 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen }) => {
         containerStyle={styles.icon}
       />
 
-      <Hide containerStyle={styles.hide} />
+      <Hide containerStyle={styles.hide} item={item} />
 
-      <FavoriteIcon containerStyle={styles.favorite} />
+      <FavoriteIcon favorite={item.favorite} containerStyle={styles.favorite} />
 
       <ShareIcon shareOpen={shareOpen} containerStyle={styles.share} />
 
@@ -36,7 +37,7 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen }) => {
           style={{
             color: "#287dfd",
             fontSize: 14,
-            marginBottom: -4,
+            marginBottom: Platform.OS === "ios" ? -2 : -4,
             marginTop: -2,
           }}>
           A partir de
@@ -53,12 +54,12 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen }) => {
               fontSize: 16,
               textDecorationLine: "line-through",
             }}>
-            R$ {item.price_discount}
+            R$ {item.price}
           </Text>
 
           <Text
             style={{
-              fontSize: 12,
+              fontSize: Platform.OS === "ios" ? 6 : 12,
               color: "#287dfd",
               marginHorizontal: 2,
             }}>
@@ -70,7 +71,7 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen }) => {
               color: "#287dfd",
               fontSize: 16,
             }}>
-            R$ {item.price}
+            R$ {item.price_discount}
           </Text>
 
           <Text
@@ -78,6 +79,7 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen }) => {
               fontSize: 16,
               color: "#287dfd",
               bottom: 1,
+              marginHorizontal: Platform.OS === "ios" ? 3 : undefined,
             }}>
             │
           </Text>
@@ -108,17 +110,25 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen }) => {
           style={{
             color: "#777",
             fontSize: 13,
-            marginTop: -4,
+            marginTop: Platform.OS === "ios" ? -2 : -4,
           }}>
           Preço exclusivo para assinantes
         </Text>
-
-        <CustomButton
-          containerStyle={styles.button}
-          titleStyle={styles.textButton}
-          title={"Reservar Agora"}
-        />
       </View>
+      <CustomButton
+        containerStyle={styles.button}
+        titleStyle={styles.textButton}
+        onPress={() => {
+          navigation.navigate({
+            name: plan ? "Scheduling" : "PlanScreen",
+            params: {
+              item,
+            },
+            merge: true,
+          });
+        }}
+        title={plan ? "Reservar Agora" : "Faça parte do clube"}
+      />
     </View>
   );
 };
@@ -126,6 +136,10 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   price_differenceView: {
     backgroundColor: LIGHT_BLUE,
@@ -155,7 +169,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     width: "90%",
     paddingTop: 15,
-    paddingBottom: 30,
+    paddingBottom: 28,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -165,7 +179,7 @@ const styles = StyleSheet.create({
     height: 45,
     width: "70%",
     alignSelf: "center",
-    bottom: -45 / 2,
+    bottom: 30 / 2,
     elevation: 5,
     position: "absolute",
     borderRadius: 100,
@@ -174,7 +188,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textButton: {
-    fontSize: 16,
+    fontSize: 17,
     color: "white",
   },
   icon: {

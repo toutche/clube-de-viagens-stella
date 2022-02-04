@@ -66,7 +66,7 @@ export default ({ navigation }) => {
   const jumpButton = () => navigation.navigate("Sign");
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScrollView bounces={false} style={styles.container} contentContainerStyle={styles.content}>
       <FlatList
         ref={ListRef}
         data={Slides}
@@ -112,13 +112,12 @@ export default ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: PRIMARY_COLOR,
-    height: "100%",
   },
   content: {
     justifyContent: "space-between",
-    paddingBottom: "15%",
+    paddingBottom: 30,
   },
   image: {
     width: "100%",

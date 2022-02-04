@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ViewPropTypes,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, ViewPropTypes } from "react-native";
 
 import CreditCard from "./CardView";
 import CCInput from "./CCInput";
@@ -18,9 +12,10 @@ const s = StyleSheet.create({
     paddingHorizontal: 30,
   },
   halfView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
 });
 
 export default class CreditCardInput extends Component {
@@ -61,7 +56,7 @@ export default class CreditCardInput extends Component {
       number: "Número do cartão",
       expiry: "Mês/Ano",
       cvc: "CVC",
-      CPF: 'CPF do titular do cartão',
+      CPF: "CPF do titular do cartão",
       postalCode: "34567",
     },
     validColor: "",
@@ -72,24 +67,40 @@ export default class CreditCardInput extends Component {
 
   _inputProps = field => {
     const {
-      inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
-      placeholders, labels, values, status,
-      onFocus, onChange, onBecomeEmpty, onBecomeValid,
+      inputStyle,
+      labelStyle,
+      validColor,
+      invalidColor,
+      placeholderColor,
+      placeholders,
+      labels,
+      values,
+      status,
+      onFocus,
+      onChange,
+      onBecomeEmpty,
+      onBecomeValid,
       additionalInputsProps,
     } = this.props;
 
     return {
       inputStyle: [inputStyle],
       labelStyle: [labelStyle],
-      validColor, invalidColor, placeholderColor,
-      ref: field, field,
+      validColor,
+      invalidColor,
+      placeholderColor,
+      ref: field,
+      field,
 
       label: labels[field],
       placeholder: placeholders[field],
       value: values[field],
       status: status[field],
 
-      onFocus, onChange, onBecomeEmpty, onBecomeValid,
+      onFocus,
+      onChange,
+      onBecomeEmpty,
+      onBecomeValid,
 
       additionalInputProps: additionalInputsProps[field],
     };
@@ -97,40 +108,50 @@ export default class CreditCardInput extends Component {
 
   render() {
     const {
-      cardImageFront, cardImageBack,
-      values: { number, expiry, cvc, name, type }, focused,
-      requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons,
+      cardImageFront,
+      cardImageBack,
+      values: { number, expiry, cvc, name, type },
+      focused,
+      requiresName,
+      requiresCVC,
+      requiresPostalCode,
+      cardScale,
+      cardFontFamily,
+      cardBrandIcons,
     } = this.props;
 
     return (
       <View style={s.container}>
-        <CCInput {...this._inputProps("number")}
+        <CCInput
+          {...this._inputProps("number")}
           customIcons={cardBrandIcons}
           brand={type}
           maxLength={19}
-          keyboardType="numeric" />
-        {requiresName &&
-          <CCInput {...this._inputProps("name")}
-            maxLength={30} />}
+          keyboardType='numeric'
+        />
+        {requiresName && <CCInput {...this._inputProps("name")} maxLength={30} />}
         <View style={s.halfView}>
-          <CCInput {...this._inputProps("expiry")}
-            containerStyle={{ flex: .38 }}
+          <CCInput
+            {...this._inputProps("expiry")}
+            containerStyle={{ flex: 0.38 }}
             maxLength={5}
-            keyboardType="numeric" />
-          {requiresCVC &&
-            <CCInput {...this._inputProps("cvc")}
-              containerStyle={{ flex: .58 }}
+            keyboardType='numeric'
+          />
+          {requiresCVC && (
+            <CCInput
+              {...this._inputProps("cvc")}
+              containerStyle={{ flex: 0.58 }}
               maxLength={3}
-              keyboardType="numeric" />}
+              keyboardType='numeric'
+            />
+          )}
         </View>
-        <CCInput {...this._inputProps("CPF")}
-          maxLength={11}
-          keyboardType="numeric" />
-        {requiresPostalCode &&
-          <CCInput {...this._inputProps("postalCode")}
-            keyboardType="numeric" />}
-        <CreditCard focused={focused}
+        <CCInput {...this._inputProps("CPF")} maxLength={11} keyboardType='numeric' />
+        {requiresPostalCode && (
+          <CCInput {...this._inputProps("postalCode")} keyboardType='numeric' />
+        )}
+        <CreditCard
+          focused={focused}
           brand={type}
           scale={cardScale}
           fontFamily={cardFontFamily}
@@ -140,7 +161,8 @@ export default class CreditCardInput extends Component {
           name={requiresName ? name : " "}
           number={number}
           expiry={expiry}
-          cvc={cvc} />
+          cvc={cvc}
+        />
       </View>
     );
   }

@@ -1,12 +1,16 @@
-import React from 'react';
-import { View } from 'react-native';
-import { PRIMARY_COLOR } from '../../utils/variables';
+import React from "react";
+import { View } from "react-native";
+import { PRIMARY_COLOR } from "../../utils/variables";
 
 const CustomStatusBar = () => {
-    return <View style={{
+  return (
+    <View
+      style={{
         backgroundColor: PRIMARY_COLOR,
-        height: 22
-    }} />
-}
+        height: 22,
+      }}
+    />
+  );
+};
 
-export default CustomStatusBar
+export default CustomStatusBar;
