@@ -8,7 +8,7 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 import InsertCupom from "../../components/InsertCupom";
 import ValuePackage from "./ValuePackage";
 
-const HeaderHiringPackageDetails = ({ navigation }) => {
+const HeaderHiringPackageDetails = ({ navigation, data }) => {
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -22,9 +22,9 @@ const HeaderHiringPackageDetails = ({ navigation }) => {
       />
 
       <View style={styles.header}>
-        <ProfileAvatar title={`Fernanda Lima`} isHide />
+        <ProfileAvatar isShow />
         <View style={styles.separator} />
-        <ValuePackage />
+        <ValuePackage price_discount={data.price_discount} />
       </View>
 
       <InsertCupom />

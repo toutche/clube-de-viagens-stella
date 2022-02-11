@@ -5,8 +5,11 @@ import CustomIcon from "../CustomIcon";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import RenderItem from "./RenderItem";
 import FakeItem from "./FakeItem";
+import { useAuth } from "../../contexts/auth";
 
 const Menu = ({ isVisible = true, onClose }) => {
+  const { user } = useAuth();
+
   return (
     <Modal
       statusBarTranslucent
@@ -17,33 +20,121 @@ const Menu = ({ isVisible = true, onClose }) => {
       <View style={styles.container}>
         <View style={styles.content}>
           <View style={styles.line}>
-            <RenderItem id={"Dashboard"} text={"Reservas"} onClose={onClose} />
-            <RenderItem id={"Dashboar"} text={"Meu Plano"} onClose={onClose} />
-            <RenderItem id={"Dashboar"} text={"Minha Conta"} onClose={onClose} />
+            <RenderItem
+              id={"Dashboard"}
+              text={"Reservas"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/reservas-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/reservas-white.png"}
+            />
+            <RenderItem
+              id={"Dashboar"}
+              text={"Meu Plano"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/acompanhantes-red.png"}
+              noSelected={
+                "https://toutche.com.br/clube_de_ferias/icones/menu/acompanhantes-white.png"
+              }
+            />
+            <RenderItem
+              id={"Dashboar"}
+              text={"Minha Conta"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/minha-conta-red.png"}
+              noSelected={
+                "https://toutche.com.br/clube_de_ferias/icones/menu/minha-conta-white.png"
+              }
+            />
           </View>
 
           <View style={styles.separator} />
 
           <View style={styles.line}>
-            <RenderItem id={"Dashboar"} text={"Favoritos"} onClose={onClose} />
-            <RenderItem id={"Wallet"} text={"Carteira"} onClose={onClose} />
-            <RenderItem id={"Dashboar"} text={"Alertas"} onClose={onClose} />
+            <RenderItem
+              id={"Dashboar"}
+              text={"Favoritos"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/favoritos-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/favoritos-white.png"}
+            />
+            <RenderItem
+              id={"Wallet"}
+              text={"Carteira"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/carteira-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/carteira-white.png"}
+            />
+            <RenderItem
+              id={"Dashboar"}
+              text={"Alertas"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/alertas-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/alertas-white.png"}
+            />
           </View>
 
           <View style={styles.separator} />
 
           <View style={styles.line}>
-            <RenderItem id={"Dashboar"} text={"Sobre"} onClose={onClose} />
-            <RenderItem id={"Dashboar"} text={"Acompanhantes"} onClose={onClose} />
-            <RenderItem id={"Contact"} text={"Contato"} onClose={onClose} />
+            <RenderItem
+              id={"Dashboar"}
+              text={"Sobre"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/sobre-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/sobre-white.png"}
+            />
+            <RenderItem
+              id={"Dashboar"}
+              text={"Acompanhantes"}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/acompanhantes-red.png"}
+              noSelected={
+                "https://toutche.com.br/clube_de_ferias/icones/menu/acompanhantes-white.png"
+              }
+            />
+            <RenderItem
+              id={"Contact"}
+              text={"Contato"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/contato-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/contato-white.png"}
+            />
           </View>
 
           <View style={styles.separator} />
 
           <View style={styles.line}>
-            <RenderItem id={"Dashboar"} text={"Vantagens"} onClose={onClose} />
-            <RenderItem id={"Dashboar"} text={"Documentos"} onClose={onClose} />
-            <RenderItem text={"Sair"} onClose={onClose} />
+            <RenderItem
+              id={"Dashboar"}
+              text={"Vantagens"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/vantagens-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/vantagens-white.png"}
+            />
+            <RenderItem
+              id={"Dashboar"}
+              text={"Documentos"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/documentos-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/documentos-white.png"}
+            />
+            <RenderItem
+              text={"Sair"}
+              onClose={onClose}
+              onClose={onClose}
+              selected={"https://toutche.com.br/clube_de_ferias/icones/menu/sair-red.png"}
+              noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/sair-white.png"}
+            />
           </View>
         </View>
       </View>
@@ -81,8 +172,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     backgroundColor: "white",
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",

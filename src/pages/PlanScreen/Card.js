@@ -6,8 +6,10 @@ import { BLUE_COLOR, LIGHT_BLUE, YELLOW_COLOR } from "../../utils/variables";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import api from "../../services/api";
+import { useAuth } from "../../contexts/auth";
 
-const Card = ({ plan }) => {
+const Card = ({ plan, isPlan = false }) => {
+  const { user } = useAuth();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
 
@@ -31,12 +33,30 @@ const Card = ({ plan }) => {
         }, 200),
       );
   };
-  //console.log(plan);
+
   return (
     <View>
       <LinearGradient start={[1, 0.5]} colors={[plan.colors[1], plan.colors[0]]} style={styles.top}>
         <View style={styles.header}>
-          <View style={styles.stamp}></View>
+          <View style={styles.stamp}>
+            {!isPlan ? (
+              <View
+                style={{
+                  backgroundColor: "red",
+                  width: "80%",
+                  height: "80%",
+                  borderRadius: 999,
+                }}
+              />
+            ) : (
+              <Image
+                style={styles.stampIcon}
+                source={{
+                  uri: user.images.crown,
+                }}
+              />
+            )}
+          </View>
           <View>
             <Text style={styles.name}>{plan.name}</Text>
             <Text style={styles.amount}>
@@ -56,7 +76,10 @@ const Card = ({ plan }) => {
         <View style={styles.discount}>
           <View>
             <Text style={[styles.package, { fontSize: 16 }]}>
-              Pacote {"> "} <Text style={{ fontSize: 14 }}>{plan?.item_amount}</Text>{" "}
+              Pacote {"> "}{" "}
+              <Text style={{ fontSize: 14, textDecorationLine: "line-through" }}>
+                {plan?.item_amount}
+              </Text>{" "}
               <Text style={styles.iconBall}>●</Text>{" "}
               <Text style={{ fontSize: 14 }}>{plan?.item_amount_discount}</Text>
             </Text>
@@ -85,7 +108,7 @@ const Card = ({ plan }) => {
           <Image
             style={styles.iconCurrentPlan}
             source={{
-              uri: "http://media.infotravel.com.br/image/upload/c_scale,h_200/59AB7F60147D004D37B8BB7651F6BE24.jpg",
+              uri: user.images["world-plan"],
             }}
           />
           <Text style={styles.summary}>{plan?.summary}</Text>
@@ -160,6 +183,12 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "yellow",
     marginRight: 15,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stampIcon: {
+    width: "80%",
+    height: "80%",
   },
   discount: {
     paddingHorizontal: 10,
@@ -184,7 +213,7 @@ const styles = StyleSheet.create({
 
   amount: {
     fontSize: 15,
-    color: "#d1d1d1",
+    color: "#e1e1e1",
   },
   name: {
     fontSize: 22,

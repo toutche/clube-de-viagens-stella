@@ -8,7 +8,6 @@ export const CheckoutProvider = ({ children }) => {
   const [data, setData] = useState([]);
 
   const getScheduling = id => {
-    console.log("id", id);
     api
       .get(`/pacote-viagem/${id}/get/agendamento`)
       .then(({ data }) => setData(data))
@@ -20,6 +19,7 @@ export const CheckoutProvider = ({ children }) => {
       value={{
         data,
         travelers,
+        setTravelers,
         getScheduling,
       }}>
       {children}

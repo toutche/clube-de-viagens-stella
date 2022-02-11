@@ -16,6 +16,7 @@ import HiringPackageDetails from "../pages/HiringPackageDetails";
 import Congratulation from "../pages/Congratulation";
 import Alert from "../pages/Alert";
 import PlanScreen from "../pages/PlanScreen";
+import ConfirmReservation from "../pages/ConfirmReservation";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const AuthRoutes = () => {
       <AuthStack.Screen name='NewsTravelers' component={NewsTravelers} />
       <AuthStack.Screen name='Congratulation' component={Congratulation} />
       <AuthStack.Screen name='Checkout' component={Checkout} />
+      <AuthStack.Screen name='ConfirmReservation' component={ConfirmReservation} />
       <AuthStack.Screen name='Wallet' component={Wallet} />
       <AuthStack.Screen name='HiringPackageDetails' component={HiringPackageDetails} />
       <AuthStack.Screen name='ContractedPackages' component={ContractedPackages} />

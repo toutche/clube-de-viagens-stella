@@ -13,28 +13,28 @@ const TravelCard = ({ display = 0, data }) => {
       ]}>
       <Image
         source={{
-          uri: data.img,
+          uri: data?.img,
         }}
         style={styles.image}
       />
       <View style={styles.content}>
         <Text style={styles.title}>{data?.name}</Text>
         <Text style={[styles.subTitle, { color: display === 0 ? "#777" : BLUE_COLOR }]}>
-          {`${data.number_days} dias | ${data.phrase_effect}`}
+          {`${data?.number_days} dias | ${data?.phrase_effect}`}
         </Text>
         <View style={styles.borderBottom} />
 
         {display === 1 && (
           <View style={styles.details}>
             <View>
-              <Text style={styles.oldValue}>R$ 17.999,00</Text>
-              <Text style={styles.newValue}>R$ 15.999,00</Text>
+              <Text style={styles.oldValue}>R$ {data?.price}</Text>
+              <Text style={styles.newValue}>R$ {data?.price_discount}</Text>
             </View>
             <View style={styles.economic}>
               <View style={styles.arrow} />
-              <Text style={styles.economicText}>Economize R$ 600,00</Text>
+              <Text style={styles.economicText}>Economize R$ {data?.price_difference}</Text>
               <View style={styles.separator} />
-              <Text style={styles.discountText}>10% de desconto exclusivo</Text>
+              <Text style={styles.discountText}>{data?.percentual_plan}</Text>
             </View>
           </View>
         )}

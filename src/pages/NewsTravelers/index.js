@@ -16,12 +16,12 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 import { useCheckout } from "../../contexts/checkout";
 
 const NewsTravelers = ({ navigation }) => {
-  const {} = useCheckout();
+  const { data, travelers, setTravelers } = useCheckout();
 
   const inputId = useRef(null);
 
-  const [data, setData] = useState([]);
-  const [form, setForm] = useState([]);
+  const [thisData, setData] = useState([]);
+  const [form, setForm] = useState(travelers || []);
   const [isVisible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -36,6 +36,11 @@ const NewsTravelers = ({ navigation }) => {
       .finally(() => setLoading(false));
   };
 
+  const handlerPress = () => {
+    setTravelers(form);
+    navigation.goBack();
+  };
+
   const openModal = (bool, id) => {
     inputId.current = id;
     setVisible(bool);
@@ -43,16 +48,18 @@ const NewsTravelers = ({ navigation }) => {
 
   const selectTraveler = id => {
     let array = [...form];
-    array[inputId.current] = data[id];
-    setForm(array);
+    if (inputId.current !== null) {
+      array[inputId.current] = thisData[id];
+      setForm(array);
+    }
     setVisible(false);
   };
 
   const _listUsers = ({ item, index }) => (
     <TouchableOpacity onPress={() => selectTraveler(index)} style={styles.item}>
-      <Text style={styles.itemText}>{item.name}</Text>
-      <Text style={styles.itemText}>{item.age}</Text>
-      <Text style={styles.itemText}>{item.cpf}</Text>
+      <Text style={styles.itemText}>{item?.name}</Text>
+      <Text style={styles.itemText}>{item?.age}</Text>
+      <Text style={styles.itemText}>{item?.cpf}</Text>
     </TouchableOpacity>
   );
 
@@ -76,7 +83,7 @@ const NewsTravelers = ({ navigation }) => {
               <ActivityIndicator size={"large"} color={PRIMARY_COLOR} />
             ) : (
               <FlatList
-                data={data}
+                data={thisData}
                 contentContainerStyle={styles.flatlist}
                 keyExtractor={(item, index) => index.toString()}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
@@ -95,7 +102,7 @@ const NewsTravelers = ({ navigation }) => {
           handlerLeft={() => navigation.goBack()}
           title={"Viajantes"}
         />
-        <BodyNewsTravelers {...{ openModal, form, setForm }} />
+        {<BodyNewsTravelers {...{ data, openModal, form, setForm, handlerPress }} />}
       </View>
     </>
   );

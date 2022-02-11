@@ -1,12 +1,12 @@
 import React from "react";
-import { Text, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { logout } from "../../services/auth";
 import { useAuth } from "../../contexts/auth";
 import { PRIMARY_COLOR } from "../../utils/variables";
 
-const RenderItem = ({ id, onClose, text }) => {
+const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
   const { name } = useRoute();
   const { logoutAccount } = useAuth();
   const navigation = useNavigation();
@@ -26,11 +26,7 @@ const RenderItem = ({ id, onClose, text }) => {
             backgroundColor: name === id ? PRIMARY_COLOR : "#e1e1e1",
           },
         ]}>
-        <AntDesign
-          name={name === id ? "heart" : "hearto"}
-          color={name === id ? "white" : PRIMARY_COLOR}
-          size={24}
-        />
+        <Image style={styles.icon} source={{ uri: name === id ? noSelected : selected }} />
       </TouchableOpacity>
       <Text
         numberOfLines={1}
@@ -63,6 +59,10 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
+  },
+  icon: {
+    width: 60,
+    height: 60,
   },
 });
 

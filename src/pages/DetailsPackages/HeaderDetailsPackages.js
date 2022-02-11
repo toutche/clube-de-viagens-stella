@@ -8,8 +8,11 @@ import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import { LIGHT_BLUE } from "../../utils/variables";
 import Carousel from "../../components/Carousel";
+import { useAuth } from "../../contexts/auth";
 
 const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
+  const { user } = useAuth();
+  //console.log(user.images);
   return (
     <View style={styles.container}>
       <Carousel data={item.gallery} />
@@ -22,11 +25,13 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
         containerStyle={styles.icon}
       />
 
-      <Hide containerStyle={styles.hide} item={item} />
+      <Hide containerStyle={styles.hideIcon} item={item} />
 
       <FavoriteIcon favorite={item.favorite} containerStyle={styles.favorite} />
 
       <ShareIcon shareOpen={shareOpen} containerStyle={styles.share} />
+
+      <Image style={styles.audit} source={{ uri: user.images.audit }} />
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>
@@ -197,11 +202,19 @@ const styles = StyleSheet.create({
     padding: 10,
     position: "absolute",
   },
-  hide: {
+  audit: {
+    height: 55,
+    width: 55,
+    borderRadius: 100,
+    right: 10,
+    top: 210,
+    position: "absolute",
+  },
+  hideIcon: {
     position: "absolute",
     top: 45,
     right: 15,
-    backgroundColor: "rgba(232,188,13,.7)",
+    backgroundColor: "rgba(232,188,13,.4)",
     height: 45,
     width: 45,
     borderRadius: 100,

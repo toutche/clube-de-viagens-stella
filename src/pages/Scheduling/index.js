@@ -13,8 +13,10 @@ import { useCheckout } from "../../contexts/checkout";
 const Scheduling = ({ navigation, route }) => {
   const { getScheduling, data, travelers } = useCheckout();
 
+  const id = route.params.item.id;
+
   useEffect(() => {
-    getScheduling(route.params.item.id);
+    getScheduling(id);
   }, []);
 
   return (
@@ -32,14 +34,21 @@ const Scheduling = ({ navigation, route }) => {
         <Travel data={data} />
         <Travelers data={data} onPress={() => navigation.navigate("NewsTravelers")} />
         <TravelCard data={data} />
-        <Note />
         <CustomButton
-          disabled={travelers.length === data.qtdpax ? false : true}
+          disabled={travelers.length === data.qtd_pax ? false : true}
           disabledMessage='Para continuar, nomeie os viajantes'
           containerStyle={styles.button}
           titleStyle={styles.textButton}
           title={`Próximo`}
-          onPress={() => navigation.navigate("NewsTravelers")}
+          onPress={() =>
+            navigation.navigate({
+              name: "HiringPackageDetails",
+              params: {
+                id,
+              },
+              merge: true,
+            })
+          }
         />
       </ScrollView>
     </View>

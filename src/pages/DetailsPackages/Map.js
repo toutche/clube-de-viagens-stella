@@ -3,8 +3,13 @@ import { StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
 import CustomButton from "../../components/CustomButton";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import * as Clipboard from "expo-clipboard";
 
 const Map = ({ location, address }) => {
+  const copyToClipboard = () => {
+    Clipboard.setString(address);
+  };
+
   return (
     <View>
       <Text style={styles.text}>Localização</Text>
@@ -22,7 +27,7 @@ const Map = ({ location, address }) => {
         </View>
       </View>
 
-      <CustomButton titleStyle={styles.text} title={"Copiar Endereço"} />
+      <CustomButton titleStyle={styles.text} title={"Copiar Endereço"} onPress={copyToClipboard} />
 
       <MapView
         initialRegion={{

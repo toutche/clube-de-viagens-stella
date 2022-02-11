@@ -7,28 +7,15 @@ import CustomInput from "../../components/CustomInput";
 import api from "../../services/api";
 import { useCheckout } from "../../contexts/checkout";
 
-const BodyNewTravelers = ({ openModal, form = [], setForm = () => {} }) => {
-  const { data } = useCheckout();
-
+const BodyNewTravelers = ({
+  data = [],
+  openModal,
+  form = [],
+  setForm = () => {},
+  handlerPress = () => {},
+}) => {
   const [loading, setLoading] = useState(false);
   const [newUsers, setUsers] = useState([]);
-
-  const handlerPress = () => {
-    setLoading(true);
-    api
-      .post("/familiar/criar", {
-        name: "Carlos",
-        last_name: "Eduardo",
-        birth_date: "2000-10-03",
-        cpf: "53242342321",
-      })
-      .then(({ data }) => {
-        console.log(data);
-        //setUsers([...newUsers, form]);
-      })
-      .catch(e => console.log("error", e))
-      .finally(() => setLoading(false));
-  };
 
   return (
     <ScrollView bounces={false} contentContainerStyle={styles.containerScroll}>

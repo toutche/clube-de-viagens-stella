@@ -5,8 +5,11 @@ import { AntDesign } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import Logo from "../../../assets/logoWW.png";
+import { useAuth } from "../../contexts/auth";
 
 const HeaderPlanScreen = ({ navigation }) => {
+  const { user } = useAuth();
+
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -20,7 +23,7 @@ const HeaderPlanScreen = ({ navigation }) => {
           containerStyle={styles.iconLeft}
         />
 
-        <Image resizeMethod='resize' resizeMode='contain' style={styles.logo} source={Logo} />
+        <Image style={styles.logo} source={Logo} />
       </View>
 
       <View
@@ -34,17 +37,17 @@ const HeaderPlanScreen = ({ navigation }) => {
           },
         ]}>
         <View style={styles.content}>
-          <View style={{ marginRight: 6 }}>
-            <Text style={styles.compare}>Compare nossos Planos</Text>
+          <View style={{ marginRight: 5 }}>
+            <Text style={styles.check}>Confira nossos Planos</Text>
             <Text style={styles.yourTravel}>Sua viagem dos sonhos está aqui.</Text>
           </View>
-          <Image style={styles.auditoria} source={Logo} />
+          <Image style={styles.audit} source={{ uri: user.images.audit }} />
         </View>
 
         <View style={styles.separator} />
 
         <View style={[styles.content, styles.right]}>
-          <Image style={styles.auditoria} source={Logo} />
+          <Image style={styles.medal} source={{ uri: user.images.medal }} />
           <View style={{ marginLeft: 6 }}>
             <Text style={styles.benefits}>Vantagens</Text>
             <Text style={styles.subscribers}>dos assinantes</Text>
@@ -59,29 +62,20 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: PRIMARY_COLOR,
     alignItems: "center",
-    paddingBottom: 35,
+    paddingBottom: 25,
   },
   right: {
-    backgroundColor: "#ef091a",
-    borderWidth: 1,
-    borderRadius: 8,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    borderColor: "rgba(0,0,0,0.00001)",
     paddingVertical: 2,
-    paddingLeft: 10,
     paddingRight: 8,
   },
-  compare: {
+  check: {
     color: "white",
-    fontSize: 16,
+    fontSize: 18,
   },
   yourTravel: {
-    color: "#d1d1d1",
-    fontSize: 12.5,
+    color: "#e1e1e1",
+    fontSize: 12,
+    bottom: 2.5,
   },
   benefits: {
     color: "white",
@@ -114,9 +108,15 @@ const styles = StyleSheet.create({
     height: 140,
     marginVertical: -30,
   },
-  auditoria: {
-    width: 25,
-    height: 25,
+  audit: {
+    marginLeft: -2,
+    width: 36,
+    height: 36,
+  },
+  medal: {
+    aspectRatio: 0.9,
+    width: undefined,
+    height: 22,
   },
 });
 

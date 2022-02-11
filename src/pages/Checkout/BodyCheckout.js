@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Platform, KeyboardAvoidingView } from "react-native";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import { CreditCardInput } from "../../components/CreditInput";
 import { CheckBox } from "react-native-elements";
@@ -7,7 +7,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
 
-const BodyCheckout = ({ data }) => {
+const BodyCheckout = ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
   const [card, setCard] = useState({
     card_number: "4000 0000 0000 0010",
@@ -45,42 +45,52 @@ const BodyCheckout = ({ data }) => {
       })
       .then(res => {
         console.log("sucess", res.data);
+        navigation.navigate({
+          name: "FinishHidePlan",
+          params: { ...res.data },
+          merge: true,
+        });
       })
       .catch(e => console.log("error", e))
       .finally(() => setLoading(false));
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.containerScroll}>
-      <Text style={styles.title}>Informe seus dados do cartão:</Text>
-      <CreditCardInput requiresName onChange={onChange} />
-      <CheckBox
-        onPress={() => setCheck(!check)}
-        checked={check}
-        title={"Salvar cartão"}
-        textStyle={{
-          color: "#333",
-          fontSize: 15,
-        }}
-        center
-        size={28}
-        containerStyle={{
-          width: "100%",
-          backgroundColor: "transparent",
-          borderWidth: 0,
-        }}
-        checkedIcon={<MaterialIcons name='check-box' size={28} color={PRIMARY_COLOR} />}
-        uncheckedIcon={<MaterialIcons name='check-box-outline-blank' size={28} color='#c9c9c9' />}
-      />
-      <CustomButton
-        loadingApiColor={"white"}
-        loadingApi={loading}
-        onPress={handlePress}
-        containerStyle={styles.button}
-        titleStyle={styles.textButton}
-        title={`Realizar pagamento R$${data.amount || 0}`}
-      />
-    </ScrollView>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
+      <ScrollView
+        bounces={false}
+        style={styles.container}
+        contentContainerStyle={styles.containerScroll}>
+        <Text style={styles.title}>Informe seus dados do cartão:</Text>
+        <CreditCardInput requiresName onChange={onChange} />
+        <CheckBox
+          onPress={() => setCheck(!check)}
+          checked={check}
+          title={"Salvar cartão"}
+          textStyle={{
+            color: "#333",
+            fontSize: 15,
+          }}
+          center
+          size={28}
+          containerStyle={{
+            width: "100%",
+            backgroundColor: "transparent",
+            borderWidth: 0,
+          }}
+          checkedIcon={<MaterialIcons name='check-box' size={28} color={PRIMARY_COLOR} />}
+          uncheckedIcon={<MaterialIcons name='check-box-outline-blank' size={28} color='#c9c9c9' />}
+        />
+        <CustomButton
+          loadingApiColor={"white"}
+          loadingApi={loading}
+          onPress={handlePress}
+          containerStyle={styles.button}
+          titleStyle={styles.textButton}
+          title={`Realizar pagamento | R$${data.amount || 0}`}
+        />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -100,6 +110,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 20,
     width: "90%",
+    alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
   },

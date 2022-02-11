@@ -8,8 +8,8 @@ const Checkout = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <HeaderCheckout data={data} navigation={navigation} />
-      <BodyCheckout data={data} />
+      <HeaderCheckout {...{ data, navigation }} />
+      <BodyCheckout {...{ data, navigation }} />
     </View>
   );
 };

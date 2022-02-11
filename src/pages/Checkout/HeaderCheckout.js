@@ -9,7 +9,6 @@ import InsertCupom from "../../components/InsertCupom";
 import SubscribeNow from "./SubscribeNow";
 
 const HeaderCheckout = ({ navigation, data }) => {
-  console.log(data);
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -23,7 +22,7 @@ const HeaderCheckout = ({ navigation, data }) => {
       />
 
       <View style={styles.header}>
-        <ProfileAvatar title={`Fernanda Lima`} isHide />
+        <ProfileAvatar isShow />
         <View style={styles.separator} />
         <SubscribeNow amount={data?.amount} discount={data?.discount} />
       </View>

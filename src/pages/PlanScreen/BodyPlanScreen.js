@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, Text, StyleSheet, View } from "react-native";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
@@ -6,7 +6,7 @@ import Card from "./Card";
 
 const renderIfHavePlan = ({ current_plan, plans = [] }) => (
   <>
-    <Card plan={current_plan} />
+    <Card plan={current_plan} isPlan />
     {plans.length !== 0 ? (
       <>
         <Text style={[styles.title, { marginTop: 10, fontSize: 18 }]}>Conquiste mais sonhos</Text>
@@ -52,7 +52,7 @@ const renderIfDontHavePlan = ({ plans = [] }) => (
 const BodyPlanScreen = ({ item }) => {
   const [isPlan, setPlan] = useState(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     api
       .post(`/plano/current/hotel-package`, { package_id: item.id })
       .then(res => {
@@ -101,9 +101,9 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     color: "#555",
-    marginTop: 5,
-    marginBottom: 10,
-    fontSize: 17,
+    marginTop: 7,
+    marginBottom: 12,
+    fontSize: 15.5,
   },
 });
 

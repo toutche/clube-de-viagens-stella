@@ -6,7 +6,7 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 const item =
   "https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg";
 
-const ProfileAvatar = ({ leftSize = 55, isHide = false }) => {
+const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
   const { user } = useAuth();
   //console.log(user.plan);
   return (
@@ -22,16 +22,16 @@ const ProfileAvatar = ({ leftSize = 55, isHide = false }) => {
         <Image style={styles.image} source={{ uri: item }} />
       </View>
       <View style={styles.right}>
-        {isHide && user.plan && (
+        {isShow && user.plan && (
           <View style={styles.viewHide}>
             <Text style={styles.iconHide}>●</Text>
             <Text style={styles.textHide}>{user?.plan?.name?.split(" ")[1]}</Text>
           </View>
         )}
         <Text
-          style={[styles.title, isHide && user.plan && { top: 3.5 }]}>{`Olá ${user.name}`}</Text>
-        <Text style={[styles.subTitle, isHide && user.plan && { top: 1 }]}>
-          Crédito: R${parseFloat(user?.amount?.credit) || 0}
+          style={[styles.title, isShow && user.plan && { top: 3.5 }]}>{`Olá ${user.name}`}</Text>
+        <Text style={[styles.subTitle, isShow && user.plan && { top: 1 }]}>
+          Crédito: R${parseFloat(user?.wallet?.credit).toFixed(2) || 0}
         </Text>
       </View>
     </View>

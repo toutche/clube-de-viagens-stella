@@ -21,12 +21,12 @@ const Hide = ({ containerStyle, item }) => {
       style={containerStyle}>
       <Image
         style={{
-          width: 33,
-          height: 33,
+          width: "80%",
+          height: "80%",
           borderRadius: 100,
         }}
         source={{
-          uri: "https://e7.pngegg.com/pngimages/15/708/png-clipart-crown-crown.png",
+          uri: user.images.crown,
         }}
       />
     </TouchableOpacity>

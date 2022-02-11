@@ -6,10 +6,11 @@ import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
 import { BLUE_COLOR } from "../../utils/variables";
 
-const Congratulation = () => {
+const Congratulation = ({ route, navigation }) => {
+  const data = route.params;
+
   return (
     <ScrollView>
-      <Image />
       <View style={styles.body}>
         <Text style={styles.title}>
           <Text style={styles.titleBold}>Parabens, </Text>
@@ -23,11 +24,11 @@ const Congratulation = () => {
 
         <Text style={styles.hideText}>Plano Utilizado</Text>
 
-        <TravelCard display={2} />
+        <TravelCard display={2} {...{ data }} />
 
-        <Travel display={1} />
+        <Travel display={1} {...{ data }} />
 
-        <InfoHotel display={2} />
+        <InfoHotel display={2} {...{ data }} />
 
         <CustomButton
           containerStyle={styles.button}

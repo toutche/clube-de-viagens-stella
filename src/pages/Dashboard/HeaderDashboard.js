@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { SimpleLineIcons, Ionicons } from "@expo/vector-icons";
@@ -13,7 +13,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
   const [filter, setFilter] = useState([]);
   const [data, setData] = useState([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     api.get("/interesses/show-filtrar").then(res => {
       setFilter(res.data);
     });
@@ -44,7 +44,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
           containerStyle={styles.iconRight}
         />
 
-        <ProfileAvatar />
+        <ProfileAvatar isShow />
       </View>
 
       <SlidesDashboard filter={filter} data={data} />
