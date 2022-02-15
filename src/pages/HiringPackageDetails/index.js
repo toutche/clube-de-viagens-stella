@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
+import CustomPicker from "../../components/CustomPicker";
+import { useCheckout } from "../../contexts/checkout";
 import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import BodyHiringPackageDetails from "./BodyHiringPackageDetails";
@@ -8,38 +10,46 @@ import ModalPayment from "./ModalPayment";
 
 const HiringPackageDetails = ({ navigation, route }) => {
   const id = route.params?.id;
+  const { travelers } = useCheckout();
 
   const [isVisible, setVisible] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [index, setIndex] = useState(1);
 
   useEffect(() => {
     api
-      .get(`/pacote-viagem/${id}/get/agendamento/pagamento`)
+      .get(`/pacote-viagem/${id}/Y/get/agendamento/pagamento`)
       .then(({ data }) => {
+        //console.log("dsasdas", data.payment_infos.installments);
         setData(data);
       })
       .catch(e => console.log(e))
       .finally(() => setLoading(false));
   }, []);
 
+  const openModal = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
   if (loading)
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
+      <View style={styles.loading}>
         <ActivityIndicator color={PRIMARY_COLOR} size={"large"} />
       </View>
     );
 
   return (
     <View style={styles.container}>
-      <ModalPayment isVisible={isVisible} onClose={() => setVisible(!isVisible)} />
+      <ModalPayment
+        {...{ navigation, isVisible, onClose, data, index, setIndex, travelers, package_id: id }}
+      />
       <HeaderHiringPackageDetails {...{ navigation, data }} />
-      <BodyHiringPackageDetails openModal={() => setVisible(!isVisible)} {...{ data }} />
+      <BodyHiringPackageDetails {...{ data, openModal }} />
     </View>
   );
 };
@@ -47,6 +57,11 @@ const HiringPackageDetails = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

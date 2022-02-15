@@ -8,11 +8,8 @@ import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import { LIGHT_BLUE } from "../../utils/variables";
 import Carousel from "../../components/Carousel";
-import { useAuth } from "../../contexts/auth";
 
 const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
-  const { user } = useAuth();
-  //console.log(user.images);
   return (
     <View style={styles.container}>
       <Carousel data={item.gallery} />
@@ -31,7 +28,7 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
 
       <ShareIcon shareOpen={shareOpen} containerStyle={styles.share} />
 
-      <Image style={styles.audit} source={{ uri: user.images.audit }} />
+      <Image style={styles.responsible_tourism} source={{ uri: item.icon_responsible_tourism }} />
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>
@@ -202,9 +199,9 @@ const styles = StyleSheet.create({
     padding: 10,
     position: "absolute",
   },
-  audit: {
-    height: 55,
-    width: 55,
+  responsible_tourism: {
+    height: 60,
+    width: 60,
     borderRadius: 100,
     right: 10,
     top: 210,

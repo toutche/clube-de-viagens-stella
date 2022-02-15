@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, Platform } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: PRIMARY_COLOR,
     alignItems: "center",
-    paddingBottom: 25,
+    paddingBottom: Platform.OS === "ios" ? 30 : 25,
   },
   right: {
     paddingVertical: 2,

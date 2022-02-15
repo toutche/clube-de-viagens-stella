@@ -26,7 +26,6 @@ const NewsTravelers = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const onShowModal = () => {
-    setLoading(true);
     api
       .get("/familiar/listar")
       .then(({ data }) => {
@@ -42,6 +41,7 @@ const NewsTravelers = ({ navigation }) => {
   };
 
   const openModal = (bool, id) => {
+    setLoading(true);
     inputId.current = id;
     setVisible(bool);
   };

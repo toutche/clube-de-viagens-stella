@@ -38,13 +38,13 @@ const Card = ({ plan, isPlan = false }) => {
     <View>
       <LinearGradient start={[1, 0.5]} colors={[plan.colors[1], plan.colors[0]]} style={styles.top}>
         <View style={styles.header}>
-          <View style={styles.stamp}>
+          <View style={[styles.stamp, { backgroundColor: plan.colors[2] }]}>
             {!isPlan ? (
               <View
                 style={{
-                  backgroundColor: "red",
-                  width: "80%",
-                  height: "80%",
+                  backgroundColor: plan.colors[3],
+                  width: "70%",
+                  height: "70%",
                   borderRadius: 999,
                 }}
               />
@@ -63,15 +63,16 @@ const Card = ({ plan, isPlan = false }) => {
               Assinatura R${plan.amount} <Text>/mês</Text>
             </Text>
           </View>
-
-          <CustomIcon
-            loadingApi={loading}
-            onPress={handlePress}
-            size={26}
-            type={Entypo}
-            name={"chevron-right"}
-            containerStyle={styles.chevron}
-          />
+          {!isPlan && (
+            <CustomIcon
+              loadingApi={loading}
+              onPress={handlePress}
+              size={26}
+              type={Entypo}
+              name={"chevron-right"}
+              containerStyle={styles.chevron}
+            />
+          )}
         </View>
         <View style={styles.discount}>
           <View>
@@ -141,8 +142,8 @@ const styles = StyleSheet.create({
   chevron: {
     position: "absolute",
     right: 0,
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
@@ -181,7 +182,6 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderRadius: 100,
-    backgroundColor: "yellow",
     marginRight: 15,
     alignItems: "center",
     justifyContent: "center",

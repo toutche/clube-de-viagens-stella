@@ -6,7 +6,7 @@ export const PRIMARY_COLOR = "#E10717"; //"#ff0015";
 export const BLUE_COLOR = "#287dfd";
 export const LIGHT_BLUE = "#12aaeb";
 export const YELLOW_COLOR = "#e7bc0d";
-export const GREEN_COLOR = "#44aa43";
+export const GREEN_COLOR = "#58ba01";
 export const SECOND_COLOR = "#FFFFFF";
 
 export const TITLE_COLOR_BKCOLORFUL = "#FFFFFF";

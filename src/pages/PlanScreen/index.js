@@ -26,17 +26,17 @@ const PlanScreen = ({ navigation, route }) => {
                 fontSize: 16,
                 textAlign: "center",
               }}>
-              {item.subname}
+              {item?.subname}
             </Text>
-            {item.number_days && <Text style={styles.pipe}>│</Text>}
-            {item.number_days && (
+            {item?.number_days && <Text style={styles.pipe}>│</Text>}
+            {item?.number_days && (
               <Text
                 style={{
                   color: BLUE_COLOR,
                   fontSize: 16,
                   textAlign: "center",
                 }}>
-                {item.number_days}
+                {item?.number_days}
               </Text>
             )}
           </View>

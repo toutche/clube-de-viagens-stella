@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, ImageBackground, Image, Text, StyleSheet, Platform } from "react-native";
+import { View, ImageBackground, Image, Text, StyleSheet } from "react-native";
 
 import defaultIcons from "./Icons";
 import FlipCard from "react-native-flip-card";
@@ -99,7 +99,6 @@ export default class CardView extends Component {
     },
 
     scale: 1,
-    fontFamily: Platform.select({ ios: "Courier", android: "monospace" }),
     imageFront: require("./images/card-front.png"),
     imageBack: require("./images/card-back.png"),
   };

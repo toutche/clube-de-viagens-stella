@@ -63,15 +63,15 @@ const BodyDetailsPackages = ({ item }) => {
         }}>
         {item.facilities.map(i => {
           return (
-            <View key={i.description} style={{ flexDirection: "row" }}>
+            <View key={i.description} style={{ flexDirection: "row", marginBottom: 8 }}>
               <Image
-                style={{ width: 30, height: 30 }}
+                style={{ width: 20, height: 20 }}
                 resizeMode={"contain"}
                 source={{ uri: i.icon }}
               />
               <Text
                 style={{
-                  marginLeft: 5,
+                  marginLeft: 4,
                   marginRight: 15,
                   textAlignVertical: "center",
                   fontSize: 14.5,

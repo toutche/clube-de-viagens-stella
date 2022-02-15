@@ -5,8 +5,8 @@ import InfoHotel from "../../components/InfoHotel";
 import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
 import { BLUE_COLOR, GREEN_COLOR, PRIMARY_COLOR } from "../../utils/variables";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import Note from "../Scheduling/Note";
+import { AntDesign } from "@expo/vector-icons";
+import Note from "./Note";
 
 const BodyHiringPackageDetails = ({ openModal, data }) => {
   return (
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: PRIMARY_COLOR,
   },
   containerScroll: {
-    backgroundColor: "white",
+    backgroundColor: "#e1e1e1",
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 15,

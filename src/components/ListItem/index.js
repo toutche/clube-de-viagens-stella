@@ -6,12 +6,12 @@ import ShareIcon from "../../components/ShareIcon";
 import { BLUE_COLOR, GREEN_COLOR, LIGHT_BLUE } from "../../utils/variables";
 import Hide from "../Hide";
 
-const ListItem = ({ item, index, display, navigation, shareOpen }) => {
+const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={{ uri: item.img }} />
 
-      <Hide containerStyle={styles.hideIcon} />
+      <Hide containerStyle={styles.hideIcon} item={item} />
 
       <FavoriteIcon favorite={item.favorite} containerStyle={styles.favoriteIcon} />
 
@@ -169,7 +169,16 @@ const ListItem = ({ item, index, display, navigation, shareOpen }) => {
               },
             ]}
             titleStyle={styles.textButton}
-            title={display ? "Faça parte do Clube" : "Reservar agora"}
+            onPress={() => {
+              navigation.navigate({
+                name: plan ? "Scheduling" : "PlanScreen",
+                params: {
+                  item,
+                },
+                merge: true,
+              });
+            }}
+            title={plan ? "Reservar Agora" : "Faça parte do clube"}
           />
         </View>
 

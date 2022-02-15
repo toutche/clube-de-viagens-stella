@@ -6,7 +6,6 @@ import BoardingPlace from "./BoardingPlace";
 import Travel from "../../components/Travel";
 import Travelers from "./Travelers";
 import TravelCard from "../../components/TravelCard";
-import Note from "./Note";
 import CustomButton from "../../components/CustomButton";
 import { useCheckout } from "../../contexts/checkout";
 
