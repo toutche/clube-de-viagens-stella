@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, View, Text, Image } from "react-native";
+import { ScrollView, View, Text, Image, KeyboardAvoidingView, Platform } from "react-native";
 
 /*Componentes internos do app */
 import Style from "./style";
@@ -10,75 +10,94 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import Copyright from "../../../components/Copyright";
 import CustomIcon from "../../../components/CustomIcon";
 import { useAuth } from "../../../contexts/auth";
+import { setToken } from "../../../services/auth";
+import api from "../../../services/api";
 
 const titlePage = "Acesse seu Clube de Férias:";
 
 export default ({ navigation }) => {
-  const { signIn, loadingApi } = useAuth();
+  const { verifyUser } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const [user, setUser] = useState({
     email: "eduardo_alvez51@outlook.com",
     password: "123456",
   });
 
+  const signIn = () => {
+    setLoading(true);
+    api
+      .post("/login", { email: user.email, password: user.password })
+      .then(({ data }) => {
+        setToken(data.access_token);
+        verifyUser(navigation);
+      })
+      .catch(e => {
+        alert("Email ou senha inválidos");
+        setLoading(false);
+      });
+  };
+
   return (
-    <ScrollView style={Style.container} contentContainerStyle={Style.content}>
-      <Image source={require("../../../../assets/header/SignIn.jpg")} style={Style.image} />
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
+      <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
+        <Image source={require("../../../../assets/header/SignIn.jpg")} style={Style.image} />
 
-      <CustomIcon
-        onPress={() => navigation.goBack()}
-        size={26}
-        type={AntDesign}
-        name={"arrowleft"}
-        containerStyle={Style.icon}
-      />
-
-      <View style={Style.body}>
-        <Text style={Style.title}>{titlePage}</Text>
-
-        <CustomInput
-          placeholder='Insira o seu e-mail'
-          size={16}
-          type={FontAwesome}
-          name={"envelope"}
-          value={user.email}
-          onChangeText={text =>
-            setUser({
-              ...user,
-              email: text,
-            })
-          }
+        <CustomIcon
+          onPress={() => navigation.goBack()}
+          size={26}
+          type={AntDesign}
+          name={"arrowleft"}
+          containerStyle={Style.icon}
         />
 
-        <CustomInput
-          placeholder='Insira uma senha'
-          size={16}
-          type={FontAwesome}
-          secureTextEntry
-          name={"lock"}
-          value={user.password}
-          onChangeText={text =>
-            setUser({
-              ...user,
-              password: text,
-            })
-          }
-        />
+        <View behavior={Platform.OS === "ios" ? "padding" : undefined} style={Style.body}>
+          <Text style={Style.title}>{titlePage}</Text>
 
-        <CustomButton
-          onPress={() => signIn(user, navigation)}
-          containerStyle={Style.button}
-          loadingApi={loadingApi}
-          titleStyle={Style.buttonText}
-          title={"Entrar"}
-        />
+          <CustomInput
+            placeholder='Insira o seu e-mail'
+            size={16}
+            type={FontAwesome}
+            name={"envelope"}
+            value={user.email}
+            onChangeText={text =>
+              setUser({
+                ...user,
+                email: text,
+              })
+            }
+          />
 
-        <Text style={Style.recoverText} onPress={() => navigation.navigate("RecoverPassword")}>
-          Esqueceu a senha?
-        </Text>
-      </View>
+          <CustomInput
+            placeholder='Insira uma senha'
+            size={16}
+            type={FontAwesome}
+            secureTextEntry
+            name={"lock"}
+            value={user.password}
+            onChangeText={text =>
+              setUser({
+                ...user,
+                password: text,
+              })
+            }
+          />
 
-      <Copyright display={1} />
-    </ScrollView>
+          <CustomButton
+            onPress={signIn}
+            containerStyle={Style.button}
+            loadingApi={loading}
+            titleStyle={Style.buttonText}
+            title={"Entrar"}
+          />
+
+          <Text style={Style.recoverText} onPress={() => navigation.navigate("RecoverPassword")}>
+            Esqueceu a senha?
+          </Text>
+        </View>
+
+        <Copyright display={1} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };

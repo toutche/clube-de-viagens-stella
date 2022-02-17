@@ -82,12 +82,13 @@ const GetLocation = ({ navigation }) => {
     setPanel(1);
     setAddress(details.formatted_address);
     setNumber("");
+    setIsKeyboard(false);
   };
 
   const Container = !panel ? View : ScrollView;
 
   return (
-    <Container style={Style.container}>
+    <View style={Style.container}>
       {!isKeyboard && (
         <>
           <Image source={require("../../../../assets/header/Location.jpg")} style={Style.image} />
@@ -125,6 +126,7 @@ const GetLocation = ({ navigation }) => {
             numberAddress={number}
             onChange={text => setAddress(text)}
             changePanel={index => setPanel(index)}
+            onChangeKeyboard={onChange => setIsKeyboard(onChange)}
             navigation={navigation}
           />
         ) : (
@@ -158,7 +160,7 @@ const GetLocation = ({ navigation }) => {
       </View>
 
       {!isKeyboard ? <Copyright display={1} /> : null}
-    </Container>
+    </View>
   );
 };
 

@@ -2,78 +2,82 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  TextInput,
-  Linking,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
   Image,
-  ImageBackground,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 
 /*Componentes internos do app */
-import {
-  FONT_SIZE_BODY,
-  HEIGHT,
-  PRIMARY_COLOR,
-  TEXT_COLOR_BKCOLORFUL,
-  SECOND_COLOR,
-  WIDTH
-} from "../../../utils/variables";
+import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from "../../../utils/variables";
 
 import CustomInput from "../../../components/CustomInput";
 import CustomButton from "../../../components/CustomButton";
 
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import Copyright from "../../../components/Copyright";
 import CustomIcon from "../../../components/CustomIcon";
+import api from "../../../services/api";
 
-const titlePage = "Insira o seu e-mail cadastrado para recuperar a senha."
+const titlePage = "Insira o seu e-mail cadastrado para recuperar a senha.";
 
 export default ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
 
-  const [email, setEmail] = useState("")
+  const recoverPass = ({ navigation }) => {
+    if (email) {
+      setLoading(true);
+      api
+        .post("/esqueci-senha", { email })
+        .then(res => {
+          Alert.alert("Aviso", "Um e-mail com o token foi enviado para você");
+          navigation.goBack();
+        })
+        .catch(e => setLoading(false));
+    } else Alert.alert("Aviso", "Campo de email não pode ser vazio");
+  };
 
   return (
-    <ScrollView style={Style.container} contentContainerStyle={Style.content}>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
+      <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
+        <Image source={require("../../../../assets/header/SignIn.jpg")} style={Style.image} />
 
-      <ImageBackground source={require("../../../../assets/header/SignIn.jpg")} style={Style.image} />
-
-      <CustomIcon
-        onPress={() => navigation.goBack()}
-        size={26}
-        type={AntDesign}
-        name={'arrowleft'}
-        containerStyle={Style.icon}
-      />
-
-      <View style={Style.body}>
-
-        <Text style={Style.title}>{titlePage}</Text>
-
-        <CustomInput
-          placeholder="Insira o seu e-mail"
-          size={16}
-          type={FontAwesome}
-          name={'envelope'}
-          value={email}
-          onChangeText={text => setEmail(text)}
+        <CustomIcon
+          onPress={() => navigation.goBack()}
+          size={26}
+          type={AntDesign}
+          name={"arrowleft"}
+          containerStyle={Style.icon}
         />
 
-        <CustomButton
-          containerStyle={Style.button}
-          titleStyle={Style.buttonText}
-          title={'Recuperar senha'}
-        />
+        <View style={Style.body}>
+          <Text style={Style.title}>{titlePage}</Text>
 
-      </View>
+          <CustomInput
+            placeholder='Insira o seu e-mail'
+            size={16}
+            type={FontAwesome}
+            name={"envelope"}
+            value={email}
+            onChangeText={text => setEmail(text)}
+          />
 
-      <Copyright display={1} />
+          <CustomButton
+            loadingApi={loading}
+            onPress={recoverPass}
+            containerStyle={Style.button}
+            titleStyle={Style.buttonText}
+            title={"Recuperar senha"}
+          />
+        </View>
 
-    </ScrollView>
-  )
-}
+        <Copyright display={1} />
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
 
 const Style = StyleSheet.create({
   container: {
@@ -81,42 +85,45 @@ const Style = StyleSheet.create({
     flex: 1,
   },
   content: {
-    justifyContent: 'space-between',
-    flexGrow: 1
+    justifyContent: "space-between",
+    flexGrow: 1,
   },
   image: {
-    aspectRatio: 1.5
+    aspectRatio: 1.5,
+    width: "100%",
+    height: undefined,
+    marginBottom: 5,
   },
   icon: {
     left: 5,
     top: 25,
     padding: 10,
-    position: 'absolute'
+    position: "absolute",
   },
   recoverText: {
     color: TEXT_COLOR_BKCOLORFUL,
     padding: 10,
     marginVertical: 15,
-    textDecorationLine: 'underline'
+    textDecorationLine: "underline",
   },
   body: {
     flex: 1,
-    paddingHorizontal: '10%',
-    alignItems: 'center'
+    paddingHorizontal: "10%",
+    alignItems: "center",
   },
   title: {
     fontSize: 20,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
     marginBottom: 10,
-    marginTop: 5
+    marginTop: 5,
   },
   button: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     height: 50,
-    width: '100%',
+    width: "100%",
     marginTop: 15,
     borderRadius: 25,
     borderColor: TEXT_COLOR_BKCOLORFUL,
@@ -126,9 +133,9 @@ const Style = StyleSheet.create({
   buttonText: {
     paddingHorizontal: 5,
     color: PRIMARY_COLOR,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 14,
     textAlign: "center",
     textTransform: "uppercase",
-  }
-})
+  },
+});
