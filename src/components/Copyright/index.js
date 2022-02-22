@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { copyrightSwitch } from "../../utils";
+import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 export default function Copyright({ display, containerStyle, isTransparent = false }) {
   const option = copyrightSwitch(display);
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 11,
   },
 });

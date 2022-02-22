@@ -35,7 +35,7 @@ const Carousel = ({ data }) => {
           zIndex: 1,
           flexDirection: "row",
           position: "absolute",
-          bottom: Platform.OS === "ios" ? 145 : 150,
+          bottom: Platform.OS === "ios" ? 148 : 150,
           alignSelf: "center",
           alignItems: "center",
         }}>

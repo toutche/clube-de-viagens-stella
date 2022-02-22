@@ -3,6 +3,7 @@ import { Image, StyleSheet, View, ScrollView, Text } from "react-native";
 
 import Copyright from "../../components/Copyright";
 import {
+  FONT_DEFAULT_STYLE,
   FONT_SIZE_BODY,
   FONT_SIZE_SUBTITLE,
   PRIMARY_COLOR,
@@ -33,7 +34,7 @@ export default ({ navigation }) => {
 
         <View style={Style.containerButtons}>
           <CustomButton
-            onPress={() => navigation.navigate("PrivacyPolicy")}
+            onPress={() => {}}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#4167B2" }]}
             titleStyle={[Style.buttonText, { marginLeft: 5 }]}
             title={"Facebook"}
@@ -44,7 +45,7 @@ export default ({ navigation }) => {
           />
 
           <CustomButton
-            onPress={() => navigation.navigate("Preferences")}
+            onPress={() => {}}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#fbbc05" }]}
             titleStyle={Style.buttonText}
             title={"Google"}
@@ -101,15 +102,18 @@ const Style = StyleSheet.create({
   },
   body: {
     flex: 1,
+    marginTop: 4,
     paddingHorizontal: "10%",
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 18,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
   },
   subtitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
     fontSize: FONT_SIZE_SUBTITLE,
     textAlign: "center",
@@ -117,6 +121,7 @@ const Style = StyleSheet.create({
     marginBottom: 12,
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
     fontSize: FONT_SIZE_BODY,
     textTransform: "uppercase",

@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, ScrollView, Text } from "react-native";
 import CustomButton from "../../components/CustomButton";
-import { BLUE_COLOR, PRIMARY_COLOR } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import CurrentHide from "./CurrentHide";
 
 const BodyFinishHidePlan = ({ data, handleBackButton }) => {
+  console.log("dsadasd", handleBackButton);
   return (
     <ScrollView
       bounces={false}
@@ -14,7 +15,8 @@ const BodyFinishHidePlan = ({ data, handleBackButton }) => {
         Todos os detalhes foram enviados para o e-mail
         <Text style={{ color: BLUE_COLOR }}> teste@gmail.com.</Text>
       </Text>
-      <CurrentHide {...{ data }} />
+
+      {data.plan && <CurrentHide {...{ data }} />}
 
       <CustomButton
         onPress={handleBackButton}
@@ -38,6 +40,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 15,
     color: "#777",
     textAlign: "center",

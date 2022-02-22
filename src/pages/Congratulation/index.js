@@ -1,20 +1,39 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useEffect } from "react";
+import { BackHandler, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import InfoHotel from "../../components/InfoHotel";
 import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
-import { BLUE_COLOR } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const Congratulation = ({ route, navigation }) => {
   const data = route.params;
 
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+    return () => backHandler.remove();
+  }, []);
+
+  const handleBackButton = () => {
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: "Dashboard",
+        },
+      ],
+    });
+    return true;
+  };
+
   return (
-    <ScrollView>
+    <ScrollView bounce={false} style={styles.container}>
       <View style={styles.body}>
         <Text style={styles.title}>
-          <Text style={styles.titleBold}>Parabens, </Text>
-          sua viagem já foi solicitada e estamos organizando tudo para você :)
+          <Text style={styles.titleBold}>{data.message_bold} </Text>
+          {data.message}
         </Text>
 
         <Text style={styles.subTitle}>
@@ -22,15 +41,38 @@ const Congratulation = ({ route, navigation }) => {
           <Text style={styles.subTitleBold}> teste@gmail.com</Text>
         </Text>
 
-        <Text style={styles.hideText}>Plano Utilizado</Text>
+        <Text style={styles.hideText}>Plano Utilizado:</Text>
 
-        <TravelCard display={2} {...{ data }} />
+        {data.plan && (
+          <LinearGradient
+            start={[1, 0.5]}
+            colors={[data.plan.colors[1], data.plan.colors[0]]}
+            style={styles.card}>
+            <View style={[styles.avatar, { borderColor: data.plan.colors[1] }]}>
+              <Image
+                style={{ width: 36, height: 36, borderRadius: 999 }}
+                source={{
+                  uri: "https://toutche.com.br/clube_de_ferias/39269077360_81dc9423a5_k.jpg",
+                }}
+              />
+            </View>
+            <View>
+              <Text style={styles.name}>{data?.plan?.name}</Text>
+              <Text style={styles.updated_credit}>
+                Saldo atualizado: R${parseFloat(data?.updated_credit).toFixed(2)}
+              </Text>
+            </View>
+          </LinearGradient>
+        )}
 
-        <Travel display={1} {...{ data }} />
+        <TravelCard display={2} {...{ data: data.package_infos }} />
 
-        <InfoHotel display={2} {...{ data }} />
+        <Travel {...{ data: data.package_infos }} />
+
+        <InfoHotel display={2} {...{ data: data.package_infos }} />
 
         <CustomButton
+          onPress={handleBackButton}
           containerStyle={styles.button}
           titleStyle={styles.textButton}
           title={`Ver detalhes desse pacote`}
@@ -41,16 +83,47 @@ const Congratulation = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   content: {},
+  card: {
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    marginBottom: 12,
+    marginTop: 4,
+    borderRadius: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  avatar: {
+    borderWidth: 1.5,
+    borderRadius: 999,
+    padding: 2.5,
+    marginRight: 12,
+  },
   hideText: {
+    fontFamily: FONT_DEFAULT_STYLE,
     textAlign: "center",
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     textAlign: "center",
+    fontSize: 16,
+  },
+  titleBold: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
   },
   subTitle: {
+    color: "#777",
+    marginVertical: 12,
+    fontFamily: FONT_DEFAULT_STYLE,
     textAlign: "center",
+  },
+  subTitleBold: {
+    color: BLUE_COLOR,
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
   },
   body: {
     paddingHorizontal: 15,
@@ -69,6 +142,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "white",
     textAlign: "center",
+  },
+  name: {
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 20,
+    color: "white",
+  },
+  updated_credit: {
+    color: "white",
+    opacity: 0.9,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
 });
 

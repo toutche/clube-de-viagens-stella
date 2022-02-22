@@ -1,5 +1,10 @@
 import { StyleSheet } from "react-native";
-import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from "../../../utils/variables";
+import {
+  FONT_DEFAULT_BOLD_STYLE,
+  FONT_DEFAULT_STYLE,
+  PRIMARY_COLOR,
+  TEXT_COLOR_BKCOLORFUL,
+} from "../../../utils/variables";
 
 export default StyleSheet.create({
   container: {
@@ -34,7 +39,8 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 18,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
     marginBottom: 10,
@@ -54,8 +60,8 @@ export default StyleSheet.create({
   buttonText: {
     paddingHorizontal: 5,
     color: PRIMARY_COLOR,
-    fontWeight: "bold",
-    fontSize: 14,
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
+    fontSize: 13,
     textAlign: "center",
     textTransform: "uppercase",
   },

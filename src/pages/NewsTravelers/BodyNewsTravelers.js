@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import CustomButton from "../../components/CustomButton";
-import { BLUE_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_STYLE, BLUE_COLOR } from "../../utils/variables";
+
 import { FontAwesome } from "@expo/vector-icons";
 import CustomInput from "../../components/CustomInput";
-import api from "../../services/api";
-import { useCheckout } from "../../contexts/checkout";
 
 const BodyNewTravelers = ({
   data = [],
@@ -14,9 +13,6 @@ const BodyNewTravelers = ({
   setForm = () => {},
   handlerPress = () => {},
 }) => {
-  const [loading, setLoading] = useState(false);
-  const [newUsers, setUsers] = useState([]);
-
   return (
     <ScrollView bounces={false} contentContainerStyle={styles.containerScroll}>
       {data.paxs.map((i, k) => {
@@ -155,8 +151,8 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
-
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
     fontSize: 16,
     marginBottom: 5,

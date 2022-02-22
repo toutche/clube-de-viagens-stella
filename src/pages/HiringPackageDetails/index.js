@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
-import CustomPicker from "../../components/CustomPicker";
 import { useCheckout } from "../../contexts/checkout";
 import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
@@ -21,7 +20,6 @@ const HiringPackageDetails = ({ navigation, route }) => {
     api
       .get(`/pacote-viagem/${id}/Y/get/agendamento/pagamento`)
       .then(({ data }) => {
-        //console.log("dsasdas", data.payment_infos.installments);
         setData(data);
       })
       .catch(e => console.log(e))

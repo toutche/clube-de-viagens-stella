@@ -10,7 +10,7 @@ import api from "../../services/api";
 const BodyCheckout = ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
   const [card, setCard] = useState({
-    card_number: "4000 0000 0000 0010",
+    card_number: "4000000000000010",
     holder_name: "Igor M. S.",
     holder_cpf: "02660870004",
     validade_year: "23",

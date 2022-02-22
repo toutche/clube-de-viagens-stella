@@ -21,6 +21,8 @@ export const ITEM_SLIDE_WIDTH = Math.round(WIDTH * 0.8);
 export const ITEM_SLIDE_HEIGHT = Math.round(HEIGHT * 0.7);
 
 /* Fontes */
+export const FONT_DEFAULT_STYLE = "Montserrat";
+export const FONT_DEFAULT_BOLD_STYLE = "Montserrat-Bold";
 export const FONT_SIZE_TITLE = 20;
 export const FONT_SIZE_SUBTITLE = 16;
 export const FONT_SIZE_BODY = 13;

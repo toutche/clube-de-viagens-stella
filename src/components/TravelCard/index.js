@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { BLUE_COLOR, LIGHT_BLUE } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variables";
 
 const TravelCard = ({ display = 0, data }) => {
   return (
@@ -8,7 +8,7 @@ const TravelCard = ({ display = 0, data }) => {
       style={[
         styles.container,
         {
-          marginBottom: display === 0 ? 15 : 5,
+          marginBottom: display === 0 ? 15 : 0,
         },
       ]}>
       <Image
@@ -81,19 +81,23 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "45deg" }],
   },
   newValue: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: BLUE_COLOR,
     fontSize: 14.5,
   },
   oldValue: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#777",
     textDecorationLine: "line-through",
     fontSize: 14.5,
   },
   economicText: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
     fontSize: 12,
   },
   discountText: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
     fontSize: 10,
   },
@@ -115,10 +119,12 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 15,
     color: "#555",
   },
   subTitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 13,
     top: -2,
   },

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
-import { BLUE_COLOR } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const Person = ({ item, index, toggle }) => {
   const [isEnabled, setIsEnabled] = useState(item.enabled || false);
@@ -36,11 +36,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   title: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
     fontSize: 16,
-    fontWeight: "bold",
     color: "#333",
   },
   subTitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 14,
     color: "#777",
   },

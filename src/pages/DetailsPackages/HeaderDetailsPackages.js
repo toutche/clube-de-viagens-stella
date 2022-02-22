@@ -6,7 +6,7 @@ import FavoriteIcon from "../../components/FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
-import { LIGHT_BLUE } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variables";
 import Carousel from "../../components/Carousel";
 
 const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
@@ -37,10 +37,11 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
 
         <Text
           style={{
-            color: "#287dfd",
+            fontFamily: FONT_DEFAULT_STYLE,
+            color: BLUE_COLOR,
             fontSize: 14,
             marginBottom: Platform.OS === "ios" ? -2 : -4,
-            marginTop: -2,
+            marginTop: -1,
           }}>
           A partir de
         </Text>
@@ -52,6 +53,7 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
           }}>
           <Text
             style={{
+              fontFamily: FONT_DEFAULT_STYLE,
               color: "#777",
               fontSize: 16,
               textDecorationLine: "line-through",
@@ -61,8 +63,9 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
 
           <Text
             style={{
-              fontSize: Platform.OS === "ios" ? 6 : 12,
-              color: "#287dfd",
+              fontSize: 13,
+              fontFamily: FONT_DEFAULT_STYLE,
+              color: BLUE_COLOR,
               marginHorizontal: 2,
             }}>
             ●
@@ -70,7 +73,8 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
 
           <Text
             style={{
-              color: "#287dfd",
+              fontFamily: FONT_DEFAULT_STYLE,
+              color: BLUE_COLOR,
               fontSize: 16,
             }}>
             R$ {item.price_discount}
@@ -79,9 +83,10 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
           <Text
             style={{
               fontSize: 16,
-              color: "#287dfd",
+              color: BLUE_COLOR,
               bottom: 1,
-              marginHorizontal: Platform.OS === "ios" ? 3 : undefined,
+              fontFamily: FONT_DEFAULT_STYLE,
+              marginHorizontal: Platform.OS === "ios" ? -3 : undefined,
             }}>
             │
           </Text>
@@ -92,17 +97,19 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
             }}>
             <Text
               style={{
+                fontFamily: FONT_DEFAULT_STYLE,
                 fontSize: 10,
                 marginBottom: -2,
-                color: "#287dfd",
+                color: BLUE_COLOR,
               }}>
               por
             </Text>
             <Text
               style={{
+                fontFamily: FONT_DEFAULT_STYLE,
                 fontSize: 10,
                 marginTop: -2,
-                color: "#287dfd",
+                color: BLUE_COLOR,
               }}>
               pessoa
             </Text>
@@ -110,6 +117,7 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
         </View>
         <Text
           style={{
+            fontFamily: FONT_DEFAULT_STYLE,
             color: "#777",
             fontSize: 13,
             marginTop: Platform.OS === "ios" ? -2 : -4,

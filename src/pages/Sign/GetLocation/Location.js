@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
 import CustomButton from "../../../components/CustomButton";
 import { useAuth } from "../../../contexts/auth";
-import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from "../../../utils/variables";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from "../../../utils/variables";
 
 const GetLocation = ({
   isKeyboard,
@@ -37,9 +37,11 @@ const GetLocation = ({
             <Text style={styles.edit}>Editar</Text>
           </TouchableOpacity>
         </View>
+
         <Text style={styles.subtitle}>{address}</Text>
 
         <Text style={styles.text}>Número</Text>
+
         <TextInput
           value={number}
           keyboardType={"numeric"}
@@ -108,22 +110,26 @@ const styles = StyleSheet.create({
     left: 5,
   },
   title: {
-    fontSize: 14.5,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 14,
     color: "#444",
   },
   subtitle: {
-    fontSize: 14.5,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 14,
     marginVertical: 5,
     marginLeft: 10,
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     marginBottom: 3,
     marginTop: 5,
     marginLeft: 10,
     color: "#444",
-    fontSize: 14.5,
+    fontSize: 14,
   },
   edit: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "red",
   },
   buttonText: {

@@ -3,8 +3,12 @@ import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import CustomAvatar from "../CustomAvatar";
 import BackgroundCard from "../../../assets/img/carimbos.png";
 import Logo from "../../../assets/LogoRR.png";
+import { FONT_DEFAULT_STYLE } from "../../utils/variables";
+import { useAuth } from "../../contexts/auth";
 
-const CardAvatar = ({}) => {
+const CardAvatar = ({ data }) => {
+  const { user } = useAuth();
+
   const renderText = (text, style) => {
     return (
       <View style={style}>
@@ -29,12 +33,12 @@ const CardAvatar = ({}) => {
             />
           </View>
           <View style={styles.containerText}>
-            {renderText("Fernanda da Silva Lima", styles.name)}
+            {renderText(user?.name, styles.name)}
             <View style={styles.containerDirection}>
               {renderText("CPF: 000.245.978-09", styles.cpf)}
               {renderText("SP", styles.state)}
             </View>
-            {renderText("Assinante desde 08/2020", styles.subscriber)}
+            {renderText(data?.date_contracting_plan, styles.subscriber)}
           </View>
         </View>
       </ImageBackground>
@@ -77,6 +81,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     textTransform: "uppercase",
     fontSize: 12.5,
     color: "#555",
@@ -87,6 +92,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: "white",
     borderRadius: 5,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
   cpf: {
     paddingHorizontal: 10,
@@ -94,6 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginRight: 12,
     borderRadius: 5,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
   state: {
     paddingHorizontal: 10,
@@ -101,12 +108,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     borderRadius: 5,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
   subscriber: {
     paddingHorizontal: 10,
     paddingVertical: 5,
     backgroundColor: "white",
     borderRadius: 5,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
 });
 

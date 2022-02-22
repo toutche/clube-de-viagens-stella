@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Platform } from "react-native";
 import { useAuth } from "../../contexts/auth";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
 const item =
   "https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg";
@@ -25,11 +25,11 @@ const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
         {isShow && user.plan && (
           <View style={styles.viewHide}>
             <Text style={styles.iconHide}>●</Text>
-            <Text style={styles.textHide}>{user?.plan?.name?.split(" ")[1]}</Text>
+            <Text style={[styles.textHide]}>{user?.plan?.name?.split(" ")[1]}</Text>
           </View>
         )}
         <Text
-          style={[styles.title, isShow && user.plan && { top: 3.5 }]}>{`Olá ${user.name}`}</Text>
+          style={[styles.title, isShow && user.plan && { top: 2.5 }]}>{`Olá ${user.name}`}</Text>
         <Text style={[styles.subTitle, isShow && user.plan && { top: 1 }]}>
           Crédito: R${parseFloat(user?.wallet?.credit).toFixed(2) || 0}
         </Text>
@@ -56,25 +56,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   iconHide: {
-    fontSize: 11,
-    fontWeight: "bold",
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 7,
     color: "white",
     marginRight: 1,
   },
   textHide: {
     fontSize: 10.5,
-    fontWeight: "bold",
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
     marginLeft: 1,
   },
   title: {
-    fontSize: 13,
-    fontWeight: "bold",
+    fontSize: 11,
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
     color: "white",
   },
   subTitle: {
-    top: -1.5,
-    fontSize: 12,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 11,
     color: "white",
   },
   image: {
@@ -107,6 +107,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     elevation: 5,
     borderColor: "rgba(0,0,0,0.01)",
+  },
+  text: {
+    fontFamily: FONT_DEFAULT_STYLE,
+  },
+  textBold: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
   },
 });
 

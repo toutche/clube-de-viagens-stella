@@ -7,6 +7,7 @@ import {
   Text,
   TouchableWithoutFeedback,
 } from "react-native";
+import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const CustomPicker = ({ isVisiblePicker, closePicker, setIndex, dataPicker = [] }) => {
   return (
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 14.5,
   },
 });

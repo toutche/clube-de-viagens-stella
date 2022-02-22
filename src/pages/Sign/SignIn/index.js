@@ -20,8 +20,8 @@ export default ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const [user, setUser] = useState({
-    email: "eduardo_alvez51@outlook.com",
-    password: "123456",
+    email: "",
+    password: "",
   });
 
   const signIn = () => {

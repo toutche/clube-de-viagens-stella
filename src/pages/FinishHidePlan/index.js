@@ -11,7 +11,7 @@ const FinishHidePlan = ({ navigation, route }) => {
     return () => backHandler.remove();
   }, []);
 
-  const handleBackButton = e => {
+  const handleBackButton = () => {
     navigation.reset({
       index: 0,
       routes: [

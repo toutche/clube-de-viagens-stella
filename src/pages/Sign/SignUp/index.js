@@ -12,6 +12,7 @@ import { maskPhone } from "../../../utils/masks";
 import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
+import { FONT_DEFAULT_BOLD_STYLE } from "../../../utils/variables";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -20,10 +21,10 @@ export default ({ navigation }) => {
   const [check, setCheck] = useState(false);
 
   const [user, setUser] = useState({
-    name: "eduardo",
-    email: "eduardo_alvez51@outlook.com",
-    phone_number: "16997057588",
-    password: "123456",
+    name: "",
+    email: "",
+    phone_number: "",
+    password: "",
     image: null,
   });
 
@@ -74,7 +75,10 @@ export default ({ navigation }) => {
     else if (data.error) {
       Alert.alert("Aviso", `Aconteceu um erro, tente novamente mais tarde`);
       setLoading(false);
-    } else Alert.alert("Erro", "Tente novamente mais tarde");
+    } else {
+      setLoading(false);
+      Alert.alert("Erro", "Tente novamente mais tarde");
+    }
   };
 
   const handlerPress = () => {
@@ -169,13 +173,14 @@ export default ({ navigation }) => {
             checked={check}
             title={"Aceitar política de privacidade e termos e condições"}
             textStyle={{
+              fontFamily: FONT_DEFAULT_BOLD_STYLE,
               color: "white",
               fontSize: 14,
             }}
             center
             size={28}
             containerStyle={{
-              width: "95%",
+              width: "100%",
               backgroundColor: "transparent",
               borderWidth: 0,
               marginTop: 0,

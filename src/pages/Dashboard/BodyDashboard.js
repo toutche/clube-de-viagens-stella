@@ -9,12 +9,14 @@ import {
 } from "react-native";
 import ListItem from "../../components/ListItem";
 import { MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
 
 const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
-  const { user: plan } = useAuth();
+  const {
+    user: { plan },
+  } = useAuth();
 
   const total = useRef();
   const page = useRef(1);
@@ -137,6 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e1e1e1",
   },
   textPackage: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 15,
     color: PRIMARY_COLOR,
     marginVertical: 15,

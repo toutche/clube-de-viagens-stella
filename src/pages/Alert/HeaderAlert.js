@@ -5,7 +5,7 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
 
-const HeaderAlert = () => {
+const HeaderAlert = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <CustomStatusBar />

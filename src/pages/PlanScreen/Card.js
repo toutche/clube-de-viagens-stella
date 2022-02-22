@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Platform, View, StyleSheet, Image, Text } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import CustomIcon from "../../components/CustomIcon";
-import { BLUE_COLOR, LIGHT_BLUE, YELLOW_COLOR } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE, YELLOW_COLOR } from "../../utils/variables";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import api from "../../services/api";
@@ -60,7 +60,7 @@ const Card = ({ plan, isPlan = false }) => {
           <View>
             <Text style={styles.name}>{plan.name}</Text>
             <Text style={styles.amount}>
-              Assinatura R${plan.amount} <Text>/mês</Text>
+              Assinatura R${plan.amount} <Text style={{ opacity: 0.9 }}>/mês</Text>
             </Text>
           </View>
           {!isPlan && (
@@ -89,9 +89,10 @@ const Card = ({ plan, isPlan = false }) => {
           <View style={styles.right}>
             <Text
               style={{
+                fontFamily: FONT_DEFAULT_STYLE,
                 fontSize: 18,
                 color: BLUE_COLOR,
-                marginHorizontal: Platform.OS === "ios" ? 3 : undefined,
+                marginHorizontal: Platform.OS === "ios" ? -3 : undefined,
               }}>
               │
             </Text>
@@ -134,9 +135,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   summary: {
+    fontFamily: FONT_DEFAULT_STYLE,
     flex: 1,
     color: LIGHT_BLUE,
-    fontSize: 14,
+    fontSize: 13.5,
     marginLeft: 10,
   },
   chevron: {
@@ -155,6 +157,7 @@ const styles = StyleSheet.create({
     color: BLUE_COLOR,
   },
   package: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
   },
   right: {
@@ -163,11 +166,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   discountPercent: {
-    fontSize: 11,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 10.5,
     color: "white",
   },
   top: {
-    backgroundColor: YELLOW_COLOR,
     paddingVertical: 10,
     paddingHorizontal: 12,
     borderTopRightRadius: 10,
@@ -182,7 +185,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderRadius: 100,
-    marginRight: 15,
+    marginRight: 16,
+    marginLeft: 4,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -210,13 +214,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
   },
-
   amount: {
-    fontSize: 15,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 14.5,
     color: "#e1e1e1",
+    includeFontPadding: false,
   },
   name: {
-    fontSize: 22,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 20,
     color: "white",
   },
 });

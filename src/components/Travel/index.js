@@ -1,12 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { FONT_DEFAULT_STYLE } from "../../utils/variables";
+import { useAuth } from "../../contexts/auth";
 
 const Travel = ({ display = 0, data }) => {
+  const { user } = useAuth();
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <AntDesign name='checkcircleo' size={22} color='#287dfd' />
+        <Image
+          source={{ uri: user.images.checkout.date }}
+          style={{ width: 22, height: undefined, aspectRatio: 0.9 }}
+        />
         <View style={styles.contentText}>
           <Text style={styles.title}>Data de viagem</Text>
           <Text style={styles.subTitle}>{data?.date}</Text>
@@ -17,7 +23,10 @@ const Travel = ({ display = 0, data }) => {
 
       {display === 0 && (
         <View style={styles.content}>
-          <AntDesign name='checkcircleo' size={22} color='#287dfd' />
+          <Image
+            source={{ uri: user.images.checkout.hour }}
+            style={{ width: 22, height: undefined, aspectRatio: 0.9 }}
+          />
           <View style={styles.contentText}>
             <Text style={styles.title}>Horário do Voo</Text>
             <Text style={styles.subTitle}>{data?.hour_voo}</Text>
@@ -30,10 +39,10 @@ const Travel = ({ display = 0, data }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "99%",
+    width: "100%",
     alignSelf: "center",
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 8,
     marginTop: 12,
     marginBottom: 10,
     backgroundColor: "white",
@@ -57,12 +66,14 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#444",
-    fontSize: 14.5,
+    fontSize: 14,
   },
   subTitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#287dfd",
-    fontSize: 13,
+    fontSize: 12.5,
     marginTop: -3,
   },
 });

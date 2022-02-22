@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import CardAvatar from "../../components/CardAvatar";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
 const HeaderFinishHidePlan = ({ data }) => {
   return (
@@ -9,7 +9,7 @@ const HeaderFinishHidePlan = ({ data }) => {
       <Text style={styles.textBold}>
         {data?.message_bold} <Text style={styles.text}>{data?.message}</Text>
       </Text>
-      <CardAvatar />
+      <CardAvatar {...{ data }} />
     </View>
   );
 };
@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   textBold: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
     fontSize: 16,
     color: "white",
     textAlign: "center",
-    fontWeight: "bold",
     width: "90%",
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
     fontWeight: "normal",
   },

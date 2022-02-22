@@ -10,7 +10,12 @@ import {
 } from "react-native";
 
 /*Componentes internos do app */
-import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from "../../../utils/variables";
+import {
+  FONT_DEFAULT_BOLD_STYLE,
+  FONT_DEFAULT_STYLE,
+  PRIMARY_COLOR,
+  TEXT_COLOR_BKCOLORFUL,
+} from "../../../utils/variables";
 
 import CustomInput from "../../../components/CustomInput";
 import CustomButton from "../../../components/CustomButton";
@@ -112,7 +117,8 @@ const Style = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 18,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
     marginBottom: 10,
@@ -133,8 +139,8 @@ const Style = StyleSheet.create({
   buttonText: {
     paddingHorizontal: 5,
     color: PRIMARY_COLOR,
-    fontWeight: "bold",
-    fontSize: 14,
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
+    fontSize: 13,
     textAlign: "center",
     textTransform: "uppercase",
   },

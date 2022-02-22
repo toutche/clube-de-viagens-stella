@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { logout } from "../../services/auth";
 import { useAuth } from "../../contexts/auth";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
 const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
   const { name } = useRoute();
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 15,
     top: 5,
     width: 80,

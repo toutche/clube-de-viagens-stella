@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { BLUE_COLOR } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { AntDesign } from "@expo/vector-icons";
 
 const QuantifyTravel = ({
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     paddingVertical: 15,
-    marginTop: 10,
+    marginTop: 5,
   },
   item: {
     flexDirection: "row",
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     marginLeft: 5,
     color: BLUE_COLOR,
   },

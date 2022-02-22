@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE } from "../../utils/variables";
 
 const CurrentHide = ({ data }) => {
   return (
@@ -10,7 +11,16 @@ const CurrentHide = ({ data }) => {
         start={[1, 0.5]}
         colors={[data?.plan?.colors[1], data?.plan?.colors[0]]}
         style={styles.content}>
-        <View style={styles.icon}></View>
+        <View style={[styles.stamp, { backgroundColor: data?.plan.colors[2] }]}>
+          <View
+            style={{
+              backgroundColor: data?.plan.colors[3],
+              width: "70%",
+              height: "70%",
+              borderRadius: 999,
+            }}
+          />
+        </View>
         <View>
           <Text style={styles.hide}>{data?.plan?.name}</Text>
           <Text style={styles.valueBold}>
@@ -34,41 +44,43 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    width: "95%",
+    width: "100%",
     alignSelf: "center",
-    paddingHorizontal: 5,
     paddingVertical: 10,
+    paddingHorizontal: 12,
     borderRadius: 10,
-    backgroundColor: "#fcc509",
     alignItems: "center",
     flexDirection: "row",
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 15,
     color: "#777",
     textAlign: "center",
     marginBottom: 4,
   },
-  icon: {
-    backgroundColor: "rgba(232,188,13,1)",
+  stamp: {
+    marginLeft: 20,
+    marginRight: 24,
     height: 45,
     width: 45,
-    marginHorizontal: 20,
     borderRadius: 100,
-    flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
   hide: {
     fontSize: 22,
     color: "white",
+    fontFamily: FONT_DEFAULT_STYLE,
   },
   valueBold: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
     fontSize: 14,
     color: "white",
     top: -3,
   },
   value: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "rgba(255,255,255,.8)",
   },
   containerDiscount: {
@@ -80,10 +92,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 3,
     color: "white",
-    fontWeight: "bold",
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
   },
   discount: {
-    fontWeight: "normal",
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
   },
 });

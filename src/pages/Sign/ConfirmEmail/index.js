@@ -10,7 +10,12 @@ import {
   Platform,
 } from "react-native";
 
-import { FONT_SIZE_BODY, PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from "../../../utils/variables";
+import {
+  FONT_DEFAULT_STYLE,
+  FONT_SIZE_BODY,
+  PRIMARY_COLOR,
+  TEXT_COLOR_BKCOLORFUL,
+} from "../../../utils/variables";
 
 import Copyright from "../../../components/Copyright";
 import InputConfirm from "./InputConfirm";
@@ -71,24 +76,28 @@ const Style = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 18,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
     marginBottom: 5,
     marginTop: 5,
   },
   subtitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
     fontSize: 14.5,
     textAlign: "center",
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
     fontSize: FONT_SIZE_BODY,
     paddingTop: 20,
     textAlign: "center",
   },
   quest: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
     opacity: 0.9,
     fontSize: 13,

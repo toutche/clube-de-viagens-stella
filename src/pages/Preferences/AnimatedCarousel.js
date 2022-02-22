@@ -3,13 +3,14 @@ import { FlatList, useWindowDimensions, Animated, View, StyleSheet, Text } from 
 import Copyright from "../../components/Copyright";
 
 import { useAuth } from "../../contexts/auth";
+import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
 
 import OverflowButton from "./OverflowButton";
 import RenderSlides from "./RenderSlides";
 
 export default ({ data = [], navigation }) => {
-  const { verifyUser } = useAuth();
+  const { verifyUser, setAuth } = useAuth();
   const { width, height } = useWindowDimensions();
 
   const ITEM_WIDTH = width * 0.8;
@@ -66,7 +67,10 @@ export default ({ data = [], navigation }) => {
         id,
       });
 
-      if (activity.data && question.data) verifyUser(navigation);
+      if (activity.data && question.data) {
+        //verifyUser(navigation)
+        setAuth(true);
+      }
       setLoading(false);
     } else {
       ListRef.current.scrollToIndex({ animated: false, index: 5, viewPosition: 0 });
