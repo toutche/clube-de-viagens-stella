@@ -19,7 +19,7 @@ const Card = ({ plan, isPlan = false }) => {
       .post("/plano/get", { id: plan.id })
       .then(({ data }) => {
         navigation.navigate({
-          name: "Checkout",
+          name: "CheckoutPlan",
           params: {
             data: data,
           },

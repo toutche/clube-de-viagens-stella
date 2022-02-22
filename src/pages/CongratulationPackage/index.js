@@ -8,7 +8,7 @@ import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
 import { BLUE_COLOR, FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
-const Congratulation = ({ route, navigation }) => {
+const CongratulationPackage = ({ route, navigation }) => {
   const data = route.params;
 
   useEffect(() => {
@@ -155,4 +155,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Congratulation;
+export default CongratulationPackage;

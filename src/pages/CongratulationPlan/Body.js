@@ -4,8 +4,7 @@ import CustomButton from "../../components/CustomButton";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import CurrentHide from "./CurrentHide";
 
-const BodyFinishHidePlan = ({ data, handleBackButton }) => {
-  console.log("dsadasd", handleBackButton);
+export default ({ data, handleBackButton }) => {
   return (
     <ScrollView
       bounces={false}
@@ -62,5 +61,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-export default BodyFinishHidePlan;

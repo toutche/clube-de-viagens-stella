@@ -50,7 +50,7 @@ const ModalPayment = ({
       })
       .then(res => {
         onClose();
-        navigation.replace("Congratulation", { ...res.data });
+        navigation.replace("CongratulationPackage", { ...res.data });
       })
       .catch(() => setLoading(false));
   };

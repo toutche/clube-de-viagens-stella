@@ -21,9 +21,8 @@ const Menu = ({ isVisible = true, onClose }) => {
         <View style={styles.content}>
           <View style={styles.line}>
             <RenderItem
-              id={"Dashboard"}
+              id={"MyReservations"}
               text={"Reservas"}
-              onClose={onClose}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/reservas-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/reservas-white.png"}
@@ -31,7 +30,6 @@ const Menu = ({ isVisible = true, onClose }) => {
             <RenderItem
               id={"Dashboar"}
               text={"Meu Plano"}
-              onClose={onClose}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/acompanhantes-red.png"}
               noSelected={
@@ -41,7 +39,6 @@ const Menu = ({ isVisible = true, onClose }) => {
             <RenderItem
               id={"Dashboar"}
               text={"Minha Conta"}
-              onClose={onClose}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/minha-conta-red.png"}
               noSelected={
@@ -56,7 +53,6 @@ const Menu = ({ isVisible = true, onClose }) => {
             <RenderItem
               id={"Dashboar"}
               text={"Favoritos"}
-              onClose={onClose}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/favoritos-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/favoritos-white.png"}
@@ -73,7 +69,6 @@ const Menu = ({ isVisible = true, onClose }) => {
               id={"Alert"}
               text={"Alertas"}
               onClose={onClose}
-              onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/alertas-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/alertas-white.png"}
             />
@@ -85,7 +80,6 @@ const Menu = ({ isVisible = true, onClose }) => {
             <RenderItem
               id={"Dashboar"}
               text={"Sobre"}
-              onClose={onClose}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/sobre-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/sobre-white.png"}
@@ -103,7 +97,6 @@ const Menu = ({ isVisible = true, onClose }) => {
               id={"Contact"}
               text={"Contato"}
               onClose={onClose}
-              onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/contato-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/contato-white.png"}
             />
@@ -115,7 +108,6 @@ const Menu = ({ isVisible = true, onClose }) => {
             <RenderItem
               id={"Dashboar"}
               text={"Vantagens"}
-              onClose={onClose}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/vantagens-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/vantagens-white.png"}
@@ -130,7 +122,6 @@ const Menu = ({ isVisible = true, onClose }) => {
             />
             <RenderItem
               text={"Sair"}
-              onClose={onClose}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/sair-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/sair-white.png"}

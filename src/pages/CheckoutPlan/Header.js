@@ -8,7 +8,7 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 import InsertCupom from "../../components/InsertCupom";
 import SubscribeNow from "./SubscribeNow";
 
-const HeaderCheckout = ({ navigation, data }) => {
+export default ({ navigation, data }) => {
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -68,5 +68,3 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-
-export default HeaderCheckout;

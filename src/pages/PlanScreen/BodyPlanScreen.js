@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     textAlign: "center",
     color: "#555",
-    marginTop: 9,
-    marginBottom: 13,
+    marginTop: 12,
+    marginBottom: 10,
     fontSize: 16,
   },
 });

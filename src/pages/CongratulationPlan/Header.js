@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import CardAvatar from "../../components/CardAvatar";
 import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
-const HeaderFinishHidePlan = ({ data }) => {
+export default ({ data }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.textBold}>
@@ -34,5 +34,3 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
   },
 });
-
-export default HeaderFinishHidePlan;
