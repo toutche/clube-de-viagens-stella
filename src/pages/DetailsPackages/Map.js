@@ -4,6 +4,7 @@ import MapView from "react-native-maps";
 import CustomButton from "../../components/CustomButton";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const Map = ({ location, address }) => {
   const copyToClipboard = () => {
@@ -58,11 +59,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#555",
     fontSize: 17,
   },
   subTitle: {
-    color: "#287dfd",
+    fontFamily: FONT_DEFAULT_STYLE,
+    color: BLUE_COLOR,
     fontSize: 13,
   },
   map: {
@@ -72,7 +75,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   text: {
-    color: "#287dfd",
+    fontFamily: FONT_DEFAULT_STYLE,
+    color: BLUE_COLOR,
     fontSize: 15,
     marginLeft: 25,
   },

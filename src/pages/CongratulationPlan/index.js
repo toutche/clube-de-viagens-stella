@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { BackHandler, StyleSheet, View } from "react-native";
-import BodyFinishHidePlan from "./BodyFinishHidePlan";
-import HeaderFinishHidePlan from "./HeaderFinishHidePlan";
+import Body from "./Body";
+import Header from "./Header";
 
-const FinishHidePlan = ({ navigation, route }) => {
+export default ({ navigation, route }) => {
   const data = route.params;
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const FinishHidePlan = ({ navigation, route }) => {
     return () => backHandler.remove();
   }, []);
 
-  const handleBackButton = e => {
+  const handleBackButton = () => {
     navigation.reset({
       index: 0,
       routes: [
@@ -25,8 +25,8 @@ const FinishHidePlan = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <HeaderFinishHidePlan {...{ data }} />
-      <BodyFinishHidePlan {...{ data, handleBackButton }} />
+      <Header {...{ data }} />
+      <Body {...{ data, handleBackButton }} />
     </View>
   );
 };
@@ -36,5 +36,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export default FinishHidePlan;

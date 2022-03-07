@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import { View, FlatList, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
 const SlidesDashboard = ({ filter = {}, data = [] }) => {
   const ListItem = ({ item, index }) => {
@@ -84,9 +84,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingBottom: 10,
-    width: 60,
+    width: 65,
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
     fontSize: 13,
     marginTop: 2,

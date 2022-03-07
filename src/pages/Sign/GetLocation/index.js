@@ -16,6 +16,7 @@ import {
 } from "react-native";
 
 import {
+  FONT_DEFAULT_STYLE,
   FONT_SIZE_BODY,
   FONT_SIZE_SUBTITLE,
   HEIGHT,
@@ -193,15 +194,17 @@ const Style = StyleSheet.create({
     paddingHorizontal: "10%",
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
     marginBottom: 10,
     marginTop: 5,
   },
   subtitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
-    fontSize: 14.5,
+    fontSize: 14,
     textAlign: "center",
     marginBottom: 10,
   },
@@ -228,6 +231,7 @@ const autoCompleteStyle = isKeyboard => ({
     width: "100%",
   },
   textInput: {
+    fontFamily: FONT_DEFAULT_STYLE,
     height: "100%",
     borderRadius: 100,
     marginTop: 0,
@@ -236,7 +240,7 @@ const autoCompleteStyle = isKeyboard => ({
     marginBottom: 0,
     paddingBottom: 2,
     paddingLeft: 5,
-    fontSize: 16,
+    fontSize: 15,
   },
   listView: {
     marginHorizontal: 0,
@@ -250,7 +254,8 @@ const autoCompleteStyle = isKeyboard => ({
     borderRadius: 10,
   },
   description: {
-    fontSize: 14.5,
+    fontSize: 14,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
   row: {
     marginTop: 5,

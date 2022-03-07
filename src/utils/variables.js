@@ -21,7 +21,33 @@ export const ITEM_SLIDE_WIDTH = Math.round(WIDTH * 0.8);
 export const ITEM_SLIDE_HEIGHT = Math.round(HEIGHT * 0.7);
 
 /* Fontes */
+export const FONT_DEFAULT_STYLE = "Montserrat";
+export const FONT_DEFAULT_BOLD_STYLE = "Montserrat-Bold";
 export const FONT_SIZE_TITLE = 20;
 export const FONT_SIZE_SUBTITLE = 16;
 export const FONT_SIZE_BODY = 13;
 export const FONT_SIZE_COPYRIGHT = 10;
+
+//Dummy
+export const CONTACT = [
+  {
+    value: "MINHA_CONTA",
+    text: "Minha conta",
+  },
+  {
+    value: "RESERVAS",
+    text: "Reservas",
+  },
+  {
+    value: "ASSINATURA",
+    text: "Assinatura",
+  },
+  {
+    value: "CANCELAMENTO_ASSINATURA",
+    text: "Cancelar Assinaura",
+  },
+  {
+    value: "OUTROS",
+    text: "Outros",
+  },
+];

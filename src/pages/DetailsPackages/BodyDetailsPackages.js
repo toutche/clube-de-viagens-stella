@@ -1,10 +1,11 @@
 import React from "react";
 import { Image, Platform, StyleSheet, Text, View } from "react-native";
 import AlertCovid from "../../components/AlertCovid";
-import { BLUE_COLOR } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import Map from "./Map";
 
 const BodyDetailsPackages = ({ item }) => {
+  console.log(item.day_by_day);
   return (
     <View style={styles.container}>
       <View
@@ -17,7 +18,8 @@ const BodyDetailsPackages = ({ item }) => {
         }}>
         <Text
           style={{
-            fontSize: 20,
+            fontFamily: FONT_DEFAULT_STYLE,
+            fontSize: 18,
             textAlign: "center",
             color: "#444",
           }}>
@@ -31,8 +33,9 @@ const BodyDetailsPackages = ({ item }) => {
           }}>
           <Text
             style={{
+              fontFamily: FONT_DEFAULT_STYLE,
               color: BLUE_COLOR,
-              fontSize: 16,
+              fontSize: 15.5,
               textAlign: "center",
             }}>
             {item.subname}
@@ -41,6 +44,7 @@ const BodyDetailsPackages = ({ item }) => {
           {item.number_days && (
             <Text
               style={{
+                fontFamily: FONT_DEFAULT_STYLE,
                 color: "#777",
                 fontSize: 16,
                 textAlign: "center",
@@ -71,6 +75,7 @@ const BodyDetailsPackages = ({ item }) => {
               />
               <Text
                 style={{
+                  fontFamily: FONT_DEFAULT_STYLE,
                   marginLeft: 4,
                   marginRight: 15,
                   textAlignVertical: "center",
@@ -101,13 +106,21 @@ const BodyDetailsPackages = ({ item }) => {
               />
 
               <View style={{ marginLeft: 2 }}>
-                <Text style={{ fontSize: 11, color: BLUE_COLOR }}>{i.type}</Text>
-                <Text style={{ fontSize: 11, color: "#444" }}>{i.date}</Text>
+                <Text style={{ fontSize: 11, color: BLUE_COLOR, fontFamily: FONT_DEFAULT_STYLE }}>
+                  {i.type}
+                </Text>
+                <Text style={{ fontSize: 11, color: "#444", fontFamily: FONT_DEFAULT_STYLE }}>
+                  {i.date}
+                </Text>
               </View>
 
               <View style={{ marginLeft: 10 }}>
-                <Text style={{ fontSize: 11, color: BLUE_COLOR }}>{i.origin_hour}</Text>
-                <Text style={{ fontSize: 11, color: "#444" }}>{i.origin_airport}</Text>
+                <Text style={{ fontSize: 11, color: BLUE_COLOR, fontFamily: FONT_DEFAULT_STYLE }}>
+                  {i.origin_hour}
+                </Text>
+                <Text style={{ fontSize: 11, color: "#444", fontFamily: FONT_DEFAULT_STYLE }}>
+                  {i.origin_airport}
+                </Text>
               </View>
 
               <View
@@ -118,7 +131,9 @@ const BodyDetailsPackages = ({ item }) => {
                   minWidth: 60,
                   marginHorizontal: 10,
                 }}>
-                <Text style={{ fontSize: 11, color: BLUE_COLOR }}>{i.stops}</Text>
+                <Text style={{ fontSize: 11, color: BLUE_COLOR, fontFamily: FONT_DEFAULT_STYLE }}>
+                  {i.stops}
+                </Text>
                 <Image
                   style={{
                     width: "100%",
@@ -130,8 +145,12 @@ const BodyDetailsPackages = ({ item }) => {
               </View>
 
               <View style={{}}>
-                <Text style={{ fontSize: 11, color: BLUE_COLOR }}>{i.destiny_hour}</Text>
-                <Text style={{ fontSize: 11, color: "#444" }}>{i.destiny_airport}</Text>
+                <Text style={{ fontSize: 11, color: BLUE_COLOR, fontFamily: FONT_DEFAULT_STYLE }}>
+                  {i.destiny_hour}
+                </Text>
+                <Text style={{ fontSize: 11, color: "#444", fontFamily: FONT_DEFAULT_STYLE }}>
+                  {i.destiny_airport}
+                </Text>
               </View>
             </View>
 
@@ -150,22 +169,18 @@ const BodyDetailsPackages = ({ item }) => {
 
       {item.alert_covid && <AlertCovid />}
 
-      <View style={styles.details}>
-        <Text style={styles.title}>Comodidades do estabelecimento</Text>
+      {item.day_by_day.length > 0 && (
+        <View style={styles.details}>
+          <Text style={styles.title}>Comodidades do estabelecimento</Text>
 
-        <Text style={styles.subTitle}>Internet</Text>
-        <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
-
-        <Text style={styles.subTitle}>Estacionamento e transporte</Text>
-        <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
-
-        <Text style={styles.subTitle}>Estacionamento e transporte</Text>
-        <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
-
-        <Text style={styles.subTitle}>Estacionamento e transporte</Text>
-        <Text style={styles.subText}>Disponivel em todos os quartos: Wi-fi gratis</Text>
-      </View>
-
+          {item.day_by_day.map((i, n) => (
+            <>
+              <Text style={styles.subTitle}>Dia {i.day}</Text>
+              <Text style={styles.text}>{i.description}</Text>
+            </>
+          ))}
+        </View>
+      )}
       <Map address={item.address} />
     </View>
   );
@@ -176,28 +191,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   pipe: {
-    marginHorizontal: Platform.OS === "ios" ? 3 : undefined,
+    color: "#777",
+    fontFamily: FONT_DEFAULT_STYLE,
+    marginHorizontal: Platform.OS === "ios" ? -3 : undefined,
   },
   details: {
     paddingHorizontal: 20,
     paddingBottom: 15,
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
-    fontSize: 15,
-  },
-  text: {
-    fontSize: 12.5,
-    color: "#777",
-    marginTop: 2,
-    marginBottom: 10,
+    fontSize: 15.5,
   },
   subTitle: {
-    color: "#287dfd",
+    fontFamily: FONT_DEFAULT_STYLE,
+    color: BLUE_COLOR,
     fontSize: 15,
-    marginTop: 5,
+    marginTop: 8,
   },
-  subText: {
+  text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     marginTop: 2,
     color: "#777",
   },

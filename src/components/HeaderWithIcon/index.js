@@ -7,7 +7,7 @@ import CustomStatusBar from '../CustomStatusBar';
 import CustomIcon from "../../components/CustomIcon";
 import { PRIMARY_COLOR } from '../../utils/variables';
 
-const HeaderWithIcon = ({ navigation }) => {
+const HeaderWithIcon = ({ url = null, navigation }) => {
     return (
         <View style={styles.container}>
             <CustomStatusBar />
@@ -18,7 +18,7 @@ const HeaderWithIcon = ({ navigation }) => {
                 name={'arrowleft'}
                 containerStyle={styles.icon}
             />
-            <Icon />
+            <Icon {...{ url }} />
         </View>
     )
 }

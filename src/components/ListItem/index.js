@@ -3,7 +3,13 @@ import { View, StyleSheet, Image, Text, Platform } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import FavoriteIcon from "../FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
-import { BLUE_COLOR, GREEN_COLOR, LIGHT_BLUE } from "../../utils/variables";
+import {
+  BLUE_COLOR,
+  FONT_DEFAULT_BOLD_STYLE,
+  FONT_DEFAULT_STYLE,
+  GREEN_COLOR,
+  LIGHT_BLUE,
+} from "../../utils/variables";
 import Hide from "../Hide";
 
 const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
@@ -11,11 +17,14 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
     <View style={styles.container}>
       <Image style={styles.image} source={{ uri: item.img }} />
 
-      <Hide containerStyle={styles.hideIcon} item={item} />
+      {plan && <Hide containerStyle={styles.hideIcon} item={item} />}
 
-      <FavoriteIcon favorite={item.favorite} containerStyle={styles.favoriteIcon} />
+      <FavoriteIcon
+        favorite={item.favorite}
+        containerStyle={[styles.favoriteIcon, !plan && { top: 20 }]}
+      />
 
-      <ShareIcon shareOpen={shareOpen} containerStyle={styles.shareIcon} />
+      <ShareIcon shareOpen={shareOpen} containerStyle={[styles.shareIcon, !plan && { top: 75 }]} />
 
       <View style={styles.bodyItem}>
         <View style={styles.priceItem}>
@@ -32,7 +41,8 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
 
             <Text
               style={{
-                fontSize: Platform.OS === "ios" ? 6 : 12,
+                fontSize: 13,
+                fontFamily: FONT_DEFAULT_STYLE,
                 color: BLUE_COLOR,
                 marginHorizontal: 2,
               }}>
@@ -41,6 +51,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
 
             <Text
               style={{
+                fontFamily: FONT_DEFAULT_STYLE,
                 color: BLUE_COLOR,
                 fontSize: 15,
               }}>
@@ -52,7 +63,8 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
                 fontSize: 16,
                 color: BLUE_COLOR,
                 bottom: 1,
-                marginHorizontal: Platform.OS === "ios" ? 3 : undefined,
+                fontFamily: FONT_DEFAULT_STYLE,
+                marginHorizontal: Platform.OS === "ios" ? -3 : undefined,
               }}>
               │
             </Text>
@@ -63,6 +75,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
               }}>
               <Text
                 style={{
+                  fontFamily: FONT_DEFAULT_STYLE,
                   fontSize: 10,
                   marginBottom: -2,
                   color: BLUE_COLOR,
@@ -71,6 +84,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
               </Text>
               <Text
                 style={{
+                  fontFamily: FONT_DEFAULT_STYLE,
                   fontSize: 10,
                   marginTop: -2,
                   color: BLUE_COLOR,
@@ -81,6 +95,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
           </View>
           <Text
             style={{
+              fontFamily: FONT_DEFAULT_STYLE,
               color: "#777",
               fontSize: 12,
               marginTop: Platform.OS === "ios" ? -2 : -4,
@@ -99,6 +114,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
           }}>
           <Text
             style={{
+              fontFamily: FONT_DEFAULT_STYLE,
               fontSize: 16.5,
               textAlign: "center",
               color: "#444",
@@ -113,6 +129,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
             }}>
             <Text
               style={{
+                fontFamily: FONT_DEFAULT_STYLE,
                 color: BLUE_COLOR,
                 fontSize: 16,
                 textAlign: "center",
@@ -122,11 +139,19 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
             {item.number_days && (
               <Text
                 style={{
+                  fontFamily: FONT_DEFAULT_STYLE,
                   color: "#777",
                   fontSize: 16,
                   textAlign: "center",
                 }}>
-                {"│" + item.number_days}
+                <Text
+                  style={{
+                    fontSize: Platform.OS === "ios" ? 15 : 14,
+                    marginHorizontal: Platform.OS === "ios" ? -5 : undefined,
+                  }}>
+                  │
+                </Text>
+                {item.number_days}
               </Text>
             )}
           </View>
@@ -187,7 +212,10 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
           <Text
             style={[
               styles.textLatest,
-              { fontWeight: "bold", marginRight: Platform.OS === "ios" ? 5 : undefined },
+              {
+                fontFamily: FONT_DEFAULT_BOLD_STYLE,
+                marginRight: Platform.OS === "ios" ? 5 : undefined,
+              },
             ]}>
             {` R$${item.latest_information.total_amount_people}`}
           </Text>
@@ -211,7 +239,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 30,
-    backgroundColor: "rgba(232,188,13,.4)",
+    backgroundColor: "rgba(232,188,13,.3)",
     height: 45,
     width: 45,
     borderRadius: 100,
@@ -255,11 +283,13 @@ const styles = StyleSheet.create({
     top: -13,
   },
   price_difference: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
     fontSize: 11.5,
     textAlign: "center",
   },
   price_discount: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#777",
     fontSize: 15,
     textDecorationLine: "line-through",
@@ -295,10 +325,11 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   textLatest: {
+    fontFamily: FONT_DEFAULT_STYLE,
     marginHorizontal: 7,
     color: GREEN_COLOR,
     textAlign: "center",
-    fontSize: 13.5,
+    fontSize: 13,
     marginTop: 7,
     marginBottom: 5,
   },

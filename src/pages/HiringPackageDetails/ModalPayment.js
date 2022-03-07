@@ -2,13 +2,28 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, Modal, Platform, TouchableWithoutFeedback } from "react-native";
 import { MaterialIcons, AntDesign, Entypo } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
-import { BLUE_COLOR, GREEN_COLOR, PRIMARY_COLOR, YELLOW_COLOR } from "../../utils/variables";
+import {
+  BLUE_COLOR,
+  FONT_DEFAULT_STYLE,
+  GREEN_COLOR,
+  PRIMARY_COLOR,
+  YELLOW_COLOR,
+} from "../../utils/variables";
 import { CheckBox } from "react-native-elements";
 import { useAuth } from "../../contexts/auth";
 import CustomPicker from "../../components/CustomPicker";
 import api from "../../services/api";
 
-const ModalPayment = ({ isVisible, onClose, data, index, setIndex, travelers, package_id }) => {
+const ModalPayment = ({
+  navigation,
+  isVisible,
+  onClose,
+  data,
+  index,
+  setIndex,
+  travelers,
+  package_id,
+}) => {
   const { user } = useAuth();
   const [check, setCheck] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -23,8 +38,6 @@ const ModalPayment = ({ isVisible, onClose, data, index, setIndex, travelers, pa
   };
 
   const payment = () => {
-    console.log(package_id, data.payment_infos.card.id, index, check, travelers);
-
     setLoading(true);
     api
       .post("/transaction/package/contracting", {
@@ -36,10 +49,10 @@ const ModalPayment = ({ isVisible, onClose, data, index, setIndex, travelers, pa
         comments: "",
       })
       .then(res => {
-        console.log("then:", res);
+        onClose();
+        navigation.replace("CongratulationPackage", { ...res.data });
       })
-      .catch(e => console.log(e))
-      .finally(() => setLoading(false));
+      .catch(() => setLoading(false));
   };
 
   return (
@@ -76,6 +89,7 @@ const ModalPayment = ({ isVisible, onClose, data, index, setIndex, travelers, pa
                 checked={check}
                 title={"Usar saldo do plano"}
                 textStyle={{
+                  fontFamily: FONT_DEFAULT_STYLE,
                   color: "#333",
                   fontSize: 15,
                   fontWeight: "normal",
@@ -120,6 +134,7 @@ const ModalPayment = ({ isVisible, onClose, data, index, setIndex, travelers, pa
                 />
               </View>
               <CustomButton
+                loadingApiColor={"white"}
                 loadingApi={loading}
                 onPress={payment}
                 containerStyle={styles.button}
@@ -144,10 +159,12 @@ const styles = StyleSheet.create({
     fontSize: 16.5,
     color: "#444",
     marginVertical: 10,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
   textPayment_infos: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
-    fontSize: 15,
+    fontSize: 16,
   },
   payment_infos: {
     width: "100%",
@@ -193,20 +210,22 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   iconHide: {
-    left: Platform.OS === "ios" ? 9 : 10,
+    fontFamily: FONT_DEFAULT_STYLE,
+    left: 11,
     position: "absolute",
-    fontSize: Platform.OS === "ios" ? 10 : 14,
-    fontWeight: "bold",
+    fontSize: 14,
     color: "white",
   },
   plan: {
-    fontSize: 12.5,
+    fontSize: 12,
     color: "white",
     marginLeft: 10,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
   credit: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
-    fontSize: 15,
+    fontSize: 14,
   },
   body: {
     backgroundColor: "#ededed",

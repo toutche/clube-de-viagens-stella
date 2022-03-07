@@ -12,7 +12,7 @@ import CustomHeader from "../../components/CustomHeader";
 import { AntDesign } from "@expo/vector-icons";
 import BodyNewsTravelers from "./BodyNewsTravelers";
 import api from "../../services/api";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import { useCheckout } from "../../contexts/checkout";
 
 const NewsTravelers = ({ navigation }) => {
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   itemText: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 14.5,
     color: "#444",
   },

@@ -1,5 +1,6 @@
 import React from "react";
-import { TouchableOpacity, Text, ActivityIndicator, Alert } from "react-native";
+import { TouchableOpacity, Text, ActivityIndicator, Alert, StyleSheet } from "react-native";
+import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 export default ({
   containerStyle,
@@ -27,9 +28,9 @@ export default ({
       {!loadingApi && left && Icon && (
         <Icon style={iconStyle} name={name} size={size || 24} color={color || "white"} />
       )}
-      <Text style={titleStyle}>
+      <Text style={[styles.text, titleStyle]}>
         {loadingApi ? <ActivityIndicator size={"small"} color={loadingApiColor} /> : title}
-        {boldText && <Text style={{ fontWeight: "bold" }}> {boldText}</Text>}
+        {boldText && <Text style={styles.textBold}> {boldText}</Text>}
       </Text>
       {!loadingApi && !left && Icon && (
         <Icon style={iconStyle} name={name} size={size || 24} color={color || "white"} />
@@ -37,3 +38,12 @@ export default ({
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontFamily: FONT_DEFAULT_STYLE,
+  },
+  textBold: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
+  },
+});

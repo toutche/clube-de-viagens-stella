@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
+import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const ValuePackage = ({ price_discount = 0 }) => {
   return (
@@ -27,14 +28,15 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0,0,0,0.0001)",
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
-    fontSize: 12,
+    fontSize: 11.5,
     marginBottom: -2,
   },
   subTitle: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
     color: "white",
-    fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 15,
   },
 });
 

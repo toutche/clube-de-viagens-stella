@@ -6,7 +6,7 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import { PRIMARY_COLOR } from "../../utils/variables";
 
-const HeaderContractedPackages = () => {
+export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -81,5 +81,3 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
 });
-
-export default HeaderContractedPackages;

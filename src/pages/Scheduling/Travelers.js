@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import QuantifyTravel from "../../components/QuantifyTravel";
-import { BLUE_COLOR } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const Travelers = ({ onPress, users = [] }) => {
   const renderItem = text => {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: 14.5,
-    color: "#287dfd",
+    color: BLUE_COLOR,
     textAlign: "center",
   },
   separator: {
@@ -79,11 +79,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   itemText: {
-    color: "#287dfd",
+    color: BLUE_COLOR,
+    fontFamily: FONT_DEFAULT_STYLE,
     marginLeft: 5,
     fontSize: 13,
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#444",
     fontSize: 16,
     marginTop: 5,

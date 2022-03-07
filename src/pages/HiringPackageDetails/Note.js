@@ -1,12 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-import { MaterialIcons } from "@expo/vector-icons";
+import { FONT_DEFAULT_STYLE } from "../../utils/variables";
+import { useAuth } from "../../contexts/auth";
 
 const Note = () => {
+  const { user } = useAuth();
+
   return (
     <TouchableOpacity style={styles.container}>
-      <MaterialIcons name='message' size={22} color='#287dfd' />
+      <Image source={{ uri: user.images.checkout.comments }} style={{ width: 22, height: 22 }} />
       <Text style={styles.text}>Deixar alguma observação</Text>
     </TouchableOpacity>
   );
@@ -30,9 +33,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   text: {
-    fontSize: 14.5,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 13.5,
     color: "#555",
-    marginLeft: 5,
+    marginLeft: 8,
   },
 });
 

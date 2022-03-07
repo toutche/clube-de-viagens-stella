@@ -4,7 +4,7 @@ import CustomIcon from "../../components/CustomIcon";
 import { SimpleLineIcons, Ionicons } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import CustomStatusBar from "../../components/CustomStatusBar";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import SlidesDashboard from "./SlidesDashboard";
 import ButtonsChoice from "./ButtonsChoice";
 import api from "../../services/api";
@@ -81,12 +81,13 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   title: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
     textAlign: "center",
     color: "white",
-    fontWeight: "bold",
     fontSize: 15,
   },
   subTitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 12.5,
     textAlign: "center",
     color: "white",

@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useAuth } from "../../contexts/auth";
 import { useNavigation } from "@react-navigation/native";
+import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const Hide = ({ containerStyle, item }) => {
   const { user } = useAuth();
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14.5,
     color: "white",
+    fontFamily: FONT_DEFAULT_STYLE,
     marginLeft: 1,
   },
   icon: {

@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const initialRoute = useRef("Intro");
 
   const [user, setUser] = useState({});
-
+  const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
     api
       .get("/usuario/me")
       .then(({ data }) => {
+        setUser(data.message);
         if (data.status === "Token is Expired") {
           logout().then(() => {
             initialRoute.current = "Sign";
@@ -35,12 +36,11 @@ export const AuthProvider = ({ children }) => {
         } else if (!data.message.address)
           navigation ? navigation.replace("GetLocation") : (initialRoute.current = "GetLocation");
         else
-          api.get(`/questionario/listar/${55}`).then(res => {
-            //console.log("this", res.data);
-            if (res.data.length >= 0) setUser(data.message);
+          api.get(`/questionario/listar`).then(res => {
+            if (res.data.length > 0) setAuth(true);
             else
               navigation
-                ? navigation.replace("Preferences")
+                ? navigation.replace("Preferences", { user: data })
                 : (initialRoute.current = "Preferences");
           });
       })
@@ -59,6 +59,7 @@ export const AuthProvider = ({ children }) => {
   const logoutAccount = async () => {
     await logout().then(() => {
       setUser(null);
+      setAuth(false);
     });
   };
 
@@ -66,6 +67,8 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        auth,
+        setAuth,
         initialRoute: initialRoute.current,
         loading,
         user,

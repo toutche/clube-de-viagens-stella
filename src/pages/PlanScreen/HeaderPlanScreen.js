@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, Image, Platform } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
-import { PRIMARY_COLOR } from "../../utils/variables";
-import Logo from "../../../assets/logoWW.png";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
+import Logo from "../../../assets/LogoWW.png";
 import { useAuth } from "../../contexts/auth";
 
 const HeaderPlanScreen = ({ navigation }) => {
@@ -70,20 +70,24 @@ const styles = StyleSheet.create({
   },
   check: {
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily: FONT_DEFAULT_STYLE,
   },
   yourTravel: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "#e1e1e1",
-    fontSize: 12,
-    bottom: 2.5,
+    fontSize: 11,
+    bottom: 2,
   },
   benefits: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
-    fontSize: 12.5,
+    fontSize: 12,
   },
   subscribers: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
-    fontSize: 12.5,
+    fontSize: 12,
   },
   header: {
     paddingVertical: 10,

@@ -4,10 +4,10 @@ import { View } from "react-native";
 import BodyAlert from "./BodyAlert";
 import HeaderAlert from "./HeaderAlert";
 
-const Alert = () => {
+const Alert = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <HeaderAlert />
+      <HeaderAlert {...{ navigation }} />
       <BodyAlert />
     </View>
   );

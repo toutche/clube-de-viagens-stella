@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, StyleSheet, View } from "react-native";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import Card from "./Card";
 
@@ -9,7 +9,7 @@ const renderIfHavePlan = ({ current_plan, plans = [] }) => (
     <Card plan={current_plan} isPlan />
     {plans.length !== 0 ? (
       <>
-        <Text style={[styles.title, { marginTop: 10, fontSize: 18 }]}>Conquiste mais sonhos</Text>
+        <Text style={[styles.title, { marginTop: 12, fontSize: 17 }]}>Conquiste mais sonhos</Text>
 
         {plans.map((i, k) => (
           <View key={k}>
@@ -30,7 +30,7 @@ const renderIfDontHavePlan = ({ plans = [] }) => (
         <View style={styles.separator} />
       </View>
     ))}
-    <Text style={{ color: "#555", fontSize: 14, opacity: 0.8 }}>
+    <Text style={{ color: "#555", fontSize: 14, opacity: 0.8, fontFamily: FONT_DEFAULT_STYLE }}>
       *Para conquistar seu desconto exclusivo você deverá estar adimplente no plano escolhido.
     </Text>
     <Text
@@ -42,7 +42,9 @@ const renderIfDontHavePlan = ({ plans = [] }) => (
         paddingTop: 5,
       }}>
       Ao contratar, você concordar com os{" "}
-      <Text onPress={() => alert("ok")} style={{ textDecorationLine: "underline" }}>
+      <Text
+        onPress={() => alert("ok")}
+        style={{ textDecorationLine: "underline", fontFamily: FONT_DEFAULT_STYLE }}>
         termos e condições de uso
       </Text>
     </Text>
@@ -99,11 +101,12 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   title: {
+    fontFamily: FONT_DEFAULT_STYLE,
     textAlign: "center",
     color: "#555",
-    marginTop: 7,
-    marginBottom: 12,
-    fontSize: 15.5,
+    marginTop: 12,
+    marginBottom: 10,
+    fontSize: 16,
   },
 });
 

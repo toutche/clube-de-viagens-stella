@@ -7,10 +7,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
 
-const BodyCheckout = ({ data, navigation }) => {
+export default ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
   const [card, setCard] = useState({
-    card_number: "4000 0000 0000 0010",
+    card_number: "4000000000000010",
     holder_name: "Igor M. S.",
     holder_cpf: "02660870004",
     validade_year: "23",
@@ -46,7 +46,7 @@ const BodyCheckout = ({ data, navigation }) => {
       .then(res => {
         console.log("sucess", res.data);
         navigation.navigate({
-          name: "FinishHidePlan",
+          name: "CongratulationPlan",
           params: { ...res.data },
           merge: true,
         });
@@ -128,5 +128,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-export default BodyCheckout;

@@ -1,12 +1,13 @@
 import React from "react";
 import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PRIMARY_COLOR } from "../../utils/variables";
 
-const CustomStatusBar = () => {
+const CustomStatusBar = ({ transparent = false }) => {
   return (
     <View
       style={{
-        backgroundColor: PRIMARY_COLOR,
+        backgroundColor: transparent ? 'transparent' : PRIMARY_COLOR,
         height: 22,
       }}
     />
