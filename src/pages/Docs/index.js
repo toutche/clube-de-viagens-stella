@@ -2,31 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import HeaderWithIcon from '../../components/HeaderWithIcon';
 import api from '../../services/api';
-import BodyContact from './BodyContact';
+import { PRIMARY_COLOR } from '../../utils/variables';
+import Body from './Body';
 
-const Contact = ({ navigation }) => {
+
+export default ({ navigation }) => {
 
     const [data, setData] = useState([])
 
     useEffect(() => {
-        api.get('/contact/subject/list').then((res) => {
-            setData(res.data.data)
+        api.get('/documents/list').then((res) => {
+            console.log(res.data)
+            setData(res.data)
         })
     }, [])
 
     return (
         <View style={styles.container}>
-            <HeaderWithIcon {...{ navigation, url: data?.icons?.phone_background }} />
-            <BodyContact  {...{ data }} />
+            <HeaderWithIcon {...{ navigation }} />
+            <Body {...{ data, navigation }} />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: PRIMARY_COLOR
     }
 })
-
-
-export default Contact;

@@ -1,26 +1,45 @@
 import React, { useState } from "react";
-import { StyleSheet, ScrollView, Text, Platform, KeyboardAvoidingView } from "react-native";
-import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
+import {
+  StyleSheet,
+  ScrollView,
+  Text,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  Alert,
+  Image,
+} from "react-native";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import CustomInput from "../../components/CustomInput";
-import { FontAwesome } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
+import Picker from "../../components/Picker";
 
-const BodyContact = ({}) => {
+export default ({ data }) => {
   const [loading, setLoading] = useState(false);
+  const [isVisiblePicker, setVisiblePicker] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
     subject: "",
+    subjectText: "",
     message: "",
   });
 
   const handlePress = () => {
     setLoading(true);
+
     api
-      .post("/contact/create", form)
+      .post("/contact/create", {
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+      })
       .then(({ data }) => {
-        console.log(data);
+        if (data.message) {
+          Alert.alert("Sucesso", data.message);
+        }
       })
       .catch(e => console.log(e))
       .finally(() => {
@@ -29,13 +48,39 @@ const BodyContact = ({}) => {
           name: "",
           email: "",
           subject: "",
+          subjectText: "",
           message: "",
         });
       });
   };
 
+  const onChange = subject => {
+    setForm({
+      ...form,
+      subject: subject.key,
+      subjectText: subject.value,
+    });
+  };
+
+  const openPicker = () => {
+    setVisiblePicker(true);
+  };
+
+  const closePicker = () => {
+    setVisiblePicker(false);
+  };
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
+      <Picker
+        {...{
+          dataPicker: data?.options,
+          isVisiblePicker,
+          closePicker,
+          onChange,
+        }}
+      />
+
       <ScrollView
         bounces={false}
         style={styles.container}
@@ -49,8 +94,7 @@ const BodyContact = ({}) => {
           color={"#c1c1c1"}
           placeholder='Nome completo'
           placeholderTextColor={"#a1a1a1"}
-          type={FontAwesome}
-          name={"user"}
+          uri={data?.icons?.name}
           value={form.name}
           onChangeText={text =>
             setForm({
@@ -65,9 +109,8 @@ const BodyContact = ({}) => {
           placeholder='E-mail'
           placeholderTextColor={"#a1a1a1"}
           size={16}
+          uri={data?.icons?.email}
           color={"#c1c1c1"}
-          type={FontAwesome}
-          name={"envelope"}
           value={form.email}
           onChangeText={text =>
             setForm({
@@ -76,23 +119,14 @@ const BodyContact = ({}) => {
             })
           }
         />
-        <CustomInput
-          containerStyle={styles.containerInput}
-          inputStyle={styles.input}
-          placeholder='Assunto'
-          placeholderTextColor={"#a1a1a1"}
-          size={16}
-          color={"#c1c1c1"}
-          type={FontAwesome}
-          name={"envelope"}
-          value={form.subject}
-          onChangeText={text =>
-            setForm({
-              ...form,
-              subject: text,
-            })
-          }
-        />
+
+        <TouchableOpacity onPress={openPicker} style={styles.fakeButton}>
+          <Image source={{ uri: data?.icons?.subject }} style={styles.image} />
+          <Text style={[styles.fakeText, { color: form.subjectText ? "#555" : "#a1a1a1" }]}>
+            {form.subjectText || "Assunto"}
+          </Text>
+        </TouchableOpacity>
+
         <CustomInput
           containerStyle={styles.containerInputMessage}
           inputStyle={styles.inputMessage}
@@ -100,8 +134,7 @@ const BodyContact = ({}) => {
           placeholderTextColor={"#a1a1a1"}
           size={16}
           color={"#c1c1c1"}
-          type={FontAwesome}
-          name={"envelope"}
+          uri={data?.icons?.message}
           value={form.message}
           onChangeText={text =>
             setForm({
@@ -128,6 +161,28 @@ const BodyContact = ({}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: PRIMARY_COLOR,
+  },
+  image: {
+    width: 20,
+    height: 20
+  },
+  fakeButton: {
+    width: "100%",
+    height: 50,
+    paddingHorizontal: 16,
+    marginTop: 12,
+    borderWidth: 1,
+    borderRadius: 30,
+    borderColor: "white",
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#c1c1c1",
+  },
+  fakeText: {
+    fontFamily: FONT_DEFAULT_STYLE,
+    flex: 1,
+    paddingHorizontal: 10,
+    fontSize: 14.5,
   },
   containerScroll: {
     backgroundColor: "white",
@@ -156,12 +211,13 @@ const styles = StyleSheet.create({
     color: "#555",
   },
   button: {
-    backgroundColor: "#287dfd",
+    backgroundColor: BLUE_COLOR,
     borderRadius: 100,
     height: 50,
     marginVertical: 20,
     width: "100%",
     alignSelf: "center",
+    alignItems: "center",
     justifyContent: "center",
   },
   textButton: {
@@ -179,10 +235,8 @@ const styles = StyleSheet.create({
   subTitle: {
     fontFamily: FONT_DEFAULT_STYLE,
     textAlign: "center",
-    marginBottom: 5,
+    marginBottom: 4,
     fontSize: 14,
     color: "#777",
   },
 });
-
-export default BodyContact;

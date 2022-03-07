@@ -17,6 +17,11 @@ import CongratulationPackage from "../pages/CongratulationPackage";
 import Alert from "../pages/Alert";
 import PlanScreen from "../pages/PlanScreen";
 import ConfirmReservation from "../pages/ConfirmReservation";
+import About from "../pages/About";
+import Benefits from "../pages/Benefits";
+import Docs from "../pages/Docs";
+import WebView from "../pages/WebView";
+import Escorts from "../pages/Escorts";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -39,6 +44,11 @@ const AuthRoutes = () => {
       <AuthStack.Screen name='Scheduling' component={Scheduling} />
       <AuthStack.Screen name='Contact' component={Contact} />
       <AuthStack.Screen name='Alert' component={Alert} />
+      <AuthStack.Screen name='About' component={About} />
+      <AuthStack.Screen name='Benefits' component={Benefits} />
+      <AuthStack.Screen name='WebView' component={WebView} />
+      <AuthStack.Screen name='Docs' component={Docs} />
+      <AuthStack.Screen name='Escorts' component={Escorts} />
     </AuthStack.Navigator>
   );
 };

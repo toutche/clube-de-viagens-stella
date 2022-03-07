@@ -27,3 +27,27 @@ export const FONT_SIZE_TITLE = 20;
 export const FONT_SIZE_SUBTITLE = 16;
 export const FONT_SIZE_BODY = 13;
 export const FONT_SIZE_COPYRIGHT = 10;
+
+//Dummy
+export const CONTACT = [
+  {
+    value: "MINHA_CONTA",
+    text: "Minha conta",
+  },
+  {
+    value: "RESERVAS",
+    text: "Reservas",
+  },
+  {
+    value: "ASSINATURA",
+    text: "Assinatura",
+  },
+  {
+    value: "CANCELAMENTO_ASSINATURA",
+    text: "Cancelar Assinaura",
+  },
+  {
+    value: "OUTROS",
+    text: "Outros",
+  },
+];

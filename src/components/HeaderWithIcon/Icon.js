@@ -1,13 +1,13 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 
-const Icon = () => {
+const Icon = ({ url }) => {
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
         source={{
-          uri: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg",
+          uri: url || "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg",
         }}
       />
     </View>

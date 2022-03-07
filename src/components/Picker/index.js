@@ -9,13 +9,7 @@ import {
 } from "react-native";
 import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 
-const CustomPicker = ({
-  isVisiblePicker,
-  closePicker,
-  setIndex = () => {},
-  dataPicker = [],
-  context = "x de ",
-}) => {
+export default ({ isVisiblePicker, closePicker, dataPicker = [], onChange = () => { } }) => {
   return (
     <Modal
       animationType={"fade"}
@@ -31,15 +25,11 @@ const CustomPicker = ({
                 <View style={styles.item} key={k}>
                   <TouchableOpacity
                     onPress={() => {
-                      setIndex(i?.number);
                       closePicker();
+                      onChange(i);
                     }}
                     style={styles.button}>
-                    <Text style={[styles.text]}>
-                      {i?.number}
-                      {context}
-                      {i?.price}
-                    </Text>
+                    <Text style={[styles.text]}>{i?.value}</Text>
                   </TouchableOpacity>
                   {k + 1 !== dataPicker.length && (
                     <View style={{ height: 1.5, backgroundColor: "#d1d1d1" }} />
@@ -80,5 +70,3 @@ const styles = StyleSheet.create({
     fontSize: 14.5,
   },
 });
-
-export default CustomPicker;
