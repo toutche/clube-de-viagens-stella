@@ -38,7 +38,7 @@ export default ({ data }) => {
       })
       .then(({ data }) => {
         if (data.message) {
-          Alert.alert("Sucesso", data.message);
+          Alert.alert("Mensagem enviada com sucesso! Retornaremos dentro das próximas 24hrs úteis.", data.message);
         }
       })
       .catch(e => console.log(e))

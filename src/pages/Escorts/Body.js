@@ -28,7 +28,7 @@ export default ({ data = [] }) => {
                         <View key={k}>
                             <View style={styles.content_item}>
                                 <View style={styles.content_text}>
-                                    <Text style={styles.title_item}>{i?.name}</Text>
+                                    <Text style={styles.title_item}>{i?.name} {i?.last_name}</Text>
                                     <View style={styles.icon_item}>
                                         <Image style={styles.icon_person} source={{ uri: i.icon }} />
                                         <Text style={styles.date_item}>{i?.age} anos</Text>

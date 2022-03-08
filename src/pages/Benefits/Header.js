@@ -15,7 +15,7 @@ export default ({ data, navigation }) => {
                 containerStyle={styles.icon}
             />
 
-            <Image source={{ uri: data?.data?.image_header }} style={styles.image} />
+            <Image source={{ uri: data?.data?.background }} style={styles.image} />
         </View>
     )
 }
