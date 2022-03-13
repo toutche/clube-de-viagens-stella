@@ -30,38 +30,6 @@ export default ({ navigation }) => {
           boldText={"Clube de férias!"}
         />
 
-        <Text style={Style.subtitle}>Acessar com:</Text>
-
-        <View style={Style.containerButtons}>
-          <CustomButton
-            onPress={() => {}}
-            containerStyle={[Style.buttonSocial, { backgroundColor: "#4167B2" }]}
-            titleStyle={[Style.buttonText, { marginLeft: 5 }]}
-            title={"Facebook"}
-            left
-            size={18}
-            type={Fontisto}
-            name={"facebook"}
-          />
-
-          <CustomButton
-            onPress={() => {}}
-            containerStyle={[Style.buttonSocial, { backgroundColor: "#fbbc05" }]}
-            titleStyle={Style.buttonText}
-            title={"Google"}
-            left
-            size={18}
-            type={AntDesign}
-            name={"google"}
-          />
-        </View>
-
-        <View style={Style.containerSeparator}>
-          <View style={Style.separator} />
-          <Text style={Style.text}>ou</Text>
-          <View style={Style.separator} />
-        </View>
-
         <View style={Style.containerSignButtons}>
           <CustomButton
             onPress={() => navigation.navigate("SignIn")}
@@ -111,6 +79,7 @@ const Style = StyleSheet.create({
     fontSize: 18,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
+    marginTop: 25,
   },
   subtitle: {
     fontFamily: FONT_DEFAULT_STYLE,
@@ -134,6 +103,7 @@ const Style = StyleSheet.create({
   },
   containerSignButtons: {
     width: "100%",
+    marginTop: 25
   },
   buttonSocial: {
     flexDirection: "row",
