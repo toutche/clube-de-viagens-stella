@@ -39,7 +39,6 @@ const ChoiceButtons = ({ data, index, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    flex: 1,
     width: "100%",
     alignSelf: "center",
     flexDirection: "row",

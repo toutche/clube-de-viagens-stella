@@ -23,6 +23,7 @@ export default ({ data = [], navigation }) => {
 
             <FlatList
                 data={data?.data}
+                bounces={false}
                 keyExtractor={(item, index) => index.toString()}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
                 contentContainerStyle={styles.content_list}

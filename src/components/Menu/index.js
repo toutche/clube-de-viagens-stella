@@ -21,7 +21,7 @@ const Menu = ({ isVisible = true, onClose }) => {
         <View style={styles.content}>
           <View style={styles.line}>
             <RenderItem
-              id={"MyReservations"}
+              id={"Dashboar"}
               text={"Reservas"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/reservas-red.png"}
@@ -58,14 +58,14 @@ const Menu = ({ isVisible = true, onClose }) => {
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/favoritos-white.png"}
             />
             <RenderItem
-              id={"Wallet"}
+              id={"Dashboar"}
               text={"Carteira"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/carteira-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/carteira-white.png"}
             />
             <RenderItem
-              id={"Alert"}
+              id={"Dashboar"}
               text={"Alertas"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/alertas-red.png"}

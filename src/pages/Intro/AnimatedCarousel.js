@@ -10,6 +10,7 @@ import {
   Image,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import OverflowButton from "./OverflowButton";
 import ChoiceButtons from "./ChoiceButtons";
@@ -55,6 +56,7 @@ const Slides = [
 
 export default ({ navigation }) => {
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets()
 
   const ListRef = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -71,7 +73,7 @@ export default ({ navigation }) => {
   const jumpButton = () => navigation.navigate("Sign");
 
   return (
-    <ScrollView bounces={false} style={styles.container} contentContainerStyle={styles.content}>
+    <ScrollView bounces={false} style={styles.container} contentContainerStyle={[styles.content, { paddingBottom: 24 + insets.bottom }]}>
       <FlatList
         ref={ListRef}
         data={Slides}
@@ -108,9 +110,10 @@ export default ({ navigation }) => {
         }}
       />
 
-      <ChoiceButtons data={Slides} index={index} onPress={handlerChoice} />
 
+      <ChoiceButtons data={Slides} index={index} onPress={handlerChoice} />
       <OverflowButton data={Slides} index={index} onPress={jumpButton} />
+
     </ScrollView>
   );
 };
@@ -121,8 +124,8 @@ const styles = StyleSheet.create({
     backgroundColor: PRIMARY_COLOR,
   },
   content: {
+    flex: 1,
     justifyContent: "space-between",
-    paddingBottom: 30,
   },
   image: {
     width: "100%",

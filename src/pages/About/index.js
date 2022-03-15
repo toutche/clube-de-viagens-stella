@@ -17,7 +17,7 @@ export default ({ navigation }) => {
     }, [])
 
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: PRIMARY_COLOR }}>
+        <ScrollView bounces={false} contentContainerStyle={{ flexGrow: 1, backgroundColor: PRIMARY_COLOR }}>
             <Header {...{ navigation, data }} />
             <Body {...{ data, navigation }} />
         </ScrollView>

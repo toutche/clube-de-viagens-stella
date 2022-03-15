@@ -35,8 +35,7 @@ const OverflowButton = ({ index, onPress, data }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    flex: 1,
-    marginTop: 15,
+    marginTop: 15
   },
   renderComponent: {
     flexDirection: "row",

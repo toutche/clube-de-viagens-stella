@@ -18,7 +18,7 @@ export default ({ navigation }) => {
     }, [])
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView bounces={false} style={styles.container}>
             <Header {...{ data, navigation }} />
             <Body {...{ data }} />
         </ScrollView>

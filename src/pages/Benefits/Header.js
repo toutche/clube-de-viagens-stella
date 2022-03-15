@@ -4,6 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import CustomIcon from '../../components/CustomIcon';
 
 export default ({ data, navigation }) => {
+
     return (
         <View style={styles.container}>
             <CustomIcon
