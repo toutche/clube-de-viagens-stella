@@ -1,61 +1,58 @@
-import * as React from "react";
-import {
-  ImageBackground,
-  StyleSheet,
-  View,
-  ScrollView,
-  Text
-} from "react-native";
+import React from "react";
+import { Image, StyleSheet, View, ScrollView, Text } from "react-native";
 
 import Copyright from "../../components/Copyright";
 import {
+  FONT_DEFAULT_STYLE,
   FONT_SIZE_BODY,
   FONT_SIZE_SUBTITLE,
   PRIMARY_COLOR,
   SECOND_COLOR,
   TEXT_COLOR_BKCOLORFUL,
 } from "../../utils/variables";
-import { AntDesign, Fontisto } from '@expo/vector-icons';
+import { AntDesign, Fontisto } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import TextWithBold from "../../components/TextWithBold";
 
 export default ({ navigation }) => {
   return (
-    <ScrollView style={Style.container} contentContainerStyle={Style.content}>
-
-      <ImageBackground resizeMode={'cover'} source={require("../../../assets/header/Sign.jpg")} style={Style.image} />
+    <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
+      <Image
+        resizeMode={"cover"}
+        source={require("../../../assets/header/Sign.jpg")}
+        style={Style.image}
+      />
 
       <View style={Style.body}>
-
         <TextWithBold
           textStyle={Style.title}
-          text={'Bem-vindo ao seu'}
-          boldText={'Clube de férias!'}
+          text={"Bem-vindo ao seu"}
+          boldText={"Clube de férias!"}
         />
 
-        <Text style={Style.subtitle}>Acessar com:</Text>
+        {/*<Text style={Style.subtitle}>Acessar com:</Text>
 
         <View style={Style.containerButtons}>
           <CustomButton
-            onPress={() => navigation.navigate("PrivacyPolicy")}
+            onPress={() => {}}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#4167B2" }]}
             titleStyle={[Style.buttonText, { marginLeft: 5 }]}
-            title={'Facebook'}
+            title={"Facebook"}
             left
             size={18}
             type={Fontisto}
-            name={'facebook'}
+            name={"facebook"}
           />
 
           <CustomButton
-            onPress={() => navigation.navigate("Preferences")}
+            onPress={() => {}}
             containerStyle={[Style.buttonSocial, { backgroundColor: "#fbbc05" }]}
             titleStyle={Style.buttonText}
-            title={'Google'}
+            title={"Google"}
             left
             size={18}
             type={AntDesign}
-            name={'google'}
+            name={"google"}
           />
         </View>
 
@@ -64,32 +61,31 @@ export default ({ navigation }) => {
           <Text style={Style.text}>ou</Text>
           <View style={Style.separator} />
         </View>
+  */}
 
         <View style={Style.containerSignButtons}>
-
           <CustomButton
             onPress={() => navigation.navigate("SignIn")}
             containerStyle={[Style.button, { marginBottom: 15 }]}
             titleStyle={Style.buttonText}
-            title={'Entre com'}
-            boldText={'seu e-mail'}
+            title={"Entre com"}
+            boldText={"seu e-mail"}
           />
 
           <CustomButton
             onPress={() => navigation.navigate("SignUp")}
             containerStyle={Style.button}
             titleStyle={Style.buttonText}
-            title={'É novo por aqui?'}
-            boldText={'Cadastre-se'}
+            title={"É novo por aqui?"}
+            boldText={"Cadastre-se"}
           />
         </View>
       </View>
 
       <Copyright display={1} />
-
     </ScrollView>
-  )
-}
+  );
+};
 
 const Style = StyleSheet.create({
   container: {
@@ -97,49 +93,57 @@ const Style = StyleSheet.create({
     flex: 1,
   },
   content: {
-    justifyContent: 'space-between',
-    flexGrow: 1
+    justifyContent: "space-between",
+    flexGrow: 1,
   },
   image: {
-    aspectRatio: 1.1
+    width: "100%",
+    height: undefined,
+    aspectRatio: 1.1,
   },
   body: {
     flex: 1,
-    paddingHorizontal: '10%',
-    alignItems: 'center'
+    marginTop: 4,
+    paddingHorizontal: "10%",
+    alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 18,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
+    marginTop: 8,
+    marginBottom: 16
   },
   subtitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
     fontSize: FONT_SIZE_SUBTITLE,
     textAlign: "center",
     marginTop: 5,
-    marginBottom: 12
+    marginBottom: 12,
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     color: TEXT_COLOR_BKCOLORFUL,
     fontSize: FONT_SIZE_BODY,
-    textTransform: 'uppercase'
+    textTransform: "uppercase",
   },
   containerButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: 'center',
-    width: '100%'
+    alignItems: "center",
+    width: "100%",
   },
   containerSignButtons: {
-    width: '100%'
+    width: "100%",
   },
   buttonSocial: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     height: 50,
-    width: '47%',
+    width: "47%",
     borderRadius: 25,
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -172,7 +176,6 @@ const Style = StyleSheet.create({
     height: 1,
     width: 100,
     backgroundColor: SECOND_COLOR,
-    marginHorizontal: 15
-  }
-})
-
+    marginHorizontal: 15,
+  },
+});
