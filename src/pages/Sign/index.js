@@ -30,7 +30,7 @@ export default ({ navigation }) => {
           boldText={"Clube de férias!"}
         />
 
-        <Text style={Style.subtitle}>Acessar com:</Text>
+        {/*<Text style={Style.subtitle}>Acessar com:</Text>
 
         <View style={Style.containerButtons}>
           <CustomButton
@@ -61,6 +61,7 @@ export default ({ navigation }) => {
           <Text style={Style.text}>ou</Text>
           <View style={Style.separator} />
         </View>
+  */}
 
         <View style={Style.containerSignButtons}>
           <CustomButton
@@ -111,6 +112,8 @@ const Style = StyleSheet.create({
     fontSize: 18,
     color: TEXT_COLOR_BKCOLORFUL,
     textAlign: "center",
+    marginTop: 8,
+    marginBottom: 16
   },
   subtitle: {
     fontFamily: FONT_DEFAULT_STYLE,
