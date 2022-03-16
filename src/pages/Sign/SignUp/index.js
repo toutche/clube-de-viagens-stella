@@ -8,38 +8,48 @@ import Copyright from "../../../components/Copyright";
 import CustomButton from "../../../components/CustomButton";
 import CustomIcon from "../../../components/CustomIcon";
 import CustomAvatar from "../../../components/CustomAvatar";
-import { maskPhone } from "../../../utils/masks";
+import { maskPhone, maskDocument } from "../../../utils/masks";
 import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
-import { FONT_DEFAULT_BOLD_STYLE } from "../../../utils/variables";
+import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
+import CustomRadio from "../../../components/CustomRadio";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
 export default ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
+  const [previewPassword, setPreviewPassword] = useState(false);
 
   const [user, setUser] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
+    document: "",
     email: "",
     phone_number: "",
     password: "",
     image: null,
+    gender: ""
   });
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
-        }
+  const hasMediaPermission = async () => {
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+        return false;
       }
-    })();
-  }, []);
+      return true;
+    }
+  };
 
   const pickImage = async () => {
+    const hasPermission = await hasMediaPermission();
+    if(!hasPermission) {
+      return;
+    }
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -59,13 +69,14 @@ export default ({ navigation }) => {
     setLoading(true);
 
     const { data } = await api.post("/cadastrar", {
-      name: user.name,
-      last_name: user.name,
+      name: user.first_name,
+      last_name: user.last_name,
+      document: user.document.replaceAll('.', '').replace('-', ''),
       email: user.email,
       password: user.password,
       password_confirmation: user.password,
       phone_number: user.phone_number,
-      gender: "m",
+      gender: user.gender,
       accept_terms: "Y",
       accept_privacy: "Y",
       image: user.image,
@@ -84,6 +95,13 @@ export default ({ navigation }) => {
   const handlerPress = () => {
     if (check) signUp(user, navigation);
     else Alert.alert("Aviso", "Para continuar aceite os termos");
+  };
+
+  const general_text_style = {
+    fontFamily: FONT_DEFAULT_STYLE,
+    color: "white",
+    fontSize: 14,
+    marginTop: 10,
   };
 
   return (
@@ -106,20 +124,52 @@ export default ({ navigation }) => {
             handlerPress={pickImage}
             item={
               user.image ||
-              "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
+              "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png" 
             }
           />
 
           <CustomInput
-            placeholder='Qual seu nome?'
+            placeholder='Qual seu primeiro nome?'
             size={16}
             type={FontAwesome}
             name={"user"}
-            value={user.name}
+            autoCapitalize={"words"}
+            value={user.first_name}
             onChangeText={text =>
               setUser({
                 ...user,
-                name: text,
+                first_name: text,
+              })
+            }
+          />
+
+          <CustomInput
+            placeholder='Qual seu sobrenome completo?'
+            size={16}
+            type={FontAwesome}
+            name={"user"}
+            autoCapitalize={"words"}
+            value={user.last_name}
+            onChangeText={text =>
+              setUser({
+                ...user,
+                last_name: text,
+              })
+            }
+          />
+
+          <CustomInput
+            placeholder='Seu CPF?'
+            size={16}
+            lenght={14}
+            type={FontAwesome}
+            name={"id-card"}
+            keyboardType={'number-pad'}
+            value={user.document}
+            onChangeText={text =>
+              setUser({
+                ...user,
+                document: maskDocument(text),
               })
             }
           />
@@ -130,6 +180,7 @@ export default ({ navigation }) => {
             lenght={15}
             type={FontAwesome}
             name={"mobile"}
+            keyboardType={'phone-pad'}
             value={user.phone_number}
             onChangeText={text =>
               setUser({
@@ -144,6 +195,7 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"envelope"}
+            keyboardType={"email-address"}
             value={user.email}
             onChangeText={text =>
               setUser({
@@ -158,7 +210,9 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"lock"}
-            secureTextEntry
+            secureTextEntry={!previewPassword}
+            previewPassword={previewPassword}
+            setPreviewPassword={setPreviewPassword}
             value={user.password}
             onChangeText={text =>
               setUser({
@@ -168,27 +222,67 @@ export default ({ navigation }) => {
             }
           />
 
-          <CheckBox
-            onPress={() => setCheck(!check)}
-            checked={check}
-            title={"Aceitar política de privacidade e termos e condições"}
-            textStyle={{
-              fontFamily: FONT_DEFAULT_BOLD_STYLE,
-              color: "white",
-              fontSize: 14,
+          <Text 
+            style={{
+              ...general_text_style,
+              width: "100%"
             }}
-            center
-            size={28}
-            containerStyle={{
-              width: "100%",
-              backgroundColor: "transparent",
-              borderWidth: 0,
-              marginTop: 0,
-              marginBottom: 10,
-            }}
-            checkedIcon={<MaterialIcons name='check-box' size={28} color={"white"} />}
-            uncheckedIcon={<MaterialIcons name='check-box-outline-blank' size={28} color='white' />}
-          />
+          >{"Gênero?"}</Text>
+
+          <View style={{flexDirection: "row"}}>
+            <CustomRadio
+              title={"Feminino"}
+              currentValue={user.gender}
+              value={"F"}
+              setValue={gender =>
+                setUser({
+                  ...user,
+                  gender: gender,
+                })
+              }
+            />
+
+            <CustomRadio
+              title={"Masculino"}
+              currentValue={user.gender}
+              value={"M"}
+              setValue={gender =>
+                setUser({
+                  ...user,
+                  gender: gender,
+                })
+              }
+            />
+          </View>
+
+          <View style={{flexDirection: "row",}}>
+            <CheckBox
+              onPress={() => setCheck(!check)}
+              checked={check}
+              center
+              size={28}
+              containerStyle={{
+                backgroundColor: "transparent",
+                borderWidth: 0,
+                marginTop: 0,
+                marginBottom: 10,
+              }}
+              checkedIcon={<MaterialIcons name='check-box' size={28} color={"white"} />}
+              uncheckedIcon={<MaterialIcons name='check-box-outline-blank' size={28} color='white' />}
+            />
+
+            <Text style={{...general_text_style}}>
+              {"Aceitar "} 
+              <Text style={{...general_text_style, textDecorationLine: 'underline'}} onPress={() => navigation.navigate("PrivacyPolicy")}>
+                política de privacidade
+              </Text> 
+              {" e "} 
+              <Text style={{...general_text_style, textDecorationLine: 'underline'}} onPress={() => navigation.navigate("TermsConditions")}>
+                termos e condições
+              </Text>
+              .
+            </Text>
+          </View>
 
           <CustomButton
             onPress={handlerPress}
@@ -199,7 +293,7 @@ export default ({ navigation }) => {
           />
         </View>
 
-        <Copyright display={2} />
+        <Copyright display={1} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

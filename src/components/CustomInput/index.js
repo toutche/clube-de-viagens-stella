@@ -17,7 +17,10 @@ const CustomInput = ({
   placeholderTextColor = "#d1d1d1",
   secureTextEntry = false,
   multiline = false,
-  uri = null
+  uri = null,
+  autoCapitalize = "none",
+  previewPassword = null,
+  setPreviewPassword
 }) => {
   const Icon = type || null;
 
@@ -36,7 +39,16 @@ const CustomInput = ({
         placeholderTextColor={placeholderTextColor}
         onChangeText={text => onChangeText(text)}
         multiline={multiline}
+        autoCapitalize={autoCapitalize}
       />
+      {previewPassword != null
+        && Icon 
+        && <Icon 
+              name={previewPassword ? "eye-slash" : "eye"} 
+              size={size || 24} 
+              color={color || "white"} 
+              onPress={() => setPreviewPassword(!previewPassword)} 
+            />}
     </View>
   );
 };
