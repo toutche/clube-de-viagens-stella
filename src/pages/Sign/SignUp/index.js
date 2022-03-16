@@ -23,14 +23,12 @@ export default ({ navigation }) => {
   const [previewPassword, setPreviewPassword] = useState(false);
 
   const [user, setUser] = useState({
-    first_name: "",
-    last_name: "",
+    name: "",
     document: "",
     email: "",
     phone_number: "",
     password: "",
     image: null,
-    gender: ""
   });
 
   const hasMediaPermission = async () => {
@@ -68,15 +66,18 @@ export default ({ navigation }) => {
   const signUp = async () => {
     setLoading(true);
 
+    let [name, ...last_name] = user.name.split(" ");
+    last_name = last_name.join(" ") || name;
+
     const { data } = await api.post("/cadastrar", {
-      name: user.first_name,
-      last_name: user.last_name,
+      name: name,
+      last_name: last_name,
       document: user.document.replaceAll('.', '').replace('-', ''),
       email: user.email,
       password: user.password,
       password_confirmation: user.password,
       phone_number: user.phone_number,
-      gender: user.gender,
+      gender: "M",
       accept_terms: "Y",
       accept_privacy: "Y",
       image: user.image,
@@ -129,31 +130,16 @@ export default ({ navigation }) => {
           />
 
           <CustomInput
-            placeholder='Qual seu primeiro nome?'
+            placeholder='Qual seu nome completo?'
             size={16}
             type={FontAwesome}
             name={"user"}
             autoCapitalize={"words"}
-            value={user.first_name}
+            value={user.name}
             onChangeText={text =>
               setUser({
                 ...user,
-                first_name: text,
-              })
-            }
-          />
-
-          <CustomInput
-            placeholder='Qual seu sobrenome completo?'
-            size={16}
-            type={FontAwesome}
-            name={"user"}
-            autoCapitalize={"words"}
-            value={user.last_name}
-            onChangeText={text =>
-              setUser({
-                ...user,
-                last_name: text,
+                name: text,
               })
             }
           />
@@ -221,39 +207,6 @@ export default ({ navigation }) => {
               })
             }
           />
-
-          <Text 
-            style={{
-              ...general_text_style,
-              width: "100%"
-            }}
-          >{"Gênero?"}</Text>
-
-          <View style={{flexDirection: "row"}}>
-            <CustomRadio
-              title={"Feminino"}
-              currentValue={user.gender}
-              value={"F"}
-              setValue={gender =>
-                setUser({
-                  ...user,
-                  gender: gender,
-                })
-              }
-            />
-
-            <CustomRadio
-              title={"Masculino"}
-              currentValue={user.gender}
-              value={"M"}
-              setValue={gender =>
-                setUser({
-                  ...user,
-                  gender: gender,
-                })
-              }
-            />
-          </View>
 
           <View style={{flexDirection: "row",}}>
             <CheckBox

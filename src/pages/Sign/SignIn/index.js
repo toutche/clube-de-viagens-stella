@@ -18,6 +18,7 @@ const titlePage = "Acesse seu Clube de Férias:";
 export default ({ navigation }) => {
   const { verifyUser } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [previewPassword, setPreviewPassword] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -59,6 +60,7 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"envelope"}
+            keyboardType={"email-address"}
             value={user.email}
             onChangeText={text =>
               setUser({
@@ -72,8 +74,10 @@ export default ({ navigation }) => {
             placeholder='Insira uma senha'
             size={16}
             type={FontAwesome}
-            secureTextEntry
             name={"lock"}
+            secureTextEntry={!previewPassword}
+            previewPassword={previewPassword}
+            setPreviewPassword={setPreviewPassword}
             value={user.password}
             onChangeText={text =>
               setUser({
