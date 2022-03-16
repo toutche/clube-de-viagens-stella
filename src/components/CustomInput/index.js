@@ -9,10 +9,10 @@ const CustomInput = ({
   inputStyle,
   type,
   name,
-  size,
+  size = 24,
   lenght = 40,
   keyboardType = "default",
-  color,
+  color = 'white',
   placeholder = "",
   placeholderTextColor = "#d1d1d1",
   secureTextEntry = false,
@@ -28,7 +28,10 @@ const CustomInput = ({
     <View style={[styles.container, containerStyle]}>
       {uri
         ? <Image source={{ uri }} style={styles.image} />
-        : Icon && <Icon name={name} size={size || 24} color={color || "white"} />}
+        : Icon && <View style={{ width: 30, alignItems: 'center' }}>
+          <Icon name={name} size={size} color={color} />
+        </View>
+      }
       <TextInput
         style={[styles.input, inputStyle]}
         value={value}
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: 50,
-    paddingHorizontal: 16,
+    paddingHorizontal: 8,
     marginTop: 12,
     borderWidth: 1,
     borderRadius: 999,
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: FONT_DEFAULT_STYLE,
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 4,
     color: "white",
     fontSize: 14.5,
   },

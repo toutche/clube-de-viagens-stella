@@ -65,7 +65,7 @@ const Menu = ({ isVisible = true, onClose }) => {
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/carteira-white.png"}
             />
             <RenderItem
-              id={"Dashboar"}
+              id={"Alert"}
               text={"Alertas"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/alertas-red.png"}

@@ -19,7 +19,7 @@ export default ({ navigation }) => {
     return (
         <View style={styles.container}>
             <HeaderWithIcon {...{ navigation, url: data?.icon }} />
-            <Body {...{ data }} />
+            <Body {...{ data, navigation }} />
         </View>
     )
 }

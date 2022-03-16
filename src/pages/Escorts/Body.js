@@ -5,7 +5,7 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/varia
 import { AntDesign } from "@expo/vector-icons";
 
 
-export default ({ data = [] }) => {
+export default ({ data = [], navigation }) => {
     const [loading, setLoading] = useState(false)
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -55,7 +55,11 @@ export default ({ data = [] }) => {
 
 
             <CustomButton
-                onPress={handlePress}
+                onPress={() => navigation.navigate({
+                    name: 'NewEscort',
+                    params: data?.icons_form,
+                    merge: true
+                })}
                 left
                 type={AntDesign}
                 name={"pluscircleo"}
