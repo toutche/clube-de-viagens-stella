@@ -8,38 +8,46 @@ import Copyright from "../../../components/Copyright";
 import CustomButton from "../../../components/CustomButton";
 import CustomIcon from "../../../components/CustomIcon";
 import CustomAvatar from "../../../components/CustomAvatar";
-import { maskPhone } from "../../../utils/masks";
+import { maskPhone, maskDocument } from "../../../utils/masks";
 import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
-import { FONT_DEFAULT_BOLD_STYLE } from "../../../utils/variables";
+import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
+import CustomRadio from "../../../components/CustomRadio";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
 export default ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
+  const [previewPassword, setPreviewPassword] = useState(false);
 
   const [user, setUser] = useState({
     name: "",
+    document: "",
     email: "",
     phone_number: "",
     password: "",
     image: null,
   });
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
-        }
+  const hasMediaPermission = async () => {
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+        return false;
       }
-    })();
-  }, []);
+      return true;
+    }
+  };
 
   const pickImage = async () => {
+    const hasPermission = await hasMediaPermission();
+    if(!hasPermission) {
+      return;
+    }
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -58,14 +66,18 @@ export default ({ navigation }) => {
   const signUp = async () => {
     setLoading(true);
 
+    let [name, ...last_name] = user.name.split(" ");
+    last_name = last_name.join(" ") || name;
+
     const { data } = await api.post("/cadastrar", {
-      name: user.name,
-      last_name: user.name,
+      name: name,
+      last_name: last_name,
+      document: user.document.replaceAll('.', '').replace('-', ''),
       email: user.email,
       password: user.password,
       password_confirmation: user.password,
       phone_number: user.phone_number,
-      gender: "m",
+      gender: "M",
       accept_terms: "Y",
       accept_privacy: "Y",
       image: user.image,
@@ -84,6 +96,13 @@ export default ({ navigation }) => {
   const handlerPress = () => {
     if (check) signUp(user, navigation);
     else Alert.alert("Aviso", "Para continuar aceite os termos");
+  };
+
+  const general_text_style = {
+    fontFamily: FONT_DEFAULT_STYLE,
+    color: "white",
+    fontSize: 14,
+    marginTop: 10,
   };
 
   return (
@@ -106,15 +125,16 @@ export default ({ navigation }) => {
             handlerPress={pickImage}
             item={
               user.image ||
-              "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
+              "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png" 
             }
           />
 
           <CustomInput
-            placeholder='Qual seu nome?'
+            placeholder='Qual seu nome completo?'
             size={16}
             type={FontAwesome}
             name={"user"}
+            autoCapitalize={"words"}
             value={user.name}
             onChangeText={text =>
               setUser({
@@ -125,11 +145,28 @@ export default ({ navigation }) => {
           />
 
           <CustomInput
+            placeholder='Seu CPF?'
+            size={16}
+            lenght={14}
+            type={FontAwesome}
+            name={"id-card"}
+            keyboardType={'number-pad'}
+            value={user.document}
+            onChangeText={text =>
+              setUser({
+                ...user,
+                document: maskDocument(text),
+              })
+            }
+          />
+
+          <CustomInput
             placeholder='Seu celular?'
             size={18}
             lenght={15}
             type={FontAwesome}
             name={"mobile"}
+            keyboardType={'phone-pad'}
             value={user.phone_number}
             onChangeText={text =>
               setUser({
@@ -144,6 +181,7 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"envelope"}
+            keyboardType={"email-address"}
             value={user.email}
             onChangeText={text =>
               setUser({
@@ -158,7 +196,9 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"lock"}
-            secureTextEntry
+            secureTextEntry={!previewPassword}
+            previewPassword={previewPassword}
+            setPreviewPassword={setPreviewPassword}
             value={user.password}
             onChangeText={text =>
               setUser({
@@ -168,27 +208,34 @@ export default ({ navigation }) => {
             }
           />
 
-          <CheckBox
-            onPress={() => setCheck(!check)}
-            checked={check}
-            title={"Aceitar política de privacidade e termos e condições"}
-            textStyle={{
-              fontFamily: FONT_DEFAULT_BOLD_STYLE,
-              color: "white",
-              fontSize: 14,
-            }}
-            center
-            size={28}
-            containerStyle={{
-              width: "100%",
-              backgroundColor: "transparent",
-              borderWidth: 0,
-              marginTop: 0,
-              marginBottom: 10,
-            }}
-            checkedIcon={<MaterialIcons name='check-box' size={28} color={"white"} />}
-            uncheckedIcon={<MaterialIcons name='check-box-outline-blank' size={28} color='white' />}
-          />
+          <View style={{flexDirection: "row",}}>
+            <CheckBox
+              onPress={() => setCheck(!check)}
+              checked={check}
+              center
+              size={28}
+              containerStyle={{
+                backgroundColor: "transparent",
+                borderWidth: 0,
+                marginTop: 0,
+                marginBottom: 10,
+              }}
+              checkedIcon={<MaterialIcons name='check-box' size={28} color={"white"} />}
+              uncheckedIcon={<MaterialIcons name='check-box-outline-blank' size={28} color='white' />}
+            />
+
+            <Text style={{...general_text_style}}>
+              {"Aceitar "} 
+              <Text style={{...general_text_style, textDecorationLine: 'underline'}} onPress={() => navigation.navigate("PrivacyPolicy")}>
+                política de privacidade
+              </Text> 
+              {" e "} 
+              <Text style={{...general_text_style, textDecorationLine: 'underline'}} onPress={() => navigation.navigate("TermsConditions")}>
+                termos e condições
+              </Text>
+              .
+            </Text>
+          </View>
 
           <CustomButton
             onPress={handlerPress}
@@ -199,7 +246,7 @@ export default ({ navigation }) => {
           />
         </View>
 
-        <Copyright display={2} />
+        <Copyright display={1} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

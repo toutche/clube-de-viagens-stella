@@ -7,3 +7,12 @@ export const maskPhone = text => {
     else if (mask.length == 11) mask = mask.replace(/(\d)(\d{1})$/, "$1-$2")
     return mask
 }
+
+export const maskDocument = text => {
+    let mask = text.replace(/\D/g, "")
+    mask = mask.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4")
+    if (mask.length >= 10) mask = mask.replace(/(\d{3})(\d{3})(\d{3})(\d)/, "$1.$2.$3-$4")
+    else if (mask.length >= 7) mask = mask.replace(/(\d{3})(\d{3})(\d)/, "$1.$2.$3")
+    else if (mask.length >= 4) mask = mask.replace(/(\d{3})(\d)/, "$1.$2")
+    return mask
+}
