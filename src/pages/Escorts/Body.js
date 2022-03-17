@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Image, View, StyleSheet, Text, Switch, ScrollView } from 'react-native';
+import { Image, View, StyleSheet, Text, Switch, ScrollView, TouchableOpacity } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
+import CustomIcon from '../../components/CustomIcon';
 
 
 export default ({ data = [], navigation }) => {
     const [loading, setLoading] = useState(false)
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
+    console.log(data)
     const handlePress = () => {
 
     }
@@ -20,7 +21,7 @@ export default ({ data = [], navigation }) => {
             style={styles.container}
             contentContainerStyle={styles.containerScroll}>
 
-            <Text style={styles.title}>Gestão de acompnhantes</Text>
+            <Text style={styles.title}>Gestão de viajantes</Text>
 
             <View style={styles.content_list}>
                 {data?.members?.map((i, k) => {
@@ -30,18 +31,31 @@ export default ({ data = [], navigation }) => {
                                 <View style={styles.content_text}>
                                     <Text style={styles.title_item}>{i?.name} {i?.last_name}</Text>
                                     <View style={styles.icon_item}>
-                                        <Image style={styles.icon_person} source={{ uri: i.icon }} />
+                                        <View style={{ justifyContent: 'center', alignItems: 'center', marginRight: 6 }}>
+                                            <SimpleLineIcons name="user" size={15} color={BLUE_COLOR} />
+                                        </View>
                                         <Text style={styles.date_item}>{i?.age} anos</Text>
                                     </View>
                                 </View>
                                 <View style={styles.icon_item}>
-                                    <Image style={styles.icon_edit} source={{ uri: data?.icon_edit }} />
-                                    <Switch
-                                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                                        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                                        ios_backgroundColor="#3e3e3e"
-                                        onValueChange={toggleSwitch}
-                                        value={isEnabled}
+                                    <CustomIcon
+                                        onPress={() => navigation.navigate({
+                                            name: 'DetailsEscort',
+                                            params: { i, k },
+                                        })}
+                                        size={33}
+                                        color={PRIMARY_COLOR}
+                                        type={EvilIcons}
+                                        name={'pencil'}
+                                        containerStyle={styles.icon}
+                                    />
+                                    <CustomIcon
+                                        onPress={() => { }}
+                                        size={33}
+                                        color={PRIMARY_COLOR}
+                                        type={EvilIcons}
+                                        name={'trash'}
+                                        containerStyle={styles.icon}
                                     />
                                 </View>
                             </View>
@@ -98,17 +112,8 @@ const styles = StyleSheet.create({
     icon_item: {
         flexDirection: 'row',
     },
-    icon_person: {
-        marginRight: 8,
-        width: 14,
-        height: 14,
-        alignSelf: 'center'
-    },
-    icon_edit: {
-        marginRight: 8,
-        width: 16,
-        height: 16,
-        alignSelf: 'center'
+    icon: {
+        padding: 2
     },
     containerScroll: {
         backgroundColor: "#e6e6e6",

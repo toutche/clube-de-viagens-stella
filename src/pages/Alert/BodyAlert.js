@@ -18,7 +18,7 @@ const BodyAlert = ({ }) => {
   const _renderTypeOne = (item) => (
     <View style={[styles.container_item, { flexDirection: 'row', justifyContent: 'space-between' }]}>
       <View>
-        <Text style={styles.created_at}>{moment(item.created_at).format("DD/MM/YYYY")} - {moment(item.created_at).format("HH:MM")}hs</Text>
+        <Text style={styles.created_at}>{moment(item.created_at).format("DD/MM/YYYY")} - {moment(item.created_at).format("HH:mm")}hs</Text>
         <LinearGradient
           start={[1, 0.5]}
           colors={[item?.plan_color2, item?.plan_color1]}
@@ -44,7 +44,7 @@ const BodyAlert = ({ }) => {
   const _renderTypeTwo = (item) => {
     return (
       <View style={styles.container_item}>
-        <Text style={styles.created_at}>{moment(item.created_at).format("DD/MM/YYYY")} - {moment(item.created_at).format("HH:MM")}hs</Text>
+        <Text style={styles.created_at}>{moment(item.created_at).format("DD/MM/YYYY")} - {moment(item.created_at).format("HH:mm")}hs</Text>
         <Text style={styles.headline}>{item?.headline}</Text>
         <Text style={[styles.sub_headline, { fontSize: 13 }]}>{item?.sub_headline}</Text>
       </View>
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
     height: 16,
   },
   container_plan: {
-    paddingVertical: 10,
-    marginVertical: 6,
+    paddingVertical: 8,
+    marginVertical: 4,
     borderRadius: 999,
     width: 150,
     flexDirection: "row",

@@ -20,7 +20,8 @@ const CustomInput = ({
   uri = null,
   autoCapitalize = "none",
   previewPassword = null,
-  setPreviewPassword
+  setPreviewPassword,
+  ...rest
 }) => {
   const Icon = type || null;
 
@@ -33,6 +34,7 @@ const CustomInput = ({
         </View>
       }
       <TextInput
+        {...rest}
         style={[styles.input, inputStyle]}
         value={value}
         secureTextEntry={secureTextEntry}
@@ -45,13 +47,13 @@ const CustomInput = ({
         autoCapitalize={autoCapitalize}
       />
       {previewPassword != null
-        && Icon 
-        && <Icon 
-              name={previewPassword ? "eye-slash" : "eye"} 
-              size={size || 24} 
-              color={color || "white"} 
-              onPress={() => setPreviewPassword(!previewPassword)} 
-            />}
+        && Icon
+        && <Icon
+          name={previewPassword ? "eye-slash" : "eye"}
+          size={size || 24}
+          color={color || "white"}
+          onPress={() => setPreviewPassword(!previewPassword)}
+        />}
     </View>
   );
 };

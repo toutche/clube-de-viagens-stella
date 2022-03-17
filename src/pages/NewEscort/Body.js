@@ -1,23 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from '../../utils/variables';
 import CustomButton from '../../components/CustomButton';
+import api from '../../services/api';
+import moment from 'moment';
 
-export default ({ route }) => {
-
+export default ({ route, navigation }) => {
+    const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         name: '',
+        last_name: 'teste',
         birth_date: '',
         cpf: '',
         passport: ''
     })
 
+    const handlerPress = () => {
+        setLoading(true)
+        api.post('/familiar/criar', {
+            name: form?.name,
+            last_name: form?.last_name,
+            birth_date: (form?.birth_date).split('/').reverse().join('-'),
+            cpf: form?.cpf,
+            passport: form?.passport
+        })
+            .then((res) => {
+                console.log(res.data)
+                navigation.goBack()
+            })
+            .catch((e) => {
+                console.log(e)
+                setLoading(false)
+            })
+    }
+
     return (
         <ScrollView bounces={false} style={styles.container} contentContainerStyle={styles.content}>
 
-            <Text style={styles.title}>Formulário</Text>
+            <Text style={styles.title}>Novo viajante</Text>
 
             <CustomInput
                 containerStyle={styles.container_input}
@@ -53,7 +75,8 @@ export default ({ route }) => {
             <CustomInput
                 containerStyle={styles.container_input}
                 inputStyle={styles.input}
-                placeholder='RG ou CPF'
+                lenght={11}
+                placeholder='CPF'
                 keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 color={"#c1c1c1"}
@@ -74,6 +97,7 @@ export default ({ route }) => {
                 placeholderTextColor={"#a1a1a1"}
                 color={"#c1c1c1"}
                 size={18}
+                lenght={11}
                 type={FontAwesome5}
                 name={"passport"}
                 value={form?.passport}
@@ -85,7 +109,7 @@ export default ({ route }) => {
 
             <View style={styles.container_buttons}>
                 <CustomButton
-                    onPress={() => { }}
+                    onPress={() => navigation.goBack()}
                     size={24}
                     containerStyle={styles.button_left}
                     titleStyle={styles.button_text_left}
@@ -93,8 +117,10 @@ export default ({ route }) => {
                 />
 
                 <CustomButton
-                    onPress={() => { }}
+                    onPress={handlerPress}
                     size={24}
+                    loadingApiColor={'white'}
+                    loadingApi={loading}
                     containerStyle={styles.button_right}
                     titleStyle={styles.button_text_right}
                     title={('Salvar').toUpperCase()}

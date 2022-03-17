@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from '../../utils/variables';
 import CustomButton from '../../components/CustomButton';
+import api from '../../services/api';
+import moment from 'moment';
 
-export default ({ route }) => {
+export default ({ route: { params: { i, k } }, navigation }) => {
 
+    const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
-        name: '',
-        birth_date: '',
-        cpf: '',
-        passport: ''
+        name: i?.name || '',
+        last_name: i?.last_name || '',
+        birth_date: i?.birth_date || '',
+        cpf: i?.cpf || '',
+        passport: i?.passport || ''
     })
+
+    const handlerPress = () => {
+        setLoading(true)
+        api.put(`/familiar/${i?.id}/atualizar`, form)
+            .then((res) => {
+                console.log(res.data)
+                navigation.goBack()
+            })
+            .catch((e) => {
+                console.log(e)
+                setLoading(false)
+            })
+    }
 
     return (
         <ScrollView bounces={false} style={styles.container} contentContainerStyle={styles.content}>
 
-            <Text style={styles.title}>Formulário</Text>
+            <Text style={styles.title}>{`${k + 1}º viajante`}</Text>
 
             <CustomInput
                 containerStyle={styles.container_input}
@@ -85,7 +102,7 @@ export default ({ route }) => {
 
             <View style={styles.container_buttons}>
                 <CustomButton
-                    onPress={() => { }}
+                    onPress={() => navigation.goBack()}
                     size={24}
                     containerStyle={styles.button_left}
                     titleStyle={styles.button_text_left}
@@ -93,8 +110,10 @@ export default ({ route }) => {
                 />
 
                 <CustomButton
-                    onPress={() => { }}
+                    onPress={handlerPress}
                     size={24}
+                    loadingApiColor={'white'}
+                    loadingApi={loading}
                     containerStyle={styles.button_right}
                     titleStyle={styles.button_text_right}
                     title={('Salvar').toUpperCase()}
