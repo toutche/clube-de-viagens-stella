@@ -1,21 +1,53 @@
-import 'react-native-gesture-handler';
+import React, { useCallback, useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar';
-
-import { AuthProvider } from './contexts/auth'
-import Routes from './routes'
+import { AuthProvider } from "./contexts/auth";
+import { CheckoutProvider } from "./contexts/checkout";
+import Routes from "./routes";
 
 const App = () => {
-    return (
-        <NavigationContainer>
-            <AuthProvider>
-                <StatusBar backgroundColor={'transparent'} />
-                <Routes />
-            </AuthProvider>
-        </NavigationContainer >
-    )
-}
+  const [appIsReady, setAppIsReady] = useState(false);
 
-export default App
+  useEffect(() => {
+    (async () => {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          Montserrat: require("../assets/fonts/Montserrat/Montserrat-Regular.otf"),
+
+          "Montserrat-Bold": {
+            uri: require("../assets/fonts/Montserrat/Montserrat-Bold.otf"),
+            display: Font.FontDisplay.FALLBACK,
+          },
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        // Tell the application to render
+        setAppIsReady(true);
+        await SplashScreen.hideAsync();
+      }
+    })();
+  }, []);
+
+  if (!appIsReady) {
+    return null;
+  }
+
+  return (
+    <AuthProvider>
+      <CheckoutProvider>
+        <NavigationContainer>
+          <StatusBar backgroundColor={"transparent"} />
+          <Routes />
+        </NavigationContainer>
+      </CheckoutProvider>
+    </AuthProvider>
+  );
+};
+
+export default App;
