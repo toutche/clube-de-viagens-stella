@@ -15,31 +15,33 @@ const BodyAlert = ({ }) => {
     });
   }, []);
 
-  const _renderTypeOne = (item) => (
-    <View style={[styles.container_item, { flexDirection: 'row', justifyContent: 'space-between' }]}>
-      <View>
-        <Text style={styles.created_at}>{moment(item.created_at).format("DD/MM/YYYY")} - {moment(item.created_at).format("HH:mm")}hs</Text>
-        <LinearGradient
-          start={[1, 0.5]}
-          colors={[item?.plan_color2, item?.plan_color1]}
-          style={styles.container_plan}>
-          <View style={styles.container_card}>
-            <View style={[styles.plan_circle_external, { backgroundColor: item.plan_color3 }]}>
-              <View style={[styles.plan_circle_internal, { backgroundColor: item.plan_color4 }]} />
+  const _renderTypeOne = (item) => {
+    return (
+      <View style={[styles.container_item, { flexDirection: 'row', justifyContent: 'space-between' }]}>
+        <View>
+          <Text style={styles.created_at}>{moment(item.created_at).format("DD/MM/YYYY")} - {moment(item.created_at).format("HH:mm")}hs</Text>
+          <LinearGradient
+            start={[1, 0.5]}
+            colors={[item?.plan_color2, item?.plan_color1]}
+            style={styles.container_plan}>
+            <View style={styles.container_card}>
+              <View style={[styles.plan_circle_external, { backgroundColor: item.plan_color3 }]}>
+                <View style={[styles.plan_circle_internal, { backgroundColor: item.plan_color4 }]} />
+              </View>
+              <Text style={styles.text_plan}>{item.headline}</Text>
             </View>
-            <Text style={styles.text_plan}>{item.headline}</Text>
+          </LinearGradient>
+          <Text style={styles.sub_headline}>{item?.sub_headline}</Text>
+        </View>
+        <View style={styles.right}>
+          <Text style={styles.plan_price}>{item?.plan_price} <Text style={styles.font_default}>/mês</Text></Text>
+          <View style={styles.container_plan_discount}>
+            <Text style={styles.plan_discount}>{item?.plan_discount} <Text style={styles.font_default}>{item?.plan_discount2}</Text></Text>
           </View>
-        </LinearGradient>
-        <Text style={styles.sub_headline}>{item?.sub_headline}</Text>
-      </View>
-      <View style={styles.right}>
-        <Text style={styles.plan_price}>{item?.plan_price} <Text style={styles.font_default}>/mês</Text></Text>
-        <View style={styles.container_plan_discount}>
-          <Text style={styles.plan_discount}>{item?.plan_discount} <Text style={styles.font_default}>{item?.plan_discount2}</Text></Text>
         </View>
       </View>
-    </View>
-  );
+    )
+  }
 
   const _renderTypeTwo = (item) => {
     return (
@@ -100,11 +102,13 @@ const styles = StyleSheet.create({
   plan_discount: {
     fontSize: 9,
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
+    color: '#f1f1f1'
   },
   plan_price: {
     fontSize: 15,
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
-    marginBottom: 2
+    marginBottom: 2,
+    color: '#555'
   },
   headline: {
     fontFamily: FONT_DEFAULT_STYLE,
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
   container_plan: {
     paddingVertical: 8,
     marginVertical: 4,
-    borderRadius: 999,
+    borderRadius: 20,
     width: 150,
     flexDirection: "row",
     alignItems: "center",
@@ -166,6 +170,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   before: {
+    borderTopLeftRadius: 4,
+    borderBottomLeftRadius: 4,
     width: 4,
     height: '100%',
     backgroundColor: BLUE_COLOR
@@ -180,7 +186,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    overflow: 'hidden'
   },
   container_item: {
     flex: 1,

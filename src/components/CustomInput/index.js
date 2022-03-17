@@ -1,5 +1,6 @@
 import React from "react";
 import { View, TextInput, StyleSheet, Image } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const CustomInput = ({
@@ -46,14 +47,15 @@ const CustomInput = ({
         multiline={multiline}
         autoCapitalize={autoCapitalize}
       />
-      {previewPassword != null
-        && Icon
-        && <Icon
-          name={previewPassword ? "eye-slash" : "eye"}
-          size={size || 24}
-          color={color || "white"}
-          onPress={() => setPreviewPassword(!previewPassword)}
-        />}
+      {previewPassword !== null && Icon &&
+        <TouchableOpacity onPress={() => setPreviewPassword(state => !state)} style={styles.button_eye}>
+          <Icon
+            name={previewPassword ? "eye-slash" : "eye"}
+            size={size || 24}
+            color={color || "white"}
+          />
+        </TouchableOpacity>
+      }
     </View>
   );
 };
@@ -82,6 +84,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 14.5,
   },
+  button_eye: {
+    paddingHorizontal: 8,
+    paddingVertical: 8
+  }
 });
 
 export default CustomInput;
