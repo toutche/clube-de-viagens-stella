@@ -6,6 +6,7 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE } from '../../utils/variables';
 import CustomButton from '../../components/CustomButton';
 import api from '../../services/api';
 import moment from 'moment';
+import { maskDocument, maskDate } from "../../utils/masks";
 
 export default ({ route, navigation }) => {
     const [loading, setLoading] = useState(false)
@@ -19,11 +20,14 @@ export default ({ route, navigation }) => {
 
     const handlerPress = () => {
         setLoading(true)
+        let [name, ...last_name] = form?.name.split(" ");
+        last_name = last_name.join(" ") || name;
+        let cpf = form?.cpf.replaceAll('.', '').replace('-', '');
         api.post('/familiar/criar', {
-            name: form?.name,
-            last_name: form?.last_name,
+            name: name,
+            last_name: last_name,
             birth_date: (form?.birth_date).split('/').reverse().join('-'),
-            cpf: form?.cpf,
+            cpf: cpf,
             passport: form?.passport
         })
             .then((res) => {
@@ -50,6 +54,7 @@ export default ({ route, navigation }) => {
                 type={FontAwesome}
                 size={18}
                 name={"user-o"}
+                autoCapitalize={"words"}
                 value={form?.name}
                 onChangeText={name => setForm({
                     ...form,
@@ -60,7 +65,9 @@ export default ({ route, navigation }) => {
             <CustomInput
                 containerStyle={styles.container_input}
                 inputStyle={styles.input}
+                lenght={10}
                 placeholder='Data de nascimento'
+                keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 color={"#c1c1c1"}
                 size={18}
@@ -69,13 +76,13 @@ export default ({ route, navigation }) => {
                 value={form?.birth_date}
                 onChangeText={birth_date => setForm({
                     ...form,
-                    birth_date
+                    birth_date: maskDate(birth_date)
                 })}
             />
             <CustomInput
                 containerStyle={styles.container_input}
                 inputStyle={styles.input}
-                lenght={11}
+                lenght={14}
                 placeholder='CPF'
                 keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
@@ -86,7 +93,7 @@ export default ({ route, navigation }) => {
                 value={form?.cpf}
                 onChangeText={cpf => setForm({
                     ...form,
-                    cpf
+                    cpf: maskDocument(cpf)
                 })}
             />
 

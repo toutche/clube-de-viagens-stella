@@ -1,18 +1,61 @@
 import React, { useState } from 'react';
-import { Image, View, StyleSheet, Text, Switch, ScrollView, TouchableOpacity } from 'react-native';
+import { Image, View, StyleSheet, Text, Switch, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
 import { AntDesign, EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 import CustomIcon from '../../components/CustomIcon';
+import api from '../../services/api';
 
 
-export default ({ data = [], navigation }) => {
+export default ({ data = [], navigation, getEscorts }) => {
     const [loading, setLoading] = useState(false)
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     console.log(data)
     const handlePress = () => {
 
+    }
+
+    const handleDelete = (id, name) => {
+        const error_alert = () => Alert.alert(
+            "Erro",
+            `Não foi possível excluir o viajante ${name}. Por favor, tente novamente.`,
+        );
+
+        error_alert;
+
+        Alert.alert(
+            "Confirmar exclusão",
+            `Confirmar a exclusão do viajante ${name}?`,
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel",
+                },
+                {
+                    text: "Excluir",
+                    onPress: () => { 
+                        api.delete(`/familiar/${id}/deletar`)
+                        .then(({ status, data }) => {
+                            if (status == 200 && data.message == "Familiar deletado") {
+                                getEscorts();
+                                Alert.alert(
+                                    "Viajante excluído",
+                                    `Viajante ${name} foi excluído com sucesso.`,
+                                );
+                            }
+                            else {
+                                error_alert();
+                            }
+                        })
+                        .catch((error) => {
+                            error_alert();
+                            console.log("Ocorreu um erro", error)
+                        });
+                    }
+                }
+            ]
+        );
     }
 
     return (
@@ -50,7 +93,7 @@ export default ({ data = [], navigation }) => {
                                         containerStyle={styles.icon}
                                     />
                                     <CustomIcon
-                                        onPress={() => { }}
+                                        onPress={() => { handleDelete(i.id, i.name) }}
                                         size={33}
                                         color={PRIMARY_COLOR}
                                         type={EvilIcons}

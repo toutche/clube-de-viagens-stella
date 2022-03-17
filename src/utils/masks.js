@@ -16,3 +16,11 @@ export const maskDocument = text => {
     else if (mask.length >= 4) mask = mask.replace(/(\d{3})(\d)/, "$1.$2")
     return mask
 }
+
+export const maskDate = text => {
+    let mask = text.replace(/\D/g, "")
+    mask = mask.replace(/^(\d{2})(\d{2})(\d{4})/g, "$1/$2/$3")
+    if (mask.length >= 5) mask = mask.replace(/(\d{2})(\d{2})(\d)/, "$1/$2/$3")
+    else if (mask.length >= 3) mask = mask.replace(/(\d{2})(\d)/, "$1/$2")
+    return mask
+}

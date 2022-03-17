@@ -6,12 +6,14 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE } from '../../utils/variables';
 import CustomButton from '../../components/CustomButton';
 import api from '../../services/api';
 import moment from 'moment';
+import { maskDocument, maskDate } from "../../utils/masks";
 
 export default ({ route: { params: { i, k } }, navigation }) => {
 
     const [loading, setLoading] = useState(false)
+    const name = [i?.name, i?.last_name].join(" ")
     const [form, setForm] = useState({
-        name: i?.name || '',
+        name: name || '',
         last_name: i?.last_name || '',
         birth_date: i?.birth_date || '',
         cpf: i?.cpf || '',
@@ -20,7 +22,20 @@ export default ({ route: { params: { i, k } }, navigation }) => {
 
     const handlerPress = () => {
         setLoading(true)
-        api.put(`/familiar/${i?.id}/atualizar`, form)
+        let [name, ...last_name] = form?.name.split(" ");
+        last_name = last_name.join(" ") || name;
+        let cpf = form?.cpf.replaceAll('.', '').replace('-', '');
+        let form_data = form;
+
+        form_data = {
+            ...form_data,
+            name: name,
+            last_name: last_name,
+            cpf: cpf,
+            birth_date: form?.birth_date.split('/').reverse().join('-')
+        };
+
+        api.put(`/familiar/${i?.id}/atualizar`, form_data)
             .then((res) => {
                 console.log(res.data)
                 navigation.goBack()
@@ -45,6 +60,7 @@ export default ({ route: { params: { i, k } }, navigation }) => {
                 type={FontAwesome}
                 size={18}
                 name={"user-o"}
+                autoCapitalize={"words"}
                 value={form?.name}
                 onChangeText={name => setForm({
                     ...form,
@@ -61,10 +77,10 @@ export default ({ route: { params: { i, k } }, navigation }) => {
                 size={18}
                 type={FontAwesome}
                 name={"calendar-o"}
-                value={form?.birth_date}
+                value={maskDate(form?.birth_date)}
                 onChangeText={birth_date => setForm({
                     ...form,
-                    birth_date
+                    birth_date: maskDate(birth_date)
                 })}
             />
             <CustomInput
@@ -77,10 +93,10 @@ export default ({ route: { params: { i, k } }, navigation }) => {
                 size={18}
                 type={FontAwesome}
                 name={"id-card-o"}
-                value={form?.cpf}
+                value={maskDocument(form?.cpf)}
                 onChangeText={cpf => setForm({
                     ...form,
-                    cpf
+                    cpf: maskDocument(cpf)
                 })}
             />
 
