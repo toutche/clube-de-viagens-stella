@@ -46,17 +46,20 @@ const GetLocation = ({
           value={number}
           keyboardType={"numeric"}
           maxLength={8}
-          onChangeText={text => setNumber(text)}
+          onChangeText={setNumber}
           style={styles.input}
         />
 
         <Text style={styles.text}>Complemento(Ex: Apto/Bloco/Casa)</Text>
+
         <TextInput
           value={complement}
-          onChangeText={text => setComplement(text)}
+          onChangeText={setComplement}
           style={styles.input}
         />
+
       </View>
+
       <CustomButton
         loadingApi={loadingApi}
         onPress={() =>

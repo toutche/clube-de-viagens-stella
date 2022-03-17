@@ -4,7 +4,7 @@ import { View } from "react-native";
 import BodyAlert from "./BodyAlert";
 import HeaderAlert from "./HeaderAlert";
 
-const Alert = ({ navigation }) => {
+export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       <HeaderAlert {...{ navigation }} />
@@ -19,4 +19,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Alert;

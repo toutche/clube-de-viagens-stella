@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FONT_DEFAULT_STYLE,
-    fontSize: 16,
+    fontSize: 17,
     color: "white",
   },
 });

@@ -22,6 +22,8 @@ import Benefits from "../pages/Benefits";
 import Docs from "../pages/Docs";
 import WebView from "../pages/WebView";
 import Escorts from "../pages/Escorts";
+import DetailsEscort from "../pages/DetailsEscort";
+import NewEscort from "../pages/NewEscort";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -49,6 +51,8 @@ const AuthRoutes = () => {
       <AuthStack.Screen name='WebView' component={WebView} />
       <AuthStack.Screen name='Docs' component={Docs} />
       <AuthStack.Screen name='Escorts' component={Escorts} />
+      <AuthStack.Screen name='NewEscort' component={NewEscort} />
+      <AuthStack.Screen name='DetailsEscort' component={DetailsEscort} />
     </AuthStack.Navigator>
   );
 };

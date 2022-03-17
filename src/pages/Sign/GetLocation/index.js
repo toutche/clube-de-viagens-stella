@@ -72,25 +72,36 @@ const GetLocation = ({ navigation }) => {
   };
 
   const handleBackButton = () => {
-    if (navigation.canGoBack()) navigation.goBack();
+    if (navigation.canGoBack())
+      navigation.goBack();
     else {
       logout();
       navigation.replace("Sign");
     }
   };
 
+  const formatted_address = (details) => {
+    let array = []
+
+    for (let i = 0; i < details.length; i++) {
+      array[i] = details[i].short_name;
+    }
+
+    return array
+  }
+
   const pressHander = (datas, details) => {
+    console.log(formatted_address(details.address_components))
+
     setPanel(1);
     setAddress(details.formatted_address);
     setNumber("");
     setIsKeyboard(false);
   };
 
-  const Container = !panel ? View : ScrollView;
-
   return (
     <View style={Style.container}>
-      {!isKeyboard && (
+      {!isKeyboard &&
         <>
           <Image source={require("../../../../assets/header/Location.jpg")} style={Style.image} />
 
@@ -103,13 +114,13 @@ const GetLocation = ({ navigation }) => {
             containerStyle={Style.icon}
           />
         </>
-      )}
+      }
 
       <View style={Style.body}>
-        {!isKeyboard ? (
-          panel ? (
+        {!isKeyboard ?
+          panel ?
             <Text style={Style.title}>Complete o seu endereço</Text>
-          ) : (
+            :
             <>
               <Text style={Style.title}>{titlePage}</Text>
 
@@ -117,10 +128,9 @@ const GetLocation = ({ navigation }) => {
 
               <Text style={Style.subtitle}>{text}</Text>
             </>
-          )
-        ) : null}
+          : null}
 
-        {panel ? (
+        {panel ?
           <Location
             isKeyboard={isKeyboard}
             address={address}
@@ -130,7 +140,7 @@ const GetLocation = ({ navigation }) => {
             onChangeKeyboard={onChange => setIsKeyboard(onChange)}
             navigation={navigation}
           />
-        ) : (
+          :
           <GooglePlacesAutocomplete
             ref={googleRef}
             placeholder='Digite o seu endereço'
@@ -139,7 +149,7 @@ const GetLocation = ({ navigation }) => {
             returnKeyType='search'
             listViewDisplayed='auto'
             fetchDetails
-            renderLeftButton={() => <AntDesign size={22} color={"red"} name={"search1"} />}
+            renderLeftButton={() => <AntDesign size={22} color={PRIMARY_COLOR} name={"search1"} />}
             renderDescription={row => row.description}
             onPress={pressHander}
             query={{
@@ -153,11 +163,11 @@ const GetLocation = ({ navigation }) => {
               rankby: "distance",
               type: "store",
             }}
-            GooglePlacesDetailsQuery={{ fields: "formatted_address,geometry" }}
+            GooglePlacesDetailsQuery={{ fields: "formatted_address,geometry,address_component" }}
             filterReverseGeocodingByTypes={["locality", "administrative_area_level_3"]}
             debounce={200}
           />
-        )}
+        }
       </View>
 
       {!isKeyboard ? <Copyright display={1} /> : null}
@@ -244,23 +254,22 @@ const autoCompleteStyle = isKeyboard => ({
   },
   listView: {
     marginHorizontal: 0,
-    paddingHorizontal: 10,
+    paddingHorizontal: 0,
+    marginVertical: 10,
     width: "100%",
     position: "absolute",
     elevation: 5,
     top: 50,
     maxHeight: 168,
     backgroundColor: "white",
-    borderRadius: 10,
+    overflow: 'hidden'
   },
   description: {
     fontSize: 14,
     fontFamily: FONT_DEFAULT_STYLE,
   },
   row: {
-    marginTop: 5,
-    marginBottom: 5,
-    height: 45,
+    padding: 18,
   },
 });
 

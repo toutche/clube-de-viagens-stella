@@ -16,6 +16,5 @@ export default ({ navigation, route: { params } }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: Constants.statusBarHeight,
     },
 });
