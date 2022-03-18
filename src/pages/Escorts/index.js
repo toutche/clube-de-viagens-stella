@@ -10,19 +10,23 @@ import { useFocusEffect } from '@react-navigation/native';
 export default ({ navigation }) => {
     const [data, setData] = useState([])
 
+    const getEscorts = () => {
+        api.get('/familiar/listar').then((res) => {
+            setData(res.data)
+            console.log('update')
+        })
+    }
+
     useFocusEffect(
         useCallback(() => {
-            api.get('/familiar/listar').then((res) => {
-                setData(res.data)
-                console.log('update')
-            })
+            getEscorts();
         }, [])
     )
 
     return (
         <View style={styles.container}>
             <HeaderWithIcon {...{ navigation, url: data?.icon }} />
-            <Body {...{ data, navigation }} />
+            <Body {...{ data, navigation, getEscorts }} />
         </View>
     )
 }

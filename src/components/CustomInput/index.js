@@ -50,7 +50,7 @@ const CustomInput = ({
       {previewPassword !== null && Icon &&
         <TouchableOpacity onPress={() => setPreviewPassword(state => !state)} style={styles.button_eye}>
           <Icon
-            name={previewPassword ? "eye-slash" : "eye"}
+            name={previewPassword ? "eye" : "eye-slash"}
             size={size || 24}
             color={color || "white"}
           />
