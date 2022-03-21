@@ -89,7 +89,7 @@ export default ({ navigation }) => {
         </Text>
       </View>
 
-      <View style={Style.bottom}>
+      {/* <View style={Style.bottom}>
         <TouchableOpacity>
           <Text style={Style.itemBottom}>Baixar termos e condições</Text>
         </TouchableOpacity>
@@ -105,7 +105,7 @@ export default ({ navigation }) => {
         containerStyle={Style.button}
         titleStyle={Style.buttonText}
         title={"Aceitar"}
-      />
+      /> */}
 
       <Copyright display={1} />
     </ScrollView>

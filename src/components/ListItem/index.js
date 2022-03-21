@@ -22,6 +22,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
       <FavoriteIcon
         favorite={item.favorite}
         containerStyle={[styles.favoriteIcon, !plan && { top: 20 }]}
+        id_package={item.id}
       />
 
       <ShareIcon shareOpen={shareOpen} containerStyle={[styles.shareIcon, !plan && { top: 75 }]} />
