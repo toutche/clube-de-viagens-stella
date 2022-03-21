@@ -7,7 +7,7 @@ export default ({ data, navigation }) => {
         <View style={styles.container}>
             <Text style={styles.title}>{data?.message}</Text>
 
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('WebView', { link: data?.data?.video })}>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('VideoScreen')}>
                 <Image
                     style={styles.video}
                     source={{

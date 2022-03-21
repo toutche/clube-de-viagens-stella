@@ -1,6 +1,5 @@
 import React from "react";
-import { View, TextInput, StyleSheet, Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, TextInput, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const CustomInput = ({

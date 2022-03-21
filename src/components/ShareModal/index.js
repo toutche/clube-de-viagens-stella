@@ -65,7 +65,7 @@ const ShareModal = ({ isVisible = true, onClose }) => {
           containerStyle={{
             width: 54,
             height: 54,
-            backgroundColor: "green",
+            backgroundColor: "#25D366",
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 100,
