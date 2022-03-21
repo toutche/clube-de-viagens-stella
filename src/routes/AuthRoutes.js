@@ -13,6 +13,7 @@ import TermsConditions from "../pages/TermsConditions";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import ConfirmEmail from "../pages/Sign/ConfirmEmail";
 import GetLocation from "../pages/Sign/GetLocation";
+import VideoScreen from "../pages/VideoScreen";
 
 const AppStack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ const AuthRoutes = () => {
       <AppStack.Screen name='PrivacyPolicy' component={PrivacyPolicy} />
       <AppStack.Screen name='GetLocation' component={GetLocation} />
       <AppStack.Screen name='Preferences' component={Preferences} />
+      <AppStack.Screen name='VideoScreen' component={VideoScreen} />
     </AppStack.Navigator>
   );
 };

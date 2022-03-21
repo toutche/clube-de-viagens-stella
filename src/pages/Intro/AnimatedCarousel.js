@@ -8,6 +8,7 @@ import {
   Text,
   ScrollView,
   Image,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -27,6 +28,7 @@ const Slides = [
     image: require("../../../assets/header/Intro-01.jpg"),
     button: "O Clube",
     aspectRatio: 0.8,
+    onPress: (navigation) => navigation.navigate('VideoScreen')
   },
   {
     title: "Conecte-se a sua viagem dos sonhos!",
@@ -40,6 +42,7 @@ const Slides = [
     image: require("../../../assets/header/Intro-02.jpg"),
     button: "Vantagens",
     aspectRatio: 1.1,
+    onPress: () => { }
   },
   {
     title: "Descontos exclusivos para assinantes",
@@ -51,6 +54,7 @@ const Slides = [
     image: require("../../../assets/header/Intro-03.jpg"),
     button: "Produtos",
     aspectRatio: 1.1,
+    onPress: () => { }
   },
 ];
 
@@ -91,11 +95,13 @@ export default ({ navigation }) => {
         renderItem={({ item, index }) => {
           return (
             <View style={{ width }}>
-              <Image
-                style={[styles.image, { aspectRatio: item.aspectRatio }]}
-                resizeMode={"cover"}
-                source={item.image}
-              />
+              <TouchableWithoutFeedback onPress={() => item.onPress(navigation)}>
+                <Image
+                  style={[styles.image, { aspectRatio: item.aspectRatio }]}
+                  resizeMode={"cover"}
+                  source={item.image}
+                />
+              </TouchableWithoutFeedback>
               <View style={styles.contentText}>
                 <Text style={styles.title}>{item.title}</Text>
                 {index !== 0 &&
