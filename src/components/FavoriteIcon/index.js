@@ -7,7 +7,7 @@ import api from "../../services/api";
 
 const FavoriteIcon = ({ containerStyle, favorite = false, id_package }) => {
   const buttonRef = useRef(null);
-  const [check, setCheck] = useState(check);
+  const [check, setCheck] = useState(favorite);
 
   const pressHandler = () => {
     buttonRef.current.pulse();
@@ -17,17 +17,24 @@ const FavoriteIcon = ({ containerStyle, favorite = false, id_package }) => {
         id_package
       })
       .then((res) => {
-        console.log(res.data);
-        if(res.data.message = "Desejo cadastrado com sucesso") {
+        if(res.status === 200 && res.data.message === "Desejo cadastrado com sucesso") {
           setCheck(!check);
         }
       })
       .catch((e) => {
         console.log(e);
-      })
+      });
     }
     else {
-      setCheck(!check);
+      api.delete(`/desejos/${id_package}/deletar`)
+      .then((res) => {
+        if(res.status === 200 && res.data.message === "Desejo excluído") {
+          setCheck(!check);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     }
   };
 
