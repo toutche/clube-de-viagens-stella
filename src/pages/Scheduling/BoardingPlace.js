@@ -4,14 +4,15 @@ import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
 const BoardingPlace = ({ data }) => {
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Local de embarque:</Text>
-      <View style={styles.content}>
+      <View style={[styles.content, { paddingVertical: data.boarding_place ? 5 : 10 }]}>
         <AntDesign name='checkcircleo' size={22} color={BLUE_COLOR} />
         <View style={styles.contentText}>
-          <Text style={styles.title}>{data?.boarding_place}</Text>
-          <Text style={styles.subTitle}>{data?.boarding_airport}</Text>
+          <Text style={styles.title}>{data?.boarding_place || data?.destiny}</Text>
+          {data.boarding_place ? <Text style={styles.subTitle}>{data?.boarding_airport}</Text> : null}
         </View>
       </View>
     </View>
@@ -25,7 +26,6 @@ const styles = StyleSheet.create({
   content: {
     width: "99%",
     paddingHorizontal: 15,
-    paddingVertical: 5,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "white",

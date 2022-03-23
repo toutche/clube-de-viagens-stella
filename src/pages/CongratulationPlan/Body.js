@@ -1,10 +1,13 @@
 import React from "react";
 import { StyleSheet, ScrollView, Text } from "react-native";
 import CustomButton from "../../components/CustomButton";
+import { useAuth } from "../../contexts/auth";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import CurrentHide from "./CurrentHide";
 
 export default ({ data, handleBackButton }) => {
+  const { user } = useAuth()
+
   return (
     <ScrollView
       bounces={false}
@@ -12,7 +15,7 @@ export default ({ data, handleBackButton }) => {
       contentContainerStyle={styles.containerScroll}>
       <Text style={styles.title}>
         Todos os detalhes foram enviados para o e-mail
-        <Text style={{ color: BLUE_COLOR }}> teste@gmail.com.</Text>
+        <Text style={{ color: BLUE_COLOR }}> {user?.email}</Text>
       </Text>
 
       {data.plan && <CurrentHide {...{ data }} />}

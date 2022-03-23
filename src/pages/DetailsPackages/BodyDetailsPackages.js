@@ -65,9 +65,9 @@ const BodyDetailsPackages = ({ item }) => {
           borderBottomWidth: 1,
           borderColor: "#d1d1d1",
         }}>
-        {item.facilities.map(i => {
+        {item.facilities.map((i, n) => {
           return (
-            <View key={i.description} style={{ flexDirection: "row", marginBottom: 8 }}>
+            <View key={n} style={{ flexDirection: "row", marginBottom: 8 }}>
               <Image
                 style={{ width: 20, height: 20 }}
                 resizeMode={"contain"}
@@ -91,7 +91,7 @@ const BodyDetailsPackages = ({ item }) => {
 
       {item.flights.map((i, n) => {
         return (
-          <View key={i.date}>
+          <View key={n}>
             <View
               style={{
                 flexDirection: "row",

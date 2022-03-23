@@ -27,17 +27,12 @@ const CardAvatar = ({ data }) => {
         <View style={{ flexDirection: "row", flex: 1, alignItems: "flex-end", marginBottom: 15 }}>
           <View style={styles.containerAvatar}>
             <CustomAvatar
-              item={
-                "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
-              }
+              item={"https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"}
             />
           </View>
           <View style={styles.containerText}>
             {renderText(user?.name, styles.name)}
-            <View style={styles.containerDirection}>
-              {renderText("CPF: 000.245.978-09", styles.cpf)}
-              {renderText("SP", styles.state)}
-            </View>
+            {renderText("CPF: 000.245.978-09", styles.cpf)}
             {renderText(data?.date_contracting_plan, styles.subscriber)}
           </View>
         </View>
@@ -73,10 +68,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 0.92,
   },
-  containerDirection: {
-    flexDirection: "row",
-    marginBottom: 10,
-  },
   image: {
     borderRadius: 15,
   },
@@ -89,7 +80,6 @@ const styles = StyleSheet.create({
   name: {
     paddingHorizontal: 10,
     paddingVertical: 5,
-    marginBottom: 10,
     backgroundColor: "white",
     borderRadius: 5,
     fontFamily: FONT_DEFAULT_STYLE,
@@ -98,15 +88,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     backgroundColor: "white",
-    marginRight: 12,
-    borderRadius: 5,
-    fontFamily: FONT_DEFAULT_STYLE,
-  },
-  state: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    backgroundColor: "white",
-    flex: 1,
+    marginVertical: 8,
     borderRadius: 5,
     fontFamily: FONT_DEFAULT_STYLE,
   },

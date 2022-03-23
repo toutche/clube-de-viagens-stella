@@ -29,7 +29,7 @@ const NewsTravelers = ({ navigation }) => {
     api
       .get("/familiar/listar")
       .then(({ data }) => {
-        setData(data);
+        setData(data.members);
       })
       .catch(e => console.log(e))
       .finally(() => setLoading(false));

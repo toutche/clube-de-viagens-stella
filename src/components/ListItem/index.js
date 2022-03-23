@@ -220,7 +220,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
         </View>
 
         <Text style={styles.textLatest}>
-          {item.latest_information.text}
+          {item.latest_information?.text_value}
           <Text
             style={[
               styles.textLatest,
@@ -229,8 +229,9 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
                 marginRight: Platform.OS === "ios" ? 5 : undefined,
               },
             ]}>
-            {` R$${item.latest_information.total_amount_people}`}
+            {` R$${item.latest_information.total_amount_people} `}
           </Text>
+          {item.latest_information.text}
         </Text>
       </View>
     </View>
