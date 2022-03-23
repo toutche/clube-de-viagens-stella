@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, Platform } from "react-native";
+import { View, StyleSheet, Image, Text, Platform, TouchableOpacity } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import FavoriteIcon from "../FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
@@ -15,7 +15,18 @@ import Hide from "../Hide";
 const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: item.img }} />
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate({
+            name: display ? "DetailsContractedPackages" : "DetailsPackages",
+            params: {
+              id: item.id,
+            },
+            merge: true,
+          })
+        }>
+        <Image style={styles.image} source={{ uri: item.img }} />
+      </TouchableOpacity>
 
       {plan && <Hide containerStyle={styles.hideIcon} item={item} />}
 
