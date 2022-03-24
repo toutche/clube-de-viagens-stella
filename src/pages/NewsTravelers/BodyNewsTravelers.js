@@ -1,10 +1,11 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { FONT_DEFAULT_STYLE, BLUE_COLOR } from "../../utils/variables";
 
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import CustomInput from "../../components/CustomInput";
+import { maskDocument, maskDate } from "../../utils/masks";
 
 const BodyNewTravelers = ({
   data = [],
@@ -14,96 +15,101 @@ const BodyNewTravelers = ({
   handlerPress = () => {},
 }) => {
   return (
-    <ScrollView bounces={false} contentContainerStyle={styles.containerScroll}>
-      {data.paxs.map((i, k) => {
-        return (
-          <View key={k} style={styles.form}>
-            <Text style={styles.title}>{i}</Text>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
+      <ScrollView bounces={false} contentContainerStyle={styles.containerScroll}>
+        {data.paxs.map((i, k) => {
+          return (
+            <View key={k} style={styles.form}>
+              <Text style={styles.title}>{i}</Text>
 
-            <CustomButton
-              onPress={() => openModal(true, k)}
-              containerStyle={styles.buttonModal}
-              titleStyle={styles.textButtonModal}
-              title={`Adicionar Viajante Cadastrado`}
-            />
+              <CustomButton
+                onPress={() => openModal(true, k)}
+                containerStyle={styles.buttonModal}
+                titleStyle={styles.textButtonModal}
+                title={`Adicionar Viajante Cadastrado`}
+              />
 
-            <CustomInput
-              containerStyle={styles.containerInput}
-              inputStyle={styles.input}
-              size={16}
-              color={"#c1c1c1"}
-              placeholder='Insira o nome'
-              placeholderTextColor={"#a1a1a1"}
-              type={FontAwesome}
-              name={"user"}
-              value={form[k]?.name}
-              onChangeText={text => {
-                let format = [...form];
-                format[k] = { ...format[k], name: text };
-                setForm(format);
-              }}
-            />
-            <CustomInput
-              containerStyle={styles.containerInput}
-              inputStyle={styles.input}
-              placeholder='Data de nascimento'
-              placeholderTextColor={"#a1a1a1"}
-              size={16}
-              color={"#c1c1c1"}
-              type={FontAwesome}
-              name={"envelope"}
-              value={form[k]?.birth_date}
-              onChangeText={text => {
-                let format = [...form];
-                format[k] = { ...format[k], birth_date: text };
-                setForm(format);
-              }}
-            />
-            <CustomInput
-              containerStyle={styles.containerInput}
-              inputStyle={styles.input}
-              placeholder='RG ou CPF'
-              keyboardType={"numeric"}
-              placeholderTextColor={"#a1a1a1"}
-              size={16}
-              color={"#c1c1c1"}
-              type={FontAwesome}
-              name={"envelope"}
-              value={form[k]?.cpf}
-              onChangeText={text => {
-                let format = [...form];
-                format[k] = { ...format[k], cpf: text };
-                setForm(format);
-              }}
-            />
+              <CustomInput
+                containerStyle={styles.containerInput}
+                inputStyle={styles.input}
+                size={16}
+                color={"#c1c1c1"}
+                placeholder='Insira o nome'
+                placeholderTextColor={"#a1a1a1"}
+                type={FontAwesome}
+                name={"user-o"}
+                value={form[k]?.name}
+                onChangeText={text => {
+                  let format = [...form];
+                  format[k] = { ...format[k], name: text };
+                  setForm(format);
+                }}
+              />
+              <CustomInput
+                containerStyle={styles.containerInput}
+                inputStyle={styles.input}
+                placeholder='Data de nascimento'
+                keyboardType={"numeric"}
+                placeholderTextColor={"#a1a1a1"}
+                size={16}
+                lenght={10}
+                color={"#c1c1c1"}
+                type={FontAwesome}
+                name={"calendar-o"}
+                value={form[k]?.birth_date}
+                onChangeText={text => {
+                  let format = [...form];
+                  format[k] = { ...format[k], birth_date: maskDate(text) };
+                  setForm(format);
+                }}
+              />
+              <CustomInput
+                containerStyle={styles.containerInput}
+                inputStyle={styles.input}
+                placeholder='CPF'
+                keyboardType={"numeric"}
+                placeholderTextColor={"#a1a1a1"}
+                size={16}
+                lenght={14}
+                color={"#c1c1c1"}
+                type={FontAwesome}
+                name={"id-card-o"}
+                value={form[k]?.cpf}
+                onChangeText={text => {
+                  let format = [...form];
+                  format[k] = { ...format[k], cpf: maskDocument(text) };
+                  setForm(format);
+                }}
+              />
 
-            <CustomInput
-              containerStyle={styles.containerInput}
-              inputStyle={styles.input}
-              placeholder='Passaporte (Viagem internacional)'
-              placeholderTextColor={"#a1a1a1"}
-              size={16}
-              color={"#c1c1c1"}
-              type={FontAwesome}
-              name={"envelope"}
-              value={form[k]?.passport}
-              onChangeText={text => {
-                let format = [...form];
-                format[k] = { ...format[k], passport: text };
-                setForm(format);
-              }}
-            />
-          </View>
-        );
-      })}
+              <CustomInput
+                containerStyle={styles.containerInput}
+                inputStyle={styles.input}
+                placeholder='Passaporte (Viagem internacional)'
+                placeholderTextColor={"#a1a1a1"}
+                size={16}
+                color={"#c1c1c1"}
+                type={FontAwesome5}
+                name={"passport"}
+                value={form[k]?.passport}
+                onChangeText={text => {
+                  let format = [...form];
+                  format[k] = { ...format[k], passport: text };
+                  setForm(format);
+                }}
+              />
+            </View>
+          );
+        })}
 
-      <CustomButton
-        onPress={handlerPress}
-        containerStyle={styles.button}
-        titleStyle={styles.textButton}
-        title={`Salvar`}
-      />
-    </ScrollView>
+        <CustomButton
+          onPress={handlerPress}
+          containerStyle={styles.button}
+          titleStyle={styles.textButton}
+          title={`Salvar`}
+        />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
