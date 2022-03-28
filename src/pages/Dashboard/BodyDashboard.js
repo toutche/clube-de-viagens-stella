@@ -12,11 +12,19 @@ import { MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
+import { useFilter } from "../../contexts/filter";
+import useDidMountEffect from "../../hooks/useDidMountEffect";
 
 const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
   const {
     user: { plan },
   } = useAuth();
+
+  const {
+    filterUpdate,
+    orderPrice,
+    segmentsIds,
+  } = useFilter()
 
   const total = useRef();
   const page = useRef(1);
@@ -25,21 +33,29 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  const loadPage = async (pageNumber = page.current, shouldRefresh = false) => {
-    if (feed.current.length === total.current) return;
+  const loadPage = async (pageNumber = page.current, shouldRefresh = false, update = false) => {
+    if (feed.current?.length === total.current && !update) return;
     if (loading) return;
 
     setLoading(true);
 
-    const response = await api.get(`/pacote-viagem/listar?per_page=10&page=${pageNumber}`);
+    let ids
+    for (let i = 0; i < segmentsIds.length; i++) {
+      if (ids)
+        ids = ids + `,${segmentsIds[i]}`
+      else
+        ids = `&segments_ids=${segmentsIds[i]}`
+    }
 
+    const response = await api.get(`/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}`);
     const totalItems = response.data.data.pagination.total_registers;
     const data = response.data.data.packages;
+
 
     setTimeout(() => {
       total.current = totalItems;
       page.current = pageNumber + 1;
-      feed.current = shouldRefresh ? data : [...feed.current, ...data];
+      feed.current = shouldRefresh ? data || [] : [...feed.current, ...data];
 
       setLoading(false);
     }, 100);
@@ -49,10 +65,15 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
     feed.current = [];
     setRefreshing(true);
 
-    await loadPage(1, true);
+    await loadPage(1, true, true);
 
     setRefreshing(false);
   };
+
+  useDidMountEffect(() => {
+    feed.current = [];
+    loadPage(1, true, true);
+  }, [filterUpdate, orderPrice])
 
   useEffect(() => {
     loadPage();
@@ -115,7 +136,7 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
     <View style={styles.container}>
       <FlatList
         data={feed.current}
-        //ListHeaderComponent={display === 1 ? ListHeaderItemAccommodation : ListHeaderItemPackages}
+        ListHeaderComponent={display === 1 ? ListHeaderItemAccommodation : ListHeaderItemPackages}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={refreshList}
         refreshing={refreshing}
@@ -155,7 +176,6 @@ const styles = StyleSheet.create({
   containerButtons: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 15,
     width: "90%",
     alignSelf: "center",
   },

@@ -32,7 +32,7 @@ const CardAvatar = ({ data }) => {
           </View>
           <View style={styles.containerText}>
             {renderText(user?.name, styles.name)}
-            {renderText("CPF: 000.245.978-09", styles.cpf)}
+            {renderText(user?.cpf, styles.cpf)}
             {renderText(data?.date_contracting_plan, styles.subscriber)}
           </View>
         </View>
