@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, Platform } from "react-native";
+import { View, StyleSheet, Image, Text, Platform, TouchableOpacity } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import FavoriteIcon from "../FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
@@ -12,10 +12,21 @@ import {
 } from "../../utils/variables";
 import Hide from "../Hide";
 
-const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
+const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshList }) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: item.img }} />
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate({
+            name: display ? "DetailsContractedPackages" : "DetailsPackages",
+            params: {
+              id: item.id,
+            },
+            merge: true,
+          })
+        }>
+        <Image style={styles.image} source={{ uri: item.img }} />
+      </TouchableOpacity>
 
       {plan && <Hide containerStyle={styles.hideIcon} item={item} />}
 
@@ -23,6 +34,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
         favorite={item.favorite}
         containerStyle={[styles.favoriteIcon, !plan && { top: 20 }]}
         id_package={item.id}
+        refreshList={refreshList}
       />
 
       <ShareIcon shareOpen={shareOpen} containerStyle={[styles.shareIcon, !plan && { top: 75 }]} />
@@ -209,7 +221,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
         </View>
 
         <Text style={styles.textLatest}>
-          {item.latest_information.text}
+          {item.latest_information?.text_value}
           <Text
             style={[
               styles.textLatest,
@@ -218,8 +230,9 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan }) => {
                 marginRight: Platform.OS === "ios" ? 5 : undefined,
               },
             ]}>
-            {` R$${item.latest_information.total_amount_people}`}
+            {` R$${item.latest_information.total_amount_people} `}
           </Text>
+          {item.latest_information.text}
         </Text>
       </View>
     </View>

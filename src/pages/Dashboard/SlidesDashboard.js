@@ -1,24 +1,40 @@
 import React, { memo, useState } from "react";
-import { View, FlatList, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { View, FlatList, StyleSheet, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { useFilter } from "../../contexts/filter";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
 const SlidesDashboard = ({ filter = {}, data = [] }) => {
+  const {
+    filterIds,
+    orderPrice,
+    segmentsIds,
+    setSegmentsIds,
+    toggleFilter,
+    toggleOrder
+  } = useFilter()
+
   const ListItem = ({ item, index }) => {
-    const [check, setCheck] = useState(false);
 
     const handlerPress = () => {
-      setCheck(!check);
+      const array = segmentsIds.slice()
+      if (array.indexOf(item.id) !== -1) {
+        array.splice(array.indexOf(item.id), 1);
+      } else {
+        array.push(item.id)
+      }
+
+      setSegmentsIds(array)
     };
 
     return (
       <View style={styles.item}>
         <TouchableOpacity
           onPress={handlerPress}
-          style={[styles.imageView, { borderColor: check ? "#f0c61e" : "white" }]}>
+          style={[styles.imageView, { borderColor: segmentsIds.indexOf(item.id) !== -1 ? "#f0c61e" : "white" }]}>
           <Image style={styles.image} source={{ uri: item.img }} />
         </TouchableOpacity>
         <Text numberOfLines={1} style={styles.title}>
-          {item.name}
+          {item?.name}
         </Text>
       </View>
     );
@@ -26,21 +42,32 @@ const SlidesDashboard = ({ filter = {}, data = [] }) => {
 
   return (
     <View style={styles.container}>
+
+      <View style={styles.filter_button}>
+        <TouchableOpacity
+          onPress={toggleFilter}
+          style={[styles.imageView, { borderColor: filterIds ? "#f0c61e" : "white" }]}>
+          <Image style={styles.image} source={{ uri: filter?.img }} />
+        </TouchableOpacity>
+        <Text numberOfLines={1} style={styles.title}>
+          {filter?.name}
+        </Text>
+      </View>
+
+      <View style={styles.order_button}>
+        <TouchableOpacity
+          onPress={toggleOrder}
+          style={[styles.imageView, { borderColor: orderPrice === 'desc' ? "#f0c61e" : "white" }]}>
+          <Image style={styles.image} source={{ uri: filter?.img }} />
+        </TouchableOpacity>
+        <Text numberOfLines={1} style={styles.title}>
+          {filter?.name}
+        </Text>
+      </View>
+
       <FlatList
         data={data}
         horizontal
-        ListHeaderComponent={() => (
-          <View style={styles.item}>
-            <TouchableOpacity
-              onPress={() => alert("Filtrar")}
-              style={[styles.imageView, { borderColor: "#f0c61e" }]}>
-              <Image style={styles.image} source={{ uri: filter?.img }} />
-            </TouchableOpacity>
-            <Text numberOfLines={1} style={styles.title}>
-              {filter?.name}
-            </Text>
-          </View>
-        )}
         ItemSeparatorComponent={separator}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
@@ -59,6 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: PRIMARY_COLOR,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: 'row'
   },
   separator: {
     margin: 2,
@@ -78,9 +106,22 @@ const styles = StyleSheet.create({
   contentFlatlist: {
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 8,
+    paddingRight: 8,
   },
   item: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: 10,
+    width: 65,
+  },
+  filter_button: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: 10,
+    width: 65,
+    paddingLeft: 8,
+  },
+  order_button: {
     justifyContent: "center",
     alignItems: "center",
     paddingBottom: 10,

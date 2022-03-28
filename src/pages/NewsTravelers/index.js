@@ -14,6 +14,7 @@ import BodyNewsTravelers from "./BodyNewsTravelers";
 import api from "../../services/api";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import { useCheckout } from "../../contexts/checkout";
+import { maskDocument } from "../../utils/masks";
 
 const NewsTravelers = ({ navigation }) => {
   const { data, travelers, setTravelers } = useCheckout();
@@ -29,7 +30,7 @@ const NewsTravelers = ({ navigation }) => {
     api
       .get("/familiar/listar")
       .then(({ data }) => {
-        setData(data);
+        setData(data.members);
       })
       .catch(e => console.log(e))
       .finally(() => setLoading(false));
@@ -48,8 +49,14 @@ const NewsTravelers = ({ navigation }) => {
 
   const selectTraveler = id => {
     let array = [...form];
+
+    let data = {
+      ...thisData[id],
+      cpf: maskDocument(thisData[id].cpf)
+    }
+
     if (inputId.current !== null) {
-      array[inputId.current] = thisData[id];
+      array[inputId.current] = data;
       setForm(array);
     }
     setVisible(false);

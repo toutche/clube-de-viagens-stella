@@ -72,6 +72,7 @@ export default ({ route: { params: { i, k } }, navigation }) => {
                 containerStyle={styles.container_input}
                 inputStyle={styles.input}
                 placeholder='Data de nascimento'
+                keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 color={"#c1c1c1"}
                 size={18}
@@ -86,7 +87,7 @@ export default ({ route: { params: { i, k } }, navigation }) => {
             <CustomInput
                 containerStyle={styles.container_input}
                 inputStyle={styles.input}
-                placeholder='RG ou CPF'
+                placeholder='CPF'
                 keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 color={"#c1c1c1"}

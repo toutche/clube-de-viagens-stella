@@ -5,7 +5,7 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import Map from "./Map";
 
 const BodyDetailsPackages = ({ item }) => {
-  console.log(item.day_by_day);
+
   return (
     <View style={styles.container}>
       <View
@@ -53,6 +53,18 @@ const BodyDetailsPackages = ({ item }) => {
             </Text>
           )}
         </View>
+
+        {item.hotel?.room &&
+          <Text
+            style={{
+              fontFamily: FONT_DEFAULT_STYLE,
+              color: "#777",
+              fontSize: 15.5,
+              textAlign: "center",
+            }}>
+            {item.hotel.room}
+          </Text>
+        }
       </View>
 
       <View
@@ -65,9 +77,10 @@ const BodyDetailsPackages = ({ item }) => {
           borderBottomWidth: 1,
           borderColor: "#d1d1d1",
         }}>
-        {item.facilities.map(i => {
+
+        {item.facilities.map((i, n) => {
           return (
-            <View key={i.description} style={{ flexDirection: "row", marginBottom: 8 }}>
+            <View key={n} style={{ flexDirection: "row", marginBottom: 8 }}>
               <Image
                 style={{ width: 20, height: 20 }}
                 resizeMode={"contain"}
@@ -91,7 +104,7 @@ const BodyDetailsPackages = ({ item }) => {
 
       {item.flights.map((i, n) => {
         return (
-          <View key={i.date}>
+          <View key={n}>
             <View
               style={{
                 flexDirection: "row",
@@ -174,14 +187,14 @@ const BodyDetailsPackages = ({ item }) => {
           <Text style={styles.title}>Comodidades do estabelecimento</Text>
 
           {item.day_by_day.map((i, n) => (
-            <>
+            <View key={n}>
               <Text style={styles.subTitle}>Dia {i.day}</Text>
               <Text style={styles.text}>{i.description}</Text>
-            </>
+            </View>
           ))}
         </View>
       )}
-      <Map address={item.address} />
+      <Map address={item.address} region={item.region} />
     </View>
   );
 };

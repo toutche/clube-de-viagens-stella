@@ -49,6 +49,7 @@ const ModalPayment = ({
         comments: "",
       })
       .then(res => {
+        console.log(res.data)
         onClose();
         navigation.replace("CongratulationPackage", { ...res.data });
       })

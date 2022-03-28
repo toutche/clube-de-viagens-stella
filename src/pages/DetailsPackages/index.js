@@ -6,6 +6,8 @@ import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import BodyDetailsPackages from "./BodyDetailsPackages";
 import HeaderDetailsPackages from "./HeaderDetailsPackages";
+import axios from "axios";
+import { consts } from "../../utils/consts";
 
 const DetailsPackages = ({ route, navigation }) => {
   const { user } = useAuth();
@@ -14,11 +16,54 @@ const DetailsPackages = ({ route, navigation }) => {
   const [isVisible, setVisible] = useState(false);
   const [item, setItem] = useState([]);
 
+  const getLatLog = (data) => {
+    const hotel = data.hotel;
+    let region = {
+      "latitude": 0,
+      "longitude": 0,
+      "latitudeDelta": 0.005,
+      "longitudeDelta": 0.005,
+    };
+
+    if (hotel && hotel.latitude && hotel.longitude) {
+      console.log('hotel');
+      region = {
+        ...region,
+        "latitude": parseFloat(hotel.latitude),
+        "longitude": parseFloat(hotel.longitude)
+      };
+    }
+    else {
+      axios.get(
+        `https://maps.google.com/maps/api/geocode/json?address=${address}&key=${consts.google_key}`
+      )
+      .then(res => {
+        console.log('api maps');
+        let loc = res.data.results[0].geometry.location;
+        region = {
+          ...region,
+          "latitude": parseFloat(loc.lat),
+          "longitude": parseFloat(loc.lng)
+        };
+      })
+      .catch(err => console.log(err));
+    }
+
+    data = {
+      ...data,
+      region
+    };
+
+    console.log(region);
+    return data;
+  }
+
   useEffect(() => {
     api
       .get(`/pacote-viagem/${id}/get`)
       .then(({ data }) => {
         setTimeout(() => {
+          data = getLatLog(data);
           setItem(data);
         }, 100);
       })

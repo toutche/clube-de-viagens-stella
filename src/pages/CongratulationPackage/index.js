@@ -7,9 +7,11 @@ import InfoHotel from "../../components/InfoHotel";
 import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
 import { BLUE_COLOR, FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
+import { useAuth } from "../../contexts/auth";
 
 const CongratulationPackage = ({ route, navigation }) => {
   const data = route.params;
+  const { user } = useAuth()
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton);
@@ -38,7 +40,7 @@ const CongratulationPackage = ({ route, navigation }) => {
 
         <Text style={styles.subTitle}>
           Todos os detalhes foram enviados para o e-mail
-          <Text style={styles.subTitleBold}> teste@gmail.com</Text>
+          <Text style={styles.subTitleBold}> {user?.email}</Text>
         </Text>
 
         <Text style={styles.hideText}>Plano Utilizado:</Text>
@@ -67,7 +69,7 @@ const CongratulationPackage = ({ route, navigation }) => {
 
         <TravelCard display={2} {...{ data: data.package_infos }} />
 
-        <Travel {...{ data: data.package_infos }} />
+        <Travel {...{ data: data.package_infos, display: data.hour_voo ? 0 : 1 }} />
 
         <InfoHotel display={2} {...{ data: data.package_infos }} />
 

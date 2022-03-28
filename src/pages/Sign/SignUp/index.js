@@ -13,7 +13,6 @@ import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
-import CustomRadio from "../../../components/CustomRadio";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -31,10 +30,18 @@ export default ({ navigation }) => {
     image: null,
   });
 
-  const hasMediaPermission = async () => {
+  const hasMediaPermission = async (option) => {
     if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
+      let result = undefined;
+
+      if (option === "CAMERA") {
+        result = await ImagePicker.requestCameraPermissionsAsync();
+      }
+      else {
+        result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      }
+
+      if (result?.status !== "granted") {
         alert("Sorry, we need camera roll permissions to make this work!");
         return false;
       }
@@ -42,18 +49,30 @@ export default ({ navigation }) => {
     }
   };
 
-  const pickImage = async () => {
-    const hasPermission = await hasMediaPermission();
+  const pickImage = async (option) => {
+    const hasPermission = await hasMediaPermission(option);
     if(!hasPermission) {
       return;
     }
 
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
+    let result = undefined;
+
+    if (option === "CAMERA") {
+      result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0,
+      });
+    }
+    else {
+      result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0,
+      });
+    }
 
     if (!result.cancelled) {
       setUser({
@@ -69,19 +88,35 @@ export default ({ navigation }) => {
     let [name, ...last_name] = user.name.split(" ");
     last_name = last_name.join(" ") || name;
 
-    const { data } = await api.post("/cadastrar", {
-      name: name,
-      last_name: last_name,
-      document: user.document.replaceAll('.', '').replace('-', ''),
-      email: user.email,
-      password: user.password,
-      password_confirmation: user.password,
-      phone_number: user.phone_number,
-      gender: "M",
-      accept_terms: "Y",
-      accept_privacy: "Y",
-      image: user.image,
-    });
+    let imageObject = undefined;
+
+    if (user.image) {
+      imageObject = {
+        uri: user.image,
+        type: "image/jpeg",
+        name: "user.jpg"
+      }
+    }
+
+    const body = new FormData();
+    body.append("name", name);
+    body.append("last_name", last_name);
+    body.append("document", user.document.replaceAll('.', '').replace('-', ''));
+    body.append("email", user.email);
+    body.append("password", user.password);
+    body.append("password_confirmation", user.password);
+    body.append("phone_number", user.phone_number);
+    body.append("gender", "M");
+    body.append("accept_terms", "Y");
+    body.append("accept_privacy", "Y");
+    body.append("image", imageObject);
+
+    const { data } = await api.post(
+      "/cadastrar", 
+      body, {
+      headers: { "Content-Type": "multipart/form-data;",}
+    })
+    .catch(error => console.log(error));
 
     if (data.success) navigation.navigate("ConfirmEmail");
     else if (data.error) {
@@ -105,6 +140,29 @@ export default ({ navigation }) => {
     marginTop: 10,
   };
 
+  const chooseImage = () => {
+    return (
+      Alert.alert(
+        "Sua foto",
+        `Deseja tirar uma foto agora ou escolher da galeria?`,
+        [
+          {
+              text: "Cancelar",
+              style: "cancel",
+          },
+          {
+              text: "Câmera",
+              onPress: () => pickImage('CAMERA')
+          },
+          {
+              text: "Galeria",
+              onPress: () => pickImage('MEDIA_LIBRARY')
+          }
+        ]
+      )
+    );
+  }
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
       <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
@@ -122,7 +180,7 @@ export default ({ navigation }) => {
           <Text style={Style.title}>{titlePage}</Text>
 
           <CustomAvatar
-            handlerPress={pickImage}
+            handlerPress={chooseImage}
             item={
               user.image ||
               "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png" 
