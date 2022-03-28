@@ -53,6 +53,18 @@ const BodyDetailsPackages = ({ item }) => {
             </Text>
           )}
         </View>
+
+        {item.hotel?.room &&
+          <Text
+            style={{
+              fontFamily: FONT_DEFAULT_STYLE,
+              color: "#777",
+              fontSize: 15.5,
+              textAlign: "center",
+            }}>
+            {item.hotel.room}
+          </Text>
+        }
       </View>
 
       <View
@@ -181,7 +193,7 @@ const BodyDetailsPackages = ({ item }) => {
           ))}
         </View>
       )}
-      <Map address={item.address} />
+      <Map address={item.address} region={item.region} />
     </View>
   );
 };

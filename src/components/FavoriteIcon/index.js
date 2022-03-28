@@ -5,7 +5,7 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 import * as Animatable from "react-native-animatable";
 import api from "../../services/api";
 
-const FavoriteIcon = ({ containerStyle, favorite = false, id_package }) => {
+const FavoriteIcon = ({ containerStyle, favorite = false, id_package, refreshList = undefined }) => {
   const buttonRef = useRef(null);
   const [check, setCheck] = useState(favorite);
 
@@ -30,6 +30,7 @@ const FavoriteIcon = ({ containerStyle, favorite = false, id_package }) => {
       .then((res) => {
         if(res.status === 200 && res.data.message === "Desejo excluído") {
           setCheck(!check);
+          refreshList && refreshList();
         }
       })
       .catch((e) => {

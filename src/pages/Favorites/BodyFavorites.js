@@ -8,38 +8,34 @@ import {
   ActivityIndicator,
 } from "react-native";
 import ListItem from "../../components/ListItem";
-import { MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
-import { useFocusEffect } from '@react-navigation/native';
 
-const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
+const BodyFavorites = ({ display = 1, navigation, shareOpen }) => {
   const {
     user: { plan },
   } = useAuth();
 
   const total = useRef();
-  const page = useRef(1);
   const feed = useRef([]);
 
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  const loadPage = async (pageNumber = page.current, shouldRefresh = false) => {
+  const loadPage = async (shouldRefresh = false) => {
     if (feed.current.length === total.current) return;
     if (loading) return;
 
     setLoading(true);
 
-    const response = await api.get(`/pacote-viagem/listar?per_page=10&page=${pageNumber}`);
+    const response = await api.get(`/desejos/listar`);
 
-    const totalItems = response.data.data.pagination.total_registers;
-    const data = response.data.data.packages;
+    const totalItems = response.data.length;
+    const data = response.data;
 
     setTimeout(() => {
       total.current = totalItems;
-      page.current = pageNumber + 1;
       feed.current = shouldRefresh ? data : [...feed.current, ...data];
 
       setLoading(false);
@@ -50,7 +46,7 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
     feed.current = [];
     setRefreshing(true);
 
-    await loadPage(1, true);
+    await loadPage(true);
 
     setRefreshing(false);
   };
@@ -59,70 +55,16 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
     loadPage();
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      refreshList();
-    }, [])
-  )
-
-  const Item = (title, icon, name, size, left, button) => {
-    const Icon = icon;
-    return (
-      <TouchableOpacity style={[button, { marginVertical: left === 2 ? 10 : 0 }]}>
-        <Icon name={name} size={size} color={PRIMARY_COLOR} />
-        <Text style={[styles.textButton, { marginLeft: left }]}>{title}</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  const ListHeaderItemAccommodation = () => (
-    <>
-      <View style={styles.containerButtons}>
-        {Item("Destino", MaterialCommunityIcons, "map-marker-outline", 22, 0, styles.button)}
-        {Item(
-          "Data - Check-in - Check-out",
-          MaterialCommunityIcons,
-          "calendar-month",
-          22,
-          2,
-          styles.button,
-        )}
-        {Item(
-          `${0} Adulto - ${0} Criança - ${0} Quarto`,
-          SimpleLineIcons,
-          "user",
-          18,
-          3,
-          styles.button,
-        )}
-      </View>
-      <Text style={styles.text}>Confirmação e preço sujeito a disponibilidade</Text>
-    </>
-  );
-
-  const ListHeaderItemPackages = () => (
-    <>
-      <View style={styles.containerButtons}>
-        {Item("Origem", MaterialCommunityIcons, "map-marker-outline", 22, 0, styles.button)}
-        {Item("Destino", MaterialCommunityIcons, "map-marker-outline", 22, 2, styles.button)}
-        <View style={styles.twoButtons}>
-          {Item(`Quantos dias?`, MaterialCommunityIcons, "calendar-month", 22, 3, styles.buttonRow)}
-          {Item(`Qual mês?`, MaterialCommunityIcons, "calendar-month", 22, 3, styles.buttonRow)}
-        </View>
-      </View>
-      <Text style={styles.textPackage}>Destinos mais procurados</Text>
-    </>
-  );
-
   const ListLoading = () => (
     <ActivityIndicator style={{ marginVertical: 30 }} size={"large"} color={PRIMARY_COLOR} />
   );
+
+  const EmptyList = () => <Text style={styles.text}>Ainda não há favoritos.</Text>
 
   return (
     <View style={styles.container}>
       <FlatList
         data={feed.current}
-        //ListHeaderComponent={display === 1 ? ListHeaderItemAccommodation : ListHeaderItemPackages}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={refreshList}
         refreshing={refreshing}
@@ -133,8 +75,9 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) =>
-          ListItem({ item, index, display, navigation, shareOpen, plan })
+          ListItem({ item, index, display, navigation, shareOpen, plan, refreshList })
         }
+        ListEmptyComponent={EmptyList}
       />
     </View>
   );
@@ -197,4 +140,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BodyDashboard;
+export default BodyFavorites;
