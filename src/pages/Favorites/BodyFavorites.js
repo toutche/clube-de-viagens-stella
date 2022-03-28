@@ -55,6 +55,10 @@ const BodyFavorites = ({ display = 1, navigation, shareOpen }) => {
     loadPage();
   }, []);
 
+  const ListHeaderItemAccommodation = () => (
+    <Text style={styles.text}>Confirmação e preço sujeito a disponibilidade</Text>
+  );
+
   const ListLoading = () => (
     <ActivityIndicator style={{ marginVertical: 30 }} size={"large"} color={PRIMARY_COLOR} />
   );
@@ -65,6 +69,7 @@ const BodyFavorites = ({ display = 1, navigation, shareOpen }) => {
     <View style={styles.container}>
       <FlatList
         data={feed.current}
+        ListHeaderComponent={ListHeaderItemAccommodation}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={refreshList}
         refreshing={refreshing}

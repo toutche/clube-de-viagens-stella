@@ -6,16 +6,17 @@ import { FONT_DEFAULT_STYLE, BLUE_COLOR } from "../../utils/variables";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import CustomInput from "../../components/CustomInput";
 import { maskDocument, maskDate } from "../../utils/masks";
+import { BEHAVIOR } from "../../utils/consts";
 
 const BodyNewTravelers = ({
   data = [],
   openModal,
   form = [],
-  setForm = () => {},
-  handlerPress = () => {},
+  setForm = () => { },
+  handlerPress = () => { },
 }) => {
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={BEHAVIOR}>
       <ScrollView bounces={false} contentContainerStyle={styles.containerScroll}>
         {data.paxs.map((i, k) => {
           return (

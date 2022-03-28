@@ -5,7 +5,7 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import Map from "./Map";
 
 const BodyDetailsPackages = ({ item }) => {
-  console.log(item.day_by_day);
+
   return (
     <View style={styles.container}>
       <View
@@ -77,6 +77,7 @@ const BodyDetailsPackages = ({ item }) => {
           borderBottomWidth: 1,
           borderColor: "#d1d1d1",
         }}>
+
         {item.facilities.map((i, n) => {
           return (
             <View key={n} style={{ flexDirection: "row", marginBottom: 8 }}>
@@ -186,10 +187,10 @@ const BodyDetailsPackages = ({ item }) => {
           <Text style={styles.title}>Comodidades do estabelecimento</Text>
 
           {item.day_by_day.map((i, n) => (
-            <>
+            <View key={n}>
               <Text style={styles.subTitle}>Dia {i.day}</Text>
               <Text style={styles.text}>{i.description}</Text>
-            </>
+            </View>
           ))}
         </View>
       )}
