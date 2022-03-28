@@ -8,7 +8,6 @@ const item =
 
 const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
   const { user } = useAuth();
-  //console.log(user.plan);
   return (
     <View style={styles.container}>
       <View
@@ -19,7 +18,7 @@ const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
             height: leftSize,
           },
         ]}>
-        <Image style={styles.image} source={{ uri: item }} />
+        <Image style={styles.image} source={{ uri: user.image }} />
       </View>
       <View style={styles.right}>
         {isShow && user.plan && (
@@ -31,7 +30,7 @@ const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
         <Text
           style={[styles.title, isShow && user.plan && { top: 2.5 }]}>{`Olá ${user.name}`}</Text>
         <Text style={[styles.subTitle, isShow && user.plan && { top: 1 }]}>
-          Crédito: R${parseFloat(user?.wallet?.credit).toFixed(2) || 0}
+          Crédito: R${user?.wallet?.credit || 0}
         </Text>
       </View>
     </View>

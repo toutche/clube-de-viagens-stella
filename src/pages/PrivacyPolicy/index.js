@@ -104,12 +104,12 @@ export default ({ navigation }) => {
       <Item14 />
 
       <View style={Style.bottom}>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text style={Style.itemBottom}>Baixar termos e condições</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <TouchableOpacity>
-          <Text style={Style.itemBottom}>Política de Privacidade</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("TermsConditions")}>
+          <Text style={Style.itemBottom}>Termos de Uso</Text>
         </TouchableOpacity>
       </View>
 

@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import CustomButton from "../../components/CustomButton";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
-const Map = ({ location, address }) => {
+const Map = ({ address, region }) => {
   const copyToClipboard = () => {
     Clipboard.setString(address);
   };
@@ -31,14 +31,13 @@ const Map = ({ location, address }) => {
       <CustomButton titleStyle={styles.text} title={"Copiar Endereço"} onPress={copyToClipboard} />
 
       <MapView
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        style={styles.map}
-      />
+        region={region}
+        style={styles.map}>
+          <Marker coordinate={{ 
+            latitude: region.latitude,
+            longitude: region.longitude
+          }} />
+      </MapView>
     </View>
   );
 };

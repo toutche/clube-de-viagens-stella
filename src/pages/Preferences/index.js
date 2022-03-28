@@ -90,13 +90,13 @@ export default ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <CustomIcon
+      {/* <CustomIcon
         size={26}
         onPress={handleBackButton}
         type={AntDesign}
         name={"arrowleft"}
         containerStyle={styles.icon}
-      />
+      /> */}
       <CustomAvatar
         containerStyle={styles.avatar}
         item={
