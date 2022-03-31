@@ -16,12 +16,12 @@ const Slides = data => [
   {
     text: "Você costuma fazer viagens em família?",
     toast: "Família",
-    poster: "https://mfiles.alphacoders.com/806/806684.jpg",
+    poster: "https://toutche.com.br/clube_de_ferias/search-01.jpg",
   },
   {
     text: "Você normalmente viaja pelo Brasil?",
     toast: "Destino nacional",
-    poster: "https://mfiles.alphacoders.com/806/806684.jpg",
+    poster: "https://toutche.com.br/clube_de_ferias/search-02.jpg",
   },
   {
     text: "Suas viagens duram mais de 4 dias?",

@@ -8,7 +8,7 @@ import Copyright from "../../../components/Copyright";
 import CustomButton from "../../../components/CustomButton";
 import CustomIcon from "../../../components/CustomIcon";
 import CustomAvatar from "../../../components/CustomAvatar";
-import { maskPhone, maskDocument } from "../../../utils/masks";
+import { maskPhone, maskDocument, maskDate } from "../../../utils/masks";
 import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
@@ -23,6 +23,7 @@ export default ({ navigation }) => {
 
   const [user, setUser] = useState({
     name: "",
+    birth_date: "",
     document: "",
     email: "",
     phone_number: "",
@@ -101,6 +102,7 @@ export default ({ navigation }) => {
     const body = new FormData();
     body.append("name", name);
     body.append("last_name", last_name);
+    body.append("birth_date", user.birth_date.split('/').reverse().join('-'));
     body.append("document", user.document.replaceAll('.', '').replace('-', ''));
     body.append("email", user.email);
     body.append("password", user.password);
@@ -110,6 +112,7 @@ export default ({ navigation }) => {
     body.append("accept_terms", "Y");
     body.append("accept_privacy", "Y");
     body.append("image", imageObject);
+  
 
     const { data } = await api.post(
       "/cadastrar", 
@@ -198,6 +201,22 @@ export default ({ navigation }) => {
               setUser({
                 ...user,
                 name: text,
+              })
+            }
+          />
+
+          <CustomInput
+            placeholder='Sua Data de Nascimento?'
+            size={18}
+            lenght={10}
+            type={FontAwesome}
+            name={"calendar-o"}
+            keyboardType={"numeric"}
+            value={user.birth_date}
+            onChangeText={text =>
+              setUser({
+                ...user,
+                birth_date: maskDate(text),
               })
             }
           />
