@@ -39,7 +39,6 @@ const BodyDetailsPackages = ({ item }) => {
               textAlign: "center",
             }}>
             {item.subname}
-          </Text>
           {item.number_days && <Text style={styles.pipe}>│ </Text>}
           {item.number_days && (
             <Text
@@ -52,6 +51,7 @@ const BodyDetailsPackages = ({ item }) => {
               {item.number_days}
             </Text>
           )}
+          </Text>
         </View>
 
         {item.hotel?.room &&
@@ -77,6 +77,7 @@ const BodyDetailsPackages = ({ item }) => {
           borderBottomWidth: 1,
           borderColor: "#d1d1d1",
         }}>
+        <Text style={styles.title}>Comodidades do estabelecimento</Text>
 
         {item.facilities.map((i, n) => {
           return (
@@ -184,7 +185,6 @@ const BodyDetailsPackages = ({ item }) => {
 
       {item.day_by_day.length > 0 && (
         <View style={styles.details}>
-          <Text style={styles.title}>Comodidades do estabelecimento</Text>
 
           {item.day_by_day.map((i, n) => (
             <View key={n}>
@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
     fontSize: 15.5,
+    marginBottom:15
   },
   subTitle: {
     fontFamily: FONT_DEFAULT_STYLE,
