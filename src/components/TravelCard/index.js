@@ -41,9 +41,9 @@ const TravelCard = ({ display = 0, data }) => {
 
         {display === 2 && (
           <View style={styles.details}>
-            <Text style={styles.oldValue}>R$ 17.999,00</Text>
+            <Text style={styles.oldValue}>R$ {data?.price}</Text>
             <Text style={styles.ball}> ● </Text>
-            <Text style={styles.newValue}>R$ 15.999,00</Text>
+            <Text style={styles.newValue}>R$ {data?.price_discount}</Text>
           </View>
         )}
       </View>

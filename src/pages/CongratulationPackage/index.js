@@ -32,6 +32,8 @@ const CongratulationPackage = ({ route, navigation }) => {
 
   return (
     <ScrollView bounce={false} style={styles.container}>
+      <Image source={require("../../../assets/header/confirmacao-compra.jpg")} style={styles.image} />
+
       <View style={styles.body}>
         <Text style={styles.title}>
           <Text style={styles.titleBold}>{data.message_bold} </Text>
@@ -54,7 +56,7 @@ const CongratulationPackage = ({ route, navigation }) => {
               <Image
                 style={{ width: 36, height: 36, borderRadius: 999 }}
                 source={{
-                  uri: "https://toutche.com.br/clube_de_ferias/39269077360_81dc9423a5_k.jpg",
+                  uri: user?.image,
                 }}
               />
             </View>
@@ -87,6 +89,12 @@ const CongratulationPackage = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white'
+  },
+  image: {
+    width: '100%',
+    height: undefined,
+    aspectRatio: 1.05
   },
   content: {},
   card: {

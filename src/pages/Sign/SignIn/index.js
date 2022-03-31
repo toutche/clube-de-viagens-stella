@@ -34,6 +34,7 @@ export default ({ navigation }) => {
         verifyUser(navigation);
       })
       .catch(e => {
+        console.log('erro signIn', e)
         alert("Email ou senha inválidos");
         setLoading(false);
       });
