@@ -13,9 +13,9 @@ const AlertCovid = ({ containerStyle }) => {
         style={{ width: 33, height: 33, marginRight: 8 }}
       />
       <Text style={styles.text}>
-        Alerta relativo à COVID-19: os requisitos de viagem estão mudando rapidamente, incluindo a
-        necessidade de testes com resultados negativo antes da partida e de quarentena logo após a
-        chegada
+        Alerta relativo à COVID: Os requisitos de viagem estão mudando rapidamente, incluindo a 
+        necessidade de teste com resultado negativo e/ou apresentação de caderneta de vacinação 
+        antes da partida, antes de viajar consulte as regras de cada localidade.
       </Text>
     </View>
   );

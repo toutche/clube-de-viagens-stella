@@ -221,7 +221,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
         </View>
 
         <Text style={styles.textLatest}>
-          {item.latest_information?.text_value}
+          {item.latest_information.text_value || "Valor total "}
           <Text
             style={[
               styles.textLatest,
@@ -232,7 +232,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
             ]}>
             {` R$${item.latest_information.total_amount_people} `}
           </Text>
-          {item.latest_information.text}
+          {item.latest_information.text.replace(" Valor total", "")}
         </Text>
       </View>
     </View>
