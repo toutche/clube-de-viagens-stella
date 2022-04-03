@@ -137,6 +137,7 @@ const Style = StyleSheet.create({
   },
   containerSignButtons: {
     width: "100%",
+    marginTop: 25
   },
   buttonSocial: {
     flexDirection: "row",

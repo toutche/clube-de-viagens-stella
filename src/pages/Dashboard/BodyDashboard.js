@@ -3,25 +3,26 @@ import {
   View,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
   Text,
   ActivityIndicator,
 } from "react-native";
 import ListItem from "../../components/ListItem";
-import { MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
 import { useFocusEffect } from '@react-navigation/native';
 import { useFilter } from "../../contexts/filter";
 import useDidMountEffect from "../../hooks/useDidMountEffect";
+import ButtonFilter from "./ButtonFilter";
 
-const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
+const BodyDashboard = ({ display = 1, navigation, shareOpen, openAutoComplete, filterId }) => {
   const {
     user: { plan },
   } = useAuth();
 
   const {
+    filterOrigin,
+    filterDestiny,
     filterUpdate,
     orderPrice,
     segmentsIds,
@@ -48,10 +49,14 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
         ids = `&segments_ids=${segmentsIds[i]}`
     }
 
-    const response = await api.get(`/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}`);
+    const url_with_destiny_origin = filterDestiny?.key && filterOrigin?.key
+      ? `&origin_id=${filterOrigin?.key}&destiny_id=${filterDestiny?.key}`
+      : filterDestiny?.key && !filterOrigin?.key ? `&destiny_id=${filterDestiny?.key}`
+        : null
+    console.log(`/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}` + url_with_destiny_origin)
+    const response = await api.get(`/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}` + url_with_destiny_origin);
     const totalItems = response.data.data.pagination.total_registers;
     const data = response.data.data.packages;
-
 
     setTimeout(() => {
       total.current = totalItems;
@@ -80,42 +85,10 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
     loadPage();
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      refreshList();
-    }, [])
-  )
-
-  const Item = (title, icon, name, size, left, button) => {
-    const Icon = icon;
-    return (
-      <TouchableOpacity style={[button, { marginVertical: left === 2 ? 10 : 0 }]}>
-        <Icon name={name} size={size} color={PRIMARY_COLOR} />
-        <Text style={[styles.textButton, { marginLeft: left }]}>{title}</Text>
-      </TouchableOpacity>
-    );
-  };
-
   const ListHeaderItemAccommodation = () => (
     <>
       <View style={styles.containerButtons}>
-        {Item("Destino", MaterialCommunityIcons, "map-marker-outline", 22, 0, styles.button)}
-        {Item(
-          "Data - Check-in - Check-out",
-          MaterialCommunityIcons,
-          "calendar-month",
-          22,
-          2,
-          styles.button,
-        )}
-        {Item(
-          `${0} Adulto - ${0} Criança - ${0} Quarto`,
-          SimpleLineIcons,
-          "user",
-          18,
-          3,
-          styles.button,
-        )}
+
       </View>
       <Text style={styles.text}>Confirmação e preço sujeito a disponibilidade</Text>
     </>
@@ -124,12 +97,55 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
   const ListHeaderItemPackages = () => (
     <>
       <View style={styles.containerButtons}>
-        {Item("Origem", MaterialCommunityIcons, "map-marker-outline", 22, 0, styles.button)}
-        {Item("Destino", MaterialCommunityIcons, "map-marker-outline", 22, 2, styles.button)}
+        <ButtonFilter {...{
+          title: `${filterOrigin?.value || 'Origem'}`,
+          iconName: "map-marker-outline",
+          iconSize: 22,
+          marginLeft: 2,
+          style: styles.button,
+          onPress: () => {
+            filterId.current = 'origin'
+            openAutoComplete()
+          }
+        }} />
+        <ButtonFilter {...{
+          title: `${filterDestiny?.value || 'Destino'}`,
+          iconName: "map-marker-outline",
+          iconSize: 22,
+          marginLeft: 2,
+          style: styles.button,
+          onPress: () => {
+            filterId.current = 'destiny'
+            openAutoComplete()
+          }
+        }} />
         <View style={styles.twoButtons}>
-          {Item(`Quantos dias?`, MaterialCommunityIcons, "calendar-month", 22, 3, styles.buttonRow)}
-          {Item(`Qual mês?`, MaterialCommunityIcons, "calendar-month", 22, 3, styles.buttonRow)}
+          <ButtonFilter {...{
+            title: "Quantos dias?",
+            iconName: "calendar-month",
+            iconSize: 22,
+            marginLeft: 3,
+            style: styles.buttonRow,
+            onPress: () => { }
+          }} />
+          <ButtonFilter {...{
+            title: "Qual mês?",
+            iconName: "calendar-month",
+            iconSize: 22,
+            marginLeft: 3,
+            style: styles.buttonRow,
+            onPress: () => { }
+          }} />
         </View>
+        <ButtonFilter {...{
+          title: "Filtrar",
+          iconName: "filter-outline",
+          iconSize: 22,
+          marginLeft: 2,
+          style: [styles.button, { backgroundColor: PRIMARY_COLOR }],
+          color: 'white',
+          onPress: () => loadPage(1, true, true)
+        }} />
       </View>
       <Text style={styles.textPackage}>Destinos mais procurados</Text>
     </>
@@ -150,7 +166,7 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen }) => {
         onEndReachedThreshold={0.1}
         onEndReached={() => loadPage()}
         ListFooterComponent={loading && ListLoading}
-        contentContainerStyle={{ paddingTop: 30 }}
+        contentContainerStyle={{ paddingTop: 20 }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) =>
@@ -170,7 +186,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 15,
     color: PRIMARY_COLOR,
-    marginVertical: 15,
+    marginBottom: 12,
     textAlign: "center",
     textTransform: "uppercase",
   },
@@ -191,6 +207,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 12
   },
   buttonRow: {
     flexDirection: "row",
@@ -209,11 +226,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: "center",
     backgroundColor: "white",
-  },
-  textButton: {
-    textAlign: "center",
-    fontSize: 13.5,
-    color: PRIMARY_COLOR,
+    marginBottom: 12
   },
 });
 

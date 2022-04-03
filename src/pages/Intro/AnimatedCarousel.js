@@ -53,7 +53,7 @@ const Slides = [
     ],
     image: require("../../../assets/header/Intro-03.jpg"),
     button: "Produtos",
-    aspectRatio: 1.1,
+    aspectRatio: 1.5,
     onPress: () => { }
   },
 ];

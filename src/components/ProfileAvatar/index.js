@@ -18,11 +18,11 @@ const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
             height: leftSize,
           },
         ]}>
-        <Image style={styles.image} source={{ uri: user.image }} />
+        <Image style={styles.image} source={{ uri: user.image || 'https://toutche.com.br/clube_de_ferias/maquina-fotografica.png' }} />
       </View>
       <View style={styles.right}>
         {isShow && user.plan && (
-          <View style={styles.viewHide}>
+          <View style={[styles.viewHide, { backgroundColor: user.plan.color }]}>
             <Text style={styles.iconHide}>●</Text>
             <Text style={[styles.textHide]}>{user?.plan?.name?.split(" ")[1]}</Text>
           </View>

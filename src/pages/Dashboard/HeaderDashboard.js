@@ -38,7 +38,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
 
         <CustomIcon
           size={26}
-          onPress={() => navigation.navigate("Wallet")}
+          onPress={() => navigation.navigate("Alert")}
           type={Ionicons}
           name={"notifications-outline"}
           containerStyle={styles.iconRight}

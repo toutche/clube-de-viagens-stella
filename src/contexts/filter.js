@@ -5,7 +5,10 @@ const FilterContext = createContext({});
 
 export const FilterProvider = ({ children }) => {
 
-    const [filterIds, setFilter] = useState(false)
+    const [filterOrigin, setFilterOrigin] = useState()
+    const [filterDestiny, setFilterDestiny] = useState()
+
+    const [filterIdsCategory, setFilterIdsCategory] = useState(false)
     const [filterUpdate, setFilterUpdate] = useState(false)
     const [orderPrice, setOrderPrice] = useState('asc')
     const [segmentsIds, setSegmentsIds] = useState([])
@@ -16,14 +19,14 @@ export const FilterProvider = ({ children }) => {
             `Deseja filtrar?`,
             [
                 {
-                    text: filterIds ? "Limpar" : "Voltar",
+                    text: filterIdsCategory ? "Limpar" : "Voltar",
                     onPress: clearFilter,
                     style: "destructive"
                 },
                 {
                     text: "Filtrar",
                     onPress: () => {
-                        setFilter(true)
+                        setFilterIdsCategory(true)
                         setFilterUpdate(state => !state)
                     },
                     style: "destructive"
@@ -41,26 +44,35 @@ export const FilterProvider = ({ children }) => {
     }
 
     const clearFilter = () => {
-        if (filterIds) {
+        if (filterIdsCategory) {
             setSegmentsIds([])
-            setFilter(false)
+            setFilterIdsCategory(false)
             setFilterUpdate(state => !state)
         }
+    }
+
+    const forceUpdateList = () => {
+        setFilterUpdate(state => !state)
     }
 
     return (
         <FilterContext.Provider
             value={{
+                filterOrigin,
+                setFilterOrigin,
+                filterDestiny,
+                setFilterDestiny,
                 filterUpdate,
-                filterIds,
-                setFilter,
+                filterIdsCategory,
+                setFilterIdsCategory,
                 orderPrice,
                 setOrderPrice,
                 segmentsIds,
                 setSegmentsIds,
                 toggleFilter,
                 toggleOrder,
-                clearFilter
+                clearFilter,
+                forceUpdateList
             }}>
             {children}
         </FilterContext.Provider>

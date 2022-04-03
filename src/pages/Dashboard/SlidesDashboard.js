@@ -5,7 +5,7 @@ import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
 const SlidesDashboard = ({ filter = {}, data = [] }) => {
   const {
-    filterIds,
+    filterIdsCategory,
     orderPrice,
     segmentsIds,
     setSegmentsIds,
@@ -45,23 +45,23 @@ const SlidesDashboard = ({ filter = {}, data = [] }) => {
 
       <View style={styles.filter_button}>
         <TouchableOpacity
-          onPress={toggleFilter}
-          style={[styles.imageView, { borderColor: filterIds ? "#f0c61e" : "white" }]}>
-          <Image style={styles.image} source={{ uri: filter?.img }} />
+          onPress={toggleOrder}
+          style={[styles.imageView, { borderColor: orderPrice === 'desc' ? "#f0c61e" : "white" }]}>
+          <Image style={styles.image} source={{ uri: filter[0]?.img }} />
         </TouchableOpacity>
         <Text numberOfLines={1} style={styles.title}>
-          {filter?.name}
+          {filter[0]?.name}
         </Text>
       </View>
 
       <View style={styles.order_button}>
         <TouchableOpacity
-          onPress={toggleOrder}
-          style={[styles.imageView, { borderColor: orderPrice === 'desc' ? "#f0c61e" : "white" }]}>
-          <Image style={styles.image} source={{ uri: filter?.img }} />
+          onPress={toggleFilter}
+          style={[styles.imageView, { borderColor: filterIdsCategory ? "#f0c61e" : "white" }]}>
+          <Image style={styles.image} source={{ uri: filter[1]?.img }} />
         </TouchableOpacity>
         <Text numberOfLines={1} style={styles.title}>
-          {filter?.name}
+          {filter[1]?.name}
         </Text>
       </View>
 
