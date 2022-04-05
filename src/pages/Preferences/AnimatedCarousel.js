@@ -29,7 +29,7 @@ export default ({ data = [], navigation }) => {
   }, []);
 
   const checkItem = index => {
-    let list = data[5];
+    let list = data[2];
     list.activities[index].check = !list.activities[index].check;
     setRefreshing(!refreshing);
   };
@@ -49,8 +49,8 @@ export default ({ data = [], navigation }) => {
   };
 
   const handlerPress = async () => {
-    if (index === 5) {
-      const activities = data[5].activities;
+    if (index === 2) {
+      const activities = data[2].activities;
       setLoading(true);
       const question = await api.post("/questionario/criar", {
         question_1: questions[0] || null,
@@ -73,7 +73,7 @@ export default ({ data = [], navigation }) => {
       }
       setLoading(false);
     } else {
-      ListRef.current.scrollToIndex({ animated: false, index: 5, viewPosition: 0 });
+      ListRef.current.scrollToIndex({ animated: false, index: 3, viewPosition: 0 });
       setIndex(5);
     }
   };
@@ -146,7 +146,7 @@ export default ({ data = [], navigation }) => {
         }}
       />
       <OverflowButton loadingApi={loading} data={data} index={index} onPress={handlerPress} />
-      <Copyright display={1} isTransparent={index === 5 && height < 600 ? true : false} />
+      <Copyright display={1} isTransparent={index === 3 && height < 600 ? true : false} />
     </View>
   );
 };
