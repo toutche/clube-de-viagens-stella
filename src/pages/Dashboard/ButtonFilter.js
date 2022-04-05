@@ -10,7 +10,8 @@ export default ({
     marginLeft,
     style,
     color = PRIMARY_COLOR,
-    onPress }) => {
+    onPress
+}) => {
 
     return (
         <TouchableOpacity onPress={onPress} style={style}>
