@@ -15,14 +15,25 @@ import { useFilter } from "../../contexts/filter";
 import useDidMountEffect from "../../hooks/useDidMountEffect";
 import ButtonFilter from "./ButtonFilter";
 
-const BodyDashboard = ({ display = 1, navigation, shareOpen, openAutoComplete, filterId }) => {
+const BodyDashboard = ({
+  display = 1,
+  navigation,
+  shareOpen,
+  openAutoComplete,
+  openBottomSheet,
+  filterId
+}) => {
   const {
     user: { plan },
   } = useAuth();
 
   const {
+    onFilterOriginDestiny,
     filterOrigin,
     filterDestiny,
+    filterDays,
+    filterMouth,
+    filterYear,
     filterUpdate,
     orderPrice,
     segmentsIds,
@@ -49,12 +60,22 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen, openAutoComplete, f
         ids = `&segments_ids=${segmentsIds[i]}`
     }
 
-    const url_with_destiny_origin = filterDestiny?.key && filterOrigin?.key
-      ? `&origin_id=${filterOrigin?.key}&destiny_id=${filterDestiny?.key}`
-      : filterDestiny?.key && !filterOrigin?.key ? `&destiny_id=${filterDestiny?.key}`
-        : null
-    console.log(`/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}` + url_with_destiny_origin)
-    const response = await api.get(`/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}` + url_with_destiny_origin);
+    let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}`
+
+    if (filterDestiny?.key) {
+      url += `&destiny_id=${filterDestiny?.key}`
+
+      if (filterOrigin?.key)
+        url += `&origin_id=${filterOrigin?.key}`
+
+      if (filterDays)
+        url += `&qtd_days=${filterDays}`
+
+      if (filterMouth && filterYear)
+        url += `&month=${filterMouth}&year=${filterYear}`
+    }
+
+    const response = await api.get(url);
     const totalItems = response.data.data.pagination.total_registers;
     const data = response.data.data.packages;
 
@@ -121,20 +142,26 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen, openAutoComplete, f
         }} />
         <View style={styles.twoButtons}>
           <ButtonFilter {...{
-            title: "Quantos dias?",
+            title: filterDays || "Quantos dias?",
             iconName: "calendar-month",
             iconSize: 22,
             marginLeft: 3,
             style: styles.buttonRow,
-            onPress: () => { }
+            onPress: () => {
+              filterId.current = 'days'
+              openBottomSheet()
+            }
           }} />
           <ButtonFilter {...{
-            title: "Qual mês?",
+            title: filterMouth && filterYear ? `${filterMouth} ${filterYear}` : "Qual mês/ano?",
             iconName: "calendar-month",
             iconSize: 22,
             marginLeft: 3,
             style: styles.buttonRow,
-            onPress: () => { }
+            onPress: () => {
+              filterId.current = 'mouth/year'
+              openBottomSheet()
+            }
           }} />
         </View>
         <ButtonFilter {...{
@@ -144,7 +171,7 @@ const BodyDashboard = ({ display = 1, navigation, shareOpen, openAutoComplete, f
           marginLeft: 2,
           style: [styles.button, { backgroundColor: PRIMARY_COLOR }],
           color: 'white',
-          onPress: () => loadPage(1, true, true)
+          onPress: onFilterOriginDestiny
         }} />
       </View>
       <Text style={styles.textPackage}>Destinos mais procurados</Text>
