@@ -17,13 +17,13 @@ const OverflowButton = ({
 
     const renderMap = () => {
         return data.map((_, i) => {
-            if (i < 6) return <Dot key={i} index={i} currentIndex={index} />
+            if (i < 2) return <Dot key={i} index={i} currentIndex={index} />
         })
     }
 
     return (
         <View style={[styles.container, { width }]}>
-            {index === 5 ?
+            {index === 2 ?
                 <View style={styles.renderComponent}>
                     <CustomButton
                         onPress={onPress}

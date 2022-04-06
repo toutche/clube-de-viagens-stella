@@ -14,31 +14,15 @@ import { logout } from "../../services/auth";
 
 const Slides = data => [
   {
-    text: "Você costuma fazer viagens em família?",
-    toast: "Família",
-    poster: "https://toutche.com.br/clube_de_ferias/search-01.jpg",
-  },
-  {
-    text: "Você normalmente viaja pelo Brasil?",
-    toast: "Destino nacional",
+    text: "Suas viagens duram mais de 4 dias?",
+    toast: "Tempo de viagem",
     poster: "https://toutche.com.br/clube_de_ferias/search-02.jpg",
   },
   {
-    text: "Suas viagens duram mais de 4 dias?",
-    toast: "Tempo de viagem",
-    poster: "https://mfiles.alphacoders.com/806/806684.jpg",
+    text: "Normalmente você planeja suas viagens com menos de 7 dias de antecedência?",
+    toast: "Família",
+    poster: "https://toutche.com.br/clube_de_ferias/search-01.jpg",
   },
-  {
-    text: "Consegue viajar mais de uma vez ao ano?",
-    toast: "Frêquencia de viagem",
-    poster: "https://mfiles.alphacoders.com/806/806684.jpg",
-  },
-  {
-    text: "Em suas viagens, você costuma se hospedar em hotéis econômicos?",
-    toast: "Hotéis econômicos",
-    poster: "https://mfiles.alphacoders.com/806/806684.jpg",
-  },
-
   {
     title: "Estamos finalizando!",
     subTitle:

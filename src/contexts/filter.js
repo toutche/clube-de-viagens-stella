@@ -4,9 +4,11 @@ import { Alert } from "react-native";
 const FilterContext = createContext({});
 
 export const FilterProvider = ({ children }) => {
-
     const [filterOrigin, setFilterOrigin] = useState()
     const [filterDestiny, setFilterDestiny] = useState()
+    const [filterDays, setFilterDays] = useState()
+    const [filterMouth, setFilterMouth] = useState()
+    const [filterYear, setFilterYear] = useState()
 
     const [filterIdsCategory, setFilterIdsCategory] = useState(false)
     const [filterUpdate, setFilterUpdate] = useState(false)
@@ -20,14 +22,14 @@ export const FilterProvider = ({ children }) => {
             [
                 {
                     text: filterIdsCategory ? "Limpar" : "Voltar",
-                    onPress: clearFilter,
+                    onPress: clearFilterCategory,
                     style: "destructive"
                 },
                 {
                     text: "Filtrar",
                     onPress: () => {
                         setFilterIdsCategory(true)
-                        setFilterUpdate(state => !state)
+                        forceUpdateList()
                     },
                     style: "destructive"
                 },
@@ -43,11 +45,43 @@ export const FilterProvider = ({ children }) => {
         setOrderPrice('desc')
     }
 
-    const clearFilter = () => {
+    const clearFilterCategory = () => {
         if (filterIdsCategory) {
             setSegmentsIds([])
             setFilterIdsCategory(false)
-            setFilterUpdate(state => !state)
+            forceUpdateList()
+        }
+    }
+
+    const onFilterOriginDestiny = () => {
+        Alert.alert(
+            "Filtrar",
+            `Deseja filtrar?`,
+            [
+                {
+                    text: filterOrigin || filterDestiny || filterDays || filterMouth || filterYear ? "Limpar" : "Voltar",
+                    onPress: clearFilterOriginDestiny,
+                    style: "destructive"
+                },
+                {
+                    text: "Filtrar",
+                    onPress: () => {
+                        forceUpdateList()
+                    },
+                    style: "destructive"
+                },
+            ],
+        );
+    }
+
+    const clearFilterOriginDestiny = () => {
+        if (filterOrigin || filterDestiny || filterDays || filterMouth || filterYear) {
+            setFilterOrigin()
+            setFilterDestiny()
+            setFilterDays()
+            setFilterMouth()
+            setFilterYear()
+            forceUpdateList()
         }
     }
 
@@ -58,10 +92,16 @@ export const FilterProvider = ({ children }) => {
     return (
         <FilterContext.Provider
             value={{
+                filterDays,
+                setFilterDays,
                 filterOrigin,
                 setFilterOrigin,
                 filterDestiny,
                 setFilterDestiny,
+                filterMouth,
+                setFilterMouth,
+                filterYear,
+                setFilterYear,
                 filterUpdate,
                 filterIdsCategory,
                 setFilterIdsCategory,
@@ -71,7 +111,9 @@ export const FilterProvider = ({ children }) => {
                 setSegmentsIds,
                 toggleFilter,
                 toggleOrder,
-                clearFilter,
+                onFilterOriginDestiny,
+                clearFilterCategory,
+                clearFilterOriginDestiny,
                 forceUpdateList
             }}>
             {children}

@@ -10,7 +10,7 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import OverflowButton from "./OverflowButton";
@@ -25,6 +25,7 @@ import {
 const Slides = [
   {
     title: "Conheça mais sobre o Clube de Férias!",
+    titleFooter: "",
     image: require("../../../assets/header/Intro-01.jpg"),
     button: "O Clube",
     aspectRatio: 0.8,
@@ -32,25 +33,29 @@ const Slides = [
   },
   {
     title: "Conecte-se a sua viagem dos sonhos!",
-    text: [
-      "São mais de 10 mil hotéis para você escolher!",
-      "Desconto exclusivo ilimitado de até 12% sobre o valor do pacote/hospedagem, conforme o plano, para você aproveitar ainda mais!",
-      "Atendimento Exclusivo e qualificado Stella Barros.",
-      "Tudo isso, sem comprometer o limite do seu cartão de crédito e sem fidelidade!",
-      "E o melhor, você pode começar a usar a partir da primeira mensalidade!",
+    list: [
+      "Escolha entre mais de 10 mil hotéis",
+      "Descontos exclusivos ilimitados para você curtir como quiser.",
+      "Atendimento diferenciado, para você não ter que se preocupar.",
+      "Não vai mais viajar? Não esquenta!",
+      "Aqui não tem fidelidade.",
+      "Chegou agora e já quer viajar?",
+      "Deixa com a gente. Aqui você pode planejar sua viagem desde o primeiro mês. Tudo isso, sem comprometer o limite do seu cartão.",
     ],
+    titleFooter: "",
     image: require("../../../assets/header/Intro-02.jpg"),
     button: "Vantagens",
-    aspectRatio: 1.1,
+    aspectRatio: 1.5,
     onPress: () => { }
   },
   {
-    title: "Descontos exclusivos para assinantes",
+    title: "O desconto que você sempre quis!",
     text: [
-      "Por termos uma indisfarçavel paixão por viajar, reunimos aqui as melhores experiências em mais de 10 mil hotéis e pacotes no brasil e no mundo, com descontos exclusivos ilimitados, para você, sua família e amigos terem índices altíssimos de felicidade e inumeráveis histórias para compartilhar!",
-      "E aí, tá preparado para sua próxima viagem?",
-      "Embarque conosco, Faça parte do clube de férias!",
+      "Sabe o que gostamos mais do que viajar?",
+      "Viabilizar sonhos!",
+      "Aqui no Clube de Férias, você vai encontrar as melhores viagens, com condições incríveis e as mais diversas opções para você aproveitar como e com quem quiser. Nossos descontos são exclusivos e ilimitados em pacotes para viagens e hotéis no Brasil e no mundo, para não faltar histórias para contar e nem momentos únicos para compartilhar",
     ],
+    titleFooter: "É hora de preparar suas férias. E aí, preparado? Qual será o seu próximo destino?",
     image: require("../../../assets/header/Intro-03.jpg"),
     button: "Produtos",
     aspectRatio: 1.5,
@@ -104,12 +109,22 @@ export default ({ navigation }) => {
               </TouchableWithoutFeedback>
               <View style={styles.contentText}>
                 <Text style={styles.title}>{item.title}</Text>
-                {index !== 0 &&
+                {index !== 0 && index !== 1 &&
                   item.text.map((it, key) => (
-                    <Text key={key} style={styles.text}>
-                      {index === 1 && <FontAwesome color={"white"} size={9} name={"circle"} />} {it}
+                    <Text key={key} style={(index === 2 && key === 1) ? styles.title : styles.text}>
+                      {it}
                     </Text>
                   ))}
+                {index !== 0 && index !== 2 &&
+                  item.list.map((it, key) => (
+                    <>
+                      <Text key={key} style={styles.text}>
+                        {index === 1 && (key != 3 && key != 5) && <Ionicons name="md-triangle" size={10} color="yellow" />} {it}
+                      </Text>
+                      {((key === 2 || key === 4) && <Text></Text>)}
+                    </>
+                  ))}
+                  <Text style={styles.title}>{item.titleFooter}</Text>
               </View>
             </View>
           );
@@ -142,11 +157,11 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontSize: 17,
+    fontSize: 15,
     color: TEXT_COLOR_BKCOLORFUL,
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
-    marginTop: 15,
-    marginBottom: 5,
+    marginTop: 7,
+    marginBottom: 7,
   },
   text: {
     fontFamily: FONT_DEFAULT_STYLE,
@@ -156,4 +171,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     opacity: 0.8,
   },
+  innerTitle: {
+    marginTop: 15,
+  },
+  mgTop: {
+    marginTop: 10,
+  }
 });
