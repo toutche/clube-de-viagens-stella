@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { PRIMARY_COLOR } from '../../utils/variables';
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default ({
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     text: {
         textAlign: "center",
         fontSize: 13.5,
+        fontFamily: FONT_DEFAULT_STYLE,
     }
 })
 

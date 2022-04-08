@@ -3,6 +3,8 @@ import { Modal, StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Te
 import { TextInput } from 'react-native-gesture-handler';
 import { useFilter } from '../../contexts/filter';
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
+import { IS_IOS } from '../../utils/consts'
+import { maskOnlyNumbers } from '../../utils/masks';
 
 export default ({ isVisible, onClose, id }) => {
     const {
@@ -24,10 +26,13 @@ export default ({ isVisible, onClose, id }) => {
         <>
             <TextInput
                 placeholder='Quantos dias?'
-                onChangeText={days =>
+                placeholderTextColor={"#ccc"}
+                keyboardType={'numeric'}
+                maxLength={3}
+                onChangeText={text =>
                     setForm({
                         ...form,
-                        days
+                        days: maskOnlyNumbers(text)
                     })
                 }
                 value={form.days}
@@ -40,10 +45,13 @@ export default ({ isVisible, onClose, id }) => {
         <>
             <TextInput
                 placeholder='Qual mês?'
-                onChangeText={mouth =>
+                placeholderTextColor={"#ccc"}
+                keyboardType={'numeric'}
+                maxLength={2}
+                onChangeText={text =>
                     setForm({
                         ...form,
-                        mouth
+                        mouth: maskOnlyNumbers(text)
                     })
                 }
                 value={form.mouth}
@@ -51,10 +59,13 @@ export default ({ isVisible, onClose, id }) => {
             />
             <TextInput
                 placeholder='Qual ano?'
-                onChangeText={year =>
+                placeholderTextColor={"#ccc"}
+                keyboardType={'numeric'}
+                maxLength={4}
+                onChangeText={text =>
                     setForm({
                         ...form,
-                        year
+                        year: maskOnlyNumbers(text)
                     })
                 }
                 value={form.year}
@@ -112,10 +123,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     input: {
-        borderBottomColor: PRIMARY_COLOR,
-        borderBottomWidth: 2,
-        marginBottom: 12,
-        width: '90%'
+        paddingVertical: IS_IOS ? 4 : 2,
+        borderWidth: 1,
+        borderRadius: 999,
+        borderColor: '#d1d1d1',
+        fontSize: 14.5,
+        paddingVertical: 4,
+        paddingHorizontal: 12,
+        marginBottom: 8,
+        width: '90%',
+        includeFontPadding: false,
+        fontFamily: FONT_DEFAULT_STYLE,
     },
     button_container: {
         width: '90%',
@@ -123,7 +141,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 999,
         height: 50,
-        marginTop: 16,
+        marginTop: 8,
         marginBottom: 4,
         backgroundColor: PRIMARY_COLOR
     },
