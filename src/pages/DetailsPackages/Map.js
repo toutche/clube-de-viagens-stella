@@ -22,7 +22,7 @@ const Map = ({ address, region }) => {
           size={36}
           color='#287dfd'
         />
-        <View>
+        <View style={{ flex: 1 }}>
           <Text style={styles.title}>Endereço</Text>
           <Text style={styles.subTitle}>{address}</Text>
         </View>
@@ -33,10 +33,10 @@ const Map = ({ address, region }) => {
       <MapView
         region={region}
         style={styles.map}>
-          <Marker coordinate={{ 
-            latitude: region.latitude,
-            longitude: region.longitude
-          }} />
+        <Marker coordinate={{
+          latitude: region.latitude,
+          longitude: region.longitude
+        }} />
       </MapView>
     </View>
   );
