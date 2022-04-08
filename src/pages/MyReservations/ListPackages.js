@@ -18,26 +18,26 @@ const ListPackages = ({
                 size={22}
                 color="#287dfd"
             />
-            <Text style={styles.title}>Número da reserva:<Text style={styles.titleBlue}> CF43532</Text></Text>
+            <Text style={styles.title}>Número da reserva:<Text style={styles.titleBlue}> {item?.number_reservation}</Text></Text>
         </View>
     )
 
     const renderBody = () => (
         <View style={styles.body}>
             <Image
-                source={{ uri: 'https://www.submarinoviagens.com.br/bora-nessa-trip/wp-content/uploads/2020/05/maldivas-bangalos-1500-840269698.jpg' }}
+                source={{ uri: item?.img }}
                 style={styles.image}
             />
             <View style={styles.content}>
-                <Text style={styles.titleItem}>Anantara Veli Maldives Resort</Text>
-                <Text style={styles.subTitleItem}>7 dias | + Hotel c/café da manhã</Text>
+                <Text style={styles.titleItem}>{item?.name}</Text>
+                <Text style={styles.subTitleItem}>{item?.number_days}</Text>
                 <View style={styles.containerDiscount}>
-                    <Text style={styles.discountBold}>R$ 2542,00
+                    <Text style={styles.discountBold}>{item?.price_difference}
                         <Text style={styles.discount}> de desconto exclusivo</Text>
                     </Text>
                 </View>
-                <Text style={styles.throughValue}>R$ 17.999,00
-                    <Text style={styles.value}> ● R$ 14.999,00</Text>
+                <Text style={styles.throughValue}>{item?.price}
+                    <Text style={styles.value}> ● {item?.price_discount}</Text>
                 </Text>
             </View>
         </View>
@@ -49,7 +49,7 @@ const ListPackages = ({
             {renderBody()}
 
             <CustomButton
-                onPress={() => navigation.navigate({ name: 'DetailsPackages' })}
+                onPress={() => {}}
                 type={AntDesign}
                 name={'checkcircleo'}
                 color={'white'}

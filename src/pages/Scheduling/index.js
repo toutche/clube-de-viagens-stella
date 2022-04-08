@@ -31,8 +31,9 @@ const Scheduling = ({ navigation, route }) => {
       <ScrollView bounces={false} style={styles.body}>
         <BoardingPlace {...{ data }} />
         <Travel  {...{ data, display: data.hour_voo ? 0 : 1 }} />
+        
+        <TravelCard display={3} {...{ data }} />
         <Travelers {...{ data }} onPress={() => navigation.navigate("NewsTravelers")} />
-        <TravelCard {...{ data }} />
         <CustomButton
           disabled={travelers.length === data.qtd_pax ? false : true}
           disabledMessage='Para continuar, nomeie os viajantes'

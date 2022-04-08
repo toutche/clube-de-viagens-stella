@@ -2,51 +2,61 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variables";
 
-const TravelCard = ({ display = 0, data }) => {
+const TravelCard = ({ display = 0, display_footer = 0, data }) => {
   return (
     <View
       style={[
         styles.container,
         {
-          marginBottom: display === 0 ? 15 : 0,
+          marginBottom: display === 0 || display === 3 ? 15 : 0,
         },
       ]}>
-      <Image
-        source={{
-          uri: data?.img,
-        }}
-        style={styles.image}
-      />
-      <View style={styles.content}>
-        <Text style={styles.title}>{data?.name}</Text>
-        <Text style={[styles.subTitle, { color: display === 0 ? "#777" : BLUE_COLOR }]}>
-          {`${data?.number_days} dias | ${data?.phrase_effect}`}
-        </Text>
-        <View style={styles.borderBottom} />
+      <View style={styles.innerContainer}>
+        <Image
+          source={{
+            uri: data?.img,
+          }}
+          style={styles.image}
+        />
+        <View style={styles.content}>
+          <Text style={styles.title}>{data?.name}</Text>
+          <Text style={[styles.subTitle, { color: display === 0 ? "#777" : BLUE_COLOR }]}>
+            {`${data?.number_days} dias | ${data?.phrase_effect}`}
+          </Text>
+          <View style={styles.borderBottom} />
 
-        {display === 1 && (
-          <View style={styles.details}>
-            <View>
+          {display === 1 && (
+            <View style={styles.details}>
+              <View>
+                <Text style={styles.oldValue}>R$ {data?.price}</Text>
+                <Text style={styles.newValue}>R$ {data?.price_discount}</Text>
+              </View>
+              <View style={styles.economic}>
+                <View style={styles.arrow} />
+                <Text style={styles.economicText}>Economize R$ {data?.price_difference}</Text>
+                <View style={styles.separator} />
+                <Text style={styles.discountText}>{data?.percentual_plan}</Text>
+              </View>
+            </View>
+          )}
+
+          {display === 2 && (
+            <View style={styles.details}>
               <Text style={styles.oldValue}>R$ {data?.price}</Text>
+              <Text style={styles.ball}> ● </Text>
               <Text style={styles.newValue}>R$ {data?.price_discount}</Text>
             </View>
-            <View style={styles.economic}>
-              <View style={styles.arrow} />
-              <Text style={styles.economicText}>Economize R$ {data?.price_difference}</Text>
-              <View style={styles.separator} />
-              <Text style={styles.discountText}>{data?.percentual_plan}</Text>
-            </View>
-          </View>
-        )}
-
-        {display === 2 && (
-          <View style={styles.details}>
-            <Text style={styles.oldValue}>R$ {data?.price}</Text>
-            <Text style={styles.ball}> ● </Text>
-            <Text style={styles.newValue}>R$ {data?.price_discount}</Text>
-          </View>
-        )}
+          )}
+        </View>
       </View>
+      
+      {display === 3 && (
+        <View style={styles.detailsPackage}>
+          {data?.flight && <Text style={styles.infosPackage}>Aéreo: {data?.flight.going_origin_airport_iata} - {data?.flight.going_destiny_airport_iata} - {data?.flight.return_origin_airport_iata} - {data?.flight.return_destiny_airport_iata}</Text>}
+          {data?.hotel_name && <Text style={styles.infosPackage}>Hotel: {data?.hotel_name}</Text>}
+          {data?.service_description && <Text style={styles.infosPackage}>Serviço: {data?.service_description}</Text>}
+        </View>
+      )}
     </View>
   );
 };
@@ -64,6 +74,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     borderRadius: 10,
+    
+  },
+  innerContainer: {
     flexDirection: "row",
   },
   ball: {
@@ -141,6 +154,16 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 10,
   },
+  detailsPackage: {
+    flex: 1,
+    width: "100%",
+    marginTop: 15,
+    paddingLeft: 20,
+  },
+  infosPackage: {
+    fontFamily: FONT_DEFAULT_STYLE,
+    marginTop: 5
+  }
 });
 
 export default TravelCard;
