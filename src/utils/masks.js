@@ -24,3 +24,7 @@ export const maskDate = text => {
     else if (mask.length >= 3) mask = mask.replace(/(\d{2})(\d)/, "$1/$2")
     return mask
 }
+
+export const maskOnlyNumbers = text => {
+    return text.replace(/\D/g, "");
+};

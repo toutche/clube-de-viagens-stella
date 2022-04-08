@@ -153,7 +153,7 @@ const BodyDashboard = ({
             }
           }} />
           <ButtonFilter {...{
-            title: filterMouth && filterYear ? `${filterMouth} ${filterYear}` : "Qual mês/ano?",
+            title: filterMouth && filterYear ? `${filterMouth}/${filterYear}` : "Qual mês/ano?",
             iconName: "calendar-month",
             iconSize: 22,
             marginLeft: 3,
