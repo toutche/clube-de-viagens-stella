@@ -12,7 +12,7 @@ export default ({ navigation }) => {
       <CustomStatusBar />
 
       <View style={styles.header}>
-        <ProfileAvatar />
+        <ProfileAvatar isShow={true} />
 
         <CustomIcon
           size={26}

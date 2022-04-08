@@ -7,12 +7,12 @@ const BoardingPlace = ({ data }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Local de embarque:</Text>
+      <Text style={styles.text}>Destino:</Text>
       <View style={[styles.content, { paddingVertical: data.boarding_place ? 5 : 10 }]}>
         <AntDesign name='checkcircleo' size={22} color={BLUE_COLOR} />
         <View style={styles.contentText}>
-          <Text style={styles.title}>{data?.boarding_place || data?.destiny}</Text>
-          {data.boarding_place ? <Text style={styles.subTitle}>{data?.boarding_airport}</Text> : null}
+          <Text style={styles.title}>{data?.destiny}</Text>
+          {/*data.boarding_place ? <Text style={styles.subTitle}>{data?.boarding_airport}</Text> : null*/}
         </View>
       </View>
     </View>

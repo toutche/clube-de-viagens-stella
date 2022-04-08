@@ -21,7 +21,7 @@ const Menu = ({ isVisible = true, onClose }) => {
         <View style={styles.content}>
           <View style={styles.line}>
             <RenderItem
-              id={"Dashboar"}
+              id={"MyReservations"}
               text={"Reservas"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/reservas-red.png"}
