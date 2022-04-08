@@ -16,7 +16,7 @@ import useDidMountEffect from "../../hooks/useDidMountEffect";
 import ButtonFilter from "./ButtonFilter";
 
 const BodyDashboard = ({
-  display = 1,
+  display = 0,
   navigation,
   shareOpen,
   openAutoComplete,
@@ -39,12 +39,21 @@ const BodyDashboard = ({
     segmentsIds,
   } = useFilter()
 
-  const total = useRef();
+  const total = useRef(null);
   const page = useRef(1);
   const feed = useRef([]);
 
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    loadPage();
+  }, []);
+
+  useDidMountEffect(() => {
+    feed.current = [];
+    loadPage(1, true, true);
+  }, [filterUpdate, orderPrice, display])
 
   const loadPage = async (pageNumber = page.current, shouldRefresh = false, update = false) => {
     if (feed.current?.length === total.current && !update) return;
@@ -52,40 +61,52 @@ const BodyDashboard = ({
 
     setLoading(true);
 
-    let ids
-    for (let i = 0; i < segmentsIds.length; i++) {
-      if (ids)
-        ids = ids + `,${segmentsIds[i]}`
-      else
-        ids = `&segments_ids=${segmentsIds[i]}`
-    }
+    if (display === 0) {
+      let ids
+      for (let i = 0; i < segmentsIds.length; i++) {
+        if (ids)
+          ids = ids + `,${segmentsIds[i]}`
+        else
+          ids = `&segments_ids=${segmentsIds[i]}`
+      }
 
-    let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}`
+      let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}`
 
-    if (filterDestiny?.key) {
-      url += `&destiny_id=${filterDestiny?.key}`
+      if (filterDestiny?.key) {
+        url += `&destiny_id=${filterDestiny?.key}`
 
-      if (filterOrigin?.key)
-        url += `&origin_id=${filterOrigin?.key}`
+        if (filterOrigin?.key)
+          url += `&origin_id=${filterOrigin?.key}`
 
-      if (filterDays)
-        url += `&qtd_days=${filterDays}`
+        if (filterDays)
+          url += `&qtd_days=${filterDays}`
 
-      if (filterMouth && filterYear)
-        url += `&month=${filterMouth}&year=${filterYear}`
-    }
+        if (filterMouth && filterYear)
+          url += `&month=${filterMouth}&year=${filterYear}`
+      }
 
-    const response = await api.get(url);
-    const totalItems = response.data.data.pagination.total_registers;
-    const data = response.data.data.packages;
+      const response = await api.get(url);
+      const totalItems = response.data.data.pagination.total_registers;
+      const data = response.data.data.packages;
 
-    setTimeout(() => {
       total.current = totalItems;
       page.current = pageNumber + 1;
       feed.current = shouldRefresh ? data || [] : [...feed.current, ...data];
+    } else if (display === 1) {
 
-      setLoading(false);
-    }, 100);
+      let url = `/hotel/get/all?per_page=10&page=${pageNumber}&start_date=2022-04-11&end_date=2022-04-24&qtd_people=2&city_code=34797`
+
+      const response = await api.post(url);
+
+      const totalItems = response.data.pagination.total_registers;
+      const data = response.data.hotels;
+
+      total.current = totalItems;
+      page.current = pageNumber + 1;
+      feed.current = shouldRefresh ? data || [] : [...feed.current, ...data];
+    }
+
+    setTimeout(() => setLoading(false), 100);
   };
 
   const refreshList = async () => {
@@ -96,15 +117,6 @@ const BodyDashboard = ({
 
     setRefreshing(false);
   };
-
-  useDidMountEffect(() => {
-    feed.current = [];
-    loadPage(1, true, true);
-  }, [filterUpdate, orderPrice])
-
-  useEffect(() => {
-    loadPage();
-  }, []);
 
   const ListHeaderItemAccommodation = () => (
     <>

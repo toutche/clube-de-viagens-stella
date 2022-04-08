@@ -37,7 +37,10 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
         refreshList={refreshList}
       />
 
-      <ShareIcon shareOpen={shareOpen} containerStyle={[styles.shareIcon, !plan && { top: 75 }]} />
+      <ShareIcon
+        shareOpen={shareOpen}
+        containerStyle={[styles.shareIcon, !plan && { top: 75 }]}
+      />
 
       <View style={styles.bodyItem}>
         <View style={styles.priceItem}>
@@ -135,11 +138,41 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
             {item.name}
           </Text>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-            }}>
+          {display === 0 ?
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+              }}>
+              <Text
+                style={{
+                  fontFamily: FONT_DEFAULT_STYLE,
+                  color: BLUE_COLOR,
+                  fontSize: 16,
+                  textAlign: "center",
+                }}>
+                {item?.date?.display}
+              </Text>
+              {item.number_days && (
+                <Text
+                  style={{
+                    fontFamily: FONT_DEFAULT_STYLE,
+                    color: "#777",
+                    fontSize: 16,
+                    textAlign: "center",
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: Platform.OS === "ios" ? 15 : 14,
+                      marginHorizontal: Platform.OS === "ios" ? -5 : undefined,
+                    }}>
+                    │
+                  </Text>
+                  {item.number_days}
+                </Text>
+              )}
+            </View>
+            :
             <Text
               style={{
                 fontFamily: FONT_DEFAULT_STYLE,
@@ -147,27 +180,9 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
                 fontSize: 16,
                 textAlign: "center",
               }}>
-              {item.date.display}
+              {item?.subname}
             </Text>
-            {item.number_days && (
-              <Text
-                style={{
-                  fontFamily: FONT_DEFAULT_STYLE,
-                  color: "#777",
-                  fontSize: 16,
-                  textAlign: "center",
-                }}>
-                <Text
-                  style={{
-                    fontSize: Platform.OS === "ios" ? 15 : 14,
-                    marginHorizontal: Platform.OS === "ios" ? -5 : undefined,
-                  }}>
-                  │
-                </Text>
-                {item.number_days}
-              </Text>
-            )}
-          </View>
+          }
         </View>
 
         <View style={styles.containerButtons}>

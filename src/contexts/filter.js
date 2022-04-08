@@ -22,7 +22,7 @@ export const FilterProvider = ({ children }) => {
             [
                 {
                     text: filterIdsCategory ? "Limpar" : "Voltar",
-                    onPress: clearFilterCategory,
+                    onPress: filterIdsCategory ? clearFilterCategory : null,
                     style: "destructive"
                 },
                 {
@@ -46,11 +46,9 @@ export const FilterProvider = ({ children }) => {
     }
 
     const clearFilterCategory = () => {
-        if (filterIdsCategory) {
-            setSegmentsIds([])
-            setFilterIdsCategory(false)
-            forceUpdateList()
-        }
+        setSegmentsIds([])
+        setFilterIdsCategory(false)
+        forceUpdateList()
     }
 
     const onFilterOriginDestiny = () => {
@@ -60,14 +58,12 @@ export const FilterProvider = ({ children }) => {
             [
                 {
                     text: filterOrigin || filterDestiny || filterDays || filterMouth || filterYear ? "Limpar" : "Voltar",
-                    onPress: clearFilterOriginDestiny,
+                    onPress: filterOrigin || filterDestiny || filterDays || filterMouth || filterYear ? clearFilterOriginDestiny : null,
                     style: "destructive"
                 },
                 {
                     text: "Filtrar",
-                    onPress: () => {
-                        forceUpdateList()
-                    },
+                    onPress: forceUpdateList,
                     style: "destructive"
                 },
             ],
@@ -75,14 +71,18 @@ export const FilterProvider = ({ children }) => {
     }
 
     const clearFilterOriginDestiny = () => {
-        if (filterOrigin || filterDestiny || filterDays || filterMouth || filterYear) {
-            setFilterOrigin()
-            setFilterDestiny()
-            setFilterDays()
-            setFilterMouth()
-            setFilterYear()
-            forceUpdateList()
-        }
+        setFilterOrigin()
+        setFilterDestiny()
+        setFilterDays()
+        setFilterMouth()
+        setFilterYear()
+        forceUpdateList()
+    }
+
+    const clearAll = () => {
+        setOrderPrice('asc')
+        clearFilterOriginDestiny()
+        clearFilterCategory()
     }
 
     const forceUpdateList = () => {
@@ -114,7 +114,8 @@ export const FilterProvider = ({ children }) => {
                 onFilterOriginDestiny,
                 clearFilterCategory,
                 clearFilterOriginDestiny,
-                forceUpdateList
+                forceUpdateList,
+                clearAll
             }}>
             {children}
         </FilterContext.Provider>
