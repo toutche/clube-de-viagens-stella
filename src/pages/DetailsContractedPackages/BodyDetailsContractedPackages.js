@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import CustomButton from "../../components/CustomButton";
-import { BLUE_COLOR, GREEN_COLOR, PRIMARY_COLOR } from "../../utils/variables";
+import { BLUE_COLOR, GREEN_COLOR, PRIMARY_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
 import AlertCovid from "../../components/AlertCovid";
 import InfoHotel from "../../components/InfoHotel";
+import api from "../../services/api";
 
-const BodyDetailsContractedPackages = () => {
+const BodyDetailsContractedPackages = ({item}) => {
+  const [scheduling, setScheduling] = useState("")
+  const [hotel, setHotel] = useState("")
+  const [dayByDay, setDayByDay] = useState("")
+
+  useEffect(() => {
+    (async () => {
+      await api.get(`/pacote-viagem/${item.id}/get/agendamento`).then(res => {
+        setScheduling(res.data);
+        setHotel({
+          hotel: res.data.hotel_name,
+          service_description: res.data.service_description
+        })
+      });
+      await api.get(`/pacote-viagem/${item.id}/get`).then(res => {
+        setDayByDay(res.data.day_by_day)
+      }).catch(err => console.error(err));
+    })()
+  }, [])
   return (
     <View style={styles.container}>
       <CustomButton
@@ -20,6 +39,7 @@ const BodyDetailsContractedPackages = () => {
         containerStyle={styles.buttonTop}
         titleStyle={styles.textButtonTop}
         title={"Pacote contratado para 15 de Maio / ás 14h"}
+        // title={`Pacote contratado para ${scheduling.date}`}
       />
 
       <CustomButton
@@ -33,11 +53,11 @@ const BodyDetailsContractedPackages = () => {
         title={"Realizar cancelamento"}
       />
 
-      <TravelCard display={1} />
+      <TravelCard display={1} data={item}/>
 
-      <Travel />
+      <Travel data={scheduling}/>
 
-      <InfoHotel />
+      <InfoHotel data={hotel}/>
 
       <CustomButton
         left
@@ -51,8 +71,20 @@ const BodyDetailsContractedPackages = () => {
       />
 
       <AlertCovid containerStyle={styles.covid} />
+      
+      {dayByDay.length > 0 && (
+        <View style={styles.details}>
 
-      <View style={styles.details}>
+          {dayByDay.map((i, n) => (
+            <View key={n}>
+              <Text style={styles.subTitle}>Dia {i.day}</Text>
+              <Text style={styles.text}>{i.description}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {/* <View style={styles.details}>
         <Text style={styles.title}>Ellaidhoo Maldives by Cinnamon</Text>
         <Text style={styles.text}>
           Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode
@@ -76,7 +108,7 @@ const BodyDetailsContractedPackages = () => {
           Ellaidhoo Maldives by cinnamon fica numa praia particular de areia branca onde vc pode
           tomar sol
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -168,6 +200,27 @@ const styles = StyleSheet.create({
   textButtonBottom: {
     fontSize: 16,
     color: PRIMARY_COLOR,
+  },
+  details: {
+    paddingHorizontal: 20,
+    paddingBottom: 15,
+  },
+  title: {
+    fontFamily: FONT_DEFAULT_STYLE,
+    color: "#333",
+    fontSize: 15.5,
+    marginBottom:15
+  },
+  subTitle: {
+    fontFamily: FONT_DEFAULT_STYLE,
+    color: BLUE_COLOR,
+    fontSize: 15,
+    marginTop: 8,
+  },
+  text: {
+    fontFamily: FONT_DEFAULT_STYLE,
+    marginTop: 2,
+    color: "#777",
   },
 });
 

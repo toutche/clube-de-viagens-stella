@@ -49,7 +49,14 @@ const ListPackages = ({
             {renderBody()}
 
             <CustomButton
-                onPress={() => {}}
+                onPress={ () => { 
+                    navigation.navigate({
+                        name: "DetailsContractedPackages",
+                        params: {
+                            item
+                        }
+                    }) 
+                }}
                 type={AntDesign}
                 name={'checkcircleo'}
                 color={'white'}

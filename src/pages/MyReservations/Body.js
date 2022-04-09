@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingVertical: 20,
     paddingHorizontal: 15,
+    borderRadius: 10,
   },
   separator: {
     height: 10,

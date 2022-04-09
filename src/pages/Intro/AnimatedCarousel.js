@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   FlatList,
   useWindowDimensions,
@@ -64,6 +64,7 @@ const Slides = [
 ];
 
 export default ({ navigation }) => {
+
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets()
 
