@@ -4,7 +4,7 @@ import CustomIcon from "../../components/CustomIcon";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { PRIMARY_COLOR, FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE } from "../../utils/variables";
 
 export default ({ navigation }) => {
   return (
@@ -33,11 +33,11 @@ export default ({ navigation }) => {
       <View style={styles.bottom}>
         <Image
           source={{
-            uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Sun_white_icon.svg/1200px-Sun_white_icon.svg.png",
+            uri: "https://toutche.com.br/clube_de_ferias/icones/menu/reservas-white.png",
           }}
           style={styles.icon}
         />
-        <Text style={styles.text}>Minhas Reservas</Text>
+        <Text style={styles.title_text}>Minhas Reservas</Text>
       </View>
     </View>
   );
@@ -56,19 +56,29 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flexDirection: "row",
+  
     alignItems: "center",
-    paddingTop: 15,
-    paddingBottom: 18,
+    paddingTop: 5,
+    paddingBottom: 10,
   },
   text: {
+    fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 17,
     color: "white",
     opacity: 0.9,
     marginLeft: 10,
   },
+  title_text: {
+    fontFamily: FONT_DEFAULT_STYLE,
+    fontSize: 22,
+    color: "white",
+    opacity: 0.9,
+    marginLeft: -10,
+  },
   icon: {
-    width: 50,
-    height: 50,
+    resizeMode: "cover",
+    width: 80,
+    height: 80,
   },
   iconLeft: {
     left: 5,

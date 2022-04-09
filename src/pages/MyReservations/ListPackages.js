@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import CustomButton from '../../components/CustomButton';
-import { PRIMARY_COLOR } from '../../utils/variables';
+import { PRIMARY_COLOR, FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE } from '../../utils/variables';
 
 const ListPackages = ({
     item,
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         color: '#555'
     },
     value: {
+        fontFamily: FONT_DEFAULT_STYLE,
         color: '#287dfd',
         textDecorationLine: 'none'
     },
@@ -138,19 +139,23 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20
     },
     discountBold: {
+        fontFamily: FONT_DEFAULT_BOLD_STYLE,
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'white',
         fontSize: 12
     },
     discount: {
+        fontFamily: FONT_DEFAULT_STYLE,
         fontWeight: 'normal'
     },
     titleItem: {
+        fontFamily: FONT_DEFAULT_STYLE,
         fontSize: 15,
         color: '#555'
     },
     subTitleItem: {
+        fontFamily: FONT_DEFAULT_STYLE,
         fontSize: 13,
         top: -2,
         color: '#287dfd'
@@ -178,11 +183,13 @@ const styles = StyleSheet.create({
         borderColor: '#d1d1d1'
     },
     title: {
+        fontFamily: FONT_DEFAULT_STYLE,
         color: '#555',
         marginLeft: 5,
         fontSize: 15
     },
     titleBlue: {
+        fontFamily: FONT_DEFAULT_STYLE,
         color: "#287dfd"
     },
     header: {
