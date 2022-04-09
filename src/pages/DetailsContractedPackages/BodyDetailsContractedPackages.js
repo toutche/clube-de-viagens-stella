@@ -8,11 +8,13 @@ import TravelCard from "../../components/TravelCard";
 import AlertCovid from "../../components/AlertCovid";
 import InfoHotel from "../../components/InfoHotel";
 import api from "../../services/api";
+import ModalCancel from "../MyReservations/ModalCancel";
 
 const BodyDetailsContractedPackages = ({item}) => {
   const [scheduling, setScheduling] = useState("")
   const [hotel, setHotel] = useState("")
   const [dayByDay, setDayByDay] = useState("")
+  const [isVisible, setVisible] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -22,7 +24,7 @@ const BodyDetailsContractedPackages = ({item}) => {
           hotel: res.data.hotel_name,
           service_description: res.data.service_description
         })
-      });
+      }).catch(err => console.error(err));
       await api.get(`/pacote-viagem/${item.id}/get`).then(res => {
         setDayByDay(res.data.day_by_day)
       }).catch(err => console.error(err));
@@ -43,6 +45,7 @@ const BodyDetailsContractedPackages = ({item}) => {
       />
 
       <CustomButton
+        onPress={() => { setVisible(!isVisible) }}
         type={AntDesign}
         name={"closecircleo"}
         color={PRIMARY_COLOR}
@@ -52,6 +55,8 @@ const BodyDetailsContractedPackages = ({item}) => {
         titleStyle={styles.textButtonBottom}
         title={"Realizar cancelamento"}
       />
+
+      <ModalCancel isVisible={isVisible} onClose={() => setVisible(!isVisible)}/>
 
       <TravelCard display={1} data={item}/>
 
