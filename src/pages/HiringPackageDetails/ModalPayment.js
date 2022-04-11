@@ -81,7 +81,7 @@ const ModalPayment = ({
                   <Text style={styles.plan}>{user?.plan?.name}</Text>
                 </View>
                 <Text style={styles.credit}>
-                  Crédito: R$ {parseFloat(user?.wallet?.credit).toFixed(2) || 0}
+                  Crédito: R$ {user?.wallet?.credit || 0}
                 </Text>
               </View>
 
