@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   economicText: {
     fontFamily: FONT_DEFAULT_STYLE,
     color: "white",
-    fontSize: 12,
+    fontSize: 10.5,
   },
   discountText: {
     fontFamily: FONT_DEFAULT_STYLE,
@@ -120,11 +120,12 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,.2)",
   },
   economic: {
+    flex: 1,
     justifyContent: "center",
     backgroundColor: LIGHT_BLUE,
     borderRadius: 5,
     paddingVertical: 4,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     marginLeft: 10,
   },
   details: {
