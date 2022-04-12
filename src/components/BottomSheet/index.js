@@ -4,22 +4,40 @@ import { TextInput } from 'react-native-gesture-handler';
 import { useFilter } from '../../contexts/filter';
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
 import { IS_IOS } from '../../utils/consts'
-import { maskOnlyNumbers } from '../../utils/masks';
+import { maskDate, maskOnlyNumbers } from '../../utils/masks';
+
+const initial_form = {
+    days: '',
+    mouth: '',
+    year: '',
+    checkIn: '',
+    checkOut: '',
+    adult: '',
+    children: '',
+}
 
 export default ({ isVisible, onClose, id }) => {
     const {
         filterDays,
         filterMouth,
         filterYear,
+        filterCheck,
+        filterPeople,
+        setFilterCheck,
+        setFilterPeople,
         setFilterDays,
         setFilterMouth,
         setFilterYear
     } = useFilter()
 
     const [form, setForm] = useState({
-        days: '',
-        mouth: '',
-        year: ''
+        days: filterDays || '',
+        mouth: filterMouth || '',
+        year: filterYear || '',
+        checkIn: filterCheck?.in || '',
+        checkOut: filterCheck?.out || '',
+        adult: filterPeople?.adult || '',
+        children: filterPeople?.children || '',
     })
 
     const _renderDays = (
@@ -74,14 +92,102 @@ export default ({ isVisible, onClose, id }) => {
         </>
     )
 
+    const _renderCheck = (
+        <>
+            <TextInput
+                placeholder='Qual data do check-in?'
+                placeholderTextColor={"#ccc"}
+                keyboardType={'numeric'}
+                maxLength={10}
+                onChangeText={text =>
+                    setForm({
+                        ...form,
+                        checkIn: maskDate(text)
+                    })
+                }
+                value={form.checkIn}
+                style={styles.input}
+            />
+            <TextInput
+                placeholder='Qual data do check-out?'
+                placeholderTextColor={"#ccc"}
+                keyboardType={'numeric'}
+                maxLength={10}
+                onChangeText={text =>
+                    setForm({
+                        ...form,
+                        checkOut: maskDate(text)
+                    })
+                }
+                value={form.checkOut}
+                style={styles.input}
+            />
+        </>
+    )
+
+    const _renderPeople = (
+        <>
+            <TextInput
+                placeholder='Quantos adultos?'
+                placeholderTextColor={"#ccc"}
+                keyboardType={'numeric'}
+                maxLength={2}
+                onChangeText={text =>
+                    setForm({
+                        ...form,
+                        adult: maskOnlyNumbers(text)
+                    })
+                }
+                value={form.adult}
+                style={styles.input}
+            />
+            <TextInput
+                placeholder='Quantas crianças?'
+                placeholderTextColor={"#ccc"}
+                keyboardType={'numeric'}
+                maxLength={2}
+                onChangeText={text =>
+                    setForm({
+                        ...form,
+                        children: maskOnlyNumbers(text)
+                    })
+                }
+                value={form.children}
+                style={styles.input}
+            />
+        </>
+    )
+
     const handlePress = () => {
         if (id === 'days') {
             setFilterDays(Number(form.days))
         } else if (id === 'mouth/year') {
             setFilterMouth(Number(form.mouth))
             setFilterYear(Number(form.year))
+        } else if (id === 'check') {
+            setFilterCheck({
+                in: form.checkIn,
+                out: form.checkOut
+            })
+        } else if (id === 'people') {
+            setFilterPeople({
+                adult: Number(form.adult),
+                children: Number(form.children),
+            })
         }
+        setForm(initial_form)
         onClose()
+    }
+
+    const _renderBottomSheet = () => {
+        if (id === 'days')
+            return _renderDays
+        else if (id === 'mouth/year')
+            return _renderMouthYear
+        else if (id === 'check')
+            return _renderCheck
+        else if (id === 'people')
+            return _renderPeople
     }
 
     return (
@@ -95,7 +201,7 @@ export default ({ isVisible, onClose, id }) => {
                 <KeyboardAvoidingView behavior='height' style={styles.container}>
                     <TouchableWithoutFeedback onPress={() => { }}>
                         <View style={styles.content}>
-                            {id === 'days' ? _renderDays : _renderMouthYear}
+                            {_renderBottomSheet()}
                             <TouchableOpacity onPress={handlePress} style={styles.button_container}>
                                 <Text style={styles.button_text}>Salvar</Text>
                             </TouchableOpacity>

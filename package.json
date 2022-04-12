@@ -32,7 +32,7 @@
     "lodash.every": "^4.6.0",
     "lodash.pick": "^4.4.0",
     "lodash.values": "^4.3.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   FlatList,
@@ -10,10 +10,10 @@ import ListItem from "../../components/ListItem";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
-import { useFocusEffect } from '@react-navigation/native';
 import { useFilter } from "../../contexts/filter";
 import useDidMountEffect from "../../hooks/useDidMountEffect";
 import ButtonFilter from "./ButtonFilter";
+import moment from 'moment'
 
 const BodyDashboard = ({
   display = 0,
@@ -29,11 +29,14 @@ const BodyDashboard = ({
 
   const {
     onFilterOriginDestiny,
+    onFilterHotels,
     filterOrigin,
     filterDestiny,
     filterDays,
     filterMouth,
     filterYear,
+    filterCheck,
+    filterPeople,
     filterUpdate,
     orderPrice,
     segmentsIds,
@@ -94,8 +97,26 @@ const BodyDashboard = ({
       feed.current = shouldRefresh ? data || [] : [...feed.current, ...data];
     } else if (display === 1) {
 
-      let url = `/hotel/get/all?per_page=10&page=${pageNumber}&start_date=2022-04-11&end_date=2022-04-24&qtd_people=2&city_code=34797`
+      const default_start_date = moment(new Date()).format("YYYY-MM-DD")
+      const default_end_date = moment(new Date()).add(10, 'days').format("YYYY-MM-DD")
 
+      let city_code = '34797'
+      let start_date = `${default_start_date}`
+      let end_date = `${default_end_date}`
+      let qtd_people = '2'
+      let qtd_children = '2'
+
+      if (filterDestiny?.key && filterCheck?.in && filterCheck?.out && filterPeople?.adult && filterPeople?.children) {
+        console.log('enter')
+        city_code = String(filterDestiny.key)
+        start_date = String(filterCheck.in).split('/').reverse().join('-')
+        end_date = String(filterCheck.out).split('/').reverse().join('-')
+        qtd_people = String(filterPeople.adult)
+        qtd_children = String(filterPeople.children)
+      }
+
+      let url = `/hotel/get/all?per_page=5&page=${pageNumber}&city_code=${city_code}&start_date=${start_date}&end_date=${end_date}&qtd_people=${qtd_people}&qtd_children=${qtd_children}`
+      console.log(url)
       const response = await api.post(url);
 
       const totalItems = response.data.pagination.total_registers;
@@ -118,12 +139,54 @@ const BodyDashboard = ({
     setRefreshing(false);
   };
 
-  const ListHeaderItemAccommodation = () => (
+  const ListHeaderItemHotels = () => (
     <>
       <View style={styles.containerButtons}>
-
+        <ButtonFilter {...{
+          title: `${filterDestiny?.value || 'Destino'}`,
+          iconName: "map-marker-outline",
+          iconSize: 22,
+          marginLeft: 2,
+          style: styles.button,
+          onPress: () => {
+            filterId.current = 'destiny'
+            openAutoComplete()
+          }
+        }} />
+        <ButtonFilter {...{
+          title: `Data - ${filterCheck?.in || 'Check-in'} - ${filterCheck?.out || 'Check-out'}`,
+          iconName: "calendar-month",
+          iconSize: 22,
+          marginLeft: 2,
+          style: styles.button,
+          onPress: () => {
+            filterId.current = 'check'
+            openBottomSheet()
+          }
+        }} />
+        <ButtonFilter {...{
+          title: `${filterPeople?.adult || 0} Adulto - ${filterPeople?.children || 0} Crianças`,
+          iconName: "user",
+          iconType: 'SimpleLine',
+          iconSize: 16,
+          marginLeft: 4,
+          style: styles.button,
+          onPress: () => {
+            filterId.current = 'people'
+            openBottomSheet()
+          }
+        }} />
+        <ButtonFilter {...{
+          title: "Filtrar",
+          iconName: "filter-outline",
+          iconSize: 22,
+          marginLeft: 2,
+          style: [styles.button, { backgroundColor: PRIMARY_COLOR }],
+          color: 'white',
+          onPress: onFilterHotels
+        }} />
       </View>
-      <Text style={styles.text}>Confirmação e preço sujeito a disponibilidade</Text>
+      <Text style={styles.textHotels}>Confirmação e preço sujeito a disponibilidade</Text>
     </>
   );
 
@@ -198,7 +261,7 @@ const BodyDashboard = ({
     <View style={styles.container}>
       <FlatList
         data={feed.current}
-        ListHeaderComponent={display === 1 ? ListHeaderItemAccommodation : ListHeaderItemPackages}
+        ListHeaderComponent={display === 1 ? ListHeaderItemHotels : ListHeaderItemPackages}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={refreshList}
         refreshing={refreshing}
@@ -229,11 +292,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textTransform: "uppercase",
   },
-  text: {
-    textAlign: "center",
-    fontSize: 14,
-    marginVertical: 10,
+
+  textHotels: {
     color: "#777",
+    fontSize: 14,
+    textAlign: "center",
+    marginBottom: 10
   },
   containerButtons: {
     justifyContent: "center",
