@@ -8,8 +8,11 @@ import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../.
 import SlidesDashboard from "./SlidesDashboard";
 import ButtonsChoice from "./ButtonsChoice";
 import api from "../../services/api";
+import { useFilter } from "../../contexts/filter";
 
 const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
+  const { clearAll } = useFilter()
+
   const [filter, setFilter] = useState([]);
   const [data, setData] = useState([]);
 
@@ -22,6 +25,11 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
       setData(res.data);
     });
   }, []);
+
+  const handlePress = (value) => {
+    clearAll()
+    setOption(value)
+  }
 
   return (
     <View style={styles.container}>
@@ -56,7 +64,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
         {option === 0 ? "Pacotes com preços exclusivos" : "com preços exclusivos"}
       </Text>
 
-      <ButtonsChoice value={option} onPress={value => setOption(value)} />
+      <ButtonsChoice value={option} onPress={handlePress} />
     </View>
   );
 };

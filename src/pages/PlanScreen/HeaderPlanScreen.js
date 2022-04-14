@@ -5,7 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 // import Logo from "../../../assets/LogoWW.png";
-const Logo = require("../../../assets/logoWW.png");
+import Logo from "../../../assets/LogoWW.png";
 import { useAuth } from "../../contexts/auth";
 
 const HeaderPlanScreen = ({ navigation }) => {

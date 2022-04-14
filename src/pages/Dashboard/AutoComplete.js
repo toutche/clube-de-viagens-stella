@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import api from '../../services/api';
-import { BEHAVIOR } from '../../utils/consts';
+import { BEHAVIOR, IS_IOS } from '../../utils/consts';
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
 import { useFilter } from "../../contexts/filter";
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
@@ -58,6 +58,7 @@ export default ({ isVisible, onClose, id }) => {
                 <View style={styles.header}>
                     <View style={styles.container_input}>
                         <TextInput
+                            placeholderTextColor={"#ccc"}
                             placeholder={`Pesquise ${id === 'origin' ? 'sua Origem' : 'seu Destino'}`}
                             style={styles.input}
                             onChangeText={filterCity}
@@ -107,11 +108,11 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 8,
         paddingHorizontal: 12,
         marginVertical: 12
     },
     input: {
+        paddingVertical: IS_IOS ? 12 : 8,
         flex: 1,
         fontSize: 14.5,
         fontFamily: FONT_DEFAULT_STYLE,

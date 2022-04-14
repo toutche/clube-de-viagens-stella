@@ -1,21 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons";
 
 export default ({
     title,
     iconName,
     iconSize,
+    iconType = 'Material',
     marginLeft,
     style,
     color = PRIMARY_COLOR,
     onPress
 }) => {
+    const Icon = iconType === 'Material'
+        ? MaterialCommunityIcons
+        : iconType === 'SimpleLine'
+        && SimpleLineIcons
 
     return (
         <TouchableOpacity onPress={onPress} style={style}>
-            <MaterialCommunityIcons name={iconName} size={iconSize} color={color} />
+            <Icon name={iconName} size={iconSize} color={color} />
             <Text style={[styles.text, { marginLeft, color }]}>{title}</Text>
         </TouchableOpacity>
     )

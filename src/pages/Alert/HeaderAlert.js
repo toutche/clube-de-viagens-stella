@@ -4,7 +4,7 @@ import CustomIcon from "../../components/CustomIcon";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
-import Logo from "../../../assets/logoWW.png";
+import Logo from "../../../assets/LogoWW.png";
 const HeaderAlert = ({ navigation }) => {
   return (
     <View style={styles.container}>
