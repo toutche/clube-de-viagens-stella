@@ -1,16 +1,30 @@
-import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, Image, FlatList } from "react-native";
 import Hide from "../../components/Hide";
 import FavoriteIcon from "../../components/FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
+import Carousel from "../../components/Carousel";
+import api from "../../services/api"
 
 const HeaderDetailsContractedPackages = ({ item, navigation, shareOpen }) => {
+  
+  const [gallery, setGallery] = useState([])
+  
+  useEffect(() => {
+    (async () => {
+      await api.get(`/pacote-viagem/${item.id}/get`).then( res => {
+        setGallery(res.data.gallery)
+      })
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: item.img }} />
-
+      
+      <Carousel data={gallery} />
+      
       <CustomIcon
         onPress={() => navigation.goBack()}
         size={26}
@@ -33,6 +47,10 @@ const HeaderDetailsContractedPackages = ({ item, navigation, shareOpen }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   icon: {
     left: 5,
