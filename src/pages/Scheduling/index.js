@@ -25,7 +25,7 @@ const Scheduling = ({ navigation, route }) => {
         leftName={"arrowleft"}
         leftSize={26}
         handlerLeft={() => navigation.goBack()}
-        title={"Agendamento"}
+        title={"Resumo"}
       />
 
       <ScrollView bounces={false} style={styles.body}>
