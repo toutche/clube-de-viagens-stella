@@ -101,6 +101,7 @@ export const FilterProvider = ({ children }) => {
     }
 
     const clearFilterHotels = () => {
+        clearFilterOriginDestiny()
         setFilterCheck()
         setFilterPeople()
     }

@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Dashboard from "../pages/Dashboard";
 import DetailsPackages from "../pages/DetailsPackages";
+import DetailsHotels from "../pages/DetailsHotels";
 import DetailsContractedPackages from "../pages/DetailsContractedPackages";
 import NewsTravelers from "../pages/NewsTravelers";
 import Wallet from "../pages/Wallet";
@@ -33,6 +34,7 @@ const AuthRoutes = () => {
     <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={"Dashboard"}>
       <AuthStack.Screen name='Dashboard' component={Dashboard} />
       <AuthStack.Screen name='DetailsPackages' component={DetailsPackages} />
+      <AuthStack.Screen name='DetailsHotels' component={DetailsHotels} />
       <AuthStack.Screen name='DetailsContractedPackages' component={DetailsContractedPackages} />
       <AuthStack.Screen name='PlanScreen' component={PlanScreen} />
       <AuthStack.Screen name='NewsTravelers' component={NewsTravelers} />

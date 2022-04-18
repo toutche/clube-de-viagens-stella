@@ -8,8 +8,11 @@ import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variables";
 import Carousel from "../../components/Carousel";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
+export default ({ item, navigation, shareOpen, plan }) => {
+  const insets = useSafeAreaInsets()
+
   return (
     <View style={styles.container}>
       <Carousel data={item.gallery} />
@@ -19,16 +22,16 @@ const HeaderDetailsPackages = ({ item, navigation, shareOpen, plan }) => {
         size={26}
         type={AntDesign}
         name={"arrowleft"}
-        containerStyle={styles.icon}
+        containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
 
-      <Hide containerStyle={styles.hideIcon} item={item} />
+      <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />
 
-      <FavoriteIcon favorite={item.favorite} containerStyle={styles.favorite} />
+      <FavoriteIcon favorite={item.favorite} containerStyle={[styles.favorite, { top: insets.top + 70 }]} />
 
-      <ShareIcon shareOpen={shareOpen} containerStyle={styles.share} />
+      <ShareIcon shareOpen={shareOpen} containerStyle={[styles.share, { top: insets.top + 125 }]} />
 
-      <Image style={styles.responsible_tourism} source={{ uri: item.icon_responsible_tourism }} />
+      <Image style={[styles.responsible_tourism, { top: insets.top + 180 }]} source={{ uri: item.icon_responsible_tourism }} />
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>
@@ -203,7 +206,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     left: 5,
-    top: 30,
     padding: 10,
     position: "absolute",
   },
@@ -212,12 +214,10 @@ const styles = StyleSheet.create({
     width: 60,
     borderRadius: 100,
     right: 10,
-    top: 210,
     position: "absolute",
   },
   hideIcon: {
     position: "absolute",
-    top: 45,
     right: 15,
     backgroundColor: "rgba(232,188,13,.4)",
     height: 45,
@@ -232,7 +232,6 @@ const styles = StyleSheet.create({
     width: 45,
     borderRadius: 100,
     right: 15,
-    top: 100,
     position: "absolute",
     elevation: 5,
     backgroundColor: "white",
@@ -244,7 +243,6 @@ const styles = StyleSheet.create({
     width: 45,
     borderRadius: 100,
     right: 15,
-    top: 155,
     position: "absolute",
     elevation: 5,
     backgroundColor: "white",
@@ -258,4 +256,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HeaderDetailsPackages;
