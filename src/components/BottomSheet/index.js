@@ -130,14 +130,17 @@ export default ({ isVisible, onClose, id }) => {
                     id_check = 0
                     showDatePicker()
                 }}
-                style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                <TextInput
-                    editable={false}
-                    placeholder='Qual data do check-in?'
-                    placeholderTextColor={"#ccc"}
-                    value={form.checkIn}
-                    style={styles.input}
-                />
+                style={{
+                    width: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                <View style={styles.container_input_date}>
+                    <Text
+                        style={[styles.text_input_date, { color: form.checkIn ? '#333' : '#ccc' }]}>
+                        {form.checkIn || "Qual data do check-in?"}
+                    </Text>
+                </View>
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => {
@@ -145,13 +148,12 @@ export default ({ isVisible, onClose, id }) => {
                     showDatePicker()
                 }}
                 style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                <TextInput
-                    placeholder='Qual data do check-out?'
-                    placeholderTextColor={"#ccc"}
-                    editable={false}
-                    value={form.checkOut}
-                    style={styles.input}
-                />
+                <View style={styles.container_input_date}>
+                    <Text
+                        style={[styles.text_input_date, { color: form.checkOut ? '#333' : '#ccc' }]}>
+                        {form.checkOut || "Qual data do check-out?"}
+                    </Text>
+                </View>
             </TouchableOpacity>
         </>
     )
@@ -262,8 +264,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    container_input_date: {
+        borderWidth: 1,
+        borderRadius: 999,
+        borderColor: '#d1d1d1',
+        width: '90%',
+        paddingVertical: IS_IOS ? 8 : 4,
+        paddingHorizontal: 12,
+        marginBottom: 8,
+        includeFontPadding: false,
+    },
+    text_input_date: {
+        includeFontPadding: false,
+        fontSize: 14.5,
+        fontFamily: FONT_DEFAULT_STYLE,
+    },
     input: {
-        paddingVertical: IS_IOS ? 4 : 2,
         borderWidth: 1,
         borderRadius: 999,
         borderColor: '#d1d1d1',
