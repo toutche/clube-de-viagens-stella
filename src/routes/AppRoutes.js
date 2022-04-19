@@ -26,6 +26,7 @@ import Escorts from "../pages/Escorts";
 import DetailsEscort from "../pages/DetailsEscort";
 import NewEscort from "../pages/NewEscort";
 import Favorites from "../pages/Favorites";
+import MyAccount from "../pages/MyAccount";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -57,6 +58,8 @@ const AuthRoutes = () => {
       <AuthStack.Screen name='NewEscort' component={NewEscort} />
       <AuthStack.Screen name='DetailsEscort' component={DetailsEscort} />
       <AuthStack.Screen name='Favorites' component={Favorites} />
+      <AuthStack.Screen name='MyAccount' component={MyAccount} />
+
     </AuthStack.Navigator>
   );
 };

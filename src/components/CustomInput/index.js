@@ -21,9 +21,16 @@ const CustomInput = ({
   autoCapitalize = "none",
   previewPassword = null,
   setPreviewPassword,
+  rightIconLib = null,
+  rightIconName = null,
+  rightIconAction = null,
+  rightIconSize = null,
+  rightIconColor = null,
+  editable = true,
   ...rest
 }) => {
   const Icon = type || null;
+  const RightIconLib = rightIconLib || null;
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -45,13 +52,23 @@ const CustomInput = ({
         onChangeText={text => onChangeText(text)}
         multiline={multiline}
         autoCapitalize={autoCapitalize}
+        editable={editable}
       />
       {previewPassword !== null && Icon &&
         <TouchableOpacity onPress={() => setPreviewPassword(state => !state)} style={styles.button_eye}>
           <Icon
             name={previewPassword ? "eye" : "eye-slash"}
-            size={size || 24}
+            size={rightIconSize || 24}
             color={color || "white"}
+          />
+        </TouchableOpacity>
+      }
+      {RightIconLib !== null &&
+        <TouchableOpacity onPress={rightIconAction} style={styles.button_eye}>
+          <RightIconLib
+            name={rightIconName}
+            size={rightIconSize || 24}
+            color={rightIconColor || "white"}
           />
         </TouchableOpacity>
       }
