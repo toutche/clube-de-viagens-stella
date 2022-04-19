@@ -45,6 +45,7 @@ const GetLocation = ({ navigation }) => {
   const [isKeyboard, setIsKeyboard] = useState(false);
 
   const [address, setAddress] = useState("");
+  const [addressArr, setAddressArr] = useState([]);
   const [number, setNumber] = useState("");
 
   useEffect(() => {
@@ -91,10 +92,9 @@ const GetLocation = ({ navigation }) => {
   }
 
   const pressHander = (datas, details) => {
-    console.log(formatted_address(details.address_components))
-
     setPanel(1);
     setAddress(details.formatted_address);
+    setAddressArr(formatted_address(details.address_components))
     setNumber("");
     setIsKeyboard(false);
   };
@@ -134,6 +134,7 @@ const GetLocation = ({ navigation }) => {
           <Location
             isKeyboard={isKeyboard}
             address={address}
+            addressArr={addressArr}
             numberAddress={number}
             onChange={text => setAddress(text)}
             changePanel={index => setPanel(index)}
