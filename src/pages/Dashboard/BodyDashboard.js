@@ -103,7 +103,7 @@ const BodyDashboard = ({
         let qtd_people = String(filterPeople.adult)
         let qtd_children = String(filterPeople.children)
 
-        let url = `/hotel/get/all?per_page=5&page=${pageNumber}&city_code=${city_code}&start_date=${start_date}&end_date=${end_date}&qtd_people=${qtd_people}&qtd_children=${qtd_children}`
+        let url = `/hotel/get/all?per_page=5&page=${pageNumber}&order_price=${orderPrice}&city_code=${city_code}&start_date=${start_date}&end_date=${end_date}&qtd_people=${qtd_people}&qtd_children=${qtd_children}`
 
         const response = await api.post(url);
         const totalItems = response.data.pagination.total_registers;

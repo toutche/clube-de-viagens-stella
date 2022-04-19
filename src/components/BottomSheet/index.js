@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
         borderRadius: 999,
         borderColor: '#d1d1d1',
         width: '90%',
-        paddingVertical: IS_IOS ? 8 : 4,
+        paddingVertical: 8,
         paddingHorizontal: 12,
         marginBottom: 8,
         includeFontPadding: false,
