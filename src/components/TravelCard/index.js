@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variables";
+import { FontAwesome } from "@expo/vector-icons";
 
 const TravelCard = ({ display = 0, display_footer = 0, data }) => {
   return (
@@ -52,9 +53,9 @@ const TravelCard = ({ display = 0, display_footer = 0, data }) => {
       
       {display === 3 && (
         <View style={styles.detailsPackage}>
-          {data?.flight && <Text style={styles.infosPackage}>Aéreo: {data?.flight.going_origin_airport_iata} - {data?.flight.going_destiny_airport_iata} - {data?.flight.return_origin_airport_iata} - {data?.flight.return_destiny_airport_iata}</Text>}
-          {data?.hotel_name && <Text style={styles.infosPackage}>Hotel: {data?.hotel_name}</Text>}
-          {data?.service_description && <Text style={styles.infosPackage}>Serviço: {data?.service_description}</Text>}
+          {data?.flight && <Text style={styles.infosPackage}><FontAwesome name='plane' size={15} /> Aéreo </Text>}
+          {data?.hotel_name && <Text style={styles.infosPackage}><FontAwesome name='hotel' size={15} /> Hotel </Text>}
+          {data?.service_description && <Text style={styles.infosPackage}><FontAwesome name='bus' size={15} /> Serviço </Text>}
         </View>
       )}
     </View>
