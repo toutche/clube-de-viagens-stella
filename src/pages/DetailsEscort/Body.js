@@ -5,7 +5,6 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from '../../utils/variables';
 import CustomButton from '../../components/CustomButton';
 import api from '../../services/api';
-import moment from 'moment';
 import { maskDocument, maskDate } from "../../utils/masks";
 
 export default ({ route: { params: { i, k } }, navigation }) => {

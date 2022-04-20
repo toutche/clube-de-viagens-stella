@@ -13,7 +13,6 @@ import { useAuth } from "../../contexts/auth";
 import { useFilter } from "../../contexts/filter";
 import useDidMountEffect from "../../hooks/useDidMountEffect";
 import ButtonFilter from "./ButtonFilter";
-import moment from 'moment'
 
 const BodyDashboard = ({
   display = 0,
@@ -41,11 +40,10 @@ const BodyDashboard = ({
     orderPrice,
     segmentsIds,
   } = useFilter()
-
   const total = useRef(null);
   const page = useRef(1);
-  const feed = useRef([]);
 
+  const [feed, setFeed] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -54,12 +52,12 @@ const BodyDashboard = ({
   }, []);
 
   useDidMountEffect(() => {
-    feed.current = [];
+    setFeed([]);
     loadPage(1, true, true);
   }, [filterUpdate, orderPrice, display])
 
   const loadPage = async (pageNumber = page.current, shouldRefresh = false, update = false) => {
-    if (feed.current?.length === total.current && !update) return;
+    if (feed?.length === total.current && !update) return;
     if (loading) return;
 
     setLoading(true);
@@ -94,44 +92,33 @@ const BodyDashboard = ({
 
       total.current = totalItems;
       page.current = pageNumber + 1;
-      feed.current = shouldRefresh ? data || [] : [...feed.current, ...data];
+      setFeed(shouldRefresh ? data || [] : [...feed, ...data]);
+
     } else if (display === 1) {
+      if (filterDestiny?.key && filterCheck?.in && filterCheck?.out && filterPeople?.adult !== undefined && filterPeople?.children !== undefined) {
 
-      const default_start_date = moment(new Date()).format("YYYY-MM-DD")
-      const default_end_date = moment(new Date()).add(10, 'days').format("YYYY-MM-DD")
+        let city_code = String(filterDestiny.key)
+        let start_date = String(filterCheck.in).split('/').reverse().join('-')
+        let end_date = String(filterCheck.out).split('/').reverse().join('-')
+        let qtd_people = String(filterPeople.adult)
+        let qtd_children = String(filterPeople.children)
 
-      let city_code = '34797'
-      let start_date = `${default_start_date}`
-      let end_date = `${default_end_date}`
-      let qtd_people = '2'
-      let qtd_children = '2'
+        let url = `/hotel/get/all?per_page=5&page=${pageNumber}&order_price=${orderPrice}&city_code=${city_code}&start_date=${start_date}&end_date=${end_date}&qtd_people=${qtd_people}&qtd_children=${qtd_children}`
 
-      if (filterDestiny?.key && filterCheck?.in && filterCheck?.out && filterPeople?.adult && filterPeople?.children) {
-        console.log('enter')
-        city_code = String(filterDestiny.key)
-        start_date = String(filterCheck.in).split('/').reverse().join('-')
-        end_date = String(filterCheck.out).split('/').reverse().join('-')
-        qtd_people = String(filterPeople.adult)
-        qtd_children = String(filterPeople.children)
+        const response = await api.post(url);
+        const totalItems = response.data.pagination.total_registers;
+        const data = response.data.hotels;
+
+        total.current = totalItems;
+        page.current = pageNumber + 1;
+        setFeed(shouldRefresh ? data || [] : [...feed, ...data]);
       }
-
-      let url = `/hotel/get/all?per_page=5&page=${pageNumber}&city_code=${city_code}&start_date=${start_date}&end_date=${end_date}&qtd_people=${qtd_people}&qtd_children=${qtd_children}`
-      console.log(url)
-      const response = await api.post(url);
-
-      const totalItems = response.data.pagination.total_registers;
-      const data = response.data.hotels;
-
-      total.current = totalItems;
-      page.current = pageNumber + 1;
-      feed.current = shouldRefresh ? data || [] : [...feed.current, ...data];
     }
-
-    setTimeout(() => setLoading(false), 100);
+    setLoading(false)
   };
 
   const refreshList = async () => {
-    feed.current = [];
+    setFeed([]);
     setRefreshing(true);
 
     await loadPage(1, true, true);
@@ -260,7 +247,7 @@ const BodyDashboard = ({
   return (
     <View style={styles.container}>
       <FlatList
-        data={feed.current}
+        data={feed}
         ListHeaderComponent={display === 1 ? ListHeaderItemHotels : ListHeaderItemPackages}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={refreshList}
@@ -272,7 +259,7 @@ const BodyDashboard = ({
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) =>
-          ListItem({ item, index, display, navigation, shareOpen, plan })
+          <ListItem {...{ item, index, display, navigation, shareOpen, plan }} />
         }
       />
     </View>

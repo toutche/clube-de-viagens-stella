@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Modal, StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useFilter } from '../../contexts/filter';
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
 import { IS_IOS } from '../../utils/consts'
 import { maskDate, maskOnlyNumbers } from '../../utils/masks';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from 'moment'
 
 const initial_form = {
     days: '',
@@ -15,6 +17,8 @@ const initial_form = {
     adult: '',
     children: '',
 }
+
+let id_check = null
 
 export default ({ isVisible, onClose, id }) => {
     const {
@@ -39,6 +43,33 @@ export default ({ isVisible, onClose, id }) => {
         adult: filterPeople?.adult || '',
         children: filterPeople?.children || '',
     })
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true)
+    }
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false)
+    }
+
+    const handleConfirm = (date) => {
+        id_check === 0 ? setForm({ ...form, checkIn: moment(date).format("DD/MM/YYYY") }) : setForm({ ...form, checkOut: moment(date).format("DD/MM/YYYY") })
+        hideDatePicker()
+    }
+
+    const _renderDatePicker = useMemo(() => (
+        <DateTimePickerModal
+            date={new Date()}
+            cancelTextIOS='Cancelar'
+            confirmTextIOS='Confirmar'
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+        />
+    ), [isDatePickerVisible])
+
 
     const _renderDays = (
         <>
@@ -94,34 +125,36 @@ export default ({ isVisible, onClose, id }) => {
 
     const _renderCheck = (
         <>
-            <TextInput
-                placeholder='Qual data do check-in?'
-                placeholderTextColor={"#ccc"}
-                keyboardType={'numeric'}
-                maxLength={10}
-                onChangeText={text =>
-                    setForm({
-                        ...form,
-                        checkIn: maskDate(text)
-                    })
-                }
-                value={form.checkIn}
-                style={styles.input}
-            />
-            <TextInput
-                placeholder='Qual data do check-out?'
-                placeholderTextColor={"#ccc"}
-                keyboardType={'numeric'}
-                maxLength={10}
-                onChangeText={text =>
-                    setForm({
-                        ...form,
-                        checkOut: maskDate(text)
-                    })
-                }
-                value={form.checkOut}
-                style={styles.input}
-            />
+            <TouchableOpacity
+                onPress={() => {
+                    id_check = 0
+                    showDatePicker()
+                }}
+                style={{
+                    width: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                <View style={styles.container_input_date}>
+                    <Text
+                        style={[styles.text_input_date, { color: form.checkIn ? '#333' : '#ccc' }]}>
+                        {form.checkIn || "Qual data do check-in?"}
+                    </Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    id_check = 1
+                    showDatePicker()
+                }}
+                style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                <View style={styles.container_input_date}>
+                    <Text
+                        style={[styles.text_input_date, { color: form.checkOut ? '#333' : '#ccc' }]}>
+                        {form.checkOut || "Qual data do check-out?"}
+                    </Text>
+                </View>
+            </TouchableOpacity>
         </>
     )
 
@@ -198,16 +231,19 @@ export default ({ isVisible, onClose, id }) => {
             animationType='fade'
             onRequestClose={onClose}>
             <TouchableWithoutFeedback onPress={onClose}>
-                <KeyboardAvoidingView behavior='height' style={styles.container}>
-                    <TouchableWithoutFeedback onPress={() => { }}>
-                        <View style={styles.content}>
-                            {_renderBottomSheet()}
-                            <TouchableOpacity onPress={handlePress} style={styles.button_container}>
-                                <Text style={styles.button_text}>Salvar</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </TouchableWithoutFeedback>
-                </KeyboardAvoidingView>
+                <>
+                    {_renderDatePicker}
+                    <KeyboardAvoidingView behavior='height' style={styles.container}>
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={styles.content}>
+                                {_renderBottomSheet()}
+                                <TouchableOpacity onPress={handlePress} style={styles.button_container}>
+                                    <Text style={styles.button_text}>Salvar</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </KeyboardAvoidingView>
+                </>
             </TouchableWithoutFeedback>
         </Modal>
     )
@@ -228,8 +264,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    container_input_date: {
+        borderWidth: 1,
+        borderRadius: 999,
+        borderColor: '#d1d1d1',
+        width: '90%',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        marginBottom: 8,
+        includeFontPadding: false,
+    },
+    text_input_date: {
+        includeFontPadding: false,
+        fontSize: 14.5,
+        fontFamily: FONT_DEFAULT_STYLE,
+    },
     input: {
-        paddingVertical: IS_IOS ? 4 : 2,
         borderWidth: 1,
         borderRadius: 999,
         borderColor: '#d1d1d1',

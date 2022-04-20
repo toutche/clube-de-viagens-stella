@@ -4,7 +4,7 @@ import AlertCovid from "../../components/AlertCovid";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import Map from "./Map";
 
-const BodyDetailsPackages = ({ item }) => {
+export default ({ item }) => {
 
   return (
     <View style={styles.container}>
@@ -39,18 +39,18 @@ const BodyDetailsPackages = ({ item }) => {
               textAlign: "center",
             }}>
             {item.subname}
-          {item.number_days && <Text style={styles.pipe}>│ </Text>}
-          {item.number_days && (
-            <Text
-              style={{
-                fontFamily: FONT_DEFAULT_STYLE,
-                color: "#777",
-                fontSize: 16,
-                textAlign: "center",
-              }}>
-              {item.number_days}
-            </Text>
-          )}
+            {item.number_days && <Text style={styles.pipe}>│ </Text>}
+            {item.number_days && (
+              <Text
+                style={{
+                  fontFamily: FONT_DEFAULT_STYLE,
+                  color: "#777",
+                  fontSize: 16,
+                  textAlign: "center",
+                }}>
+                {item.number_days}
+              </Text>
+            )}
           </Text>
         </View>
 
@@ -174,7 +174,6 @@ const BodyDetailsPackages = ({ item }) => {
                 backgroundColor: "#d1d1d1",
                 marginHorizontal: n !== 0 ? 15 : 20,
                 marginTop: 15,
-                marginBottom: n !== 0 ? 15 : 0,
               }}
             />
           </View>
@@ -216,7 +215,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
     fontSize: 15.5,
-    marginBottom:15
+    marginBottom: 15
   },
   subTitle: {
     fontFamily: FONT_DEFAULT_STYLE,
@@ -230,5 +229,3 @@ const styles = StyleSheet.create({
     color: "#777",
   },
 });
-
-export default BodyDetailsPackages;

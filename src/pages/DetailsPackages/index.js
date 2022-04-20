@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Image, ActivityIndicator, View } from "react-native";
+import { ScrollView, StyleSheet, ActivityIndicator, View } from "react-native";
 import ShareModal from "../../components/ShareModal";
 import { useAuth } from "../../contexts/auth";
 import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
-import BodyDetailsPackages from "./BodyDetailsPackages";
-import HeaderDetailsPackages from "./HeaderDetailsPackages";
+import Body from "./Body";
+import Header from "./Header";
 import axios from "axios";
 import { consts } from "../../utils/consts";
 
-const DetailsPackages = ({ route, navigation }) => {
+export default ({ route, navigation }) => {
   const { user } = useAuth();
   const { id } = route.params;
 
@@ -26,7 +26,6 @@ const DetailsPackages = ({ route, navigation }) => {
     };
 
     if (hotel && hotel.latitude && hotel.longitude) {
-      console.log('hotel');
       region = {
         ...region,
         "latitude": parseFloat(hotel.latitude),
@@ -34,19 +33,16 @@ const DetailsPackages = ({ route, navigation }) => {
       };
     }
     else {
-      axios.get(
-        `https://maps.google.com/maps/api/geocode/json?address=${address}&key=${consts.google_key}`
-      )
-      .then(res => {
-        console.log('api maps');
-        let loc = res.data.results[0].geometry.location;
-        region = {
-          ...region,
-          "latitude": parseFloat(loc.lat),
-          "longitude": parseFloat(loc.lng)
-        };
-      })
-      .catch(err => console.log(err));
+      axios.get(`https://maps.google.com/maps/api/geocode/json?address=${address}&key=${consts.google_key}`)
+        .then(res => {
+          let loc = res.data.results[0].geometry.location;
+          region = {
+            ...region,
+            "latitude": parseFloat(loc.lat),
+            "longitude": parseFloat(loc.lng)
+          };
+        })
+        .catch(err => console.log(err));
     }
 
     data = {
@@ -54,20 +50,15 @@ const DetailsPackages = ({ route, navigation }) => {
       region
     };
 
-    console.log(region);
     return data;
   }
 
   useEffect(() => {
-    api
-      .get(`/pacote-viagem/${id}/get`)
-      .then(({ data }) => {
-        setTimeout(() => {
-          data = getLatLog(data);
-          setItem(data);
-        }, 100);
-      })
-      .catch(e => console.log(e));
+    api.get(`/pacote-viagem/${id}/get`).then(({ data }) => {
+      setTimeout(() => {
+        setItem(getLatLog(data));
+      }, 100);
+    }).catch(e => console.log(e));
   }, []);
 
   if (item.length === 0)
@@ -80,13 +71,13 @@ const DetailsPackages = ({ route, navigation }) => {
   return (
     <ScrollView bounces={false} style={styles.container}>
       <ShareModal onClose={() => setVisible(!isVisible)} isVisible={isVisible} />
-      <HeaderDetailsPackages
+      <Header
         shareOpen={() => setVisible(!isVisible)}
         navigation={navigation}
         item={item}
         plan={user.plan}
       />
-      <BodyDetailsPackages item={item} />
+      <Body item={item} />
     </ScrollView>
   );
 };
@@ -102,4 +93,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsPackages;

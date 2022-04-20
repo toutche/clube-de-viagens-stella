@@ -55,7 +55,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
         <ProfileAvatar isShow />
       </View>
 
-      <SlidesDashboard filter={filter} data={data} />
+      <SlidesDashboard {...{ filter, data, option }} />
 
       <Text style={styles.title}>
         {option === 0 ? "Conquiste as suas férias dos sonhos" : "Hospedagens em locais incríveis"}
