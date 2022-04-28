@@ -98,17 +98,12 @@ const BodyMyAccount = ({ item }) => {
     });
   };
 
-  const changeAddress = (body) => {
-    setIsVisible(false);
-    Alert.alert("Endereço alterada", "Seu endereço foi atualizado com sucesso.");
-    verifyUser();
-  };
-
   const updateCreditCard = (body) => {
+    console.log(body);
     api.post("/cartao/criar", body)
     .then(res => {
       console.log(res.status, res.data);
-      if (res.status == 200) {
+      if (res.status == 200 && res.data.message == "Cartão Cadastrado") {
         setIsVisible(false);
         Alert.alert("Cartão alterado", "Seu cartão foi atualizado com sucesso.");
         verifyUser();
@@ -123,7 +118,7 @@ const BodyMyAccount = ({ item }) => {
     });
   };
 
-  const updateUser = () => {
+  const updateUser = (addressBody) => {
     setLoading(true);
 
     let [first_name, ...last_name] = name.split(" ");
@@ -132,13 +127,15 @@ const BodyMyAccount = ({ item }) => {
     const body = {
       name: first_name,
       last_name: last_name,
-      phone_number: phoneNumber.replaceAll('.', '').replace('-', '')
+      phone_number: phoneNumber.replaceAll('.', '').replace('-', ''),
+      addressBody
     };
 
     api.put("/usuario/atualizar", body)
     .then(res => {
       console.log(res.status, res.data);
       if (res.status == 200 && res.data.message == "Usuario Atualizado") {
+        setIsVisible(false);
         Alert.alert("Usuário atualizado", "Suas informações foram atualizadas com sucesso.");
         verifyUser();
       }
@@ -268,7 +265,7 @@ const BodyMyAccount = ({ item }) => {
           <Text style={styles.boldGreyText}>Endereço</Text>
           <Text 
             style={styles.boldPrimaryText} 
-            onPress={() => openModal("Alterar endereço", "Salvar", changeAddress)}>Editar</Text>
+            onPress={() => openModal("Alterar endereço", "Salvar", updateUser)}>Editar</Text>
         </View>
 
         <View style={styles.cardBody}>
