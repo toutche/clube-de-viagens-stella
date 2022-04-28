@@ -204,8 +204,8 @@ const BodyDashboard = ({
             openAutoComplete()
           }
         }} />
-        <View style={styles.twoButtons}>
-          <ButtonFilter {...{
+        {/*<View style={styles.twoButtons}>*/}
+          {/*<ButtonFilter {...{
             title: filterDays || "Quantos dias?",
             iconName: "calendar-month",
             iconSize: 22,
@@ -215,7 +215,7 @@ const BodyDashboard = ({
               filterId.current = 'days'
               openBottomSheet()
             }
-          }} />
+          }} />*/}
           <ButtonFilter {...{
             title: filterMouth && filterYear ? `${filterMouth}/${filterYear}` : "Qual mês/ano?",
             iconName: "calendar-month",
@@ -227,7 +227,7 @@ const BodyDashboard = ({
               openBottomSheet()
             }
           }} />
-        </View>
+        {/*</View>*/}
         <ButtonFilter {...{
           title: "Filtrar",
           iconName: "filter-outline",
@@ -308,10 +308,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 100,
-    width: "48%",
+    width: "100%",
     height: 40,
     justifyContent: "center",
     backgroundColor: "white",
+    marginBottom: 12
   },
   button: {
     flexDirection: "row",
