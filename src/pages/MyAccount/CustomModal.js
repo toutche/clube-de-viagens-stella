@@ -16,7 +16,6 @@ const CustomModal = ({
   }) => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [height, setHeight] = useState(80);
 
   const [password, setPassword] = useState({
     password: "",
@@ -49,12 +48,6 @@ const CustomModal = ({
     complement: user.complement
   });
 
-  useEffect(() => {
-    title === "Alterar cartão" || title === "Alterar endereço"
-    ? setHeight(300)
-    : setHeight(20);
-  });
-
 	const Icon = icon.lib;
 
   const onCreditCardChange = ({ values }) => {
@@ -69,7 +62,7 @@ const CustomModal = ({
   };
 
   const passwordInputs = () => 
-    <View style={{flex: 1, marginHorizontal: 16}}>
+    <View style={{marginHorizontal: 16}}>
       <CustomInput
         placeholder='Senha atual'
         inputStyle={styles.inputStyle}
@@ -117,7 +110,7 @@ const CustomModal = ({
     </View>
 
 const emailInputs = () => 
-  <View style={{flex: 1, marginHorizontal: 16}}>
+  <View style={{marginHorizontal: 16}}>
     <CustomInput
       placeholder='Novo e-mail'
       inputStyle={styles.inputStyle}
@@ -165,7 +158,7 @@ const emailInputs = () =>
   </View>
 
 const creditCardAdvisory = () =>
-  <View style={{flex: 1}}>
+  <View>
     <Text 
       style={[styles.modalTitle, {marginBottom: 16, color: PRIMARY_COLOR, marginHorizontal: 16}]}
     >
@@ -175,14 +168,14 @@ const creditCardAdvisory = () =>
   </View>
 
 const addressInputs = () => 
-  <View style={{flex: 1, marginHorizontal: 16}}>
+  <View style={{marginHorizontal: 16}}>
     <CustomInput
       placeholder='CEP'
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
-      keyboardType={"number-pad"}
-      lenght={8}
+      keyboardType={"numeric"}
+      lenght={9}
       value={address.zipCode}
       onChangeText={text =>
         setAddress({
@@ -197,6 +190,7 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+      autoCapitalize={"sentences"}
       value={address.state}
       onChangeText={text =>
         setAddress({
@@ -211,6 +205,7 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+      autoCapitalize={"sentences"}
       value={address.city}
       onChangeText={text =>
         setAddress({
@@ -225,6 +220,7 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+      autoCapitalize={"sentences"}
       value={address.address}
       onChangeText={text =>
         setAddress({
@@ -239,6 +235,7 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+      autoCapitalize={"sentences"}
       value={address.neighborhood}
       onChangeText={text =>
         setAddress({
@@ -253,6 +250,7 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+      autoCapitalize={"sentences"}
       value={address.complement}
       onChangeText={text =>
         setAddress({
@@ -267,6 +265,7 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+      keyboardType={'numeric'}
       value={address.number}
       onChangeText={text =>
         setAddress({
@@ -314,14 +313,16 @@ const addressInputs = () =>
 
       <View style={styles.container} />
 
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"}>
         <ScrollView 
           style={{
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
             backgroundColor: "#fff",
-            height: height,
-            overflow: "hidden"
+            overflow: "hidden",
+          }}
+          contentContainerStyle={{
+            flexGrow: 1,
           }}
         >
           <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 10, borderColor: "#f5f5f5", borderBottomWidth: 2}}>
