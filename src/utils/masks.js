@@ -28,3 +28,9 @@ export const maskDate = text => {
 export const maskOnlyNumbers = text => {
     return text.replace(/\D/g, "");
 };
+
+export const maskZipCode = text => {
+    let mask = text.replace(/\D/g, "")
+    mask = mask.replace(/^(\d{5})(\d{3})/g, "$1-$2")
+    return mask
+};
