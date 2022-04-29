@@ -34,9 +34,9 @@ import { AntDesign } from "@expo/vector-icons";
 import { consts } from "../../../utils/consts";
 import CustomIcon from "../../../components/CustomIcon";
 import { logout } from "../../../services/auth";
-const titlePage = "Poxa, não achamos o seu endereço :(";
-const subtitlePage = "Você pode nos ajudar e indicar o seu endereço?.";
-const text = "Sabendo um pouco mais de você, poderemos conectar você com a sua próxima viagem!";
+const titlePage = "Você pode nos ajudar e indicar o seu endereço?.";
+const subtitlePage = "Sabendo um pouco mais de você, poderemos conectar você com a sua próxima viagem!";
+const text = "";
 
 const GetLocation = ({ navigation }) => {
   const googleRef = useRef();
@@ -144,7 +144,7 @@ const GetLocation = ({ navigation }) => {
           :
           <GooglePlacesAutocomplete
             ref={googleRef}
-            placeholder='Digite o seu endereço'
+            placeholder='Digite o seu Endereço ou CEP'
             enablePoweredByContainer={false}
             minLength={1}
             returnKeyType='search'
