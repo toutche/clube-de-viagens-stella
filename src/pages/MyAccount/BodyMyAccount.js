@@ -98,26 +98,12 @@ const BodyMyAccount = ({ item }) => {
     });
   };
 
-<<<<<<< HEAD
   const updateCreditCard = (body) => {
     console.log(body);
     api.post("/cartao/criar", body)
     .then(res => {
       console.log(res.status, res.data);
       if (res.status == 200 && res.data.message == "Cartão Cadastrado") {
-=======
-  const changeAddress = (body) => {
-    setIsVisible(false);
-    Alert.alert("Endereço alterada", "Seu endereço foi atualizado com sucesso.");
-    verifyUser();
-  };
-
-  const updateCreditCard = (body) => {
-    api.post("/cartao/criar", body)
-    .then(res => {
-      console.log(res.status, res.data);
-      if (res.status == 200) {
->>>>>>> e313038... Adiciona tela de perfil
         setIsVisible(false);
         Alert.alert("Cartão alterado", "Seu cartão foi atualizado com sucesso.");
         verifyUser();
@@ -132,11 +118,7 @@ const BodyMyAccount = ({ item }) => {
     });
   };
 
-<<<<<<< HEAD
   const updateUser = (addressBody) => {
-=======
-  const updateUser = () => {
->>>>>>> e313038... Adiciona tela de perfil
     setLoading(true);
 
     let [first_name, ...last_name] = name.split(" ");
@@ -145,22 +127,15 @@ const BodyMyAccount = ({ item }) => {
     const body = {
       name: first_name,
       last_name: last_name,
-<<<<<<< HEAD
       phone_number: phoneNumber.replaceAll('.', '').replace('-', ''),
       addressBody
-=======
-      phone_number: phoneNumber.replaceAll('.', '').replace('-', '')
->>>>>>> e313038... Adiciona tela de perfil
     };
 
     api.put("/usuario/atualizar", body)
     .then(res => {
       console.log(res.status, res.data);
       if (res.status == 200 && res.data.message == "Usuario Atualizado") {
-<<<<<<< HEAD
         setIsVisible(false);
-=======
->>>>>>> e313038... Adiciona tela de perfil
         Alert.alert("Usuário atualizado", "Suas informações foram atualizadas com sucesso.");
         verifyUser();
       }
@@ -290,11 +265,7 @@ const BodyMyAccount = ({ item }) => {
           <Text style={styles.boldGreyText}>Endereço</Text>
           <Text 
             style={styles.boldPrimaryText} 
-<<<<<<< HEAD
             onPress={() => openModal("Alterar endereço", "Salvar", updateUser)}>Editar</Text>
-=======
-            onPress={() => openModal("Alterar endereço", "Salvar", changeAddress)}>Editar</Text>
->>>>>>> e313038... Adiciona tela de perfil
         </View>
 
         <View style={styles.cardBody}>
