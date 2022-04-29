@@ -118,17 +118,35 @@ const BodyMyAccount = ({ item }) => {
     });
   };
 
-  const updateUser = (addressBody) => {
+  const changeAddress = (body) => {
+    api.put("/usuario/atualizar", body)
+    .then(res => {
+      console.log(res.status, res.data);
+      if (res.status == 200 && res.data.message == "Usuario Atualizado") {
+        setIsVisible(false);
+        Alert.alert("Endereço alterado", "Seu endereço foi atualizado com sucesso.");
+        verifyUser();
+      }
+      else {
+        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+    });
+  };
+
+  const updateUser = () => {
     setLoading(true);
 
     let [first_name, ...last_name] = name.split(" ");
     last_name = last_name.join(" ") || first_name;
 
-    const body = {
+    let body  = {
       name: first_name,
       last_name: last_name,
-      phone_number: phoneNumber.replaceAll('.', '').replace('-', ''),
-      addressBody
+      phone_number: phoneNumber.replaceAll('.', '').replace('-', '')
     };
 
     api.put("/usuario/atualizar", body)
@@ -265,7 +283,7 @@ const BodyMyAccount = ({ item }) => {
           <Text style={styles.boldGreyText}>Endereço</Text>
           <Text 
             style={styles.boldPrimaryText} 
-            onPress={() => openModal("Alterar endereço", "Salvar", updateUser)}>Editar</Text>
+            onPress={() => openModal("Alterar endereço", "Salvar", changeAddress)}>Editar</Text>
         </View>
 
         <View style={styles.cardBody}>
