@@ -33,7 +33,7 @@ export default ({ route, navigation }) => {
       };
     }
     else {
-      axios.get(`https://maps.google.com/maps/api/geocode/json?address=${address}&key=${consts.google_key}`)
+      axios.get(`https://maps.google.com/maps/api/geocode/json?address=${data.address}&key=${consts.google_key}`)
         .then(res => {
           let loc = res.data.results[0].geometry.location;
           region = {

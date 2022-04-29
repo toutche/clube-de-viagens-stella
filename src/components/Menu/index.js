@@ -37,7 +37,7 @@ const Menu = ({ isVisible = true, onClose }) => {
               }
             />
             <RenderItem
-              id={"Dashboar"}
+              id={"MyAccount"}
               text={"Minha Conta"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/minha-conta-red.png"}
