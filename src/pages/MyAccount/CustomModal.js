@@ -16,6 +16,10 @@ const CustomModal = ({
   }) => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
+=======
+  const [height, setHeight] = useState(80);
+>>>>>>> e313038... Adiciona tela de perfil
 
   const [password, setPassword] = useState({
     password: "",
@@ -48,6 +52,15 @@ const CustomModal = ({
     complement: user.complement
   });
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    title === "Alterar cartão" || title === "Alterar endereço"
+    ? setHeight(300)
+    : setHeight(20);
+  });
+
+>>>>>>> e313038... Adiciona tela de perfil
 	const Icon = icon.lib;
 
   const onCreditCardChange = ({ values }) => {
@@ -62,7 +75,11 @@ const CustomModal = ({
   };
 
   const passwordInputs = () => 
+<<<<<<< HEAD
     <View style={{marginHorizontal: 16}}>
+=======
+    <View style={{flex: 1, marginHorizontal: 16}}>
+>>>>>>> e313038... Adiciona tela de perfil
       <CustomInput
         placeholder='Senha atual'
         inputStyle={styles.inputStyle}
@@ -110,7 +127,11 @@ const CustomModal = ({
     </View>
 
 const emailInputs = () => 
+<<<<<<< HEAD
   <View style={{marginHorizontal: 16}}>
+=======
+  <View style={{flex: 1, marginHorizontal: 16}}>
+>>>>>>> e313038... Adiciona tela de perfil
     <CustomInput
       placeholder='Novo e-mail'
       inputStyle={styles.inputStyle}
@@ -158,7 +179,11 @@ const emailInputs = () =>
   </View>
 
 const creditCardAdvisory = () =>
+<<<<<<< HEAD
   <View>
+=======
+  <View style={{flex: 1}}>
+>>>>>>> e313038... Adiciona tela de perfil
     <Text 
       style={[styles.modalTitle, {marginBottom: 16, color: PRIMARY_COLOR, marginHorizontal: 16}]}
     >
@@ -168,14 +193,23 @@ const creditCardAdvisory = () =>
   </View>
 
 const addressInputs = () => 
+<<<<<<< HEAD
   <View style={{marginHorizontal: 16}}>
+=======
+  <View style={{flex: 1, marginHorizontal: 16}}>
+>>>>>>> e313038... Adiciona tela de perfil
     <CustomInput
       placeholder='CEP'
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+<<<<<<< HEAD
       keyboardType={"numeric"}
       lenght={9}
+=======
+      keyboardType={"number-pad"}
+      lenght={8}
+>>>>>>> e313038... Adiciona tela de perfil
       value={address.zipCode}
       onChangeText={text =>
         setAddress({
@@ -190,7 +224,10 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+<<<<<<< HEAD
       autoCapitalize={"sentences"}
+=======
+>>>>>>> e313038... Adiciona tela de perfil
       value={address.state}
       onChangeText={text =>
         setAddress({
@@ -205,7 +242,10 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+<<<<<<< HEAD
       autoCapitalize={"sentences"}
+=======
+>>>>>>> e313038... Adiciona tela de perfil
       value={address.city}
       onChangeText={text =>
         setAddress({
@@ -220,7 +260,10 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+<<<<<<< HEAD
       autoCapitalize={"sentences"}
+=======
+>>>>>>> e313038... Adiciona tela de perfil
       value={address.address}
       onChangeText={text =>
         setAddress({
@@ -235,7 +278,10 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+<<<<<<< HEAD
       autoCapitalize={"sentences"}
+=======
+>>>>>>> e313038... Adiciona tela de perfil
       value={address.neighborhood}
       onChangeText={text =>
         setAddress({
@@ -250,7 +296,10 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+<<<<<<< HEAD
       autoCapitalize={"sentences"}
+=======
+>>>>>>> e313038... Adiciona tela de perfil
       value={address.complement}
       onChangeText={text =>
         setAddress({
@@ -265,7 +314,10 @@ const addressInputs = () =>
       inputStyle={styles.inputStyle}
       containerStyle={styles.inputContainer}
       placeholderTextColor={"#000"}
+<<<<<<< HEAD
       keyboardType={'numeric'}
+=======
+>>>>>>> e313038... Adiciona tela de perfil
       value={address.number}
       onChangeText={text =>
         setAddress({
@@ -313,16 +365,25 @@ const addressInputs = () =>
 
       <View style={styles.container} />
 
+<<<<<<< HEAD
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"}>
+=======
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
+>>>>>>> e313038... Adiciona tela de perfil
         <ScrollView 
           style={{
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
             backgroundColor: "#fff",
+<<<<<<< HEAD
             overflow: "hidden",
           }}
           contentContainerStyle={{
             flexGrow: 1,
+=======
+            height: height,
+            overflow: "hidden"
+>>>>>>> e313038... Adiciona tela de perfil
           }}
         >
           <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 10, borderColor: "#f5f5f5", borderBottomWidth: 2}}>
