@@ -5,7 +5,9 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
+  Image
 } from "react-native";
+import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
@@ -262,6 +264,12 @@ const BodyDashboard = ({
           <ListItem {...{ item, index, display, navigation, shareOpen, plan }} />
         }
       />
+      {
+        display === 1 ?
+        <Banner />
+        : 
+        <></>
+      }
     </View>
   );
 };
