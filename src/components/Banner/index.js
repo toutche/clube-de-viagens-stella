@@ -3,11 +3,14 @@ import { View, Image, Dimensions, StyleSheet } from "react-native";
 const height = Dimensions.get("window").height; 
 const width = Dimensions.get("window").width; 
 
-const Banner = () => {
+const Banner = ({display}) => {
     return (
+        display ? 
         <View>
-            <Image source={{ uri: "https://placeimg.com/640/480/tech/grayscale" }} style={styles.img} />
-        </View>)
+            <Image source={{ uri: "https://via.placeholder.com/150" }} style={styles.img} />
+        </View> :
+        <></>
+    )
 }
 const styles = StyleSheet.create({
     img: {

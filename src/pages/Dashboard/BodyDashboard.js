@@ -265,10 +265,7 @@ const BodyDashboard = ({
         }
       />
       {
-        display === 1 ?
-        <Banner />
-        : 
-        <></>
+        display === 1 ? <Banner display={true} /> : <></>
       }
     </View>
   );
