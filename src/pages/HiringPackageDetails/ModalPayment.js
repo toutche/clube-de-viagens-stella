@@ -24,6 +24,7 @@ const ModalPayment = ({
   travelers,
   package_id,
 }) => {
+  
   const { user } = useAuth();
   const [check, setCheck] = useState(false);
   const [loading, setLoading] = useState(false);
