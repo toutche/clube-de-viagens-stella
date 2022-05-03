@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Modal, Platform, TouchableWithoutFeedback } from "react-native";
 import { MaterialIcons, AntDesign, Entypo } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
@@ -24,10 +24,74 @@ const ModalPayment = ({
   travelers,
   package_id,
 }) => {
+
   const { user } = useAuth();
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState(true);
   const [loading, setLoading] = useState(false);
   const [isVisiblePicker, setVisiblePicker] = useState(false);
+  const [isCardVisible, setIsCardVisible] = useState(data?.payment_infos?.view_card);
+  const [installments, setInstallments] = useState(data?.payment_infos?.installments);
+  const [btnPrice, setBtnPrice] = useState(data?.payment_infos?.btn_payment?.price);
+  // const [data, setData] = useState();
+
+  const parse = (number) => {
+    try {
+      if(isNaN(number)) {
+        number = number.replace(".", "");
+        number = number.replace(",", ".");
+        number = parseFloat(number);
+        return number;
+      } else {
+        throw number + " is " + typeof number;
+      }
+    } catch(e) {
+      return e;
+    }
+  };
+
+  const format = (number) => {
+    try {
+      if(isNaN(number)) throw number + " is " + typeof number;
+      number = new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(number); 
+      return number;
+    } catch(e) {
+      return e;
+    }
+  }
+
+  const usePlanCredit = async () => {
+    try { 
+
+      setCheck(!check); 
+      
+      if(!check) {
+        // pagamento com saldo
+        await api
+          .get(`/pacote-viagem/${package_id}/Y/get/agendamento/pagamento`)
+          .then( ({ data }) => { 
+            setInstallments(data?.payment_infos?.installments);
+            setBtnPrice(data?.payment_infos?.btn_payment?.price);
+            setIsCardVisible(data?.payment_infos?.view_card);
+           })
+          .catch((e) => { console.error(e) });
+
+      } else {
+        // pagamento sem saldo
+        await api
+          .get(`/pacote-viagem/${package_id}/N/get/agendamento/pagamento`)
+          .then(({ data }) => {
+            setIsCardVisible(data?.payment_infos?.view_card);
+            setInstallments(data?.payment_infos?.installments);
+            setBtnPrice(data?.payment_infos?.btn_payment?.price);
+          })
+          .catch(e => console.error(e))
+
+      }
+
+    } catch(e) {
+      console.error(e);
+    }
+  };
 
   const openPicker = () => {
     setVisiblePicker(true);
@@ -49,7 +113,6 @@ const ModalPayment = ({
         comments: "",
       })
       .then(res => {
-        console.log(res.data)
         onClose();
         navigation.replace("CongratulationPackage", { ...res.data });
       })
@@ -67,7 +130,7 @@ const ModalPayment = ({
         <View style={styles.container}>
           <CustomPicker
             {...{
-              dataPicker: data?.payment_infos?.installments,
+              dataPicker: installments,
               isVisiblePicker,
               closePicker,
               setIndex,
@@ -86,7 +149,7 @@ const ModalPayment = ({
               </View>
 
               <CheckBox
-                onPress={() => setCheck(!check)}
+                onPress={() => { usePlanCredit() }}
                 checked={check}
                 title={"Usar saldo do plano"}
                 textStyle={{
@@ -105,6 +168,8 @@ const ModalPayment = ({
                 }
               />
 
+              {
+              isCardVisible ? 
               <View style={styles.body}>
                 <Text style={styles.title}>Cartão salvo</Text>
                 <View style={styles.payment_infos}>
@@ -130,17 +195,19 @@ const ModalPayment = ({
                   color={"#444"}
                   containerStyle={styles.selectButton}
                   titleStyle={styles.textSelectButton}
-                  title={`${data?.payment_infos?.installments[index - 1].number}x de`}
-                  boldText={`${data?.payment_infos?.installments[index - 1].price}`}
-                />
+                  title={`${installments[index - 1].number}x de`}
+                  boldText={`${installments[index - 1].price}`}
+                /> 
               </View>
+              : <></>
+              }
               <CustomButton
                 loadingApiColor={"white"}
                 loadingApi={loading}
                 onPress={payment}
                 containerStyle={styles.button}
                 titleStyle={styles.textButton}
-                title={`${data?.payment_infos?.btn_payment.text} | ${data?.payment_infos?.btn_payment.price}`}
+                title={`${data?.payment_infos?.btn_payment.text} | ${btnPrice}`}
               />
             </View>
           </TouchableWithoutFeedback>

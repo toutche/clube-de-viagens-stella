@@ -49,12 +49,12 @@ const GetLocation = ({
 
         updateUser(
           {
-            address,
-            cep,
+            address: street,
+            zip_code: cep,
             street,
             neighborhood,
             city,
-            region,
+            state: region,
             country,
             number,
             complement,
@@ -67,11 +67,7 @@ const GetLocation = ({
     }
   }
 
-  const editHandler = () => {
-    // const addressArr = address.split(/-|,/);
-    setEditButtonText( edit ? "Editar" : "Descartar" )
-    setEdit( edit => !edit );
-    
+  useEffect(() => {
     (async () => {
       try {
         addressArr.forEach(address => {
@@ -95,6 +91,7 @@ const GetLocation = ({
           throw e
         })
       } catch(e) {
+        console.log(e)
         if(e.message === "no cep") {
           if(addressArr[0].match(/^\d+$/)) {
             setNumber(addressArr[0])
@@ -115,11 +112,20 @@ const GetLocation = ({
         }
       }
     })()
+  }, [addressArr]);
+
+  const editHandler = () => {
+    // const addressArr = address.split(/-|,/);
+    setEditButtonText( edit ? "Editar" : "Descartar" )
+    setEdit( edit => !edit );
+    
+    
   }
 
   return (
     <View style={styles.container}>
       <ScrollView
+       contentContainerStyle={{ paddingBottom: 20, paddingTop: 10 }}
         style={[
           styles.content,
           {
@@ -128,18 +134,9 @@ const GetLocation = ({
         ]}>
         <View style={styles.containerTitle}>
           <Text style={styles.title}>Endereço</Text>
-          <TouchableOpacity
-            onPress={() => {
-              changePanel(1);
-              onChangeKeyboard(false);
-              editHandler();
-            }}
-            style={styles.buttonEdit}>
-            <Text style={styles.edit}>{editButtonText}</Text>
-          </TouchableOpacity>
         </View>
         {
-          edit ? 
+          
           <View >
             <Text style={styles.text}>Rua</Text>
             <TextInput 
@@ -173,8 +170,6 @@ const GetLocation = ({
             />
           </View>
           
-          : 
-          <Text style={styles.subtitle}>{address}</Text>
         }    
 
         <Text style={styles.text}>Número</Text>
@@ -220,7 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     elevation: 5,
     paddingHorizontal: 15,
-    paddingVertical: 20,
+    // paddingVertical: 0,
     borderRadius: 10,
     maxHeight: 280
   },
