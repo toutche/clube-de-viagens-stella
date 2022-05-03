@@ -5,10 +5,7 @@ import CustomButton from "../../components/CustomButton";
 import { CreditCardInput } from '../../components/CreditInput';
 import CustomInput from "../../components/CustomInput";
 import { useAuth } from "../../contexts/auth";
-<<<<<<< HEAD
 import { maskZipCode } from "../../utils/masks";
-=======
->>>>>>> b6a8e4b2ad0d334e297b5cee26615ad43a78287b
 
 const CustomModal = ({ 
   isVisible, 
@@ -43,11 +40,7 @@ const CustomModal = ({
   });
 
   const [address, setAddress] = useState({
-<<<<<<< HEAD
     zip_code: user.zip_code,
-=======
-    zipCode: user.zip_code,
->>>>>>> b6a8e4b2ad0d334e297b5cee26615ad43a78287b
     state: user.state,
     city: user.city,
     address: user.address, 
@@ -184,19 +177,11 @@ const addressInputs = () =>
       placeholderTextColor={"#000"}
       keyboardType={"numeric"}
       lenght={9}
-<<<<<<< HEAD
       value={address.zip_code}
       onChangeText={text =>
         setAddress({
           ...address,
           zip_code: maskZipCode(text),
-=======
-      value={address.zipCode}
-      onChangeText={text =>
-        setAddress({
-          ...address,
-          zipCode: text,
->>>>>>> b6a8e4b2ad0d334e297b5cee26615ad43a78287b
         })
       }
     />

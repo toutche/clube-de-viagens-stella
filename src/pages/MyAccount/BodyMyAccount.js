@@ -118,7 +118,6 @@ const BodyMyAccount = ({ item }) => {
     });
   };
 
-<<<<<<< HEAD
   const changeAddress = (body) => {
     api.put("/usuario/atualizar", body)
     .then(res => {
@@ -139,26 +138,15 @@ const BodyMyAccount = ({ item }) => {
   };
 
   const updateUser = () => {
-=======
-  const updateUser = (addressBody) => {
->>>>>>> b6a8e4b2ad0d334e297b5cee26615ad43a78287b
     setLoading(true);
 
     let [first_name, ...last_name] = name.split(" ");
     last_name = last_name.join(" ") || first_name;
 
-<<<<<<< HEAD
     let body  = {
       name: first_name,
       last_name: last_name,
       phone_number: phoneNumber.replaceAll('.', '').replace('-', '')
-=======
-    const body = {
-      name: first_name,
-      last_name: last_name,
-      phone_number: phoneNumber.replaceAll('.', '').replace('-', ''),
-      addressBody
->>>>>>> b6a8e4b2ad0d334e297b5cee26615ad43a78287b
     };
 
     api.put("/usuario/atualizar", body)
@@ -295,11 +283,7 @@ const BodyMyAccount = ({ item }) => {
           <Text style={styles.boldGreyText}>Endereço</Text>
           <Text 
             style={styles.boldPrimaryText} 
-<<<<<<< HEAD
             onPress={() => openModal("Alterar endereço", "Salvar", changeAddress)}>Editar</Text>
-=======
-            onPress={() => openModal("Alterar endereço", "Salvar", updateUser)}>Editar</Text>
->>>>>>> b6a8e4b2ad0d334e297b5cee26615ad43a78287b
         </View>
 
         <View style={styles.cardBody}>
