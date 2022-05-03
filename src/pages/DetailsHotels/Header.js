@@ -11,7 +11,7 @@ import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IS_IOS } from "../../utils/consts";
 
-export default ({ item, navigation, shareOpen, plan, select }) => {
+export default ({ item, navigation, shareOpen, plan, select, filters }) => {
     const insets = useSafeAreaInsets()
 
     return (
@@ -134,7 +134,7 @@ export default ({ item, navigation, shareOpen, plan, select }) => {
                 titleStyle={styles.textButton}
                 onPress={() => {
                     navigation.navigate({
-                        name: plan ? "Scheduling" : "PlanScreen",
+                        name: plan ? "HotelScheduling" : "PlanScreen",
                         params: {
                             item,
                         },

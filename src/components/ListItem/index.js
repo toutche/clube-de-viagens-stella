@@ -146,7 +146,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
                   marginTop: -2,
                   color: BLUE_COLOR,
                 }}>
-                pessoa
+                {display === 0 ? 'pessoa' : 'quarto'}
               </Text>
             </View>
           </View>

@@ -8,13 +8,16 @@ import DetailsContractedPackages from "../pages/DetailsContractedPackages";
 import NewsTravelers from "../pages/NewsTravelers";
 import Wallet from "../pages/Wallet";
 import CheckoutPlan from "../pages/CheckoutPlan";
+import HiringHotelDetails from "../pages/HiringHotelDetails";
 import Contact from "../pages/Contact";
 import CongratulationPlan from "../pages/CongratulationPlan";
 import PaymentHistory from "../pages/PaymentHistory";
 import Scheduling from "../pages/Scheduling";
+import HotelScheduling from "../pages/HotelScheduling";
 import MyReservations from "../pages/MyReservations";
 import HiringPackageDetails from "../pages/HiringPackageDetails";
 import CongratulationPackage from "../pages/CongratulationPackage";
+import CongratulationHotel from "../pages/CongratulationHotel";
 import Alert from "../pages/Alert";
 import PlanScreen from "../pages/PlanScreen";
 import ConfirmReservation from "../pages/ConfirmReservation";
@@ -41,13 +44,16 @@ const AuthRoutes = () => {
       <AuthStack.Screen name='NewsTravelers' component={NewsTravelers} />
       <AuthStack.Screen name='CongratulationPackage' component={CongratulationPackage} />
       <AuthStack.Screen name='CheckoutPlan' component={CheckoutPlan} />
+      <AuthStack.Screen name='HiringHotelDetails' component={HiringHotelDetails} />
       <AuthStack.Screen name='ConfirmReservation' component={ConfirmReservation} />
       <AuthStack.Screen name='Wallet' component={Wallet} />
       <AuthStack.Screen name='HiringPackageDetails' component={HiringPackageDetails} />
       <AuthStack.Screen name='MyReservations' component={MyReservations} />
       <AuthStack.Screen name='PaymentHistory' component={PaymentHistory} />
       <AuthStack.Screen name='CongratulationPlan' component={CongratulationPlan} />
+      <AuthStack.Screen name='CongratulationHotel' component={CongratulationHotel} />
       <AuthStack.Screen name='Scheduling' component={Scheduling} />
+      <AuthStack.Screen name='HotelScheduling' component={HotelScheduling} />
       <AuthStack.Screen name='Contact' component={Contact} />
       <AuthStack.Screen name='Alert' component={Alert} />
       <AuthStack.Screen name='About' component={About} />

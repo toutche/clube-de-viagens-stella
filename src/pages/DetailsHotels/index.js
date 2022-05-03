@@ -44,7 +44,6 @@ export default ({ route, navigation }) => {
                 <ActivityIndicator size={"large"} color={PRIMARY_COLOR} />
             </View>
         );
-
     return (
         <ScrollView bounces={false} style={styles.container}>
             <ShareModal onClose={() => setVisible(!isVisible)} isVisible={isVisible} />
@@ -56,7 +55,10 @@ export default ({ route, navigation }) => {
                 select={select}
             />
             <Body
+                shareOpen={() => setVisible(!isVisible)}
+                navigation={navigation}
                 item={data}
+                plan={user.plan}
                 select={select}
                 setSelect={setSelect}
             />
