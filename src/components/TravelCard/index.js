@@ -24,10 +24,10 @@ const TravelCard = ({ display = 0, display_footer = 0, data }) => {
           <Text style={[styles.subTitle, { color: display === 0 ? "#777" : BLUE_COLOR }]}>
             {
               data?.phrase_effect 
-              ? `${data?.number_days?.replace(' dias', '')} dias | ${data?.phrase_effect}`
+              ? `${data?.number_days} dias | ${data?.phrase_effect}`
               : data?.regime 
-              ? `${data?.number_days?.replace(' dias', '')} dias | ${data?.regime}`
-              : `${data?.number_days?.replace(' dias', '')} dias`
+              ? `${data?.number_days} dias | ${data?.regime}`
+              : `${data?.number_days} dias`
             }
           </Text>
           <View style={styles.borderBottom} />

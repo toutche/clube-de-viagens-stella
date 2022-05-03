@@ -115,7 +115,7 @@ export default ({ item, navigation, shareOpen, plan, select, filters }) => {
                                 marginTop: -2,
                                 color: BLUE_COLOR,
                             }}>
-                            pessoa
+                            quarto
                         </Text>
                     </View>
                 </View>
