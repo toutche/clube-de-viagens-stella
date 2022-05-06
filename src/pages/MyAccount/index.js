@@ -8,6 +8,7 @@ const MyAccount = ({ navigation, item }) => {
 
   return (
     <View style={styles.container}>
+
       <HeaderMyAccount navigation={navigation} />
 
       <BodyMyAccount item={item} />

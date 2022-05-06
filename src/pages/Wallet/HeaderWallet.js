@@ -6,7 +6,7 @@ import ProfileAvatar from "../../components/ProfileAvatar";
 import CustomButton from "../../components/CustomButton";
 import { PRIMARY_COLOR } from "../../utils/variables";
 
-const HeaderWallet = ({ navigation }) => {
+const HeaderWallet = ({ navigation, credit }) => {
   return (
     <View style={styles.container}>
       <CustomIcon
@@ -27,7 +27,7 @@ const HeaderWallet = ({ navigation }) => {
       <ProfileAvatar isShow />
 
       <Text style={styles.title}>Valor disponível para viagem :(</Text>
-      <Text style={styles.subTitle}>R$ 0,00</Text>
+      <Text style={styles.subTitle}>R$ {credit}</Text>
 
       <CustomButton
         containerStyle={styles.button}

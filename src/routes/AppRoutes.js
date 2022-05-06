@@ -30,6 +30,7 @@ import DetailsEscort from "../pages/DetailsEscort";
 import NewEscort from "../pages/NewEscort";
 import Favorites from "../pages/Favorites";
 import MyAccount from "../pages/MyAccount";
+import MyPlan from "../pages/MyPlan";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -49,6 +50,7 @@ const AuthRoutes = () => {
       <AuthStack.Screen name='Wallet' component={Wallet} />
       <AuthStack.Screen name='HiringPackageDetails' component={HiringPackageDetails} />
       <AuthStack.Screen name='MyReservations' component={MyReservations} />
+      <AuthStack.Screen name='MyPlan' component={MyPlan} />
       <AuthStack.Screen name='PaymentHistory' component={PaymentHistory} />
       <AuthStack.Screen name='CongratulationPlan' component={CongratulationPlan} />
       <AuthStack.Screen name='CongratulationHotel' component={CongratulationHotel} />

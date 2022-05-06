@@ -12,8 +12,6 @@ import { maskDocument } from '../../utils/masks';
 const HeaderMyAccount = ({ navigation }) => {
   const { user } = useAuth();
 
-  console.log(user);
-
   const getDate = (date) => new Date(date).toLocaleDateString()
 
   return (
@@ -40,56 +38,77 @@ const HeaderMyAccount = ({ navigation }) => {
           justifyContent: "center",
         }}>
 
-        <ImageBackground 
-          style={{ borderRadius: 20, flex: 1}}
-          imageStyle={{ borderRadius: 20}} 
+        <ImageBackground
+          style={{ height: undefined, width: '100%', aspectRatio: 1.7 }}
+          imageStyle={{ borderRadius: 20 }}
           source={CardBackground} >
-        
-        {/*<View style={{marginHorizontal: 8, marginVertical: 32}}> */}
 
-        {/* <Image style={{ borderRadius: 20, height: 260, flex: 1}} source={CardBackground} /> */}
-        
-        <View style={{marginHorizontal: 8, marginTop: 8, marginBottom: 20}}>
-          <Image style={styles.logo} source={Logo} />
-          
-          <View style={{flexDirection: "row", paddingHorizontal: 16}}>
-            <View style={{marginRight: 16}}>
-              <View style={{flexDirection: "row"}}>
-                <Image style={{height: 70, aspectRatio: 0.3, resizeMode: 'contain'}} source={{ uri: user.images.brackets.left }} />
-                <View style={{borderRadius: 100, borderColor: "rgba(0, 0, 0, 0.2)", borderWidth: 8, height: 70, width: 70, justifyContent: "center", alignItems: "center"}}>
-                  <Image style={styles.image} source={{ uri: user.image }} />
-                </View>
-                <Image style={{height: 70, aspectRatio: 0.3, resizeMode: 'contain'}} source={{ uri: user.images.brackets.right }} />
-              </View>
-              {user.plan !== false && 
-                <View style={{backgroundColor: user.plan.color, borderRadius: 100, padding: 4, marginTop: 8, flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                  <View style={{backgroundColor: "#696969", borderRadius: 100, height: 22, width: 22, justifyContent: "center", alignItems: "center", marginRight: 8}}>
-                    <View
-                      style={{
-                        backgroundColor: user.plan.color,
-                        width: 16,
-                        height: 16,
-                        borderRadius: 100,
-                      }}
+          {/*<View style={{marginHorizontal: 8, marginVertical: 32}}> */}
+
+          {/* <Image style={{ borderRadius: 20, height: 260, flex: 1}} source={CardBackground} /> */}
+
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+
+            <Image
+              style={styles.logo}
+              source={Logo}
+            />
+
+            <View style={{ flexDirection: "row", paddingHorizontal: 16, paddingBottom: 16 }}>
+              <View style={{ marginRight: 16 }}>
+                <View style={{ flexDirection: "row" }}>
+                  <Image style={{ height: 70, aspectRatio: 0.3, resizeMode: 'contain' }} source={{ uri: user.images.brackets.left }} />
+                  <View style={{
+                    borderRadius: 999,
+                    borderColor: "rgba(0, 0, 0, 0.2)",
+                    borderWidth: 8,
+                    height: 70,
+                    width: 70,
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}>
+                    <Image
+                      style={styles.image}
+                      source={{ uri: user.image }}
                     />
                   </View>
-                  <Text style={styles.planText}>{user.plan.name.replace('Plano', '')}</Text>
+                  <Image style={{
+                    height: 70,
+                    aspectRatio: 0.3,
+                    resizeMode: 'contain'
+                  }}
+                    source={{ uri: user.images.brackets.right }}
+                  />
                 </View>
-              }
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={[styles.cardText, {color: '#000', marginBottom: 8}]}>{(user.name + " " + user.last_name).toLocaleUpperCase()}</Text>
-              <Text style={[styles.cardText, {marginBottom: 8}]}>{`CPF: ${maskDocument(user.document)}`}</Text>
-              <Text style={[styles.cardText]}>
-                { 
-                  user.plan 
-                  ? `ASSINANTE DESDE ${getDate(user.created_at)}` 
-                  : `MEMBRO DESDE ${getDate(user.created_at)}`
+                {user.plan !== false &&
+                  <View style={{ backgroundColor: user.plan.color, borderRadius: 100, padding: 4, marginTop: 8, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                    <View style={{ backgroundColor: "#696969", borderRadius: 100, height: 22, width: 22, justifyContent: "center", alignItems: "center", marginRight: 8 }}>
+                      <View
+                        style={{
+                          backgroundColor: user.plan.color,
+                          width: 16,
+                          height: 16,
+                          borderRadius: 999,
+                        }}
+                      />
+                    </View>
+                    <Text style={styles.planText}>{user.plan.name.replace('Plano', '')}</Text>
+                  </View>
                 }
-              </Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.cardText, { color: '#000', marginBottom: 8 }]}>{(user.name + " " + user.last_name).toLocaleUpperCase()}</Text>
+                <Text style={[styles.cardText, { marginBottom: 8 }]}>{`CPF: ${maskDocument(user.document)}`}</Text>
+                <Text style={[styles.cardText]}>
+                  {
+                    user.plan
+                      ? `ASSINANTE DESDE ${getDate(user.created_at)}`
+                      : `MEMBRO DESDE ${getDate(user.created_at)}`
+                  }
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
         </ImageBackground>
       </View>
     </View>
@@ -143,10 +162,10 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   logo: {
-    width: 140,
-    height: 80,
+    width: 120,
+    height: 60,
     alignSelf: "center",
-    marginBottom: 8,
+    marginVertical: 12,
   },
   audit: {
     marginLeft: -2,
@@ -164,9 +183,11 @@ const styles = StyleSheet.create({
     borderRadius: 100
   },
   cardText: {
+    fontSize: 12,
     fontFamily: FONT_DEFAULT_STYLE,
-    backgroundColor: "#fff", 
-    padding: 8, 
+    backgroundColor: "#fff",
+    paddingVertical: 6,
+    paddingHorizontal: 8,
     borderRadius: 8,
     color: "#696969",
     overflow: "hidden",
