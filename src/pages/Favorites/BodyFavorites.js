@@ -23,6 +23,10 @@ const BodyFavorites = ({ display = 1, navigation, shareOpen }) => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
+  useEffect(() => {
+    loadPage();
+  }, []);
+
   const loadPage = async (shouldRefresh = false) => {
     if (feed.current.length === total.current) return;
     if (loading) return;
@@ -51,12 +55,8 @@ const BodyFavorites = ({ display = 1, navigation, shareOpen }) => {
     setRefreshing(false);
   };
 
-  useEffect(() => {
-    loadPage();
-  }, []);
-
   const ListHeaderItemAccommodation = () => (
-    <Text style={styles.text}>Confirmação e preço sujeito a disponibilidade</Text>
+    <Text style={[styles.text, { marginTop: 16 }]}>Confirmação e preço sujeito a disponibilidade</Text>
   );
 
   const ListLoading = () => (
@@ -76,12 +76,9 @@ const BodyFavorites = ({ display = 1, navigation, shareOpen }) => {
         onEndReachedThreshold={0.1}
         onEndReached={() => loadPage()}
         ListFooterComponent={loading && ListLoading}
-        contentContainerStyle={{ paddingTop: 30 }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
-        renderItem={({ item, index }) =>
-          ListItem({ item, index, display, navigation, shareOpen, plan, refreshList })
-        }
+        renderItem={({ item, index }) => <ListItem{...{ item, index, display, navigation, shareOpen, plan, refreshList }} />}
         ListEmptyComponent={EmptyList}
       />
     </View>

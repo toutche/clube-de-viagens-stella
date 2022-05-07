@@ -16,7 +16,7 @@ export default ({ navigation }) => {
     return (
         <View style={{ flex: 1 }}>
             <Header {...{ navigation }} />
-            <Body {...{ data }} />
+            <Body {...{ data, navigation }} />
         </View>
     )
 }

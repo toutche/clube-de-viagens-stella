@@ -1,17 +1,75 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList, Image } from "react-native";
 import { FONT_DEFAULT_STYLE, LIGHT_BLUE, PRIMARY_COLOR } from "../../utils/variables";
 import { LinearGradient } from "expo-linear-gradient";
 import CustomIcon from "../../components/CustomIcon";
 import { Entypo } from "@expo/vector-icons";
+import api from "../../services/api";
+import { useAuth } from "../../contexts/auth";
 
-export default ({ data = [] }) => {
+const ListItem = ({ item, index, navigation }) => {
     const [loading, setLoading] = useState(false)
+    const { user } = useAuth();
 
     const handlePress = () => {
-
+        setLoading(true);
+        api.post("/plano/get", { id: item.id }).then(({ data }) => {
+            navigation.navigate({
+                name: "CheckoutPlan",
+                params: { data },
+                merge: true,
+            });
+        }).catch(e => console.log('erro:', e)).finally(() =>
+            setTimeout(() => {
+                setLoading(false);
+            }, 200),
+        );
     }
 
+    return (
+        <LinearGradient start={[1, 0.5]} colors={[item.colors[1], item.colors[0]]} style={styles.card}>
+            <View style={styles.content}>
+                <View style={[styles.crown, { borderColor: item.colors[2], backgroundColor: item.colors[3] }]}>
+                    {item.plan ?
+                        <Image
+                            style={styles.stampIcon}
+                            source={{ uri: user.images.crown }}
+                        />
+                        : null
+                    }
+                </View>
+
+                <View>
+                    <Text style={[styles.text, { fontSize: 16 }]}>{item.name}</Text>
+                    <Text style={[styles.text, { fontSize: 13.5 }]}>{item.price}
+                        <Text style={[styles.text, { color: '#d1d1d1' }]}> {item.price_text}</Text>
+                    </Text>
+
+                    <View style={styles.container_discount}>
+                        <Text style={styles.text_discount}>{item.phrase_discount}
+                            <Text style={[styles.text_discount, { color: '#d1d1d1' }]}>
+                                {item.phrase_discount_after}
+                            </Text>
+                        </Text>
+                    </View>
+                </View>
+            </View>
+
+            {!item.plan ?
+                <CustomIcon
+                    loadingApi={loading}
+                    onPress={handlePress}
+                    size={26}
+                    type={Entypo}
+                    name={"chevron-right"}
+                    containerStyle={styles.chevron}
+                /> : null
+            }
+        </LinearGradient>
+    )
+}
+
+export default ({ data = [], navigation }) => {
     const headerList = () => <Text style={styles.title}>Plano atual - Gold - Desde 08/2020</Text>
 
     const separatorList = () => <View style={{ height: 12 }} />
@@ -25,41 +83,7 @@ export default ({ data = [] }) => {
             ListHeaderComponent={headerList}
             ItemSeparatorComponent={separatorList}
             contentContainerStyle={styles.container_list}
-            renderItem={({ item, index }) => {
-                return (
-                    <LinearGradient start={[1, 0.5]} colors={[item.colors[1], item.colors[0]]} style={styles.card}>
-                        <View style={styles.content}>
-                            <View style={[styles.crown, { borderColor: item.colors[2], backgroundColor: item.colors[3] }]}>
-
-                            </View>
-
-                            <View>
-                                <Text style={[styles.text, { fontSize: 16 }]}>{item.name}</Text>
-                                <Text style={[styles.text, { fontSize: 13.5 }]}>{item.price}
-                                    <Text style={[styles.text, { color: '#d1d1d1' }]}> {item.price_text}</Text>
-                                </Text>
-
-                                <View style={styles.container_discount}>
-                                    <Text style={styles.text_discount}>{item.phrase_discount}
-                                        <Text style={[styles.text_discount, { color: '#d1d1d1' }]}>
-                                            {item.phrase_discount_after}
-                                        </Text>
-                                    </Text>
-                                </View>
-                            </View>
-                        </View>
-
-                        <CustomIcon
-                            loadingApi={loading}
-                            onPress={handlePress}
-                            size={26}
-                            type={Entypo}
-                            name={"chevron-right"}
-                            containerStyle={styles.chevron}
-                        />
-                    </LinearGradient>
-                )
-            }}
+            renderItem={({ item, index }) => <ListItem {...{ item, index, navigation }} />}
         />
     )
 }
@@ -68,6 +92,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: PRIMARY_COLOR,
+    },
+    stampIcon: {
+        width: 40,
+        height: 40,
     },
     container_discount: {
         backgroundColor: LIGHT_BLUE,
