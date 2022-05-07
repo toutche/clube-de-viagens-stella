@@ -127,7 +127,7 @@ const RenderSlides = ({
         marginHorizontal: width * 0.1,
         borderRadius: 14,
       }}>
-      {index !== 5 ? renderModelOne() : renderModelTwo()}
+      {index !== 2 ? renderModelOne() : renderModelTwo()}
     </View>
   );
 };

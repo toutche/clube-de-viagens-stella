@@ -4,8 +4,15 @@ import { Alert } from "react-native";
 const FilterContext = createContext({});
 
 export const FilterProvider = ({ children }) => {
+    const [filterOrigin, setFilterOrigin] = useState()
+    const [filterDestiny, setFilterDestiny] = useState()
+    const [filterDays, setFilterDays] = useState()
+    const [filterMouth, setFilterMouth] = useState()
+    const [filterYear, setFilterYear] = useState()
+    const [filterCheck, setFilterCheck] = useState()
+    const [filterPeople, setFilterPeople] = useState()
 
-    const [filterIds, setFilter] = useState(false)
+    const [filterIdsCategory, setFilterIdsCategory] = useState(false)
     const [filterUpdate, setFilterUpdate] = useState(false)
     const [orderPrice, setOrderPrice] = useState('asc')
     const [segmentsIds, setSegmentsIds] = useState([])
@@ -16,15 +23,15 @@ export const FilterProvider = ({ children }) => {
             `Deseja filtrar?`,
             [
                 {
-                    text: filterIds ? "Limpar" : "Voltar",
-                    onPress: clearFilter,
+                    text: filterIdsCategory ? "Limpar" : "Voltar",
+                    onPress: filterIdsCategory ? clearFilterCategory : null,
                     style: "destructive"
                 },
                 {
                     text: "Filtrar",
                     onPress: () => {
-                        setFilter(true)
-                        setFilterUpdate(state => !state)
+                        setFilterIdsCategory(true)
+                        forceUpdateList()
                     },
                     style: "destructive"
                 },
@@ -40,27 +47,108 @@ export const FilterProvider = ({ children }) => {
         setOrderPrice('desc')
     }
 
-    const clearFilter = () => {
-        if (filterIds) {
-            setSegmentsIds([])
-            setFilter(false)
-            setFilterUpdate(state => !state)
-        }
+    const clearFilterCategory = () => {
+        setSegmentsIds([])
+        setFilterIdsCategory(false)
+        forceUpdateList()
+    }
+
+    const onFilterOriginDestiny = () => {
+        Alert.alert(
+            "Filtrar",
+            `Deseja filtrar?`,
+            [
+                {
+                    text: filterOrigin || filterDestiny || filterDays || filterMouth || filterYear ? "Limpar" : "Voltar",
+                    onPress: filterOrigin || filterDestiny || filterDays || filterMouth || filterYear ? clearFilterOriginDestiny : null,
+                    style: "destructive"
+                },
+                {
+                    text: "Filtrar",
+                    onPress: forceUpdateList,
+                    style: "destructive"
+                },
+            ],
+        );
+    }
+
+    const onFilterHotels = () => {
+        Alert.alert(
+            "Filtrar",
+            `Deseja filtrar?`,
+            [
+                {
+                    text: filterCheck?.in || filterCheck?.out || filterPeople?.adult || filterPeople?.children ? "Limpar" : "Voltar",
+                    onPress: filterCheck?.in || filterCheck?.out || filterPeople?.adult || filterPeople?.children ? clearFilterHotels : null,
+                    style: "destructive"
+                },
+                {
+                    text: "Filtrar",
+                    onPress: forceUpdateList,
+                    style: "destructive"
+                },
+            ],
+        );
+    }
+
+    const clearFilterOriginDestiny = () => {
+        setFilterOrigin()
+        setFilterDestiny()
+        setFilterDays()
+        setFilterMouth()
+        setFilterYear()
+        forceUpdateList()
+    }
+
+    const clearFilterHotels = () => {
+        clearFilterOriginDestiny()
+        setFilterCheck()
+        setFilterPeople()
+    }
+
+    const clearAll = () => {
+        clearFilterCategory()
+        setOrderPrice('asc')
+        clearFilterOriginDestiny()
+        clearFilterHotels()
+    }
+
+    const forceUpdateList = () => {
+        setFilterUpdate(state => !state)
     }
 
     return (
         <FilterContext.Provider
             value={{
-                filterUpdate,
-                filterIds,
-                setFilter,
                 orderPrice,
-                setOrderPrice,
+                filterIdsCategory,
+                filterDays,
+                filterOrigin,
+                filterDestiny,
+                filterMouth,
+                filterYear,
+                filterCheck,
+                filterPeople,
                 segmentsIds,
+                filterUpdate,
+                setFilterPeople,
+                setFilterCheck,
+                setFilterDays,
+                setFilterOrigin,
+                setFilterDestiny,
+                setFilterMouth,
+                setFilterYear,
+                setFilterIdsCategory,
+                setOrderPrice,
                 setSegmentsIds,
                 toggleFilter,
                 toggleOrder,
-                clearFilter
+                onFilterOriginDestiny,
+                onFilterHotels,
+                clearFilterCategory,
+                clearFilterOriginDestiny,
+                clearAll,
+                forceUpdateList,
             }}>
             {children}
         </FilterContext.Provider>

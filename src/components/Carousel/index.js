@@ -6,7 +6,6 @@ import {
   View,
   useWindowDimensions,
   Image,
-  Platform,
 } from "react-native";
 import Dot from "../Dot";
 
@@ -35,7 +34,7 @@ const Carousel = ({ data }) => {
           zIndex: 1,
           flexDirection: "row",
           position: "absolute",
-          bottom: Platform.OS === "ios" ? 148 : 150,
+          bottom: 150,
           alignSelf: "center",
           alignItems: "center",
         }}>
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: undefined,
-    aspectRatio: 1.1,
+    aspectRatio: 1,
   },
 });
 

@@ -39,6 +39,7 @@ const BodyNewTravelers = ({
                 placeholderTextColor={"#a1a1a1"}
                 type={FontAwesome}
                 name={"user-o"}
+                autoCapitalize={"words"}
                 value={form[k]?.name}
                 onChangeText={text => {
                   let format = [...form];

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import CustomButton from "../../components/CustomButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
@@ -22,21 +22,30 @@ const Map = ({ address, region }) => {
           size={36}
           color='#287dfd'
         />
-        <View>
+        <View style={{ flex: 1 }}>
           <Text style={styles.title}>Endereço</Text>
           <Text style={styles.subTitle}>{address}</Text>
         </View>
       </View>
 
-      <CustomButton titleStyle={styles.text} title={"Copiar Endereço"} onPress={copyToClipboard} />
+      <CustomButton
+        type={AntDesign}
+        name={'file1'}
+        color={BLUE_COLOR}
+        size={18}
+        titleStyle={styles.button_text_address}
+        title={"Copiar Endereço"}
+        onPress={copyToClipboard}
+        containerStyle={styles.button_address}
+      />
 
       <MapView
         region={region}
         style={styles.map}>
-          <Marker coordinate={{ 
-            latitude: region.latitude,
-            longitude: region.longitude
-          }} />
+        <Marker coordinate={{
+          latitude: region.latitude,
+          longitude: region.longitude
+        }} />
       </MapView>
     </View>
   );
@@ -44,7 +53,18 @@ const Map = ({ address, region }) => {
 
 const styles = StyleSheet.create({
   icon: {
-    marginRight: 5,
+    marginRight: 4,
+  },
+  button_address: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 4
+  },
+  button_text_address: {
+    color: BLUE_COLOR,
+    marginRight: 4
   },
   button: {
     flexDirection: "row",

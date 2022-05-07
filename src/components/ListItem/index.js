@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet, Image, Text, Platform, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, ImageBackground, Text, Platform, TouchableOpacity, ActivityIndicator } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import FavoriteIcon from "../FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
@@ -9,26 +9,67 @@ import {
   FONT_DEFAULT_STYLE,
   GREEN_COLOR,
   LIGHT_BLUE,
+  PRIMARY_COLOR,
 } from "../../utils/variables";
 import Hide from "../Hide";
 
 const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshList }) => {
+  const [loading, setLoading] = useState(true)
+
+  const handlePressLeftButton = () => {
+    if (display === 0) {
+      navigation.navigate({
+        name: "DetailsPackages",
+        params: { id: item.id }
+      })
+    } else if (display === 1) {
+      navigation.navigate({
+        name: "DetailsHotels",
+        params: { item }
+      });
+    }
+  }
+
+  const handlePressRightButton = () => {
+    if (display === 0) {
+      navigation.navigate({
+        name: plan ? "Scheduling" : "PlanScreen",
+        params: { item }
+      });
+    } else if (display === 1) {
+      navigation.navigate({
+        name: plan ? "Scheduling" : "PlanScreen",
+        params: { item }
+      });
+    }
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate({
-            name: display ? "DetailsContractedPackages" : "DetailsPackages",
-            params: {
-              id: item.id,
-            },
-            merge: true,
-          })
-        }>
-        <Image style={styles.image} source={{ uri: item.img }} />
+        activeOpacity={0.8}
+        onPress={handlePressLeftButton}>
+        <ImageBackground
+          onLoadEnd={() => setLoading(false)}
+          style={styles.image}
+          imageStyle={{
+            borderRadius: 20,
+            width: "100%",
+            height: '100%',
+          }}
+          source={{ uri: item.img }}
+        >
+          {loading ?
+            <View style={{ flex: 1, backgroundColor: '#f4f5f7', justifyContent: 'center', borderRadius: 20 }}>
+              <ActivityIndicator size={'large'} color={PRIMARY_COLOR} />
+            </View>
+            :
+            null
+          }
+        </ImageBackground>
       </TouchableOpacity>
 
-      {plan && <Hide containerStyle={styles.hideIcon} item={item} />}
+      {plan ? <Hide containerStyle={styles.hideIcon} item={item} /> : null}
 
       <FavoriteIcon
         favorite={item.favorite}
@@ -37,7 +78,10 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
         refreshList={refreshList}
       />
 
-      <ShareIcon shareOpen={shareOpen} containerStyle={[styles.shareIcon, !plan && { top: 75 }]} />
+      <ShareIcon
+        shareOpen={shareOpen}
+        containerStyle={[styles.shareIcon, !plan && { top: 75 }]}
+      />
 
       <View style={styles.bodyItem}>
         <View style={styles.priceItem}>
@@ -102,7 +146,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
                   marginTop: -2,
                   color: BLUE_COLOR,
                 }}>
-                pessoa
+                {display === 0 ? 'pessoa' : 'quarto'}
               </Text>
             </View>
           </View>
@@ -135,11 +179,41 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
             {item.name}
           </Text>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-            }}>
+          {display === 0 ?
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+              }}>
+              <Text
+                style={{
+                  fontFamily: FONT_DEFAULT_STYLE,
+                  color: BLUE_COLOR,
+                  fontSize: 16,
+                  textAlign: "center",
+                }}>
+                {item?.date?.display}
+              </Text>
+              {item.number_days && (
+                <Text
+                  style={{
+                    fontFamily: FONT_DEFAULT_STYLE,
+                    color: "#777",
+                    fontSize: 16,
+                    textAlign: "center",
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: Platform.OS === "ios" ? 15 : 14,
+                      marginHorizontal: Platform.OS === "ios" ? -5 : undefined,
+                    }}>
+                    │
+                  </Text>
+                  {item.number_days}
+                </Text>
+              )}
+            </View>
+            :
             <Text
               style={{
                 fontFamily: FONT_DEFAULT_STYLE,
@@ -147,27 +221,9 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
                 fontSize: 16,
                 textAlign: "center",
               }}>
-              {item.date.display}
+              {item?.subname}
             </Text>
-            {item.number_days && (
-              <Text
-                style={{
-                  fontFamily: FONT_DEFAULT_STYLE,
-                  color: "#777",
-                  fontSize: 16,
-                  textAlign: "center",
-                }}>
-                <Text
-                  style={{
-                    fontSize: Platform.OS === "ios" ? 15 : 14,
-                    marginHorizontal: Platform.OS === "ios" ? -5 : undefined,
-                  }}>
-                  │
-                </Text>
-                {item.number_days}
-              </Text>
-            )}
-          </View>
+          }
         </View>
 
         <View style={styles.containerButtons}>
@@ -188,15 +244,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
               },
             ]}
             title={"Detalhes"}
-            onPress={() =>
-              navigation.navigate({
-                name: display ? "DetailsContractedPackages" : "DetailsPackages",
-                params: {
-                  id: item.id,
-                },
-                merge: true,
-              })
-            }
+            onPress={handlePressLeftButton}
           />
           <CustomButton
             containerStyle={[
@@ -207,15 +255,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
               },
             ]}
             titleStyle={styles.textButton}
-            onPress={() => {
-              navigation.navigate({
-                name: plan ? "Scheduling" : "PlanScreen",
-                params: {
-                  item,
-                },
-                merge: true,
-              });
-            }}
+            onPress={handlePressRightButton}
             title={plan ? "Reservar Agora" : "Faça parte do clube"}
           />
         </View>

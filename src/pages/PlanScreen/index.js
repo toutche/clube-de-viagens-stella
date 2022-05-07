@@ -24,7 +24,7 @@ const PlanScreen = ({ navigation, route }) => {
               style={{
                 color: BLUE_COLOR,
                 fontSize: 16,
-                textAlign: "center",
+                flex: 1,
               }}>
               {item?.subname}
             </Text>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   pipe: {
     color: BLUE_COLOR,
-    marginHorizontal: Platform.OS === "ios" ? 3 : undefined,
+    marginHorizontal: Platform.OS === "ios" ? 7 : undefined,
   },
   containerPackage: {
     backgroundColor: "white",

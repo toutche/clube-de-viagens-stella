@@ -96,6 +96,7 @@ export default ({ data }) => {
           placeholderTextColor={"#a1a1a1"}
           uri={data?.icons?.name}
           value={form.name}
+          autoCapitalize
           onChangeText={text =>
             setForm({
               ...form,

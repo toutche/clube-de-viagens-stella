@@ -4,7 +4,7 @@ import AlertCovid from "../../components/AlertCovid";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import Map from "./Map";
 
-const BodyDetailsPackages = ({ item }) => {
+export default ({ item }) => {
 
   return (
     <View style={styles.container}>
@@ -174,7 +174,6 @@ const BodyDetailsPackages = ({ item }) => {
                 backgroundColor: "#d1d1d1",
                 marginHorizontal: n !== 0 ? 15 : 20,
                 marginTop: 15,
-                marginBottom: n !== 0 ? 15 : 0,
               }}
             />
           </View>
@@ -230,5 +229,3 @@ const styles = StyleSheet.create({
     color: "#777",
   },
 });
-
-export default BodyDetailsPackages;

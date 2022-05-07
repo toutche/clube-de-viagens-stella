@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import CustomButton from '../../components/CustomButton';
-import { PRIMARY_COLOR } from '../../utils/variables';
+import { PRIMARY_COLOR, FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE } from '../../utils/variables';
 
 const ListPackages = ({
     item,
@@ -18,26 +18,26 @@ const ListPackages = ({
                 size={22}
                 color="#287dfd"
             />
-            <Text style={styles.title}>Número da reserva:<Text style={styles.titleBlue}> CF43532</Text></Text>
+            <Text style={styles.title}>Número da reserva:<Text style={styles.titleBlue}> {item?.number_reservation}</Text></Text>
         </View>
     )
 
     const renderBody = () => (
         <View style={styles.body}>
             <Image
-                source={{ uri: 'https://www.submarinoviagens.com.br/bora-nessa-trip/wp-content/uploads/2020/05/maldivas-bangalos-1500-840269698.jpg' }}
+                source={{ uri: item?.img }}
                 style={styles.image}
             />
             <View style={styles.content}>
-                <Text style={styles.titleItem}>Anantara Veli Maldives Resort</Text>
-                <Text style={styles.subTitleItem}>7 dias | + Hotel c/café da manhã</Text>
+                <Text style={styles.titleItem}>{item?.name}</Text>
+                <Text style={styles.subTitleItem}>{item?.number_days}</Text>
                 <View style={styles.containerDiscount}>
-                    <Text style={styles.discountBold}>R$ 2542,00
+                    <Text style={styles.discountBold}>{item?.price_difference}
                         <Text style={styles.discount}> de desconto exclusivo</Text>
                     </Text>
                 </View>
-                <Text style={styles.throughValue}>R$ 17.999,00
-                    <Text style={styles.value}> ● R$ 14.999,00</Text>
+                <Text style={styles.throughValue}>{item?.price}
+                    <Text style={styles.value}> ● {item?.price_discount}</Text>
                 </Text>
             </View>
         </View>
@@ -49,7 +49,14 @@ const ListPackages = ({
             {renderBody()}
 
             <CustomButton
-                onPress={() => navigation.navigate({ name: 'DetailsPackages' })}
+                onPress={ () => { 
+                    navigation.navigate({
+                        name: "DetailsContractedPackages",
+                        params: {
+                            item
+                        }
+                    }) 
+                }}
                 type={AntDesign}
                 name={'checkcircleo'}
                 color={'white'}
@@ -121,6 +128,7 @@ const styles = StyleSheet.create({
         color: '#555'
     },
     value: {
+        fontFamily: FONT_DEFAULT_STYLE,
         color: '#287dfd',
         textDecorationLine: 'none'
     },
@@ -131,19 +139,23 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20
     },
     discountBold: {
+        fontFamily: FONT_DEFAULT_BOLD_STYLE,
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'white',
         fontSize: 12
     },
     discount: {
+        fontFamily: FONT_DEFAULT_STYLE,
         fontWeight: 'normal'
     },
     titleItem: {
+        fontFamily: FONT_DEFAULT_STYLE,
         fontSize: 15,
         color: '#555'
     },
     subTitleItem: {
+        fontFamily: FONT_DEFAULT_STYLE,
         fontSize: 13,
         top: -2,
         color: '#287dfd'
@@ -153,6 +165,7 @@ const styles = StyleSheet.create({
         height: 2
     },
     content: {
+        flex: 1,
         marginLeft: 10,
     },
     image: {
@@ -171,11 +184,13 @@ const styles = StyleSheet.create({
         borderColor: '#d1d1d1'
     },
     title: {
+        fontFamily: FONT_DEFAULT_STYLE,
         color: '#555',
         marginLeft: 5,
         fontSize: 15
     },
     titleBlue: {
+        fontFamily: FONT_DEFAULT_STYLE,
         color: "#287dfd"
     },
     header: {
