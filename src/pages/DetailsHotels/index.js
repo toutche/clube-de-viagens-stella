@@ -35,6 +35,10 @@ export default ({ route, navigation }) => {
             hotel_key_detail: item.keyDetail
         }).then((res) => {
             setData(res.data)
+            setSelect({
+                id: 0,
+                ...res.data.rooms[0]
+            })
         }).catch(e => console.log(e));
     }, []);
 

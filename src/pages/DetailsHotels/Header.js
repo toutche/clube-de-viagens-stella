@@ -33,18 +33,13 @@ export default ({ item, navigation, shareOpen, plan, select, filters }) => {
                 />
             }
 
-            <FavoriteIcon
-                favorite={item.favorite}
-                containerStyle={[styles.favorite, { top: insets.top + (plan ? 70 : 30) }]}
-            />
-
             <ShareIcon
                 shareOpen={shareOpen}
-                containerStyle={[styles.share, { top: insets.top + (plan ? 125 : 85) }]}
+                containerStyle={[styles.share, { top: insets.top + (plan ? 70 : 30) }]}
             />
 
             <Image
-                style={[styles.responsible_tourism, { top: insets.top + (plan ? 180 : 140) }]}
+                style={[styles.responsible_tourism, { top: insets.top + (plan ? 125 : 85) }]}
                 source={{ uri: item.icon_responsible_tourism }}
             />
 
@@ -95,7 +90,7 @@ export default ({ item, navigation, shareOpen, plan, select, filters }) => {
                             color: BLUE_COLOR,
                             fontSize: 16,
                         }}>
-                        R$ {select?.price_discout || item?.price_discount}
+                        R$ {select?.price_discount || item?.price_discount}
                     </Text>
 
                     <Text

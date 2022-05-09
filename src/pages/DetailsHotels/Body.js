@@ -150,9 +150,13 @@ export default ({ item, navigation, shareOpen, plan, select, setSelect }) => {
                                             name: plan ? "HotelScheduling" : "PlanScreen",
                                             params: {
                                                 item,
-                                                roomCode: item.rooms[select.id].code
+                                                roomCode: i.code
                                             },
                                             merge: true,
+                                        });
+                                        setSelect({
+                                            id: n,
+                                            ...i
                                         });
                                     }}
                                     title={"Reservar Agora"}

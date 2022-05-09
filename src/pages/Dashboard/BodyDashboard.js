@@ -265,7 +265,7 @@ const BodyDashboard = ({
         }
       />
       {
-        display === 1 ? <Banner display={true} /> : <></>
+        display === 1 && feed.length == 0 ? <Banner display={true} /> : <></>
       }
     </View>
   );
