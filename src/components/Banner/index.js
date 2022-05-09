@@ -2,12 +2,15 @@ import React from "react";
 import { View, Image, Dimensions, StyleSheet } from "react-native";
 const height = Dimensions.get("window").height; 
 const width = Dimensions.get("window").width; 
+import { useAuth } from "../../contexts/auth";
 
 const Banner = ({display}) => {
+    const { user } = useAuth();
+
     return (
         display ? 
         <View>
-            <Image source={{ uri: "https://via.placeholder.com/150" }} style={styles.img} />
+            <Image source={{ uri: user.images.hotel_banner }} style={styles.img} />
         </View> :
         <></>
     )

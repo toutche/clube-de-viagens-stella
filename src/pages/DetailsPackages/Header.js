@@ -13,6 +13,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default ({ item, navigation, shareOpen, plan }) => {
   const insets = useSafeAreaInsets()
 
+  let crownTop = plan ? 0: 65;
+
   return (
     <View style={styles.container}>
       <Carousel data={item.gallery} />
@@ -25,13 +27,13 @@ export default ({ item, navigation, shareOpen, plan }) => {
         containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
 
-      <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />
+      {plan && <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />}
 
-      <FavoriteIcon favorite={item.favorite} containerStyle={[styles.favorite, { top: insets.top + 70 }]} />
+      <FavoriteIcon favorite={item.favorite} containerStyle={[styles.favorite, { top: insets.top + 70 - crownTop }]} />
 
-      <ShareIcon shareOpen={shareOpen} containerStyle={[styles.share, { top: insets.top + 125 }]} />
+      <ShareIcon shareOpen={shareOpen} containerStyle={[styles.share, { top: insets.top + 125 - crownTop }]} />
 
-      <Image style={[styles.responsible_tourism, { top: insets.top + 180 }]} source={{ uri: item.icon_responsible_tourism }} />
+      <Image style={[styles.responsible_tourism, { top: insets.top + 180 - crownTop }]} source={{ uri: item.icon_responsible_tourism }} />
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>

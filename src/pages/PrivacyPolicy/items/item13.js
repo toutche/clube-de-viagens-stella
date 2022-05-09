@@ -10,7 +10,7 @@ import {
 
 
 const titleTerm13 = '13. Como entrar em contato conosco'
-const text45 = ' Para esclarecer quaisquer dúvidas sobre esta Política de Privacidade ou sobre os dados pessoais que tratamos, entre em contato com nosso Encarregado de Proteção de Dados Pessoais, por algum dos canais mencionados abaixo: E-mail: contato@clubedeferias.com'
+const text45 = ' Para esclarecer quaisquer dúvidas sobre esta Política de Privacidade ou sobre os dados pessoais que tratamos, entre em contato com nosso Encarregado de Proteção de Dados Pessoais, por algum dos canais mencionados abaixo: E-mail: dpo@grupoaguia.com.br.'
 
 
 export default function item6() {

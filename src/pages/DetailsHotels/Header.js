@@ -14,6 +14,9 @@ import { IS_IOS } from "../../utils/consts";
 export default ({ item, navigation, shareOpen, plan, select, filters }) => {
     const insets = useSafeAreaInsets()
 
+    let crownTop = plan ? 0: 65;
+    crownTop += 55;
+
     return (
         <View style={styles.container}>
             <Carousel data={item?.gallery} />
@@ -26,13 +29,13 @@ export default ({ item, navigation, shareOpen, plan, select, filters }) => {
                 containerStyle={[styles.icon, { top: insets.top + 8 }]}
             />
 
-            <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />
+            {plan && <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />}
 
-            <FavoriteIcon favorite={item?.favorite} containerStyle={[styles.favorite, { top: insets.top + 70 }]} />
+            {/* <FavoriteIcon favorite={item?.favorite} containerStyle={[styles.favorite, { top: insets.top + 70 - crownTop }]} /> */}
 
-            <ShareIcon shareOpen={shareOpen} containerStyle={[styles.share, { top: insets.top + 125 }]} />
+            <ShareIcon shareOpen={shareOpen} containerStyle={[styles.share, { top: insets.top + 125 - crownTop }]} />
 
-            <Image style={[styles.responsible_tourism, { top: insets.top + 180 }]} source={{ uri: item?.icon_responsible_tourism }} />
+            <Image style={[styles.responsible_tourism, { top: insets.top + 180 - crownTop }]} source={{ uri: item?.icon_responsible_tourism }} />
 
             <View style={styles.content}>
                 <View style={styles.price_differenceView}>
@@ -81,7 +84,7 @@ export default ({ item, navigation, shareOpen, plan, select, filters }) => {
                             color: BLUE_COLOR,
                             fontSize: 16,
                         }}>
-                        R$ {select?.price_discout || item?.price_discount}
+                        R$ {select?.price_discount || item?.price_discount}
                     </Text>
 
                     <Text

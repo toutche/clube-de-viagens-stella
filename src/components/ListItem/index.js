@@ -38,11 +38,16 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
       });
     } else if (display === 1) {
       navigation.navigate({
-        name: plan ? "Scheduling" : "PlanScreen",
-        params: { item }
+        name: plan ? "HotelScheduling" : "PlanScreen",
+        params: {
+          item,
+          roomCode: item.code_room
+        },
       });
     }
   }
+
+  let shareTop = display === 0 ? 0: 45;
 
   return (
     <View style={styles.container}>
@@ -71,16 +76,16 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
 
       {plan ? <Hide containerStyle={styles.hideIcon} item={item} /> : null}
 
-      <FavoriteIcon
+      { display === 0 && <FavoriteIcon
         favorite={item.favorite}
         containerStyle={[styles.favoriteIcon, !plan && { top: 20 }]}
         id_package={item.id}
         refreshList={refreshList}
-      />
+      /> }
 
       <ShareIcon
         shareOpen={shareOpen}
-        containerStyle={[styles.shareIcon, !plan && { top: 75 }]}
+        containerStyle={[styles.shareIcon, !plan && { top: 75 - shareTop }, plan && { top: 120 - shareTop }]}
       />
 
       <View style={styles.bodyItem}>
