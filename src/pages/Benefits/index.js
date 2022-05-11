@@ -20,7 +20,7 @@ export default ({ navigation }) => {
     return (
         <ScrollView bounces={false} style={styles.container}>
             <Header {...{ data, navigation }} />
-            <Body {...{ data }} />
+            <Body {...{ data, navigation }} />
         </ScrollView>
     );
 }
