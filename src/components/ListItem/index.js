@@ -13,7 +13,7 @@ import {
 } from "../../utils/variables";
 import Hide from "../Hide";
 
-const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshList }) => {
+const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
   const [loading, setLoading] = useState(true)
 
   const handlePressLeftButton = () => {
@@ -47,7 +47,7 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
     }
   }
 
-  let shareTop = display === 0 ? 0: 45;
+  let shareTop = display === 0 ? 0 : 45;
 
   return (
     <View style={styles.container}>
@@ -76,17 +76,14 @@ const ListItem = ({ item, index, display, navigation, shareOpen, plan, refreshLi
 
       {plan ? <Hide containerStyle={styles.hideIcon} item={item} /> : null}
 
-      { display === 0 && <FavoriteIcon
+      {display === 0 && <FavoriteIcon
         favorite={item.favorite}
         containerStyle={[styles.favoriteIcon, !plan && { top: 20 }]}
         id_package={item.id}
         refreshList={refreshList}
-      /> }
+      />}
 
-      <ShareIcon
-        shareOpen={shareOpen}
-        containerStyle={[styles.shareIcon, !plan && { top: 75 - shareTop }, plan && { top: 120 - shareTop }]}
-      />
+      <ShareIcon {...{ item, option: display, containerStyle: [styles.shareIcon, !plan && { top: 75 }] }} />
 
       <View style={styles.bodyItem}>
         <View style={styles.priceItem}>

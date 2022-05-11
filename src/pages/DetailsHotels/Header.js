@@ -11,7 +11,7 @@ import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IS_IOS } from "../../utils/consts";
 
-export default ({ item, navigation, shareOpen, plan, select, filters }) => {
+export default ({ item, navigation, plan, select, filters }) => {
     const insets = useSafeAreaInsets()
 
     return (
@@ -34,8 +34,9 @@ export default ({ item, navigation, shareOpen, plan, select, filters }) => {
             }
 
             <ShareIcon
-                shareOpen={shareOpen}
-                containerStyle={[styles.share, { top: insets.top + (plan ? 70 : 30) }]}
+                item={item}
+                option={1}
+                containerStyle={[styles.share, { top: insets.top + (plan ? 125 : 85) }]}
             />
 
             <Image

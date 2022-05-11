@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Image, ActivityIndicator, View } from "react-native";
-import ShareModal from "../../components/ShareModal";
+import { ScrollView, StyleSheet, ActivityIndicator, View } from "react-native";
 import { useAuth } from "../../contexts/auth";
 import { useFilter } from "../../contexts/filter";
 import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import Body from "./Body";
 import Header from "./Header";
-import { consts } from "../../utils/consts";
 
 export default ({ route, navigation }) => {
     const { user } = useAuth();
@@ -19,7 +17,6 @@ export default ({ route, navigation }) => {
 
     const { item } = route.params;
 
-    const [isVisible, setVisible] = useState(false);
     const [data, setData] = useState({})
     const [select, setSelect] = useState({
         id: 0
@@ -50,16 +47,13 @@ export default ({ route, navigation }) => {
         );
     return (
         <ScrollView bounces={false} style={styles.container}>
-            <ShareModal onClose={() => setVisible(!isVisible)} isVisible={isVisible} />
             <Header
-                shareOpen={() => setVisible(!isVisible)}
                 navigation={navigation}
                 item={data}
                 plan={user.plan}
                 select={select}
             />
             <Body
-                shareOpen={() => setVisible(!isVisible)}
                 navigation={navigation}
                 item={data}
                 plan={user.plan}

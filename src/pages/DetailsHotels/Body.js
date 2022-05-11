@@ -6,7 +6,7 @@ import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import * as Clipboard from "expo-clipboard";
 
-export default ({ item, navigation, shareOpen, plan, select, setSelect }) => {
+export default ({ item, navigation, plan, select, setSelect }) => {
 
     const copyToClipboard = () => {
         Clipboard.setString(item.address);
