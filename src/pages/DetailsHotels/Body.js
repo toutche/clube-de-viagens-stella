@@ -6,7 +6,7 @@ import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import * as Clipboard from "expo-clipboard";
 
-export default ({ item, navigation, shareOpen, plan, select, setSelect }) => {
+export default ({ item, navigation, plan, select, setSelect }) => {
 
     const copyToClipboard = () => {
         Clipboard.setString(item.address);
@@ -150,9 +150,13 @@ export default ({ item, navigation, shareOpen, plan, select, setSelect }) => {
                                             name: plan ? "HotelScheduling" : "PlanScreen",
                                             params: {
                                                 item,
-                                                roomCode: item.rooms[select.id].code
+                                                roomCode: i.code
                                             },
                                             merge: true,
+                                        });
+                                        setSelect({
+                                            id: n,
+                                            ...i
                                         });
                                     }}
                                     title={"Reservar Agora"}

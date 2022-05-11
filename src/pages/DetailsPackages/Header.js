@@ -10,9 +10,9 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variable
 import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default ({ item, navigation, shareOpen, plan }) => {
+export default ({ item, navigation, plan }) => {
   const insets = useSafeAreaInsets()
-  console.log(plan)
+
   return (
     <View style={styles.container}>
       <Carousel data={item.gallery} />
@@ -38,7 +38,8 @@ export default ({ item, navigation, shareOpen, plan }) => {
       />
 
       <ShareIcon
-        shareOpen={shareOpen}
+        item={item}
+        option={0}
         containerStyle={[styles.share, { top: insets.top + (plan ? 125 : 85) }]}
       />
 

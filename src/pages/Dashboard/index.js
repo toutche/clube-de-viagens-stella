@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import BottomSheet from "../../components/BottomSheet";
 import Menu from "../../components/Menu";
-import ShareModal from "../../components/ShareModal";
 import AutoComplete from "./AutoComplete";
 import BodyDashboard from "./BodyDashboard";
 import HeaderDashboard from "./HeaderDashboard";
@@ -26,10 +25,6 @@ const Dashboard = ({ navigation }) => {
         onClose={() => setVisibleMenu(!isVisibleMenu)}
         isVisible={isVisibleMenu}
       />
-      <ShareModal
-        onClose={() => setVisibleShare(!isVisibleShare)}
-        isVisible={isVisibleShare}
-      />
       <AutoComplete
         isVisible={isVisibleAutoComplete}
         onClose={() => setVisibleAutoComplete(state => !state)}
@@ -48,7 +43,6 @@ const Dashboard = ({ navigation }) => {
       />
       <BodyDashboard
         {...{
-          shareOpen: () => setVisibleShare(state => !state),
           navigation,
           display: option,
           openAutoComplete,

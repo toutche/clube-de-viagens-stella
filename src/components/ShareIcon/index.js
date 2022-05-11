@@ -1,14 +1,12 @@
 import React from 'react';
 import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import ShareModal from '../ShareModal';
 
 
-const ShareIcon = ({
-    containerStyle,
-    shareOpen
-}) => {
+const ShareIcon = ({ item, option = 0, containerStyle }) => {
     return (
-        <TouchableWithoutFeedback onPress={shareOpen}>
+        <TouchableWithoutFeedback onPress={() => ShareModal.show({ ...item, option })}>
             <View style={containerStyle}>
                 <Ionicons
                     style={styles.icon}

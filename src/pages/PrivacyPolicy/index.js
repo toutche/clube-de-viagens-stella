@@ -27,7 +27,7 @@ import Item13 from "./items/item13";
 import Item14 from "./items/item14";
 
 const image = require("../../../assets/header/TermsAndPolicy.jpg");
-const titlePage = "Política de Privacidade";
+const titlePage = "Aviso de Privacidade";
 
 const text1 =
   "Este site e aplicativo são mantidos e operados por Assetur Viagens e Tursimo Ltda, \
@@ -50,7 +50,7 @@ comunicará eventuais mudanças em seu App e/ou site com a devida antecedência.
 const text3 =
   "Caso tenha dúvidas ou precise tratar de qualquer assunto relacionado a este Aviso de \
 Privacidade, entre em contato conosco por meio do seguinte canal de e-mail:";
-const emailContato = " contato@clubedeferias.com";
+const emailContato = " dpo@grupoaguia.com.br.";
 
 export default ({ navigation }) => {
   return (

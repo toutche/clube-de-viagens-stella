@@ -6,6 +6,7 @@ import { CreditCardInput } from '../../components/CreditInput';
 import CustomInput from "../../components/CustomInput";
 import { useAuth } from "../../contexts/auth";
 import { maskZipCode } from "../../utils/masks";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CustomModal = ({
   isVisible,
@@ -15,6 +16,7 @@ const CustomModal = ({
   action,
   forgotPassword
 }) => {
+  const insets = useSafeAreaInsets()
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
@@ -314,64 +316,67 @@ const CustomModal = ({
 
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.container}>
-          <KeyboardAvoidingView style={{ paddingTop: 20 }} behavior={"padding"}>
-            <ScrollView
+          <TouchableWithoutFeedback onPress={() => { }}>
 
-              contentContainerStyle={{
-                flexGrow: 1,
-                backgroundColor: "#FFF",
-                borderTopLeftRadius: 30,
-                borderTopRightRadius: 30,
-              }}
-            >
-              <View style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                paddingVertical: 12,
-                borderColor: "#f5f5f5",
-                borderBottomWidth: 2,
-                borderTopLeftRadius: 30,
-                borderTopRightRadius: 30,
-              }}>
-                {Icon && <Icon name={icon.name} size={icon.size} color={PRIMARY_COLOR} style={{ marginRight: 16 }} />}
-                <Text style={styles.modalTitle}>{title}</Text>
-              </View>
-
-              <View style={{ marginVertical: 16 }}>
-                {title === "Alterar senha" && passwordInputs()}
-
-                {title === "Alterar E-mail" && emailInputs()}
-
-                {title === "Alterar cartão" && creditCardAdvisory()}
-
-                {title === "Alterar endereço" && addressInputs()}
-
-                <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginVertical: 16 }}>
-                  <CustomButton
-                    onPress={onClose}
-                    title={"Cancelar"}
-                    containerStyle={styles.dismissButton}
-                    titleStyle={styles.dismissButtonText}
-                    disabled={loading}
-                    loadingApi={loading}
-                    loadingApiColor={"#c0c0c0"} />
-                  <CustomButton
-                    onPress={handlePress}
-                    title={action.title}
-                    containerStyle={styles.successButton}
-                    titleStyle={styles.successButtonText}
-                    disabled={loading}
-                    loadingApi={loading}
-                    loadingApiColor={TITLE_COLOR_BKCOLORFUL} />
+            <KeyboardAvoidingView style={{ paddingTop: insets.top }} behavior={"padding"}>
+              <ScrollView
+                bounces={false}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  backgroundColor: "#FFF",
+                  borderTopLeftRadius: 30,
+                  borderTopRightRadius: 30,
+                }}
+              >
+                <View style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingVertical: 12,
+                  borderColor: "#f5f5f5",
+                  borderBottomWidth: 2,
+                  borderTopLeftRadius: 30,
+                  borderTopRightRadius: 30,
+                }}>
+                  {Icon && <Icon name={icon.name} size={icon.size} color={PRIMARY_COLOR} style={{ marginRight: 16 }} />}
+                  <Text style={styles.modalTitle}>{title}</Text>
                 </View>
 
-                {forgotPassword &&
-                  <Text style={styles.forgotPassword} onPress={action.handler}>Esqueceu a sua senha?</Text>
-                }
-              </View>
-            </ScrollView>
-          </KeyboardAvoidingView>
+                <View style={{ marginVertical: 16 }}>
+                  {title === "Alterar senha" && passwordInputs()}
+
+                  {title === "Alterar E-mail" && emailInputs()}
+
+                  {title === "Alterar cartão" && creditCardAdvisory()}
+
+                  {title === "Alterar endereço" && addressInputs()}
+
+                  <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginVertical: 16 }}>
+                    <CustomButton
+                      onPress={onClose}
+                      title={"Cancelar"}
+                      containerStyle={styles.dismissButton}
+                      titleStyle={styles.dismissButtonText}
+                      disabled={loading}
+                      loadingApi={loading}
+                      loadingApiColor={"#c0c0c0"} />
+                    <CustomButton
+                      onPress={handlePress}
+                      title={action.title}
+                      containerStyle={styles.successButton}
+                      titleStyle={styles.successButtonText}
+                      disabled={loading}
+                      loadingApi={loading}
+                      loadingApiColor={TITLE_COLOR_BKCOLORFUL} />
+                  </View>
+
+                  {forgotPassword &&
+                    <Text style={styles.forgotPassword} onPress={action.handler}>Esqueceu a sua senha?</Text>
+                  }
+                </View>
+              </ScrollView>
+            </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
     </Modal>

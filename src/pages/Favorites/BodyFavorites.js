@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
   Text,
   ActivityIndicator,
 } from "react-native";
@@ -12,7 +11,7 @@ import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
 
-const BodyFavorites = ({ display = 1, navigation, shareOpen }) => {
+const BodyFavorites = ({ display = 1, navigation }) => {
   const {
     user: { plan },
   } = useAuth();
@@ -78,7 +77,7 @@ const BodyFavorites = ({ display = 1, navigation, shareOpen }) => {
         ListFooterComponent={loading && ListLoading}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
-        renderItem={({ item, index }) => <ListItem{...{ item, index, display, navigation, shareOpen, plan, refreshList }} />}
+        renderItem={({ item, index }) => <ListItem{...{ item, index, display, navigation, plan, refreshList }} />}
         ListEmptyComponent={EmptyList}
       />
     </View>
