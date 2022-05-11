@@ -83,7 +83,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
         refreshList={refreshList}
       />}
 
-      <ShareIcon {...{ item, option: display, containerStyle: [styles.shareIcon, !plan && { top: 75 }] }} />
+      <ShareIcon {...{ item, option: display, containerStyle: [styles.shareIcon, { top: !plan ? display === 0 ? 75 : 25 : display === 0 ? 120 : 65 }] }} />
 
       <View style={styles.bodyItem}>
         <View style={styles.priceItem}>
@@ -293,8 +293,8 @@ const styles = StyleSheet.create({
   },
   hideIcon: {
     position: "absolute",
-    top: 10,
     right: 30,
+    top: 10,
     backgroundColor: "rgba(232,188,13,.3)",
     height: 45,
     width: 45,
@@ -320,7 +320,6 @@ const styles = StyleSheet.create({
     width: 45,
     borderRadius: 100,
     right: 30,
-    top: 120,
     position: "absolute",
     elevation: 5,
     backgroundColor: "white",

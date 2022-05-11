@@ -28,7 +28,7 @@ export default ({ item, navigation, plan, select, filters }) => {
 
             {plan &&
                 <Hide
-                    containerStyle={[styles.hideIcon, { top: insets.top + 15 }]}
+                    containerStyle={[styles.hideIcon, { top: insets.top + 25 }]}
                     item={item}
                 />
             }
@@ -36,11 +36,11 @@ export default ({ item, navigation, plan, select, filters }) => {
             <ShareIcon
                 item={item}
                 option={1}
-                containerStyle={[styles.share, { top: insets.top + (plan ? 125 : 85) }]}
+                containerStyle={[styles.share, { top: insets.top + (plan ? 80 : 40) }]}
             />
 
             <Image
-                style={[styles.responsible_tourism, { top: insets.top + (plan ? 125 : 85) }]}
+                style={[styles.responsible_tourism, { top: insets.top + (plan ? 135 : 95) }]}
                 source={{ uri: item.icon_responsible_tourism }}
             />
 
