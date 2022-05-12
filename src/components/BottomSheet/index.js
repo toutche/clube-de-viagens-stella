@@ -61,6 +61,7 @@ export default ({ isVisible, onClose, id }) => {
     const _renderDatePicker = useMemo(() => (
         <DateTimePickerModal
             date={new Date()}
+            locale='pt-BR'
             cancelTextIOS='Cancelar'
             confirmTextIOS='Confirmar'
             isVisible={isDatePickerVisible}

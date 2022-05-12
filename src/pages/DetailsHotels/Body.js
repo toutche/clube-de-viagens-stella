@@ -159,7 +159,7 @@ export default ({ item, navigation, plan, select, setSelect }) => {
                                             ...i
                                         });
                                     }}
-                                    title={"Reservar Agora"}
+                                    title={plan ? "Reservar Agora" : "Faça parte do clube"}
                                 />
                             </View>
                         </TouchableWithoutFeedback>
