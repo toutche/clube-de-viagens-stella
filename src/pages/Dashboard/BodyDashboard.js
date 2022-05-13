@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
-  Image
 } from "react-native";
 import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
@@ -19,7 +18,6 @@ import ButtonFilter from "./ButtonFilter";
 const BodyDashboard = ({
   display = 0,
   navigation,
-  shareOpen,
   openAutoComplete,
   openBottomSheet,
   filterId
@@ -205,7 +203,7 @@ const BodyDashboard = ({
           }
         }} />
         {/*<View style={styles.twoButtons}>*/}
-          {/*<ButtonFilter {...{
+        {/*<ButtonFilter {...{
             title: filterDays || "Quantos dias?",
             iconName: "calendar-month",
             iconSize: 22,
@@ -216,17 +214,17 @@ const BodyDashboard = ({
               openBottomSheet()
             }
           }} />*/}
-          <ButtonFilter {...{
-            title: filterMouth && filterYear ? `${filterMouth}/${filterYear}` : "Qual mês/ano?",
-            iconName: "calendar-month",
-            iconSize: 22,
-            marginLeft: 3,
-            style: styles.buttonRow,
-            onPress: () => {
-              filterId.current = 'mouth/year'
-              openBottomSheet()
-            }
-          }} />
+        <ButtonFilter {...{
+          title: filterMouth && filterYear ? `${filterMouth}/${filterYear}` : "Qual mês/ano?",
+          iconName: "calendar-month",
+          iconSize: 22,
+          marginLeft: 3,
+          style: styles.buttonRow,
+          onPress: () => {
+            filterId.current = 'mouth/year'
+            openBottomSheet()
+          }
+        }} />
         {/*</View>*/}
         <ButtonFilter {...{
           title: "Filtrar",
@@ -261,11 +259,11 @@ const BodyDashboard = ({
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) =>
-          <ListItem {...{ item, index, display, navigation, shareOpen, plan }} />
+          <ListItem {...{ item, index, display, navigation, plan }} />
         }
       />
       {
-        display === 1 ? <Banner display={true} /> : <></>
+        display === 1 && feed.length == 0 ? <Banner display={true} /> : <></>
       }
     </View>
   );

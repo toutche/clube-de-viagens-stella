@@ -6,6 +6,7 @@ import AppRoutes from "./AppRoutes";
 import { useAuth } from "../contexts/auth";
 import { Image, LogBox, View } from "react-native";
 import Copyright from "../components/Copyright";
+import ShareModal from "../components/ShareModal";
 
 const Routes = () => {
   const { auth, user, loading } = useAuth();
@@ -42,7 +43,12 @@ const Routes = () => {
       </View>
     );
 
-  return auth && user?.email_verified_at ? <AppRoutes /> : <AuthRoutes />;
+  return auth && user?.email_verified_at ?
+    <>
+      <ShareModal />
+      <AppRoutes />
+    </>
+    : <AuthRoutes />;
 };
 
 export default Routes;

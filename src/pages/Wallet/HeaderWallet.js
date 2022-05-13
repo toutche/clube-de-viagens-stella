@@ -5,8 +5,10 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import CustomButton from "../../components/CustomButton";
 import { PRIMARY_COLOR } from "../../utils/variables";
+import { useAuth } from "../../contexts/auth";
 
-const HeaderWallet = ({ navigation }) => {
+const HeaderWallet = ({ navigation, credit }) => {
+  const { user } = useAuth();
   return (
     <View style={styles.container}>
       <CustomIcon
@@ -26,18 +28,19 @@ const HeaderWallet = ({ navigation }) => {
 
       <ProfileAvatar isShow />
 
-      <Text style={styles.title}>Valor disponível para viagem :(</Text>
-      <Text style={styles.subTitle}>R$ 0,00</Text>
+      <Text style={styles.title}>Valor disponível para viagem</Text>
+      <Text style={styles.subTitle}>R$ {credit}</Text>
 
       <CustomButton
         containerStyle={styles.button}
         titleStyle={styles.buttonText}
-        title='Contratar Plano'
+        title={user.plan ? 'Ver Produtos' : 'Contratar Plano'}
+        onPress={() => user.plan ? navigation.navigate('Dashboard') : navigation.navigate('MyPlan')}
       />
 
-      <Text style={styles.text}>
+      {!user.plan && <Text style={styles.text}>
         É necessário contratar um plano para iniciar o seu projeto da viagem dos sonhos
-      </Text>
+      </Text>}
     </View>
   );
 };

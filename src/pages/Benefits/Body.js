@@ -3,12 +3,10 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
 
+import { useAuth } from "../../contexts/auth";
 
-export default ({ data = [] }) => {
-
-    const handlePress = () => {
-
-    }
+export default ({ data = [], navigation }) => {
+    const { user } = useAuth();
 
     return (
         <View style={styles.container}>
@@ -26,10 +24,10 @@ export default ({ data = [] }) => {
             }
 
             <CustomButton
-                onPress={handlePress}
+                onPress={() => user.plan ? navigation.navigate('Dashboard') : navigation.navigate('MyPlan')}
                 containerStyle={styles.button}
                 titleStyle={styles.textButton}
-                title={String('Faça parte do clube').toUpperCase()}
+                title={user.plan ? 'VER PRODUTOS' : 'FAÇA PARTE DO CLUBE'}
             />
         </View>
     );

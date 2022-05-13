@@ -3,6 +3,7 @@ import { ScrollView, Text, StyleSheet, View } from "react-native";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import Card from "./Card";
+import { useFilter } from "../../contexts/filter";
 
 const renderIfHavePlan = ({ current_plan, plans = [] }) => (
   <>
@@ -53,10 +54,20 @@ const renderIfDontHavePlan = ({ plans = [] }) => (
 
 const BodyPlanScreen = ({ item }) => {
   const [isPlan, setPlan] = useState(null);
+  const { filterDestiny, filterCheck, filterPeople } = useFilter();
 
   useEffect(() => {
+    let package_data = { package_id: item.id };
+    let hotel_data = {
+      id_hotel: item.id,
+      start_date: String(filterCheck.in).split('/').reverse().join('-'),
+      end_date: String(filterCheck.out).split('/').reverse().join('-'),
+      qtd_people: String(filterPeople.adult),
+      city_code: String(filterDestiny.key),
+    };
+    let data = item.code_room ? hotel_data : package_data;
     api
-      .post(`/plano/current/hotel-package`, { package_id: item.id })
+      .post(`/plano/current/hotel-package`, data)
       .then(res => {
         setPlan(res.data);
       })

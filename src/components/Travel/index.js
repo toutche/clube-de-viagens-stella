@@ -13,10 +13,16 @@ const Travel = ({ display = 0, data }) => {
           source={{ uri: user.images.checkout.date }}
           style={{ width: 22, height: undefined, aspectRatio: 0.9 }}
         />
-        <View style={styles.contentText}>
+        {data?.date && <View style={styles.contentText}>
           <Text style={styles.title}>Data de viagem</Text>
           <Text style={styles.subTitle}>{data?.date}</Text>
         </View>
+        }
+
+        {data?.accommodation_date && <View style={styles.contentText}>
+          <Text style={styles.title}>Data de hospedagem</Text>
+          <Text style={styles.subTitle}>{data?.accommodation_date}</Text>
+        </View>}
       </View>
 
       {display !== 1 && <View style={styles.separator} />}

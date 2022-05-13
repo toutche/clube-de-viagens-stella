@@ -10,7 +10,7 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variable
 import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default ({ item, navigation, shareOpen, plan }) => {
+export default ({ item, navigation, plan }) => {
   const insets = useSafeAreaInsets()
 
   return (
@@ -25,13 +25,28 @@ export default ({ item, navigation, shareOpen, plan }) => {
         containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
 
-      <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />
+      {plan &&
+        <Hide
+          containerStyle={[styles.hideIcon, { top: insets.top + 15 }]}
+          item={item}
+        />
+      }
 
-      <FavoriteIcon favorite={item.favorite} containerStyle={[styles.favorite, { top: insets.top + 70 }]} />
+      <FavoriteIcon
+        favorite={item.favorite}
+        containerStyle={[styles.favorite, { top: insets.top + (plan ? 70 : 30) }]}
+      />
 
-      <ShareIcon shareOpen={shareOpen} containerStyle={[styles.share, { top: insets.top + 125 }]} />
+      <ShareIcon
+        item={item}
+        option={0}
+        containerStyle={[styles.share, { top: insets.top + (plan ? 125 : 85) }]}
+      />
 
-      <Image style={[styles.responsible_tourism, { top: insets.top + 180 }]} source={{ uri: item.icon_responsible_tourism }} />
+      <Image
+        style={[styles.responsible_tourism, { top: insets.top + (plan ? 180 : 140) }]}
+        source={{ uri: item.icon_responsible_tourism }}
+      />
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>

@@ -13,10 +13,31 @@ import Copyright from "../../components/Copyright";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CustomButton from "../../components/CustomButton";
 
+import Item1 from "./items/item1";
+import Item2 from "./items/item2";
+import Item3 from "./items/item3";
+import Item4 from "./items/item4";
+import Item5 from "./items/item5";
+import Item6 from "./items/item6";
+import Item7 from "./items/item7";
+import Item8 from "./items/item8";
+import Item9 from "./items/item9";
+import Item10 from "./items/item10";
+import Item11 from "./items/item11";
+import Item12 from "./items/item12";
+import Item13 from "./items/item13";
+import Item14 from "./items/item14";
+import Item15 from "./items/item15";
+
 const image = require("../../../assets/header/TermsAndPolicy.jpg");
 import { useAuth } from "../../contexts/auth";
 
-const titlePage = "Termos e condições de uso";
+const titlePage = "Termos e condições gerais de uso e de compra e venda";
+
+const text1 = "Bem-vindo ao aplicativo do Clube de Férias Stella Barros (neste documento denominado “aplicativo” ou “Clube de Férias”). Os serviços do Clube de Férias são fornecidos pela pessoa jurídica com a seguinte Razão Social/nome: ASSETUR ASSESSORIA, VIAGENS E TURISMO LTDA, com nome fantasia STELLA BARROS TURISMO, inscrito no CNPJ/CPF sob o nº 00.475.516/0001-92, titular da propriedade intelectual sobre software, website, aplicativos, conteúdos e demais ativos relacionados à plataforma Clube de Férias Stella Barros."
+const text2 = "Este Aplicativo é oferecido mediante a sua aceitação de todos os termos, condições e aviso estabelecidos abaixo. O usuário concorda em cumprir com o presente termo de uso, com as leis e regulamentos aplicáveis. Leia os Termos de uso com atenção."
+const text3 = "O conteúdo do aplicativo é direcionado para seus clientes atuais e em potencial, pessoas naturais ou jurídicas."
+const text4 = "Nossa finalidade é trazer informações institucionais sobre a empresa e seus produtos e serviços."
 
 const titleTerm1 = "1. Termos";
 const term1 =
@@ -62,32 +83,36 @@ export default ({ navigation }) => {
       <Text style={Style.title}>{titlePage}</Text>
 
       <View style={Style.item}>
-        <Text style={Style.titleItem}>{titleTerm1}</Text>
-        <Text style={Style.text}>{term1}</Text>
+        <Text style={Style.text}>{text1}</Text>
       </View>
 
       <View style={Style.item}>
-        <Text style={Style.titleItem}>{titleTerm2}</Text>
-        <Text style={Style.text}>{term2}</Text>
+        <Text style={Style.text}>{text2}</Text>
       </View>
 
       <View style={Style.item}>
-        <Text style={Style.boxTerms}>
-          <FontAwesome color={TEXT_COLOR_BKCOLORFUL} size={9} name={"circle"} /> {box1}
-        </Text>
+        <Text style={Style.text}>{text3}</Text>
       </View>
 
       <View style={Style.item}>
-        <Text style={Style.boxTerms}>
-          <FontAwesome color={TEXT_COLOR_BKCOLORFUL} size={9} name={"circle"} /> {box2}
-        </Text>
-      </View>
+        <Text style={Style.text}>{text4}</Text>
+      </View> 
 
-      <View style={Style.item}>
-        <Text style={Style.boxTerms}>
-          <FontAwesome color={TEXT_COLOR_BKCOLORFUL} size={9} name={"circle"} /> {box3}
-        </Text>
-      </View>
+      <Item1 />
+      <Item2 />
+      <Item3 />
+      <Item4 />
+      <Item5 />
+      <Item6 />
+      <Item7 />
+      <Item8 />
+      <Item9 />
+      <Item10 />
+      <Item11 />
+      <Item12 />
+      <Item13 />
+      <Item14 />
+      <Item15 />
 
       {/* <View style={Style.bottom}>
         <TouchableOpacity>

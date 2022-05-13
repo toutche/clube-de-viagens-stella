@@ -8,13 +8,13 @@ import { AntDesign } from "@expo/vector-icons";
 import Carousel from "../../components/Carousel";
 import api from "../../services/api"
 
-const HeaderDetailsContractedPackages = ({ item, navigation, shareOpen }) => {
-  
+const HeaderDetailsContractedPackages = ({ item, navigation }) => {
+
   const [gallery, setGallery] = useState([])
-  
+
   useEffect(() => {
     (async () => {
-      await api.get(`/pacote-viagem/${item.id}/get`).then( res => {
+      await api.get(`/pacote-viagem/${item.id}/get`).then(res => {
         setGallery(res.data.gallery)
       })
     })();
@@ -22,9 +22,9 @@ const HeaderDetailsContractedPackages = ({ item, navigation, shareOpen }) => {
 
   return (
     <View style={styles.container}>
-      
+
       <Carousel data={gallery} />
-      
+
       <CustomIcon
         onPress={() => navigation.goBack()}
         size={26}
@@ -37,7 +37,11 @@ const HeaderDetailsContractedPackages = ({ item, navigation, shareOpen }) => {
 
       <FavoriteIcon containerStyle={styles.like} />
 
-      <ShareIcon shareOpen={shareOpen} containerStyle={styles.share} />
+      <ShareIcon
+        option={0}
+        item={item}
+        containerStyle={styles.share}
+      />
 
       <View style={styles.content}></View>
     </View>

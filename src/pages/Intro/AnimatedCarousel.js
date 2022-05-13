@@ -118,14 +118,11 @@ export default ({ navigation }) => {
                   ))}
                 {index !== 0 && index !== 2 &&
                   item.list.map((it, key) => (
-                    <>
-                      <Text key={key} style={styles.text}>
-                        {index === 1 && (key != 3 && key != 5) && <Ionicons name="md-triangle" size={10} color="yellow" />} {it}
-                      </Text>
-                      {((key === 2 || key === 4) && <Text></Text>)}
-                    </>
+                    <Text key={key} style={[styles.text, { marginBottom: key === 2 || key === 4 ? 16 : 0 }]}>
+                      {index === 1 && (key != 3 && key != 5) && <Ionicons name="md-triangle" size={10} color="yellow" />} {it}
+                    </Text>
                   ))}
-                  <Text style={styles.title}>{item.titleFooter}</Text>
+                <Text style={styles.title}>{item.titleFooter}</Text>
               </View>
             </View>
           );
