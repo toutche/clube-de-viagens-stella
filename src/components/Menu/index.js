@@ -28,7 +28,7 @@ const Menu = ({ isVisible = true, onClose }) => {
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/reservas-white.png"}
             />
             <RenderItem
-              id={"Dashboar"}
+              id={"MyPlan"}
               text={"Meu Plano"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/acompanhantes-red.png"}
@@ -37,7 +37,7 @@ const Menu = ({ isVisible = true, onClose }) => {
               }
             />
             <RenderItem
-              id={"Dashboar"}
+              id={"MyAccount"}
               text={"Minha Conta"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/minha-conta-red.png"}
@@ -58,7 +58,7 @@ const Menu = ({ isVisible = true, onClose }) => {
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/favoritos-white.png"}
             />
             <RenderItem
-              id={"Dashboar"}
+              id={"Wallet"}
               text={"Carteira"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/carteira-red.png"}

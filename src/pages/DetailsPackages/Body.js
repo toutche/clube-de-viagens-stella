@@ -39,18 +39,18 @@ export default ({ item }) => {
               textAlign: "center",
             }}>
             {item.subname}
-            {item.number_days && <Text style={styles.pipe}>│ </Text>}
-            {item.number_days && (
-              <Text
-                style={{
-                  fontFamily: FONT_DEFAULT_STYLE,
-                  color: "#777",
-                  fontSize: 16,
-                  textAlign: "center",
-                }}>
-                {item.number_days}
-              </Text>
-            )}
+          {item.number_days && <Text style={styles.pipe}>│ </Text>}
+          {item.number_days && (
+            <Text
+              style={{
+                fontFamily: FONT_DEFAULT_STYLE,
+                color: "#777",
+                fontSize: 16,
+                textAlign: "center",
+              }}>
+              {item.number_days}
+            </Text>
+          )}
           </Text>
         </View>
 
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
     fontSize: 15.5,
-    marginBottom: 15
+    marginBottom:15
   },
   subTitle: {
     fontFamily: FONT_DEFAULT_STYLE,

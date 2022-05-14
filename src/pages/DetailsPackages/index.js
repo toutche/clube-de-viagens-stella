@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, ActivityIndicator, View } from "react-native";
-import ShareModal from "../../components/ShareModal";
 import { useAuth } from "../../contexts/auth";
 import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
@@ -13,7 +12,6 @@ export default ({ route, navigation }) => {
   const { user } = useAuth();
   const { id } = route.params;
 
-  const [isVisible, setVisible] = useState(false);
   const [item, setItem] = useState([]);
 
   const getLatLog = (data) => {
@@ -33,7 +31,7 @@ export default ({ route, navigation }) => {
       };
     }
     else {
-      axios.get(`https://maps.google.com/maps/api/geocode/json?address=${address}&key=${consts.google_key}`)
+      axios.get(`https://maps.google.com/maps/api/geocode/json?address=${data.address}&key=${consts.google_key}`)
         .then(res => {
           let loc = res.data.results[0].geometry.location;
           region = {
@@ -70,9 +68,7 @@ export default ({ route, navigation }) => {
 
   return (
     <ScrollView bounces={false} style={styles.container}>
-      <ShareModal onClose={() => setVisible(!isVisible)} isVisible={isVisible} />
       <Header
-        shareOpen={() => setVisible(!isVisible)}
         navigation={navigation}
         item={item}
         plan={user.plan}

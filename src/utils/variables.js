@@ -2,6 +2,7 @@
 import { Dimensions } from "react-native";
 
 /* Cores */
+export const BACKGROUND_COLOR = "#f3f6ff"
 export const PRIMARY_COLOR = "#E10717"; //"#ff0015";
 export const BLUE_COLOR = "#287dfd";
 export const LIGHT_BLUE = "#12aaeb";

@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
-  Image
 } from "react-native";
 import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
@@ -19,7 +18,6 @@ import ButtonFilter from "./ButtonFilter";
 const BodyDashboard = ({
   display = 0,
   navigation,
-  shareOpen,
   openAutoComplete,
   openBottomSheet,
   filterId
@@ -204,8 +202,8 @@ const BodyDashboard = ({
             openAutoComplete()
           }
         }} />
-        <View style={styles.twoButtons}>
-          <ButtonFilter {...{
+        {/*<View style={styles.twoButtons}>*/}
+        {/*<ButtonFilter {...{
             title: filterDays || "Quantos dias?",
             iconName: "calendar-month",
             iconSize: 22,
@@ -215,19 +213,19 @@ const BodyDashboard = ({
               filterId.current = 'days'
               openBottomSheet()
             }
-          }} />
-          <ButtonFilter {...{
-            title: filterMouth && filterYear ? `${filterMouth}/${filterYear}` : "Qual mês/ano?",
-            iconName: "calendar-month",
-            iconSize: 22,
-            marginLeft: 3,
-            style: styles.buttonRow,
-            onPress: () => {
-              filterId.current = 'mouth/year'
-              openBottomSheet()
-            }
-          }} />
-        </View>
+          }} />*/}
+        <ButtonFilter {...{
+          title: filterMouth && filterYear ? `${filterMouth}/${filterYear}` : "Qual mês/ano?",
+          iconName: "calendar-month",
+          iconSize: 22,
+          marginLeft: 3,
+          style: styles.buttonRow,
+          onPress: () => {
+            filterId.current = 'mouth/year'
+            openBottomSheet()
+          }
+        }} />
+        {/*</View>*/}
         <ButtonFilter {...{
           title: "Filtrar",
           iconName: "filter-outline",
@@ -261,11 +259,11 @@ const BodyDashboard = ({
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) =>
-          <ListItem {...{ item, index, display, navigation, shareOpen, plan }} />
+          <ListItem {...{ item, index, display, navigation, plan }} />
         }
       />
       {
-        display === 1 ? <Banner display={true} /> : <></>
+        display === 1 && feed.length == 0 ? <Banner display={true} /> : <></>
       }
     </View>
   );
@@ -308,10 +306,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 100,
-    width: "48%",
+    width: "100%",
     height: 40,
     justifyContent: "center",
     backgroundColor: "white",
+    marginBottom: 12
   },
   button: {
     flexDirection: "row",

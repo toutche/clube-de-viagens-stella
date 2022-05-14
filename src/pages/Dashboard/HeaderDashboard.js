@@ -11,7 +11,7 @@ import api from "../../services/api";
 import { useFilter } from "../../contexts/filter";
 
 const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
-  const { clearAll } = useFilter()
+  const { clearAll, setOrderPrice } = useFilter()
 
   const [filter, setFilter] = useState([]);
   const [data, setData] = useState([]);
@@ -28,6 +28,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
 
   const handlePress = (value) => {
     clearAll()
+    option === 0 && setOrderPrice('desc')
     setOption(value)
   }
 

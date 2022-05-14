@@ -5,9 +5,8 @@ import { Ionicons, AntDesign } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
-import ButtonsChoice from "./ButtonsChoice";
 
-const HeaderFavorites = ({ navigation, option, setOption }) => {
+const HeaderFavorites = ({ navigation, option }) => {
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -37,7 +36,6 @@ const HeaderFavorites = ({ navigation, option, setOption }) => {
         {option === 0 ? "Pacotes com preços exclusivos" : "Hospedagens com preços exclusivos"}
       </Text>
 
-      <ButtonsChoice value={option} onPress={value => setOption(value)} />
     </View>
   );
 };
