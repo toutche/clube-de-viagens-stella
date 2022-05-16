@@ -13,6 +13,7 @@ const GetLocation = ({
   changePanel,
   navigation,
   onChangeKeyboard,
+  CEP
 }) => {
 
   
@@ -25,7 +26,7 @@ const GetLocation = ({
   const [city, setCity] = useState("");
   const [region, setRegion] = useState("");
   const [country, setCountry] = useState("BR");
-  const [cep, setCEP] = useState("");
+  const [cep, setCEP] = useState(CEP);
   const [edit, setEdit] = useState(false);
   const [editButtonText, setEditButtonText] = useState("Editar")
 
@@ -70,49 +71,16 @@ const GetLocation = ({
   useEffect(() => {
     (async () => {
       try {
-        addressArr.forEach(address => {
-          if( address.match(/[0-9]{5}-[\d]{3}/g) ) {
-            setCEP(address)
-          }
-        })
-        if( ! check(cep).ok ) throw { message: "no cep" }
-        await api.get(`https://ws.apicep.com/cep/${cep}.json`)
-        .then(response => {
-          if(response.data.ok) {
-            setStreet(response.data.address)
-            setCity(response.data.city)
-            setNeighborhood(response.data.district)
-            setRegion(response.data.state)
-          } else {
-            throw { message: response.data.message }
-          }
-        })
-        .catch(e => {
-          throw e
-        })
+        setStreet(address.logradouro);
+        setCity(address.localidade);
+        setNeighborhood(address.bairro);
+        setRegion(address.uf);
+        setCEP(address.cep);
       } catch(e) {
-        console.log(e)
-        if(e.message === "no cep") {
-          if(addressArr[0].match(/^\d+$/)) {
-            setNumber(addressArr[0])
-            setStreet(addressArr[1])
-            setNeighborhood(addressArr[2])
-            setCity(addressArr[3])
-            setRegion(addressArr[4])
-            setCountry(address[5])
-          } else {
-            setStreet(addressArr[0])
-            setNeighborhood(addressArr[1])
-            setCity(addressArr[2])
-            setRegion(addressArr[3])
-            setCountry(addressArr[4])
-          }
-        } else {
-          console.error(e.message)
-        }
+        console.error(e);
       }
     })()
-  }, [addressArr]);
+  }, [address]);
 
   const editHandler = () => {
     // const addressArr = address.split(/-|,/);
