@@ -70,7 +70,12 @@ const ListItem = ({ item, index, navigation }) => {
 }
 
 export default ({ data = [], navigation }) => {
-    const headerList = () => <Text style={styles.title}>Plano atual - Gold - Desde 08/2020</Text>
+    
+    const actualPlan = data.map(function(item) {
+        return (item.plan) ? item.plan : ""
+    })
+
+    const headerList = () => <Text style={styles.title}>{actualPlan}</Text>
 
     const separatorList = () => <View style={{ height: 12 }} />
 
