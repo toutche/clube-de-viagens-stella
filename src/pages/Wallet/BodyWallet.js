@@ -21,9 +21,9 @@ const BodyWallet = ({ data = [] }) => {
                         <View style={styles.content_list}>
 
                             <View style={styles.view_one}>
-                                <Image source={{ uri: 'https://clubedeferias.com/images/icones_app/aguardando.png' }} style={styles.icon} />
+                                <Image source={{ uri: item?.icon }} style={styles.icon} />
                                 <View>
-                                    <Text style={[{ color: item.text1_color }]}>{item.badge}</Text>
+                                    <Text style={[{ color: item.text1_color }]}>{item.text1}</Text>
                                     <Text style={styles.subTitle}>{item.date}</Text>
                                 </View>
                             </View>
