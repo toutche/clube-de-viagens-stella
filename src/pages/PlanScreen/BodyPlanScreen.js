@@ -57,15 +57,20 @@ const BodyPlanScreen = ({ item }) => {
   const { filterDestiny, filterCheck, filterPeople } = useFilter();
 
   useEffect(() => {
-    let package_data = { package_id: item.id };
-    let hotel_data = {
-      id_hotel: item.id,
-      start_date: String(filterCheck.in).split('/').reverse().join('-'),
-      end_date: String(filterCheck.out).split('/').reverse().join('-'),
-      qtd_people: String(filterPeople.adult),
-      city_code: String(filterDestiny.key),
-    };
-    let data = item.code_room ? hotel_data : package_data;
+    let data = { package_id: item.id };
+
+    if(item.code_room) {
+      data = {
+        id_hotel: item.id,
+        start_date: String(filterCheck.in).split('/').reverse().join('-'),
+        end_date: String(filterCheck.out).split('/').reverse().join('-'),
+        qtd_people: String(filterPeople.adult),
+        city_code: String(filterDestiny.key),
+      };
+    }
+
+    console.log(data);
+
     api
       .post(`/plano/current/hotel-package`, data)
       .then(res => {
