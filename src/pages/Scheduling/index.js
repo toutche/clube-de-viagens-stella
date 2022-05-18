@@ -32,7 +32,7 @@ const Scheduling = ({ navigation, route }) => {
         <BoardingPlace {...{ data }} />
         <Travel  {...{ data, display: data.hour_voo ? 0 : 1 }} />
         
-        <TravelCard display={3} {...{ data }} />
+        <TravelCard display={3} {...{ data }} value_observation={true} />
         <Travelers {...{ data }} onPress={() => navigation.navigate("NewsTravelers")} />
         <CustomButton
           disabled={travelers.length === data.qtd_pax ? false : true}

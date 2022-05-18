@@ -14,7 +14,7 @@ const BodyHiringPackageDetails = ({ openModal, data }) => {
       bounces={false}
       style={styles.container}
       contentContainerStyle={styles.containerScroll}>
-      <TravelCard display={1} {...{ data }} />
+      <TravelCard display={1} {...{ data }} value_observation={true} />
 
       <Travel {...{ data, display: data.hour_voo ? 0 : 1 }} />
 
