@@ -29,7 +29,8 @@ export default ({ isVisible, onClose, id }) => {
     }
 
     const filterCity = (text) => {
-        setFilter(data?.filter(i => i?.value?.toLowerCase()?.includes(text?.toLowerCase())));
+        var data_result = data?.filter(i => i?.value?.toLowerCase()?.includes(text?.toLowerCase()) || i?.value2?.toLowerCase()?.includes(text?.toLowerCase()));
+        setFilter(data_result);
     }
 
     const separator = () => {
