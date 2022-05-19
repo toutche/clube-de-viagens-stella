@@ -280,6 +280,7 @@ const Style = StyleSheet.create({
   input: {
     fontSize: 14.5,
     marginHorizontal: 2,
+    marginTop: 50,
     borderWidth: 1,
     borderColor: "#d1d1d1",
     borderRadius: 100,
@@ -295,7 +296,7 @@ const Style = StyleSheet.create({
     paddingVertical: 10,
     borderColor: "#d1d1d1",
     borderRadius: 10,
-    marginTop: 10,
+    marginTop: 20,
     elevation: 5,
     textAlign: "left"
   },
