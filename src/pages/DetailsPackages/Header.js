@@ -148,8 +148,9 @@ export default ({ item, navigation, plan }) => {
             color: "#777",
             fontSize: 13,
             marginTop: Platform.OS === "ios" ? -2 : -4,
+            textAlign: "center"
           }}>
-          Os valores estão sujeitos a alteração
+          Os valores e disponibilidade estão sujeitos a alteração sem aviso prévio
         </Text>
       </View>
       <CustomButton
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
   },
   content: {
-    top: -40,
+    top: -20,
     marginBottom: -12,
     borderRadius: 20,
     elevation: 5,
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     height: 45,
     width: "70%",
     alignSelf: "center",
-    bottom: 5,
+    bottom: -15,
     elevation: 5,
     position: "absolute",
     borderRadius: 100,

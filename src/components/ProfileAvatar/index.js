@@ -1,13 +1,14 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, Platform } from "react-native";
+import { View, Text, Image, StyleSheet, Platform, TouchableOpacity } from "react-native";
 import { useAuth } from "../../contexts/auth";
 import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
+import { Ionicons } from '@expo/vector-icons';
 
 const item =
   "https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg";
 
 const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
-  const { user } = useAuth();
+  const { user, verifyUser } = useAuth();
   return (
     <View style={styles.container}>
       <View
@@ -21,17 +22,25 @@ const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
         <Image style={styles.image} source={{ uri: user.image || 'https://toutche.com.br/clube_de_ferias/maquina-fotografica.png' }} />
       </View>
       <View style={styles.right}>
-        {isShow && user.plan && (
-          <View style={[styles.viewHide, { backgroundColor: user.plan.color }]}>
-            <Text style={styles.iconHide}>●</Text>
-            <Text style={[styles.textHide]}>{user?.plan?.name?.split(" ")[1]}</Text>
+        <View style={{flexDirection: "row"}}>
+          <View>
+            {isShow && user.plan && (
+              <View style={[styles.viewHide, { backgroundColor: user.plan.color }]}>
+                <Text style={styles.iconHide}>●</Text>
+                <Text style={[styles.textHide]}>{user?.plan?.name?.split(" ")[1]}</Text>
+              </View>
+            )}
+            <Text
+              style={[styles.title, isShow && user.plan && { top: 2.5 }]}>{`Olá ${user.name}`}</Text>
+            <Text style={[styles.subTitle, isShow && user.plan && { top: 1 }]}>
+              Crédito: R${user?.wallet?.credit || 0}
+            </Text>
           </View>
-        )}
-        <Text
-          style={[styles.title, isShow && user.plan && { top: 2.5 }]}>{`Olá ${user.name}`}</Text>
-        <Text style={[styles.subTitle, isShow && user.plan && { top: 1 }]}>
-          Crédito: R${user?.wallet?.credit || 0}
-        </Text>
+
+          <TouchableOpacity style={{marginLeft: 16}} onPress={verifyUser}>
+            <Ionicons name="refresh" size={24} color="#ffffff" />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -45,7 +54,7 @@ const styles = StyleSheet.create({
   },
   viewHide: {
     position: "absolute",
-    top: -9.5,
+    top: -14,
     left: 22,
     backgroundColor: "#e8bc0d",
     paddingHorizontal: 8,
