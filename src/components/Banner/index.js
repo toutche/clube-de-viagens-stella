@@ -8,11 +8,9 @@ const Banner = ({display}) => {
     const { user } = useAuth();
 
     return (
-        display ? 
         <View>
             <Image source={{ uri: user.images.hotel_banner }} style={styles.img} />
-        </View> :
-        <></>
+        </View>
     )
 }
 const styles = StyleSheet.create({

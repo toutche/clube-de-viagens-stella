@@ -13,7 +13,7 @@ const PlanScreen = ({ navigation, route }) => {
 
       <View style={styles.containerPackage}>
         <Image style={styles.image} source={{ uri: item.img }} />
-        <View style={styles.content}>
+        <View style={{flex: 1, marginRight: 8}}>
           <Text>{item.name}</Text>
           <View
             style={{

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variables";
 import { FontAwesome } from "@expo/vector-icons";
 
-const TravelCard = ({ display = 0, display_footer = 0, data }) => {
+const TravelCard = ({ display = 0, display_footer = 0, data, value_observation = false }) => {
   return (
     <View
       style={[
@@ -30,6 +30,7 @@ const TravelCard = ({ display = 0, display_footer = 0, data }) => {
               : `${data?.number_days} dias`
             }
           </Text>
+          {value_observation && <Text style={styles.subTitle}>Os valores estão sujeitos a alteração</Text>}
           <View style={styles.borderBottom} />
           {data?.phrase_amount && <Text style={styles.infosPackage}>{data?.phrase_amount}</Text>}
 

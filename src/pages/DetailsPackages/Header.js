@@ -142,6 +142,15 @@ export default ({ item, navigation, plan }) => {
           }}>
           Preço exclusivo para assinantes
         </Text>
+        <Text
+          style={{
+            fontFamily: FONT_DEFAULT_STYLE,
+            color: "#777",
+            fontSize: 13,
+            marginTop: Platform.OS === "ios" ? -2 : -4,
+          }}>
+          Os valores estão sujeitos a alteração
+        </Text>
       </View>
       <CustomButton
         containerStyle={styles.button}
@@ -191,7 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
   },
   content: {
-    top: -50,
+    top: -40,
     marginBottom: -12,
     borderRadius: 20,
     elevation: 5,
@@ -207,7 +216,7 @@ const styles = StyleSheet.create({
     height: 45,
     width: "70%",
     alignSelf: "center",
-    bottom: 30 / 2,
+    bottom: 5,
     elevation: 5,
     position: "absolute",
     borderRadius: 100,

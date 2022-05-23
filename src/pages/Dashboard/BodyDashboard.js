@@ -254,7 +254,7 @@ const BodyDashboard = ({
         refreshing={refreshing}
         onEndReachedThreshold={0.1}
         onEndReached={() => loadPage()}
-        ListFooterComponent={loading && ListLoading}
+        ListFooterComponent={loading ? ListLoading : <Banner/>}
         contentContainerStyle={{ paddingTop: 20 }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
@@ -262,9 +262,6 @@ const BodyDashboard = ({
           <ListItem {...{ item, index, display, navigation, plan }} />
         }
       />
-      {
-        display === 1 && feed.length == 0 ? <Banner display={true} /> : <></>
-      }
     </View>
   );
 };
