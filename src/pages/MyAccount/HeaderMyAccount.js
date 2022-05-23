@@ -69,7 +69,7 @@ const HeaderMyAccount = ({ navigation }) => {
                   }}>
                     <Image
                       style={styles.image}
-                      source={{ uri: user.image }}
+                      source={{ uri: user.image || 'https://toutche.com.br/clube_de_ferias/maquina-fotografica.png' }}
                     />
                   </View>
                   <Image style={{
