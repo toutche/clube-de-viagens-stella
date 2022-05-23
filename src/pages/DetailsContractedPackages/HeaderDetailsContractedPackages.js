@@ -23,7 +23,7 @@ const HeaderDetailsContractedPackages = ({ item, navigation }) => {
   return (
     <View style={styles.container}>
 
-      <Carousel data={gallery} />
+      <Carousel data={gallery} source={'contractedPackages'} />
 
       <CustomIcon
         onPress={() => navigation.goBack()}
