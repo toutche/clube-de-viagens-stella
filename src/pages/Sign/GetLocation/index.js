@@ -187,6 +187,7 @@ const GetLocation = ({ navigation }) => {
               style={Style.input}
               placeholder='Digite seu CEP'
               autoComplete='postal-code'
+              placeholderTextColor={TEXT_COLOR_BKWHITE}
             />
             {
               isAutocompleteVisible ?
@@ -288,7 +289,7 @@ const Style = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#FFF',
     fontFamily: FONT_DEFAULT_STYLE,
-    textAlign: "center"
+    textAlign: "center",
   },
   autocompleteContainer: {
     backgroundColor: "#FFF",
