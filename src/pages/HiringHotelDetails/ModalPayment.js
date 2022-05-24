@@ -28,9 +28,47 @@ const ModalPayment = ({
 
   const { data: item } = useCheckout();
   const { user } = useAuth();
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState(true);
   const [loading, setLoading] = useState(false);
   const [isVisiblePicker, setVisiblePicker] = useState(false);
+  const [isCardVisible, setIsCardVisible] = useState(data?.payment_infos?.view_card);
+  const [installments, setInstallments] = useState(data?.payment_infos?.installments);
+  const [btnPrice, setBtnPrice] = useState(data?.payment_infos?.btn_payment?.price);
+
+  const usePlanCredit = async () => {
+    setLoading(true);
+    try { 
+      setCheck(!check); 
+
+      const body = {
+        'start_date': String(item.hotel.filterCheck.in).split('/').reverse().join('-'),
+        'end_date': String(item.hotel.filterCheck.out).split('/').reverse().join('-'),
+        'qtd_people': String(item.hotel.filterPeople.adult),
+        'city_code': String(item.hotel.filterDestiny.key),
+        'id_hotel': item.hotel.item.id,
+        'hotel_key_detail': item.hotel.item.keyDetail,
+        'hotel_room_code': item.hotel.roomCode,
+        'use_credit': 1
+      }
+      
+      if(check) {
+        body['use_credit'] = 0;
+      }
+
+      await api
+      .post(`/hotel/get/agendamento/pagamento`, body)
+      .then(({ data }) => {
+        setInstallments(data?.payment_infos?.installments);
+        setBtnPrice(data?.payment_infos?.btn_payment?.price);
+        setIsCardVisible(data?.payment_infos?.view_card);
+      })
+      .catch(e => console.log('erro', e))
+
+    } catch(e) {
+      console.error(e);
+    }
+    setLoading(false);
+  };
 
   const openPicker = () => {
     setVisiblePicker(true);
@@ -73,7 +111,7 @@ const ModalPayment = ({
         <View style={styles.container}>
           <CustomPicker
             {...{
-              dataPicker: data?.payment_infos?.installments,
+              dataPicker: installments,
               isVisiblePicker,
               closePicker,
               setIndex,
@@ -92,7 +130,7 @@ const ModalPayment = ({
               </View>
 
               <CheckBox
-                onPress={() => setCheck(!check)}
+                onPress={usePlanCredit}
                 checked={check}
                 title={"Usar saldo do plano"}
                 textStyle={{
@@ -111,42 +149,45 @@ const ModalPayment = ({
                 }
               />
 
-              <View style={styles.body}>
-                <Text style={styles.title}>Cartão salvo</Text>
-                <View style={styles.payment_infos}>
-                  <View style={styles.changeView}>
-                    <Text style={styles.textPayment_infos}>Cartão</Text>
-                    <CustomButton
-                      containerStyle={styles.changeButton}
-                      titleStyle={styles.textChangeButton}
-                      title={"Alterar"}
-                    />
+              {
+                isCardVisible &&
+                <View style={styles.body}>
+                  <Text style={styles.title}>Cartão salvo</Text>
+                  <View style={styles.payment_infos}>
+                    <View style={styles.changeView}>
+                      <Text style={styles.textPayment_infos}>Cartão</Text>
+                      <CustomButton
+                        containerStyle={styles.changeButton}
+                        titleStyle={styles.textChangeButton}
+                        title={"Alterar"}
+                      />
+                    </View>
+                    <View style={styles.cardText}>
+                      <Text style={styles.textPayment_infos}>{data?.payment_infos?.card.number}</Text>
+                      <AntDesign name={"check"} color={GREEN_COLOR} size={22} />
+                    </View>
                   </View>
-                  <View style={styles.cardText}>
-                    <Text style={styles.textPayment_infos}>{data?.payment_infos?.card.number}</Text>
-                    <AntDesign name={"check"} color={GREEN_COLOR} size={22} />
-                  </View>
-                </View>
 
-                <CustomButton
-                  onPress={openPicker}
-                  type={Entypo}
-                  name={"chevron-thin-down"}
-                  size={16}
-                  color={"#444"}
-                  containerStyle={styles.selectButton}
-                  titleStyle={styles.textSelectButton}
-                  title={`${data?.payment_infos?.installments[index - 1].number}x de`}
-                  boldText={`${data?.payment_infos?.installments[index - 1].price}`}
-                />
-              </View>
+                  <CustomButton
+                    onPress={openPicker}
+                    type={Entypo}
+                    name={"chevron-thin-down"}
+                    size={16}
+                    color={"#444"}
+                    containerStyle={styles.selectButton}
+                    titleStyle={styles.textSelectButton}
+                    title={`${installments[index - 1].number}x de`}
+                    boldText={`${installments[index - 1].price}`}
+                  />
+                </View>
+              }
               <CustomButton
                 loadingApiColor={"white"}
                 loadingApi={loading}
                 onPress={payment}
                 containerStyle={styles.button}
                 titleStyle={styles.textButton}
-                title={`${data?.payment_infos?.btn_payment.text} | ${data?.payment_infos?.btn_payment.price}`}
+                title={`${data?.payment_infos?.btn_payment.text} | ${btnPrice}`}
               />
             </View>
           </TouchableWithoutFeedback>
