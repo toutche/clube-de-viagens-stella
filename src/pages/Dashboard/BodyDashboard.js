@@ -74,10 +74,11 @@ const BodyDashboard = ({
       let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice}`
 
       if (filterDestiny?.key) {
-        url += `&destiny_id=${filterDestiny?.key}`
-
-        if (filterOrigin?.key)
-          url += `&origin_id=${filterOrigin?.key}`
+        if(filterDestiny?.key && filterOrigin?.key) {
+          url += `&destiny_id=${filterDestiny?.value2}&origin_id=${filterOrigin?.value2}`
+        } else {
+          url += `&destiny_id=${filterDestiny?.key}`
+        }
 
         if (filterDays)
           url += `&qtd_days=${filterDays}`
@@ -85,7 +86,7 @@ const BodyDashboard = ({
         if (filterMouth && filterYear)
           url += `&month=${filterMouth}&year=${filterYear}`
       }
-
+      
       const response = await api.get(url);
       const totalItems = response.data.data.pagination.total_registers;
       const data = response.data.data.packages;
