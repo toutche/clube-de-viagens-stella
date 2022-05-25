@@ -53,7 +53,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
           containerStyle={styles.iconRight}
         />
 
-        <ProfileAvatar isShow />
+        <ProfileAvatar isShow source={'dashboard'} />
       </View>
 
       <SlidesDashboard {...{ filter, data, option }} />

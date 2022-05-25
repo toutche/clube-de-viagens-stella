@@ -30,7 +30,7 @@ const TravelCard = ({ display = 0, display_footer = 0, data, value_observation =
               : `${data?.number_days} dias`
             }
           </Text>
-          {value_observation && <Text style={styles.subTitle}>Os valores e disponibilidade estão sujeitos a alteração sem aviso prévio</Text>}
+          {value_observation && <Text style={[styles.subTitle, {fontSize: 10}]}>Os valores e disponibilidade estão sujeitos a alteração sem aviso prévio</Text>}
           <View style={styles.borderBottom} />
           {data?.phrase_amount && <Text style={styles.infosPackage}>{data?.phrase_amount}</Text>}
 

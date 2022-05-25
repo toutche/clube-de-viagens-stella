@@ -146,8 +146,8 @@ export default ({ item, navigation, plan }) => {
           style={{
             fontFamily: FONT_DEFAULT_STYLE,
             color: "#777",
-            fontSize: 13,
-            marginTop: Platform.OS === "ios" ? -2 : -4,
+            fontSize: 10,
+            marginVertical: 6,
             textAlign: "center"
           }}>
           Os valores e disponibilidade estão sujeitos a alteração sem aviso prévio
