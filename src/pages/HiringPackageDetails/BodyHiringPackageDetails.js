@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import InfoHotel from "../../components/InfoHotel";
 import Travel from "../../components/Travel";
@@ -8,38 +8,40 @@ import { BLUE_COLOR, GREEN_COLOR, PRIMARY_COLOR } from "../../utils/variables";
 import { AntDesign } from "@expo/vector-icons";
 import Note from "./Note";
 
-const BodyHiringPackageDetails = ({ openModal, data }) => {
+const BodyHiringPackageDetails = ({ openModal, data, comment, setComment }) => {
   return (
-    <ScrollView
-      bounces={false}
-      style={styles.container}
-      contentContainerStyle={styles.containerScroll}>
-      <TravelCard display={1} {...{ data }} value_observation={true} />
+    <KeyboardAvoidingView style={{flex: 1}} behavior={"padding"}>
+      <ScrollView
+        bounces={false}
+        style={styles.container}
+        contentContainerStyle={styles.containerScroll}>
+        <TravelCard display={1} {...{ data }} value_observation={true} />
 
-      <Travel {...{ data, display: data.hour_voo ? 0 : 1 }} />
+        <Travel {...{ data, display: data.hour_voo ? 0 : 1 }} />
 
-      <InfoHotel display={1} {...{ data }} />
+        <InfoHotel display={1} {...{ data }} />
 
-      <CustomButton
-        left
-        type={AntDesign}
-        name={"exclamationcircle"}
-        color={BLUE_COLOR}
-        size={16}
-        containerStyle={styles.buttonPolicy}
-        titleStyle={styles.textButtonPolicy}
-        title={`Verificar política de cancelamento`}
-      />
+        <CustomButton
+          left
+          type={AntDesign}
+          name={"exclamationcircle"}
+          color={BLUE_COLOR}
+          size={16}
+          containerStyle={styles.buttonPolicy}
+          titleStyle={styles.textButtonPolicy}
+          title={`Verificar política de cancelamento`}
+        />
 
-      <Note />
+        <Note {...{comment, setComment}} />
 
-      <CustomButton
-        onPress={openModal}
-        containerStyle={styles.buttonPayment}
-        titleStyle={styles.textButtonPayment}
-        title={`Solicitar reserva | R$ ${data?.price_discount}`}
-      />
-    </ScrollView>
+        <CustomButton
+          onPress={openModal}
+          containerStyle={styles.buttonPayment}
+          titleStyle={styles.textButtonPayment}
+          title={`Solicitar reserva | R$ ${data?.price_discount}`}
+        />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -73,7 +75,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonPolicy: {
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 10,
     flexDirection: "row",
     borderWidth: 1.5,
     borderColor: BLUE_COLOR,

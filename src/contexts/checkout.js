@@ -26,6 +26,7 @@ export const CheckoutProvider = ({ children }) => {
 
   const getScheduling = (id, hotelData=undefined) => {
     if (hotelData) {
+      //setTravelers([]);
       api.post('/hotel/get/agendamento', {
         start_date: String(hotelData.filterCheck.in).split('/').reverse().join('-'),
         end_date: String(hotelData.filterCheck.out).split('/').reverse().join('-'),

@@ -17,6 +17,7 @@ const HiringPackageDetails = ({ navigation, route }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(1);
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     api
@@ -55,10 +56,10 @@ const HiringPackageDetails = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <ModalPayment
-        {...{ navigation, isVisible, onClose, data, index, setIndex, travelers, package_id: id }}
+        {...{ navigation, isVisible, onClose, data, index, setIndex, travelers, package_id: id, comment }}
       />
       <HeaderHiringPackageDetails {...{ navigation, data }} />
-      <BodyHiringPackageDetails {...{ data, openModal }} />
+      <BodyHiringPackageDetails {...{ data, openModal, comment, setComment }} />
     </View>
   );
 };

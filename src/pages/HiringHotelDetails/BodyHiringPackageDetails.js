@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import InfoHotel from "../../components/InfoHotel";
 import Travel from "../../components/Travel";
@@ -9,8 +9,9 @@ import { AntDesign } from "@expo/vector-icons";
 import Note from "./Note";
 import Room from "../HotelScheduling/Room";
 
-const BodyHiringPackageDetails = ({ openModal, data }) => {
+const BodyHiringPackageDetails = ({ openModal, data, comment, setComment }) => {
   return (
+    <KeyboardAvoidingView style={{flex: 1}} behavior={"padding"}>
     <ScrollView
       bounces={false}
       style={styles.container}
@@ -32,7 +33,7 @@ const BodyHiringPackageDetails = ({ openModal, data }) => {
         title={`Verificar política de cancelamento`}
       />
 
-      <Note />
+      <Note {...{comment, setComment}} />
 
       <CustomButton
         onPress={openModal}
@@ -41,6 +42,7 @@ const BodyHiringPackageDetails = ({ openModal, data }) => {
         title={`Solicitar reserva | R$ ${data?.price_discount}`}
       />
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
   },
   buttonPolicy: {
     marginTop: 5,
-    marginBottom: 16,
+    marginBottom: 10,
     flexDirection: "row",
     borderWidth: 1.5,
     borderColor: BLUE_COLOR,

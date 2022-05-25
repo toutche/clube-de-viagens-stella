@@ -27,7 +27,7 @@ const HeaderHiringPackageDetails = ({ navigation, data }) => {
         <ValuePackage price_discount={data.price_discount} />
       </View>
 
-      <InsertCupom />
+      {/* <InsertCupom /> */}
     </View>
   );
 };

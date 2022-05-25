@@ -24,6 +24,7 @@ const ModalPayment = ({
   setIndex,
   travelers,
   package_id,
+  comment
 }) => {
 
   const { data: item } = useCheckout();
@@ -91,7 +92,8 @@ const ModalPayment = ({
         card_id: data.payment_infos.card.id,
         installments: index,
         use_credit: check,
-        travelers
+        travelers,
+        comments: comment
       })
       .then(res => {
         onClose();
