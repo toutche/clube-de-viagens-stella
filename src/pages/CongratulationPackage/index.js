@@ -76,7 +76,9 @@ const CongratulationPackage = ({ route, navigation }) => {
         <InfoHotel display={2} {...{ data: data.package_infos }} />
 
         <CustomButton
-          onPress={handleBackButton}
+          onPress={
+            () => navigation.navigate({name: "MyReservations" }) 
+          }
           containerStyle={styles.button}
           titleStyle={styles.textButton}
           title={`Ver detalhes desse pacote`}

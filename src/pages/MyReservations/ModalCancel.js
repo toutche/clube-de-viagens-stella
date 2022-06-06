@@ -1,13 +1,31 @@
 import React from 'react';
-import { StyleSheet, View, Text, Modal } from 'react-native';
+import { StyleSheet, View, Text, Modal, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import CustomButton from '../../components/CustomButton';
 import { PRIMARY_COLOR } from '../../utils/variables';
+import api from "../../services/api";
 
 const ModalCancel = ({
     isVisible = true,
     onClose
 }) => {
+    const handleCancel = async () => {
+        await api
+        .get(`/pacote-viagem/minhas-reservas/cancelamento/${package_id}/${sale_id}}`)
+        .then( ({ data }) => {
+            onClose();
+        })
+        .catch((e) => { 
+            Alert(
+                'Aviso', 
+                'Não foi possível cancelar a reserva selecionada. Por favor, tente novamente.',
+                [
+                    { text: "OK", onPress: () => console.log("OK") }
+                ]
+            )
+            console.error(e)
+        });
+    }
 
     return (
         <Modal statusBarTranslucent

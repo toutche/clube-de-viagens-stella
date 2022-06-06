@@ -132,8 +132,15 @@ export default ({ navigation }) => {
   };
 
   const handlerPress = () => {
-    if (check) signUp(user, navigation);
-    else Alert.alert("Aviso", "Para continuar aceite os termos");
+    if (user.password.length < 6 || user.password.length > 9) {
+      Alert.alert("Aviso", "A senha deve conter entre 6 a 9 caracteres.");
+    }
+    else if (!check) {
+      Alert.alert("Aviso", "Para continuar aceite os termos");
+    }
+    else {
+      signUp(user, navigation);
+    }
   };
 
   const general_text_style = {

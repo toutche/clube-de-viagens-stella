@@ -62,7 +62,7 @@ const BodyDetailsContractedPackages = ({item}) => {
 
       <Travel data={scheduling}/>
 
-      <InfoHotel data={hotel}/>
+      <InfoHotel data={hotel} display={2}/>
 
       <CustomButton
         left
