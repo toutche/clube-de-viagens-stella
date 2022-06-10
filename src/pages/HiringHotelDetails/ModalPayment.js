@@ -19,15 +19,14 @@ const ModalPayment = ({
   navigation,
   isVisible,
   onClose,
-  data,
   index,
   setIndex,
   travelers,
-  package_id,
-  comment
+  comment,
+  roomIndex
 }) => {
 
-  const { data: item } = useCheckout();
+  const { data } = useCheckout();
   const { user } = useAuth();
   const [check, setCheck] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -42,13 +41,7 @@ const ModalPayment = ({
       setCheck(!check); 
 
       const body = {
-        'start_date': String(item.hotel.filterCheck.in).split('/').reverse().join('-'),
-        'end_date': String(item.hotel.filterCheck.out).split('/').reverse().join('-'),
-        'qtd_people': String(item.hotel.filterPeople.adult),
-        'city_code': String(item.hotel.filterDestiny.key),
-        'id_hotel': item.hotel.item.id,
-        'hotel_key_detail': item.hotel.item.keyDetail,
-        'hotel_room_code': item.hotel.roomCode,
+        'price': data.rooms[roomIndex].price_discount,
         'use_credit': 1
       }
       
@@ -56,8 +49,10 @@ const ModalPayment = ({
         body['use_credit'] = 0;
       }
 
+      console.log(body)
+
       await api
-      .post(`/hotel/get/agendamento/pagamento`, body)
+      .post(`/hotel/v2/get/agendamento/pagamento`, body)
       .then(({ data }) => {
         setInstallments(data?.payment_infos?.installments);
         setBtnPrice(data?.payment_infos?.btn_payment?.price);
@@ -83,12 +78,12 @@ const ModalPayment = ({
     setLoading(true);
     api
       .post("/transaction/hotel/contracting", {
-        start_date: String(item.hotel.filterCheck.in).split('/').reverse().join('-'),
-        end_date: String(item.hotel.filterCheck.out).split('/').reverse().join('-'),
-        qtd_people: String(item.hotel.filterPeople.adult),
-        city_code: String(item.hotel.filterDestiny.key),
-        id_hotel: item.hotel.item.id,
-        hotel_room_code: item.hotel.roomCode,
+        start_date: String(filterCheck.in).split('/').reverse().join('-'),
+        end_date: String(filterCheck.out).split('/').reverse().join('-'),
+        qtd_people: String(filterPeople.adult),
+        city_code: String(filterDestiny.key),
+        id_hotel: data.id,
+        hotel_room_code: data.rooms[roomIndex].code,
         card_id: data.payment_infos.card.id,
         installments: index,
         use_credit: check,

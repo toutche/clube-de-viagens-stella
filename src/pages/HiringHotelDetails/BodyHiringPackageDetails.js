@@ -9,18 +9,18 @@ import { AntDesign } from "@expo/vector-icons";
 import Note from "./Note";
 import Room from "../HotelScheduling/Room";
 
-const BodyHiringPackageDetails = ({ openModal, data, comment, setComment }) => {
+const BodyHiringPackageDetails = ({ openModal, data, comment, setComment, roomIndex }) => {
   return (
     <KeyboardAvoidingView style={{flex: 1}} behavior={"padding"}>
     <ScrollView
       bounces={false}
       style={styles.container}
       contentContainerStyle={styles.containerScroll}>
-      <TravelCard display={1} {...{ data }} />
+      <TravelCard display={1} {...{ data }} room={data.rooms[roomIndex]} />
 
       <Travel {...{ data, display: data.hour_voo ? 0 : 1 }} />
 
-      <Room data={data} price={false}/>
+      <Room data={data.rooms[roomIndex]} price={false}/>
 
       <CustomButton
         left
@@ -39,7 +39,7 @@ const BodyHiringPackageDetails = ({ openModal, data, comment, setComment }) => {
         onPress={openModal}
         containerStyle={styles.buttonPayment}
         titleStyle={styles.textButtonPayment}
-        title={`Solicitar reserva | R$ ${data?.price_discount}`}
+        title={`Solicitar reserva | R$ ${data?.rooms[roomIndex].price_discount}`}
       />
     </ScrollView>
     </KeyboardAvoidingView>

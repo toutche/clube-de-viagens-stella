@@ -10,7 +10,7 @@ const BoardingPlace = ({ data }) => {
       <View style={[styles.content]}>
         <AntDesign name='checkcircleo' size={22} color={BLUE_COLOR} />
         <View style={styles.contentText}>
-          <Text style={styles.title}>{data?.destiny}</Text>
+          <Text style={styles.title}>{data?.destiny || data?.address}</Text>
         </View>
       </View>
     </View>

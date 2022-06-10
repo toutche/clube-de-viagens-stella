@@ -26,21 +26,17 @@ export const CheckoutProvider = ({ children }) => {
 
   const getScheduling = (id, hotelData=undefined) => {
     if (hotelData) {
-      //setTravelers([]);
-      api.post('/hotel/get/agendamento', {
+      api.post('/hotel/get', {
         start_date: String(hotelData.filterCheck.in).split('/').reverse().join('-'),
         end_date: String(hotelData.filterCheck.out).split('/').reverse().join('-'),
         qtd_people: String(hotelData.filterPeople.adult),
         city_code: String(hotelData.filterDestiny.key),
-        id_hotel: hotelData.item.id,
-        hotel_key_detail: hotelData.item.keyDetail,
-        hotel_room_code: hotelData.roomCode
-      })
-      .then((res) => {
+        hotel: hotelData.item.id,
+        hotel_key_detail: hotelData.item.keyDetail
+      }).then((res) => {
         let t = getTravelers(hotelData);
-        setData({...res.data, ...t, hotel: hotelData})
-      })
-      .catch(e => console.log(e));
+        setData({...res.data, ...t})
+      }).catch(e => console.log(e));
     }
     else {
       api

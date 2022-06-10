@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, ActivityIndicator, View } from "react-native";
 import { useAuth } from "../../contexts/auth";
 import { useFilter } from "../../contexts/filter";
+import { useCheckout } from "../../contexts/checkout";
 import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import Body from "./Body";
@@ -9,34 +10,18 @@ import Header from "./Header";
 
 export default ({ route, navigation }) => {
     const { user } = useAuth();
-    const {
-        filterDestiny,
-        filterCheck,
-        filterPeople
-    } = useFilter()
+    const { getScheduling, data, travelers } = useCheckout();
+    const { filterDestiny, filterCheck, filterPeople } = useFilter();
 
     const { item } = route.params;
 
-    const [data, setData] = useState({})
     const [select, setSelect] = useState({
         id: 0
     })
 
     useEffect(() => {
-        api.post('/hotel/get', {
-            start_date: String(filterCheck.in).split('/').reverse().join('-'),
-            end_date: String(filterCheck.out).split('/').reverse().join('-'),
-            qtd_people: String(filterPeople.adult),
-            city_code: String(filterDestiny.key),
-            hotel: item.id,
-            hotel_key_detail: item.keyDetail
-        }).then((res) => {
-            setData(res.data)
-            setSelect({
-                id: 0,
-                ...res.data.rooms[0]
-            })
-        }).catch(e => console.log(e));
+        let hotelData = {item, filterDestiny, filterCheck, filterPeople}
+        getScheduling(item.id, hotelData);
     }, []);
 
     if (Object.keys(data).length === 0)
