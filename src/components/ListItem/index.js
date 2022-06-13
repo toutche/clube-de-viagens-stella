@@ -12,9 +12,13 @@ import {
   PRIMARY_COLOR,
 } from "../../utils/variables";
 import Hide from "../Hide";
+import { useCheckout } from "../../contexts/checkout";
+import { useFilter } from "../../contexts/filter";
 
 const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
   const [loading, setLoading] = useState(true)
+  const { getScheduling } = useCheckout();
+  const { filterDestiny, filterCheck, filterPeople } = useFilter();
 
   const handlePressLeftButton = () => {
     if (display === 0) {
@@ -37,11 +41,14 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
         params: { item }
       });
     } else if (display === 1) {
+      let hotelData = {item, filterDestiny, filterCheck, filterPeople}
+      getScheduling(item.id, hotelData);
+
       navigation.navigate({
         name: plan ? "HotelScheduling" : "PlanScreen",
         params: {
           item,
-          roomCode: item.code_room
+          roomIndex: 0
         },
       });
     }

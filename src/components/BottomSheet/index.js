@@ -7,6 +7,7 @@ import { IS_IOS } from '../../utils/consts'
 import { maskDate, maskOnlyNumbers } from '../../utils/masks';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment'
+import { AntDesign } from '@expo/vector-icons'; 
 
 const initial_form = {
     days: '',
@@ -16,6 +17,7 @@ const initial_form = {
     checkOut: '',
     adult: '',
     children: '',
+    ages: []
 }
 
 let id_check = null
@@ -42,6 +44,7 @@ export default ({ isVisible, onClose, id }) => {
         checkOut: filterCheck?.out || '',
         adult: filterPeople?.adult || '',
         children: filterPeople?.children || '',
+        ages: [],
     })
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
 
@@ -58,9 +61,14 @@ export default ({ isVisible, onClose, id }) => {
         hideDatePicker()
     }
 
+    const date = new Date();
+    const checkInMinimunDate = date.setDate(date.getDate() + 3);
+    const checkInDate = new Date(form.checkIn.split('/').reverse().join('-'));
+    const checkOutMinimunDate = date.setDate(checkInDate.getDate() + 2);
+
     const _renderDatePicker = useMemo(() => (
         <DateTimePickerModal
-            date={new Date()}
+            date={id_check === 0 ? checkInMinimunDate : checkOutMinimunDate}
             locale='pt-BR'
             cancelTextIOS='Cancelar'
             confirmTextIOS='Confirmar'
@@ -68,6 +76,7 @@ export default ({ isVisible, onClose, id }) => {
             mode="date"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
+            minimumDate={id_check === 0 ? checkInMinimunDate : checkOutMinimunDate}
         />
     ), [isDatePickerVisible])
 
@@ -159,6 +168,53 @@ export default ({ isVisible, onClose, id }) => {
         </>
     )
 
+    const _renderAgeInputs = () => {
+        const inputs = [];
+        form.ages.length > 0 && 
+        inputs.push(<Text style={{fontFamily: FONT_DEFAULT_STYLE, marginBottom: 8}}>Idades das crianças</Text>)
+        
+        for(let i = 0; i < form.children; i++) {
+            inputs.push(
+                <View style={[styles.input, {flexDirection: 'row', justifyContent: 'space-between'}]}>
+                    <AntDesign 
+                        name="minuscircle" 
+                        size={24} 
+                        color={PRIMARY_COLOR}
+                        onPress={() => {
+                            const ages = form.ages.map((age, index) => index === i && age > 0 ? age -= 1 : age)
+                            setForm({
+                                ...form,
+                                ages
+                            })
+                        }}
+                    />
+                    <TextInput
+                        placeholder={'Idade'}
+                        placeholderTextColor={"#ccc"}
+                        keyboardType={'numeric'}
+                        maxLength={2}
+                        value={`${form.ages[i]}`}
+                        onChangeText={undefined}
+                    />
+                    <AntDesign 
+                        name="pluscircle" 
+                        size={24} 
+                        color={PRIMARY_COLOR}
+                        onPress={() => {
+                            const ages = form.ages.map((age, index) => index === i && age < 13 ? age += 1 : age)
+                            setForm({
+                                ...form,
+                                ages
+                            })
+                        }}
+                    />
+                </View>
+            );
+        }
+
+        return inputs;
+    }
+
     const _renderPeople = (
         <>
             <TextInput
@@ -180,15 +236,23 @@ export default ({ isVisible, onClose, id }) => {
                 placeholderTextColor={"#ccc"}
                 keyboardType={'numeric'}
                 maxLength={2}
-                onChangeText={text =>
+                onChangeText={text => {
+                    const ages = [];
+                    
+                    for(let i = 0; i < parseInt(text); i++) {
+                        ages.push(0);
+                    }
+                    
                     setForm({
                         ...form,
-                        children: maskOnlyNumbers(text)
+                        children: maskOnlyNumbers(text),
+                        ages: ages
                     })
-                }
+                }}
                 value={form.children}
                 style={styles.input}
             />
+            {_renderAgeInputs()}
         </>
     )
 

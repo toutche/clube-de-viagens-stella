@@ -33,8 +33,13 @@ export const AuthProvider = ({ children }) => {
             initialRoute.current = "Sign";
             Alert.alert("Aviso", "Seu token expirou, faça login novamente");
           });
-        } else if (!data.message.address)
+        } 
+        else if (!data.message.date_activation) {
+          navigation ? navigation.replace("ConfirmEmail") : (initialRoute.current = "ConfirmEmail");
+        } 
+        else if (!data.message.address) {
           navigation ? navigation.replace("GetLocation") : (initialRoute.current = "GetLocation");
+        }
         else
           api.get(`/questionario/listar`).then(res => {
             if (res.data.length > 0) setAuth(true);

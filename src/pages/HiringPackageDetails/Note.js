@@ -1,36 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import CustomInput from "../../components/CustomInput";
+import { FONT_DEFAULT_STYLE, TEXT_COLOR_BKWHITE } from "../../utils/variables";
 
-import { FONT_DEFAULT_STYLE } from "../../utils/variables";
-import { useAuth } from "../../contexts/auth";
-
-const Note = () => {
-  const { user } = useAuth();
-
+const Note = ({ comment, setComment }) => {
   return (
-    <TouchableOpacity style={styles.container}>
-      <Image source={{ uri: user.images.checkout.comments }} style={{ width: 22, height: 22 }} />
-      <Text style={styles.text}>Deixar alguma observação</Text>
-    </TouchableOpacity>
+    <CustomInput
+      placeholder='Deixar alguma observação'
+      autoCapitalize={"sentences"}
+      value={comment}
+      multiline={true}
+      lenght={1024}
+      containerStyle={styles.container}
+      inputStyle={styles.text}
+      placeholderTextColor={TEXT_COLOR_BKWHITE}
+      onChangeText={text =>
+        setComment(text)
+      }
+    />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: "99%",
-    alignSelf: "center",
+    height: 100,
     padding: 12,
-    marginBottom: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    marginVertical: 20,
     backgroundColor: "white",
+    alignItems: 'flex-start',
     elevation: 3,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    borderRadius: 100,
-    flexDirection: "row",
+    borderRadius: 10,
   },
   text: {
     fontFamily: FONT_DEFAULT_STYLE,

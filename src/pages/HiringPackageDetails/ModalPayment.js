@@ -23,6 +23,7 @@ const ModalPayment = ({
   setIndex,
   travelers,
   package_id,
+  comment
 }) => {
 
   const { user } = useAuth();
@@ -110,7 +111,7 @@ const ModalPayment = ({
         installments: index,
         use_credit: check,
         travelers,
-        comments: "",
+        comments: comment,
       })
       .then(res => {
         onClose();

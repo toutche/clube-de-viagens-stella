@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variables";
 import { FontAwesome } from "@expo/vector-icons";
 
-const TravelCard = ({ display = 0, display_footer = 0, data, value_observation = false }) => {
+const TravelCard = ({ display = 0, display_footer = 0, data, value_observation = false, room }) => {
   return (
     <View
       style={[
@@ -15,7 +15,7 @@ const TravelCard = ({ display = 0, display_footer = 0, data, value_observation =
       <View style={styles.innerContainer}>
         <Image
           source={{
-            uri: data?.img,
+            uri: data?.img || data?.primary_image,
           }}
           style={styles.image}
         />
@@ -30,21 +30,21 @@ const TravelCard = ({ display = 0, display_footer = 0, data, value_observation =
               : `${data?.number_days} dias`
             }
           </Text>
-          {value_observation && <Text style={styles.subTitle}>Os valores e disponibilidade estão sujeitos a alteração sem aviso prévio</Text>}
+          {value_observation && <Text style={[styles.subTitle, {fontSize: 10}]}>Os valores e disponibilidade estão sujeitos a alteração sem aviso prévio</Text>}
           <View style={styles.borderBottom} />
           {data?.phrase_amount && <Text style={styles.infosPackage}>{data?.phrase_amount}</Text>}
 
           {display === 1 && (
             <View style={styles.details}>
               <View>
-                <Text style={styles.oldValue}>R$ {data?.price}</Text>
-                <Text style={styles.newValue}>R$ {data?.price_discount}</Text>
+                <Text style={styles.oldValue}>R$ {room?.price || data?.price}</Text>
+                <Text style={styles.newValue}>R$ {room?.price_discount || data?.price_discount}</Text>
               </View>
               <View style={styles.economic}>
                 <View style={styles.arrow} />
-                <Text style={styles.economicText}>Economize R$ {data?.price_difference}</Text>
+                <Text style={styles.economicText}>Economize R$ {room?.price_difference || data?.price_difference}</Text>
                 <View style={styles.separator} />
-                <Text style={styles.discountText}>{data?.percentual_plan}</Text>
+                <Text style={styles.discountText}>{room?.percentual_plan || data?.percentual_plan }</Text>
               </View>
             </View>
           )}

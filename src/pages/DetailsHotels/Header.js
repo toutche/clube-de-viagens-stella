@@ -147,6 +147,7 @@ export default ({ item, navigation, plan, select, filters }) => {
                         name: plan ? "HotelScheduling" : "PlanScreen",
                         params: {
                             item,
+                            roomIndex: select.id
                         },
                         merge: true,
                     });

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Dot from "../Dot";
 
-const Carousel = ({ data }) => {
+const Carousel = ({ data, source }) => {
   const { width } = useWindowDimensions();
 
   const ref = useRef(null);
@@ -27,6 +27,8 @@ const Carousel = ({ data }) => {
     });
   };
 
+  const bottom = source !== undefined ? 40 : 150;
+
   return (
     <>
       <View
@@ -34,7 +36,7 @@ const Carousel = ({ data }) => {
           zIndex: 1,
           flexDirection: "row",
           position: "absolute",
-          bottom: 150,
+          bottom: bottom,
           alignSelf: "center",
           alignItems: "center",
         }}>

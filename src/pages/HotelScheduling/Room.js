@@ -9,15 +9,15 @@ export default Room = ({ data, price=true }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Quartos Selecionado</Text>
-            <Text style={styles.item_title_rooms}>{data.room?.name}</Text>
-            <Text style={styles.item_subtitle_rooms}>{data.room?.checkin}</Text>
-            <Text style={styles.item_subtitle_rooms}>{data.room?.checkout}</Text>
-            <Text style={styles.item_subtitle_rooms}>{data.room?.cancellation}</Text>
+            <Text style={styles.item_title_rooms}>{data.name}</Text>
+            <Text style={styles.item_subtitle_rooms}>{data.checkin}</Text>
+            <Text style={styles.item_subtitle_rooms}>{data.checkout}</Text>
+            <Text style={styles.item_subtitle_rooms}>{data.cancellation}</Text>
             {
                 price && <Text style={styles.rooms_price}>
-                    <Text style={styles.old_price}>{data.room?.price}</Text>
+                    <Text style={styles.old_price}>{data.price}</Text>
                         ● 
-                    {data.room?.price_discount}
+                    {data.price_discount}
                 </Text>
             }
         </View>

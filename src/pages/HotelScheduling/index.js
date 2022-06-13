@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import CustomHeader from "../../components/CustomHeader";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import BoardingPlace from "./BoardingPlace";
@@ -10,18 +10,19 @@ import CustomButton from "../../components/CustomButton";
 import { useCheckout } from "../../contexts/checkout";
 import { useFilter } from "../../contexts/filter";
 import Room from "./Room";
+import { PRIMARY_COLOR } from "../../utils/variables";
 
 const Scheduling = ({ navigation, route }) => {
   const { getScheduling, data, travelers } = useCheckout();
   const { filterDestiny, filterCheck, filterPeople } = useFilter();
+  const { roomIndex } = route.params;
 
-  const id = route.params.item.id;
-  const { item, roomCode } = route.params;
-
-  useEffect(() => {
-    let hotelData = {item, roomCode, filterDestiny, filterCheck, filterPeople}
-    getScheduling(id, hotelData);
-  });
+  if (Object.keys(data).length === 0)
+    return (
+      <View style={styles.loading}>
+          <ActivityIndicator size={"large"} color={PRIMARY_COLOR} />
+      </View>
+    );
 
   return (
     <View style={styles.container}>
@@ -30,7 +31,7 @@ const Scheduling = ({ navigation, route }) => {
         leftName={"arrowleft"}
         leftSize={26}
         handlerLeft={() => navigation.goBack()}
-        title={"Agendamento"}
+        title={"Resumo"}
       />
 
       <ScrollView bounces={false} style={styles.body}>
@@ -48,7 +49,7 @@ const Scheduling = ({ navigation, route }) => {
           }
         />
 
-        {data && <Room data={data} />}
+        {data && <Room data={data.rooms[roomIndex]} />}
 
         <CustomButton
           disabled={travelers.length === data.qtd_pax ? false : true}
@@ -60,7 +61,7 @@ const Scheduling = ({ navigation, route }) => {
             navigation.navigate({
               name: "HiringHotelDetails",
               params: {
-                id,
+                roomIndex,
               },
               merge: true,
             })
@@ -91,6 +92,11 @@ const styles = StyleSheet.create({
     fontSize: 14.5,
     color: "white",
     textAlign: "center",
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

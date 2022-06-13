@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 const item =
   "https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg";
 
-const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
+const ProfileAvatar = ({ leftSize = 55, isShow = false, source }) => {
   const { user, verifyUser } = useAuth();
   return (
     <View style={styles.container}>
@@ -37,9 +37,9 @@ const ProfileAvatar = ({ leftSize = 55, isShow = false }) => {
             </Text>
           </View>
 
-          <TouchableOpacity style={{marginLeft: 16}} onPress={verifyUser}>
+          {source === 'dashboard' && <TouchableOpacity style={{marginLeft: 16}} onPress={verifyUser}>
             <Ionicons name="refresh" size={24} color="#ffffff" />
-          </TouchableOpacity>
+          </TouchableOpacity>}
         </View>
       </View>
     </View>
