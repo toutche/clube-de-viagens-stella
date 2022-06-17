@@ -20,7 +20,7 @@ const Scheduling = ({ navigation, route }) => {
   if (Object.keys(data).length === 0)
     return (
       <View style={styles.loading}>
-          <ActivityIndicator size={"large"} color={PRIMARY_COLOR} />
+        <ActivityIndicator size={"large"} color={PRIMARY_COLOR} />
       </View>
     );
 

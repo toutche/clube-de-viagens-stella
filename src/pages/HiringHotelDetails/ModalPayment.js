@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Modal, Platform, TouchableWithoutFeedback } from "react-native";
 import { MaterialIcons, AntDesign, Entypo } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
@@ -11,6 +11,7 @@ import {
 } from "../../utils/variables";
 import { CheckBox } from "react-native-elements";
 import { useAuth } from "../../contexts/auth";
+import { useFilter } from "../../contexts/filter";
 import CustomPicker from "../../components/CustomPicker";
 import api from "../../services/api";
 import { useCheckout } from "../../contexts/checkout";
@@ -26,14 +27,19 @@ const ModalPayment = ({
   roomIndex
 }) => {
 
-  const { data } = useCheckout();
+  const { data, setData } = useCheckout();
   const { user } = useAuth();
-  const [check, setCheck] = useState(true);
+  const { filterDestiny, filterCheck, filterPeople } = useFilter();
+  const [check, setCheck] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isVisiblePicker, setVisiblePicker] = useState(false);
   const [isCardVisible, setIsCardVisible] = useState(data?.payment_infos?.view_card);
   const [installments, setInstallments] = useState(data?.payment_infos?.installments);
   const [btnPrice, setBtnPrice] = useState(data?.payment_infos?.btn_payment?.price);
+
+  useEffect(() => {
+    usePlanCredit();
+  }, []);
 
   const usePlanCredit = async () => {
     setLoading(true);
@@ -53,10 +59,11 @@ const ModalPayment = ({
 
       await api
       .post(`/hotel/v2/get/agendamento/pagamento`, body)
-      .then(({ data }) => {
-        setInstallments(data?.payment_infos?.installments);
-        setBtnPrice(data?.payment_infos?.btn_payment?.price);
-        setIsCardVisible(data?.payment_infos?.view_card);
+      .then(({ data: item }) => {
+        setData({...data, ...item})
+        setInstallments(item?.payment_infos?.installments);
+        setBtnPrice(item?.payment_infos?.btn_payment?.price);
+        setIsCardVisible(item?.payment_infos?.view_card);
       })
       .catch(e => console.log('erro', e))
 
@@ -76,14 +83,27 @@ const ModalPayment = ({
 
   const payment = () => {
     setLoading(true);
+    console.log({
+      id_hotel: data.id,
+      hotel_name: data.name,
+      hotel_room_key: data.rooms[roomIndex].key,
+      start_date: String(filterCheck.in).split('/').reverse().join('-'),
+      end_date: String(filterCheck.out).split('/').reverse().join('-'),
+      price: data.rooms[roomIndex].price_discount,
+      card_id: data.payment_infos.card.id,
+      installments: index,
+      use_credit: check,
+      travelers,
+      comments: comment
+    })
     api
-      .post("/transaction/hotel/contracting", {
+      .post("/transaction/v2/hotel/contracting", {
+        id_hotel: data.id,
+        hotel_name: data.name,
+        hotel_room_key: data.rooms[roomIndex].key,
         start_date: String(filterCheck.in).split('/').reverse().join('-'),
         end_date: String(filterCheck.out).split('/').reverse().join('-'),
-        qtd_people: String(filterPeople.adult),
-        city_code: String(filterDestiny.key),
-        id_hotel: data.id,
-        hotel_room_code: data.rooms[roomIndex].code,
+        price: data.rooms[roomIndex].price_discount,
         card_id: data.payment_infos.card.id,
         installments: index,
         use_credit: check,
@@ -91,10 +111,14 @@ const ModalPayment = ({
         comments: comment
       })
       .then(res => {
+        console.log('res', res)
         onClose();
         navigation.replace("CongratulationHotel", { ...res.data });
       })
-      .catch(() => setLoading(false));
+      .catch((error) => {
+        setLoading(false);
+        console.log('error', error)
+      });
   };
 
   return (
@@ -117,7 +141,7 @@ const ModalPayment = ({
           <TouchableWithoutFeedback>
             <View style={styles.content}>
               <View style={styles.float}>
-                <View style={styles.top}>
+                <View style={[styles.top, {backgroundColor: user?.plan?.color}]}>
                   <Text style={styles.iconHide}>●</Text>
                   <Text style={styles.plan}>{user?.plan?.name}</Text>
                 </View>
@@ -284,7 +308,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 4,
     paddingHorizontal: 12,
-    backgroundColor: YELLOW_COLOR,
     borderRadius: 100,
   },
   float: {

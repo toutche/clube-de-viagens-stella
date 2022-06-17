@@ -1,26 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import api from "../../services/api";
 import Body from "./Body";
 import Header from "./Header";
 import ModalCancel from "./ModalCancel";
+import { useFocusEffect } from '@react-navigation/native';
 
 export default ({ navigation }) => {
   const [isVisible, setVisible] = useState(false);
+  const [item, setItem] = useState({});
 
   const [data, setData] = useState([])
 
-    useEffect(() => {
-        api.get('/pacote-viagem/minhas-reservas').then((res) => {
-            setData(res.data)
-        })
+  const getReservations = () => {
+    api.get('/pacote-viagem/minhas-reservas').then((res) => {
+      setData(res.data)
+    })
+    console.log('buscando pacotes');
+  }
+
+  useEffect(() => {
+    getReservations();
+  }, [])
+
+  useFocusEffect(
+    useCallback(() => {
+      getReservations();
     }, [])
+  )
+
+  const toggleModal = (item) => {
+    setVisible(!isVisible);
+    setItem(item);
+    console.log('item para cancelamento', item)
+  }
 
   return (
     <View style={styles.container}>
-      <ModalCancel isVisible={isVisible} onClose={() => setVisible(!isVisible)} />
+      <ModalCancel isVisible={isVisible} onClose={() => setVisible(!isVisible)} item={item} />
       <Header navigation={navigation} />
-      <Body itens={data} openModal={() => setVisible(!isVisible)} navigation={navigation} />
+      <Body itens={data} openModal={toggleModal} navigation={navigation} />
     </View>
   );
 };
