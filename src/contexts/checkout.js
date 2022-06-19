@@ -25,6 +25,8 @@ export const CheckoutProvider = ({ children }) => {
   }
 
   const getScheduling = (id, hotelData=undefined) => {
+    setData([]);
+    setTravelers([]);
     if (hotelData) {
       api.post('/hotel/get', {
         start_date: String(hotelData.filterCheck.in).split('/').reverse().join('-'),
@@ -53,6 +55,7 @@ export const CheckoutProvider = ({ children }) => {
         travelers,
         setTravelers,
         getScheduling,
+        setData,
       }}>
       {children}
     </CheckoutContext.Provider>

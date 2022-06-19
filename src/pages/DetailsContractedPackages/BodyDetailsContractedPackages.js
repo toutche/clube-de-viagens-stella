@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { BLUE_COLOR, GREEN_COLOR, PRIMARY_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
 import AlertCovid from "../../components/AlertCovid";
@@ -15,18 +15,19 @@ const BodyDetailsContractedPackages = ({item}) => {
   const [hotel, setHotel] = useState("")
   const [dayByDay, setDayByDay] = useState("")
   const [isVisible, setVisible] = useState(false)
+  const [data, setData] = useState("")
 
   useEffect(() => {
     (async () => {
-      await api.get(`/pacote-viagem/${item.id}/get/agendamento`).then(res => {
+      await api.get(`/pacote-viagem/${item.id}/get/minhas-reservas`).then(res => {
+        console.log('get', res.data)
         setScheduling(res.data);
         setHotel({
           hotel: res.data.hotel_name,
           service_description: res.data.service_description
         })
-      }).catch(err => console.error(err));
-      await api.get(`/pacote-viagem/${item.id}/get`).then(res => {
         setDayByDay(res.data.day_by_day)
+        setData(res.data)
       }).catch(err => console.error(err));
     })()
   }, [])
@@ -56,7 +57,31 @@ const BodyDetailsContractedPackages = ({item}) => {
         title={"Realizar cancelamento"}
       />
 
-      <ModalCancel isVisible={isVisible} onClose={() => setVisible(!isVisible)}/>
+      <View style={{flexDirection: "row", marginBottom: 16}}>
+        {
+          data?.locator_hotel && 
+          <>
+            <FontAwesome5 name="hotel" size={20} color={BLUE_COLOR} />
+            <Text style={[styles.text, {marginLeft: 8, marginRight: 16}]}>{data?.locator_hotel}</Text>
+          </>
+        }
+        {
+          data?.locator_aereo && 
+          <>
+            <FontAwesome5 name="plane" size={20} color={BLUE_COLOR} />
+            <Text style={[styles.text, {marginLeft: 8, marginRight: 16}]}>{data?.locator_aereo}</Text>
+          </>
+        }
+        {
+          data?.locator_service && 
+          <>
+            <MaterialIcons name="room-service" size={20} color={BLUE_COLOR} />
+            <Text style={[styles.text, {marginLeft: 8, marginRight: 16}]}>{data?.locator_service}</Text>
+          </>
+        }
+      </View>
+
+      <ModalCancel isVisible={isVisible} onClose={() => setVisible(!isVisible)} item={item}/>
 
       <TravelCard display={1} data={item}/>
 
@@ -64,7 +89,7 @@ const BodyDetailsContractedPackages = ({item}) => {
 
       <InfoHotel data={hotel} display={2}/>
 
-      <CustomButton
+      {/* <CustomButton
         left
         type={AntDesign}
         name={"exclamationcircle"}
@@ -73,7 +98,7 @@ const BodyDetailsContractedPackages = ({item}) => {
         containerStyle={styles.buttonPolicy}
         titleStyle={styles.textButtonPolicy}
         title={`Verificar política de cancelamento`}
-      />
+      /> */}
 
       <AlertCovid containerStyle={styles.covid} />
       

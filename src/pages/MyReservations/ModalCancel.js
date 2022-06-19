@@ -7,22 +7,18 @@ import api from "../../services/api";
 
 const ModalCancel = ({
     isVisible = true,
-    onClose
+    onClose,
+    item
 }) => {
     const handleCancel = async () => {
         await api
-        .get(`/pacote-viagem/minhas-reservas/cancelamento/${package_id}/${sale_id}}`)
+        .get(`/pacote-viagem/minhas-reservas/cancelamento/${item.id}/${item.sale_id}}`)
         .then( ({ data }) => {
             onClose();
+            Alert.alert("Cancelamento solicitado", data.message );
         })
         .catch((e) => { 
-            Alert(
-                'Aviso', 
-                'Não foi possível cancelar a reserva selecionada. Por favor, tente novamente.',
-                [
-                    { text: "OK", onPress: () => console.log("OK") }
-                ]
-            )
+            Alert.alert("Aviso", "Não foi possível cancelar a reserva selecionada. Por favor, tente novamente.");
             console.error(e)
         });
     }
@@ -39,7 +35,7 @@ const ModalCancel = ({
 
                     <View style={styles.body}>
                         <Text style={styles.subTitle}>Sua solicitação será atendida dentro das próximas 24 horas úteis</Text>
-                        <CustomButton
+                        {/* <CustomButton
                             left
                             onPress={onClose}
                             type={AntDesign}
@@ -49,7 +45,7 @@ const ModalCancel = ({
                             containerStyle={styles.button}
                             titleStyle={styles.textButton}
                             title={`Verificar política de cancelamento`}
-                        />
+                        /> */}
                     </View>
 
                     <View style={styles.bottom}>
@@ -60,6 +56,7 @@ const ModalCancel = ({
                             title={`Não Cancelar`}
                         />
                         <CustomButton
+                            onPress={handleCancel}
                             containerStyle={styles.buttonRight}
                             titleStyle={styles.textButtonRight}
                             title={`Sim, Cancelar`}

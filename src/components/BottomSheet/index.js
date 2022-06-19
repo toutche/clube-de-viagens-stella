@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Modal, StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
+import { Modal, StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useFilter } from '../../contexts/filter';
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
@@ -181,7 +181,7 @@ export default ({ isVisible, onClose, id }) => {
                         size={24} 
                         color={PRIMARY_COLOR}
                         onPress={() => {
-                            const ages = form.ages.map((age, index) => index === i && age > 0 ? age -= 1 : age)
+                            const ages = form.ages.map((age, index) => index === i && age > 2 ? age -= 1 : age)
                             setForm({
                                 ...form,
                                 ages
@@ -201,7 +201,7 @@ export default ({ isVisible, onClose, id }) => {
                         size={24} 
                         color={PRIMARY_COLOR}
                         onPress={() => {
-                            const ages = form.ages.map((age, index) => index === i && age < 13 ? age += 1 : age)
+                            const ages = form.ages.map((age, index) => index === i && age < 11 ? age += 1 : age)
                             setForm({
                                 ...form,
                                 ages
@@ -240,7 +240,7 @@ export default ({ isVisible, onClose, id }) => {
                     const ages = [];
                     
                     for(let i = 0; i < parseInt(text); i++) {
-                        ages.push(0);
+                        ages.push(2);
                     }
                     
                     setForm({
@@ -301,7 +301,9 @@ export default ({ isVisible, onClose, id }) => {
                     <KeyboardAvoidingView behavior='height' style={styles.container}>
                         <TouchableWithoutFeedback onPress={() => { }}>
                             <View style={styles.content}>
+                                <ScrollView contentContainerStyle={{alignItems: 'center'}} style={{width: '100%'}}>
                                 {_renderBottomSheet()}
+                                </ScrollView>
                                 <TouchableOpacity onPress={handlePress} style={styles.button_container}>
                                     <Text style={styles.button_text}>Salvar</Text>
                                 </TouchableOpacity>

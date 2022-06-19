@@ -8,10 +8,12 @@ import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
 import { BLUE_COLOR, FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { useAuth } from "../../contexts/auth";
+import { useCheckout } from "../../contexts/checkout";
 
 const CongratulationPackage = ({ route, navigation }) => {
+  const { data: item } = useCheckout();
+  const { user } = useAuth();
   const data = route.params;
-  const { user } = useAuth()
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton);
@@ -29,6 +31,8 @@ const CongratulationPackage = ({ route, navigation }) => {
     });
     return true;
   };
+  
+  const money = new Intl.NumberFormat('pt-BR', { style:'currency', currency: 'BRL' });
 
   return (
     <ScrollView bounce={false} style={styles.container}>
@@ -63,18 +67,20 @@ const CongratulationPackage = ({ route, navigation }) => {
             <View>
               <Text style={styles.name}>{data?.plan?.name}</Text>
               <Text style={styles.updated_credit}>
-                Saldo atualizado: R${parseFloat(data?.updated_credit).toFixed(2)}
+                Saldo atualizado: {money.format(data?.updated_credit)}
               </Text>
             </View>
           </LinearGradient>
         )}
 
-        <TravelCard display={2} {...{ data: data.hotel_infos }} />
+        <TravelCard display={2} {...{ data: item }} />
 
-        <Travel {...{ data: data.hotel_infos, display: data.hour_voo ? 0 : 1 }} />
+        <Travel {...{ data: item, display: item.hour_voo ? 0 : 1 }} />
 
         <CustomButton
-          onPress={handleBackButton}
+          onPress={
+            () => navigation.navigate({name: "MyReservations" }) 
+          }
           containerStyle={styles.button}
           titleStyle={styles.textButton}
           title={`Ver detalhes desse hotel`}

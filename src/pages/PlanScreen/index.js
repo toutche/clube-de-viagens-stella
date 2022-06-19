@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   },
   containerPackage: {
     backgroundColor: "white",
-    position: "absolute",
-    top: 175,
+    top: -40,
+    marginBottom: -90,
     zIndex: 10,
     elevation: 5,
     shadowColor: "#000",

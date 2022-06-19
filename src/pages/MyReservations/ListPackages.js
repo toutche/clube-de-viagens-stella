@@ -68,7 +68,7 @@ const ListPackages = ({
             />
 
             <CustomButton
-                onPress={openModal}
+                onPress={() => openModal(item)}
                 type={AntDesign}
                 name={'closecircleo'}
                 color={PRIMARY_COLOR}

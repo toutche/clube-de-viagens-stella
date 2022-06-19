@@ -140,7 +140,7 @@ const ModalPayment = ({
           <TouchableWithoutFeedback>
             <View style={styles.content}>
               <View style={styles.float}>
-                <View style={styles.top}>
+                <View style={[styles.top, {backgroundColor: user?.plan?.color}]}>
                   <Text style={styles.iconHide}>●</Text>
                   <Text style={styles.plan}>{user?.plan?.name}</Text>
                 </View>

@@ -22,7 +22,7 @@ const BodyHiringPackageDetails = ({ openModal, data, comment, setComment, roomIn
 
       <Room data={data.rooms[roomIndex]} price={false}/>
 
-      <CustomButton
+      {/* <CustomButton
         left
         type={AntDesign}
         name={"exclamationcircle"}
@@ -31,7 +31,7 @@ const BodyHiringPackageDetails = ({ openModal, data, comment, setComment, roomIn
         containerStyle={styles.buttonPolicy}
         titleStyle={styles.textButtonPolicy}
         title={`Verificar política de cancelamento`}
-      />
+      /> */}
 
       <Note {...{comment, setComment}} />
 

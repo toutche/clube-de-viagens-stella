@@ -11,7 +11,7 @@ import { useAuth } from "../../contexts/auth";
 
 const CongratulationPackage = ({ route, navigation }) => {
   const data = route.params;
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton);
@@ -63,7 +63,7 @@ const CongratulationPackage = ({ route, navigation }) => {
             <View>
               <Text style={styles.name}>{data?.plan?.name}</Text>
               <Text style={styles.updated_credit}>
-                Saldo atualizado: R${parseFloat(data?.updated_credit).toFixed(2)}
+                Saldo atualizado: R${data?.updated_credit}
               </Text>
             </View>
           </LinearGradient>

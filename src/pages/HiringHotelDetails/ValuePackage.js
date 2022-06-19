@@ -5,7 +5,7 @@ import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variabl
 const ValuePackage = ({ price_discount = 0 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Valor do pacote</Text>
+      <Text style={styles.title}>Valor do hotel</Text>
       <Text style={styles.subTitle}>R$ {price_discount}</Text>
     </View>
   );

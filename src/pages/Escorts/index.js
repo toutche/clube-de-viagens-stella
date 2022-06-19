@@ -13,7 +13,6 @@ export default ({ navigation }) => {
     const getEscorts = () => {
         api.get('/familiar/listar').then((res) => {
             setData(res.data)
-            console.log('update')
         })
     }
 
