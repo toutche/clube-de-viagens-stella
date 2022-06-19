@@ -21,7 +21,7 @@ const BodyHiringPackageDetails = ({ openModal, data, comment, setComment }) => {
 
         <InfoHotel display={1} {...{ data }} />
 
-        <CustomButton
+        {/* <CustomButton
           left
           type={AntDesign}
           name={"exclamationcircle"}
@@ -30,7 +30,7 @@ const BodyHiringPackageDetails = ({ openModal, data, comment, setComment }) => {
           containerStyle={styles.buttonPolicy}
           titleStyle={styles.textButtonPolicy}
           title={`Verificar política de cancelamento`}
-        />
+        /> */}
 
         <Note {...{comment, setComment}} />
 

@@ -2,8 +2,17 @@ import React, { createContext, useState, useContext, useEffect, useRef } from "r
 import { Alert } from "react-native";
 import api from "../services/api";
 import { getToken, logout, setToken } from "../services/auth";
+import * as Notifications from 'expo-notifications';
 
 const AuthContext = createContext({});
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export const AuthProvider = ({ children }) => {
   const initialRoute = useRef("Intro");
@@ -18,10 +27,47 @@ export const AuthProvider = ({ children }) => {
 
       if (storagedUser) verifyUser();
       setTimeout(() => setLoading(false), 1500);
+      registerForPushNotificationsAsync();
     }
     //logout();
     loadStorage();
   }, []);
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+
+    console.log(token);
+
+    api.post('notificacao-push/criar', {token})
+    .then(res => {
+      console.log(`Token enviado com sucesso: ${JSON.stringify(res.data)}`);
+    })
+    .catch(error => {
+      console.log(`Erro ao enviar token: ${e}`);
+    })
+  }
 
   const verifyUser = navigation => {
     api
