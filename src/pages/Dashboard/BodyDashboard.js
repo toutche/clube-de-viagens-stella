@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
+  Linking
 } from "react-native";
 import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
@@ -14,6 +15,8 @@ import { useAuth } from "../../contexts/auth";
 import { useFilter } from "../../contexts/filter";
 import useDidMountEffect from "../../hooks/useDidMountEffect";
 import ButtonFilter from "./ButtonFilter";
+import CustomIcon from "../../components/CustomIcon";
+import { FontAwesome, Foundation } from "@expo/vector-icons";
 
 const BodyDashboard = ({
   display = 0,
@@ -245,6 +248,15 @@ const BodyDashboard = ({
     <ActivityIndicator style={{ marginVertical: 30 }} size={"large"} color={PRIMARY_COLOR} />
   );
 
+  const openWhatsapp = async () => {
+    const url = `https://wa.me/5521993184756`
+
+    const result = await Linking.canOpenURL(url)
+
+    if (result) await Linking.openURL(url)
+    else Alert.alert('Aviso', 'Confira se o Whatsapp está instalado no dispositivo')
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -262,6 +274,24 @@ const BodyDashboard = ({
         renderItem={({ item, index }) =>
           <ListItem {...{ item, index, display, navigation, plan }} />
         }
+      />
+      <CustomIcon
+        size={35}
+        color={"white"}
+        type={FontAwesome}
+        name={"whatsapp"}
+        onPress={openWhatsapp}
+        containerStyle={{
+          width: 54,
+          height: 54,
+          backgroundColor: "#25D366",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 100,
+          position: "absolute",                                          
+          bottom: 10,                                                    
+          right: 10,
+        }}
       />
     </View>
   );
