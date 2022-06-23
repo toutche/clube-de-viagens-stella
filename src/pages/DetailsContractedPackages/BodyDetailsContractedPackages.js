@@ -20,7 +20,6 @@ const BodyDetailsContractedPackages = ({item}) => {
   useEffect(() => {
     (async () => {
       await api.get(`/pacote-viagem/${item.id}/get/minhas-reservas`).then(res => {
-        console.log('get', res.data)
         setScheduling(res.data);
         setHotel({
           hotel: res.data.hotel_name,
@@ -41,8 +40,7 @@ const BodyDetailsContractedPackages = ({item}) => {
         iconStyle={styles.icon}
         containerStyle={styles.buttonTop}
         titleStyle={styles.textButtonTop}
-        title={"Pacote contratado para 15 de Maio / ás 14h"}
-        // title={`Pacote contratado para ${scheduling.date}`}
+        title={`Pacote contratado para ${scheduling.date}`}
       />
 
       <CustomButton
@@ -52,9 +50,10 @@ const BodyDetailsContractedPackages = ({item}) => {
         color={PRIMARY_COLOR}
         size={25}
         iconStyle={styles.icon}
-        containerStyle={styles.buttonBottom}
+        containerStyle={[styles.buttonBottom, item.requested && {borderColor: "#d1d1d1"}]}
         titleStyle={styles.textButtonBottom}
-        title={"Realizar cancelamento"}
+        title={item.requested ? `Cancelamento solicitado` : `Realizar cancelamento`}
+        disabled={item.requested}
       />
 
       <View style={{flexDirection: "row", marginBottom: 16}}>

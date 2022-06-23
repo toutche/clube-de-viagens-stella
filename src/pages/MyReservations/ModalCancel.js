@@ -8,13 +8,15 @@ import api from "../../services/api";
 const ModalCancel = ({
     isVisible = true,
     onClose,
-    item
+    item,
+    getReservations
 }) => {
     const handleCancel = async () => {
         await api
         .get(`/pacote-viagem/minhas-reservas/cancelamento/${item.id}/${item.sale_id}}`)
         .then( ({ data }) => {
             onClose();
+            getReservations && getReservations();
             Alert.alert("Cancelamento solicitado", data.message );
         })
         .catch((e) => { 
