@@ -61,14 +61,15 @@ export default ({ isVisible, onClose, id }) => {
         hideDatePicker()
     }
 
-    const date = new Date();
+    /* const date = new Date();
     const checkInMinimunDate = date.setDate(date.getDate() + 3);
     const checkInDate = new Date(form.checkIn.split('/').reverse().join('-'));
-    const checkOutMinimunDate = date.setDate(checkInDate.getDate() + 2);
+    const checkOutMinimunDate = date.setDate(checkInDate.getDate() + 2); */
 
     const _renderDatePicker = useMemo(() => (
         <DateTimePickerModal
-            date={id_check === 0 ? checkInMinimunDate : checkOutMinimunDate}
+            //date={id_check === 0 ? checkInMinimunDate : checkOutMinimunDate}
+            date={new Date()}
             locale='pt-BR'
             cancelTextIOS='Cancelar'
             confirmTextIOS='Confirmar'
@@ -76,7 +77,7 @@ export default ({ isVisible, onClose, id }) => {
             mode="date"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
-            minimumDate={id_check === 0 ? checkInMinimunDate : checkOutMinimunDate}
+            //minimumDate={id_check === 0 ? checkInMinimunDate : checkOutMinimunDate}
         />
     ), [isDatePickerVisible])
 
