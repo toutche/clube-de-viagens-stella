@@ -55,8 +55,6 @@ const ModalPayment = ({
         body['use_credit'] = 0;
       }
 
-      console.log(body)
-
       await api
       .post(`/hotel/v2/get/agendamento/pagamento`, body)
       .then(({ data: item }) => {
@@ -83,19 +81,6 @@ const ModalPayment = ({
 
   const payment = () => {
     setLoading(true);
-    console.log({
-      id_hotel: data.id,
-      hotel_name: data.name,
-      hotel_room_key: data.rooms[roomIndex].key,
-      start_date: String(filterCheck.in).split('/').reverse().join('-'),
-      end_date: String(filterCheck.out).split('/').reverse().join('-'),
-      price: data.rooms[roomIndex].price_discount,
-      card_id: data.payment_infos.card.id,
-      installments: index,
-      use_credit: check,
-      travelers,
-      comments: comment
-    })
     api
       .post("/transaction/v2/hotel/contracting", {
         id_hotel: data.id,
@@ -105,13 +90,13 @@ const ModalPayment = ({
         end_date: String(filterCheck.out).split('/').reverse().join('-'),
         price: data.rooms[roomIndex].price_discount,
         card_id: data.payment_infos.card.id,
+        room_name: data.rooms[roomIndex].name,
         installments: index,
         use_credit: check,
         travelers,
         comments: comment
       })
       .then(res => {
-        console.log('res', res)
         onClose();
         navigation.replace("CongratulationHotel", { ...res.data });
       })

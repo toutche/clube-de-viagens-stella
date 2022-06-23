@@ -8,7 +8,7 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 export default Room = ({ data, price=true }) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Quartos Selecionado</Text>
+            <Text style={styles.title}>Quarto Selecionado</Text>
             <Text style={styles.item_title_rooms}>{data.name}</Text>
             <Text style={styles.item_subtitle_rooms}>{data.checkin}</Text>
             <Text style={styles.item_subtitle_rooms}>{data.checkout}</Text>

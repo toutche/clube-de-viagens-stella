@@ -270,20 +270,24 @@ const BodyMyAccount = ({ item }) => {
 
       <View style={styles.card}>
         <View style={styles.cardHeader}>
-          <Text style={styles.boldGreyText}>{user.creditCard || "Mastercard"}</Text>
+          <Text style={styles.boldGreyText}>{user.credit_card ? user.credit_card.holder_name : "Cartão de Crédito"}</Text>
           <Text
             style={styles.boldPrimaryText}
-            onPress={() => openModal("Alterar cartão", "Salvar", updateCreditCard)}>Editar</Text>
+            onPress={() => openModal("Alterar cartão", "Salvar", updateCreditCard)}>
+              {user.credit_card ? "Editar" : "Cadastrar"}
+          </Text>
         </View>
+        {
+          user.credit_card &&
+          <View style={styles.cardBody}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <FontAwesome name="cc-mastercard" size={24} color={"#000"} style={{ marginRight: 16 }} />
+              <Text style={{ fontFamily: FONT_DEFAULT_BOLD_STYLE }}>{user.credit_card.last_digits}</Text>
+            </View>
 
-        <View style={styles.cardBody}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <FontAwesome name="cc-mastercard" size={24} color={"#000"} style={{ marginRight: 16 }} />
-            <Text style={{ fontFamily: FONT_DEFAULT_BOLD_STYLE }}>•••• •••• •••• 2321</Text>
+            <FontAwesome name="check" size={24} color={BLUE_COLOR} />
           </View>
-
-          <FontAwesome name="check" size={24} color={BLUE_COLOR} />
-        </View>
+        }
       </View>
 
       <View style={styles.card}>
