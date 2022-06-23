@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "clube-de-viagens-stellaa",
+    "name": "Clube de Férias",
     "slug": "clube-de-viagens-stellaa",
-    "version": "1.0.0",
+    "version": "2.0.3",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logoW.png",
     "splash": {
       "image": "./assets/splash-stella.png",
       "resizeMode": "cover",
@@ -15,7 +15,7 @@
         [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": "Este aplicativo quer acessar suas fotos para usar como foto de perfil somente para você."
         }
       ],
       [
@@ -34,26 +34,37 @@
     ],
     "ios": {
       "googleServicesFile":"./google-services-ios.plist",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Este aplicativo quer acessar suas fotos para usar como foto de perfil somente para você.",
+        "NSCameraUsageDescription": "O aplicativo Clube de Férias quer acesso a sua câmera para capturar uma foto e usar como imagem de perfil usada somente para você.",
+        "NSMicrophoneUsageDescription": "Permitir que Clube de férias acesse seu microphone"
+      },
+      "bundleIdentifier": "com.stellabarros.clubedeferias"
     },
     "android": {
-      "package": "com.priferreira.clubedeviagensstella",
+      "package": "com.stellabarros.clubedeferias",
+      "versionCode": 4,
       "googleServicesFile":"./google-services-android.json",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/adaptive-icon-clubedeferias.png",
+          "backgroundColor": "#ac092d"
       },
       "permissions": [
         "ACCESS_BACKGROUND_LOCATION",
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
-        "FOREGROUND_SERVICE"
+        "FOREGROUND_SERVICE",
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
       ],
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyA7buS3Lhe5HxHDPZFf9xGgWtzaxlsFT-g"
         }
-      } 
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png",
