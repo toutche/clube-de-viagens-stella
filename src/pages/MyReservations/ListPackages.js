@@ -74,9 +74,10 @@ const ListPackages = ({
                 color={PRIMARY_COLOR}
                 size={25}
                 iconStyle={styles.iconButton}
-                containerStyle={styles.buttonBottom}
+                containerStyle={[styles.buttonBottom, item.requested && {borderColor: "#d1d1d1"}]}
                 titleStyle={styles.textButtonBottom}
-                title={`Realizar cancelamento`}
+                title={item.requested ? `Cancelamento solicitado` : `Realizar cancelamento`}
+                disabled={item.requested}
             />
         </View>
     )

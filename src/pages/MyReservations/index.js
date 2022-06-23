@@ -32,12 +32,15 @@ export default ({ navigation }) => {
   const toggleModal = (item) => {
     setVisible(!isVisible);
     setItem(item);
-    console.log('item para cancelamento', item)
   }
 
   return (
     <View style={styles.container}>
-      <ModalCancel isVisible={isVisible} onClose={() => setVisible(!isVisible)} item={item} />
+      <ModalCancel 
+        isVisible={isVisible} 
+        onClose={() => setVisible(!isVisible)} 
+        item={item} 
+        getReservations={getReservations} />
       <Header navigation={navigation} />
       <Body itens={data} openModal={toggleModal} navigation={navigation} />
     </View>

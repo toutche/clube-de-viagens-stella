@@ -23,7 +23,7 @@ export default ({
 
   return (
     <TouchableOpacity
-      onPress={disabled ? () => Alert.alert("Desabilitado", disabledMessage) : onPress}
+      onPress={disabled ? () => {} : onPress}
       style={[containerStyle, disabled && { backgroundColor: "#d1d1d1" }]}>
       {!loadingApi && left && Icon && (
         <Icon style={iconStyle} name={name} size={size || 24} color={color || "white"} />
