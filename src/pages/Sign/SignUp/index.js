@@ -98,12 +98,12 @@ export default ({ navigation }) => {
         name: "user.jpg"
       }
     }
-
+    
     const body = new FormData();
     body.append("name", name);
     body.append("last_name", last_name);
     body.append("birth_date", user.birth_date.split('/').reverse().join('-'));
-    body.append("document", user.document.replaceAll('.', '').replace('-', ''));
+    body.append("document", user.document.replace('.', '').replace('.', '').replace('-', ''));
     body.append("email", user.email);
     body.append("password", user.password);
     body.append("password_confirmation", user.password);
