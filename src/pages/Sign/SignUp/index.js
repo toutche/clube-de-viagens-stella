@@ -13,6 +13,7 @@ import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
+import { useAuth } from "../../../contexts/auth";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -20,6 +21,8 @@ export default ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
   const [previewPassword, setPreviewPassword] = useState(false);
+
+  const { setUser: contextSetUser } = useAuth();
 
   const [user, setUser] = useState({
     name: "",
@@ -121,9 +124,14 @@ export default ({ navigation }) => {
     })
     .catch(error => console.log(error));
 
-    if (data.success) navigation.navigate("ConfirmEmail");
+    console.log(data)
+    if (data.success) {
+      contextSetUser({email: user.email})
+      navigation.navigate("ConfirmEmail");
+    }
     else if (data.error) {
       Alert.alert("Aviso", `Aconteceu um erro, tente novamente mais tarde`);
+      console.log(data)
       setLoading(false);
     } else {
       setLoading(false);

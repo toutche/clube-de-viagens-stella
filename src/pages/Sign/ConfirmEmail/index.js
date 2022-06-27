@@ -8,6 +8,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  Alert
 } from "react-native";
 
 import {
@@ -20,11 +21,32 @@ import {
 import Copyright from "../../../components/Copyright";
 import InputConfirm from "./InputConfirm";
 
+import { useAuth } from "../../../contexts/auth";
+import api from "../../../services/api";
+
 const titlePage = "Insira seu código";
 const subtitlePage =
   "Precisamos confirmar o seu e-mail.\nPor favor, insira o código enviado de 4 dígitos.";
 
 const ConfirmEmail = ({ navigation }) => {
+  const { user } = useAuth();
+
+  const resendConfirmation = () => {
+    const data = {email: undefined};
+    if (user) {
+      data.email = user.email
+    }
+
+    api.post('/reenviar-email', data)
+    .then(({ data }) => {
+      Alert.alert("Código reenviado!", data.message)
+    })
+    .catch(e => {
+      Alert.alert("Falha!", "Não foi possível reenviar o código para o seu e-mail. Por favor, tente novamente.")
+      console.log(e);
+    })
+  }
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
       <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
@@ -39,7 +61,7 @@ const ConfirmEmail = ({ navigation }) => {
 
           <Text style={Style.quest}>Não recebeu o nosso e-mail?</Text>
 
-          <TouchableOpacity style={Style.buttonResend}>
+          <TouchableOpacity onPress={resendConfirmation} style={Style.buttonResend}>
             <Text style={Style.resend}>Reenviar Código</Text>
           </TouchableOpacity>
 
