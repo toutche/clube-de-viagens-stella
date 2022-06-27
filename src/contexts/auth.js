@@ -117,6 +117,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         auth,
         setAuth,
         initialRoute: initialRoute.current,

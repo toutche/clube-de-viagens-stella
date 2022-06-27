@@ -22,7 +22,7 @@ export default ({ navigation }) => {
   const [check, setCheck] = useState(false);
   const [previewPassword, setPreviewPassword] = useState(false);
 
-  //const { setUser: contextSetUser } = useAuth();
+  const { setUser: contextSetUser } = useAuth();
 
   const [user, setUser] = useState({
     name: "",
@@ -125,19 +125,10 @@ export default ({ navigation }) => {
     .catch(error => console.log(error));
 
     console.log(data)
-
-    if (data.success) { 
-      navigation.navigate({
-        name: "ConfirmEmail",
-        params: {
-          email: user.email
-        }
-      });
-    }
-    /* if (data.success) {
+    if (data.success) {
+      contextSetUser({email: user.email})
       navigation.navigate("ConfirmEmail");
-      //contextSetUser({email: user.email})
-    } */
+    }
     else if (data.error) {
       Alert.alert("Aviso", `Aconteceu um erro, tente novamente mais tarde`);
       console.log(data)

@@ -28,25 +28,18 @@ const titlePage = "Insira seu código";
 const subtitlePage =
   "Precisamos confirmar o seu e-mail.\nPor favor, insira o código enviado de 4 dígitos.";
 
-const ConfirmEmail = ({ navigation, route }) => {
+const ConfirmEmail = ({ navigation }) => {
   const { user } = useAuth();
-  console.log(user)
 
   const resendConfirmation = () => {
     const data = {email: undefined};
     if (user) {
       data.email = user.email
     }
-    else {
-      const { email } = route.params;
-      console.log(email)
-      data.email = email
-    }
 
     api.post('/reenviar-email', data)
     .then(({ data }) => {
       Alert.alert("Código reenviado!", data.message)
-      console.log(data);
     })
     .catch(e => {
       Alert.alert("Falha!", "Não foi possível reenviar o código para o seu e-mail. Por favor, tente novamente.")
