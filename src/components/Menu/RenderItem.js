@@ -29,7 +29,6 @@ const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
         <Image style={styles.icon} source={{ uri: name === id ? noSelected : selected }} />
       </TouchableOpacity>
       <Text
-        numberOfLines={1}
         style={[
           styles.text,
           {
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONT_DEFAULT_STYLE,
-    fontSize: 15,
+    fontSize: 14,
     top: 5,
     width: 80,
     textAlign: "center",

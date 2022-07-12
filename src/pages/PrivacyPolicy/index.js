@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -53,8 +53,16 @@ Privacidade, entre em contato conosco por meio do seguinte canal de e-mail:";
 const emailContato = " dpo@grupoaguia.com.br.";
 
 export default ({ navigation }) => {
+  const scrollRef = useRef();
+  const onScrollTopPress = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  }
+
   return (
-    <ScrollView style={Style.container}>
+    <ScrollView style={Style.container} ref={scrollRef}>
       <Image source={image} style={Style.image} />
 
       <CustomIcon
@@ -112,6 +120,11 @@ export default ({ navigation }) => {
           <Text style={Style.itemBottom}>Termos de Uso</Text>
         </TouchableOpacity>
       </View>
+      
+      <TouchableOpacity onPress={onScrollTopPress} style={Style.scrollTopContainer}>
+        <AntDesign name="upcircleo" size={24} color="#FFFFFF" />
+        <Text style={Style.scrollTopText}>Voltar para o topo</Text>
+      </TouchableOpacity>
 
       <Copyright display={1} />
     </ScrollView>
@@ -191,4 +204,15 @@ const Style = StyleSheet.create({
     padding: 5,
     margin: -5,
   },
+  scrollTopContainer: {
+    flexDirection: "row",
+    padding: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  scrollTopText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    marginLeft: 8
+  }
 });

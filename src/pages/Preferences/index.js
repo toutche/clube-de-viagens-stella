@@ -26,7 +26,7 @@ const Slides = data => [
   {
     title: "Estamos finalizando!",
     subTitle:
-      "Só mais uma pergunta! Para que possamos entender um pouco mais do seu perfil, conte-nos sobre seus interesses e os meses que normalmente você faz as suas viagens?",
+      "Só mais uma pergunta! Para que possamos entender um pouco mais do seu perfil, conte-nos quais dos interesses abaixo normamente fazem parte das suas viagens?",
     note: "Selecione quantos desejar :)",
     activitiesText: "Atividades",
     activities: data,

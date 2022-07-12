@@ -188,6 +188,7 @@ const GetLocation = ({ navigation }) => {
               placeholder='Digite seu CEP'
               autoComplete='postal-code'
               placeholderTextColor={TEXT_COLOR_BKWHITE}
+              keyboardType={"numeric"}
             />
             {
               isAutocompleteVisible ?

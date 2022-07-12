@@ -55,6 +55,8 @@ const BodyAlert = ({ }) => {
 
   const separator = () => <View style={styles.separator} />;
 
+  const EmptyList = () => <Text style={styles.text}>Ainda não há alertas.</Text>
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -75,6 +77,7 @@ const BodyAlert = ({ }) => {
             </View>
           )
         }}
+        ListEmptyComponent={EmptyList}
       />
     </View>
   );
@@ -197,7 +200,11 @@ const styles = StyleSheet.create({
     color: "#333",
     fontSize: 18,
   },
-
+  text: {
+    textAlign: "center",
+    fontSize: 14,
+    color: "#777",
+  },
 });
 
 export default BodyAlert;

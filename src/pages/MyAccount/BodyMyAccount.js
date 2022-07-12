@@ -145,7 +145,7 @@ const BodyMyAccount = ({ item }) => {
     let body = {
       name: first_name,
       last_name: last_name,
-      phone_number: phoneNumber.replaceAll('.', '').replace('-', '')
+      phone_number: phoneNumber
     };
 
     api.put("/usuario/atualizar", body)

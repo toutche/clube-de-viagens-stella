@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   line: {
     justifyContent: "space-evenly",
-    alignItems: "center",
+    alignItems: "flex-start",
     width: "100%",
     flexDirection: "row",
   },
