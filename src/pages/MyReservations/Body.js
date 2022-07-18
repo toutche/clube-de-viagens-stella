@@ -1,9 +1,11 @@
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, Text } from "react-native";
 import ListPackages from "./ListPackages";
 
 export default ({ itens = [{}, {}, {}], navigation, openModal }) => {
   const Separator = () => <View style={styles.separator} />;
+
+  const EmptyList = () => <Text style={styles.text}>Ainda não há reservas ativas.</Text>
 
   return (
     <View style={styles.container}>
@@ -14,6 +16,7 @@ export default ({ itens = [{}, {}, {}], navigation, openModal }) => {
         keyExtractor={(item, index) => index.toString()}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) => ListPackages({ item, index, navigation, openModal })}
+        ListEmptyComponent={EmptyList}
       />
     </View>
   );
@@ -37,5 +40,10 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 10,
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 14,
+    color: "#777",
   },
 });

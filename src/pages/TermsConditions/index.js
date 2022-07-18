@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, ImageBackground } from "react-native";
 import { AntDesign, Fontisto, FontAwesome } from "@expo/vector-icons";
 
@@ -31,6 +31,7 @@ import Item15 from "./items/item15";
 
 const image = require("../../../assets/header/TermsAndPolicy.jpg");
 import { useAuth } from "../../contexts/auth";
+import style from "../Sign/SignUp/style";
 
 const titlePage = "Termos e condições gerais de uso e de compra e venda";
 
@@ -67,8 +68,16 @@ const box3 =
 export default ({ navigation }) => {
   const { loadingApi, updateUser } = useAuth();
 
+  const scrollRef = useRef();
+  const onScrollTopPress = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  }
+
   return (
-    <ScrollView style={Style.container}>
+    <ScrollView style={Style.container} ref={scrollRef}>
       <ImageBackground source={image} style={Style.image} />
 
       <CustomIcon
@@ -131,6 +140,11 @@ export default ({ navigation }) => {
         titleStyle={Style.buttonText}
         title={"Aceitar"}
       /> */}
+      
+      <TouchableOpacity onPress={onScrollTopPress} style={Style.scrollTopContainer}>
+        <AntDesign name="upcircleo" size={24} color="#FFFFFF" />
+        <Text style={Style.scrollTopText}>Voltar para o topo</Text>
+      </TouchableOpacity>
 
       <Copyright display={1} />
     </ScrollView>
@@ -216,4 +230,15 @@ const Style = StyleSheet.create({
     padding: 5,
     margin: -5,
   },
+  scrollTopContainer: {
+    flexDirection: "row",
+    padding: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  scrollTopText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    marginLeft: 8
+  }
 });

@@ -36,9 +36,10 @@ const ListPackages = ({
                         <Text style={styles.discount}> de desconto exclusivo</Text>
                     </Text>
                 </View>
-                <Text style={styles.throughValue}>{item?.price}
+                <View style={{flexDirection: "row"}}>
+                    <Text style={styles.throughValue}>{item?.price}</Text>
                     <Text style={styles.value}> ● {item?.price_discount}</Text>
-                </Text>
+                </View>
             </View>
         </View>
     )

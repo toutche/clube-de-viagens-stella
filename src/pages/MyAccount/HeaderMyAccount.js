@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View, Text, Image, Platform, ImageBackground } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Image, Platform, ImageBackground, TouchableOpacity, Alert } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
@@ -8,11 +8,117 @@ import Logo from "../../../assets/LogoRR.png";
 import CardBackground from "../../../assets/img/carimbos.png"
 import { useAuth } from "../../contexts/auth";
 import { maskDocument } from '../../utils/masks';
+import * as ImagePicker from "expo-image-picker";
+import api from "../../services/api";
 
 const HeaderMyAccount = ({ navigation }) => {
   const { user } = useAuth();
 
-  const getDate = (date) => new Date(date).toLocaleDateString()
+  const [image, setImage] = useState(user.image || 'https://toutche.com.br/clube_de_ferias/maquina-fotografica.png');
+
+  const getDate = (date) => new Date(date).toLocaleDateString();
+
+  const hasMediaPermission = async (option) => {
+    if (Platform.OS !== "web") {
+      let result = undefined;
+
+      if (option === "CAMERA") {
+        result = await ImagePicker.requestCameraPermissionsAsync();
+      }
+      else {
+        result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      }
+
+      if (result?.status !== "granted") {
+        alert("Precisamos das permissões de acesso a câmera e a galeria.");
+        return false;
+      }
+      return true;
+    }
+  };
+
+  const pickImage = async (option) => {
+    const hasPermission = await hasMediaPermission(option);
+    if(!hasPermission) {
+      return;
+    }
+
+    let result = undefined;
+
+    if (option === "CAMERA") {
+      result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0,
+      });
+    }
+    else {
+      result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0,
+      });
+    }
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+
+      let imageObject = undefined;
+
+      if (image) {
+        imageObject = {
+          uri: image,
+          type: "image/jpeg",
+          name: "user.jpg"
+        }
+      }
+      
+      const body = new FormData();
+      body.append("image", imageObject);
+      
+      const { data } = await api.post(
+        "/usuario/atualizar/imagem", 
+        body, {
+        headers: { "Content-Type": "multipart/form-data;",}
+      })
+      .catch(error => {
+        console.log(error);
+        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+      });
+      
+      if (data?.message == "Imagem do perfil atualizada") {
+        Alert.alert("Sucesso", data.message);
+      }
+      else {
+        Alert.alert("Erro", "Aconteceu um erro, tente novamente mais tarde.");
+      }
+    }
+  };
+
+  const chooseImage = () => {
+    return (
+      Alert.alert(
+        "Sua foto",
+        `Deseja tirar uma foto agora ou escolher da galeria?`,
+        [
+          {
+              text: "Cancelar",
+              style: "cancel",
+          },
+          {
+              text: "Câmera",
+              onPress: () => pickImage('CAMERA')
+          },
+          {
+              text: "Galeria",
+              onPress: () => pickImage('MEDIA_LIBRARY')
+          }
+        ]
+      )
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -43,12 +149,7 @@ const HeaderMyAccount = ({ navigation }) => {
           imageStyle={{ borderRadius: 20 }}
           source={CardBackground} >
 
-          {/*<View style={{marginHorizontal: 8, marginVertical: 32}}> */}
-
-          {/* <Image style={{ borderRadius: 20, height: 260, flex: 1}} source={CardBackground} /> */}
-
           <View style={{ flex: 1, justifyContent: 'center' }}>
-
             <Image
               style={styles.logo}
               source={Logo}
@@ -58,20 +159,22 @@ const HeaderMyAccount = ({ navigation }) => {
               <View style={{ marginRight: 16 }}>
                 <View style={{ flexDirection: "row" }}>
                   <Image style={{ height: 70, aspectRatio: 0.3, resizeMode: 'contain' }} source={{ uri: user.images.brackets.left }} />
-                  <View style={{
-                    borderRadius: 999,
-                    borderColor: "rgba(0, 0, 0, 0.2)",
-                    borderWidth: 8,
-                    height: 70,
-                    width: 70,
-                    justifyContent: "center",
-                    alignItems: "center"
-                  }}>
-                    <Image
-                      style={styles.image}
-                      source={{ uri: user.image || 'https://toutche.com.br/clube_de_ferias/maquina-fotografica.png' }}
-                    />
-                  </View>
+                  <TouchableOpacity onPress={chooseImage}>
+                    <View style={{
+                      borderRadius: 999,
+                      borderColor: "rgba(0, 0, 0, 0.2)",
+                      borderWidth: 8,
+                      height: 70,
+                      width: 70,
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}>
+                      <Image
+                        style={styles.image}
+                        source={{ uri: image }}
+                      />
+                    </View>
+                  </TouchableOpacity>
                   <Image style={{
                     height: 70,
                     aspectRatio: 0.3,

@@ -1,7 +1,7 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { PRIMARY_COLOR, FONT_DEFAULT_BOLD_STYLE } from "../../utils/variables";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import Logo from "../../../assets/LogoWW.png";
@@ -28,6 +28,8 @@ const HeaderAlert = ({ navigation }) => {
           name={"notifications-outline"}
           containerStyle={styles.iconRight}
         />
+
+        <Text style={styles.title}>Alertas</Text>
       </View>
     </View>
   );
@@ -41,9 +43,11 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   logo: {
-    width: 130,
-    height: 130,
+    width: 80,
+    height: 80,
     alignSelf: "center",
+    aspectRatio: 4/2,
+    marginBottom: 8,
   },
   iconLeft: {
     padding: 10,
@@ -54,6 +58,12 @@ const styles = StyleSheet.create({
     padding: 10,
     right: 5,
     position: "absolute",
+  },
+  title: {
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
+    textAlign: "center",
+    color: "white",
+    fontSize: 15,
   },
 });
 
