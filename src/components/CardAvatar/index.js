@@ -2,7 +2,7 @@ import React from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import CustomAvatar from "../CustomAvatar";
 import BackgroundCard from "../../../assets/img/carimbos.png";
-import Logo from "../../../assets/LogoRR.png";
+import Logo from "../../../assets/logoRR.png";
 import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { useAuth } from "../../contexts/auth";
 
@@ -27,7 +27,9 @@ const CardAvatar = ({ data }) => {
         <View style={{ flexDirection: "row", flex: 1, alignItems: "flex-end", marginBottom: 15 }}>
           <View style={styles.containerAvatar}>
             <CustomAvatar
-              item={"https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"}
+              item={
+                "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg"
+              }
             />
           </View>
           <View style={styles.containerText}>
