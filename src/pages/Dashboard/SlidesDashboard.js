@@ -5,34 +5,39 @@ import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
 const SlidesDashboard = ({ filter = {}, data = [], option }) => {
   const {
-    filterIdsCategory,
+    //  filterIdsCategory,
     orderPrice,
     segmentsIds,
     setSegmentsIds,
     toggleFilter,
-    toggleOrder
-  } = useFilter()
+    toggleOrder,
+  } = useFilter();
 
-  const handlePressFilter = () => {
-    if (option === 0) {
-      toggleFilter()
-    }
-  }
+  // const handlePressFilter = () => {
+  //   if (option === 0) {
+  //     toggleFilter();
+  //   }
+  // };
 
   const separator = () => <View style={styles.separator} />;
 
   const ListItem = ({ item, index }) => {
-
     const handlerPressCategory = () => {
-      if (option === 0) {
-        const array = segmentsIds.slice()
-        if (array.indexOf(item.id) !== -1) {
-          array.splice(array.indexOf(item.id), 1);
-        } else {
-          array.push(item.id)
-        }
+      // if (option === 0) {
+      //   const array = segmentsIds.slice();
+      //   if (array.indexOf(item.id) !== -1) {
+      //     array.splice(array.indexOf(item.id), 1);
+      //   } else {
+      //     array.push(item.id);
+      //   }
 
-        setSegmentsIds(array)
+      //   setSegmentsIds(array);
+      // }
+      if (option === 0) {
+        const array = [];
+        array[0] = item.id;
+        setSegmentsIds(array);
+        toggleFilter();
       }
     };
 
@@ -40,7 +45,13 @@ const SlidesDashboard = ({ filter = {}, data = [], option }) => {
       <View style={styles.item}>
         <TouchableOpacity
           onPress={handlerPressCategory}
-          style={[styles.imageView, { borderColor: segmentsIds.indexOf(item.id) !== -1 ? "#f0c61e" : "white", opacity: option === 0 ? 1 : 0.5 }]}>
+          style={[
+            styles.imageView,
+            {
+              borderColor: segmentsIds.indexOf(item.id) !== -1 ? "#f0c61e" : "white",
+              opacity: option === 0 ? 1 : 0.5,
+            },
+          ]}>
           <Image style={styles.image} source={{ uri: item.img }} />
         </TouchableOpacity>
         <Text numberOfLines={1} style={styles.title}>
@@ -56,18 +67,21 @@ const SlidesDashboard = ({ filter = {}, data = [], option }) => {
         ListHeaderComponentStyle={styles.container}
         ListHeaderComponent={() => (
           <>
-            <View style={styles.filter_button}>
+            <View style={styles.order_button}>
               <TouchableOpacity
                 onPress={toggleOrder}
-                style={[styles.imageView, { borderColor: orderPrice === 'desc' ? "#f0c61e" : "white" }]}>
+                style={[
+                  styles.imageView,
+                  { borderColor: orderPrice === "desc" ? "#f0c61e" : "white" },
+                ]}>
                 <Image style={styles.image} source={{ uri: filter[0]?.img }} />
               </TouchableOpacity>
               <Text numberOfLines={1} style={styles.title}>
                 {filter[0]?.name}
               </Text>
             </View>
-
-            <View style={styles.order_button}>
+            {/* 
+            <View style={styles.filter_button}>
               <TouchableOpacity
                 onPress={handlePressFilter}
                 style={[styles.imageView, { borderColor: filterIdsCategory ? "#f0c61e" : "white", opacity: option === 0 ? 1 : 0.5 }]}>
@@ -76,7 +90,7 @@ const SlidesDashboard = ({ filter = {}, data = [], option }) => {
               <Text numberOfLines={1} style={styles.title}>
                 {filter[1]?.name}
               </Text>
-            </View>
+            </View> */}
           </>
         )}
         data={data}
@@ -97,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: PRIMARY_COLOR,
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   separator: {
     margin: 2,
@@ -137,6 +151,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 10,
     width: 65,
+    marginRight: 8,
+    marginLeft: 10,
   },
   title: {
     fontFamily: FONT_DEFAULT_STYLE,
