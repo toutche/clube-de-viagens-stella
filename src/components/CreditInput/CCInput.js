@@ -124,7 +124,7 @@ export default class CCInput extends Component {
             onFocus={this._onFocus}
             onChangeText={this._onChange}
           />
-          {brand && <Image style={[s.icon]} source={Icons[brand]} />}
+          {/* {brand && <Image style={[s.icon]} source={Icons[brand]} />} */}
         </View>
         <View style={{ marginBottom: 12 }} />
       </>

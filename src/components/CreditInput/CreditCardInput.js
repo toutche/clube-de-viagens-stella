@@ -8,7 +8,7 @@ import { InjectedProps } from "./connectToState";
 
 const s = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     paddingHorizontal: 30,
   },
   halfView: {

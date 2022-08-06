@@ -142,7 +142,7 @@ export default class CardView extends Component {
           clickable={false}
           flip={shouldFlip}>
           <View style={[BASE_SIZE, s.cardFace, transform]}>
-            <Image style={[s.icon]} source={Icons[brand]} />
+            {/* <Image style={[s.icon]} source={Icons[brand]} /> */}
             <Text
               style={[
                 s.baseText,

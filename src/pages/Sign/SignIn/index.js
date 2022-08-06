@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, View, Text, Image, KeyboardAvoidingView, Platform } from "react-native";
+import { ScrollView, View, Text, Image, KeyboardAvoidingView, Platform, Alert } from "react-native";
 
 /*Componentes internos do app */
 import Style from "./style";
@@ -25,17 +25,23 @@ export default ({ navigation }) => {
     password: "",
   });
 
+  const [errors, setErros] = useState({
+    email: "",
+    password: "",
+  });
+
   const signIn = () => {
     setLoading(true);
     api
       .post("/login", { email: user.email, password: user.password })
       .then(({ data }) => {
+        setErros(data.error);
         setToken(data.access_token);
         verifyUser(navigation);
       })
       .catch(e => {
-        console.log('erro signIn', e)
-        alert("Email ou senha inválidos");
+        console.log("erro signIn", e);
+        Alert.alert("Aviso", "Email ou senha inválidos");
         setLoading(false);
       });
   };
@@ -61,6 +67,7 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"envelope"}
+            error={errors["email"]}
             keyboardType={"email-address"}
             value={user.email}
             onChangeText={text =>
@@ -76,6 +83,7 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"lock"}
+            error={errors["password"]}
             secureTextEntry={!previewPassword}
             previewPassword={previewPassword}
             setPreviewPassword={setPreviewPassword}
