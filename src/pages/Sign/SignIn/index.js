@@ -35,7 +35,10 @@ export default ({ navigation }) => {
     api
       .post("/login", { email: user.email, password: user.password })
       .then(({ data }) => {
-        setErros(data.error);
+        if (data.error) {
+          setLoading(false);
+          setErros(data.error);
+        }
         setToken(data.access_token);
         verifyUser(navigation);
       })
