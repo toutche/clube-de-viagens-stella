@@ -15,6 +15,13 @@ import api from "../../services/api";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import { useCheckout } from "../../contexts/checkout";
 import { maskDocument } from "../../utils/masks";
+import {
+  validadeCPF,
+  validadeDate,
+  validadeForm,
+  validadeName,
+  validadeObjectContentAreTruth,
+} from "../../utils/validade/validade-utils";
 
 const NewsTravelers = ({ navigation }) => {
   const { data, travelers, setTravelers } = useCheckout();
@@ -23,6 +30,7 @@ const NewsTravelers = ({ navigation }) => {
 
   const [thisData, setData] = useState([]);
   const [form, setForm] = useState(travelers || []);
+  const [errors, setErrors] = useState(validadeForm(travelers).newErrors || {});
   const [isVisible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -37,8 +45,25 @@ const NewsTravelers = ({ navigation }) => {
   };
 
   const handlerPress = () => {
-    setTravelers(form);
-    navigation.goBack();
+    const { newErrors } = validadeForm(form, errors);
+
+    let result = false;
+
+    for (let i = 0; i < Object.keys(newErrors).length; i++) {
+      if (validadeObjectContentAreTruth(newErrors[i], false)) {
+        result = true;
+      } else {
+        result = false;
+        break;
+      }
+    }
+
+    setErrors(newErrors);
+
+    if (result || Object.keys(newErrors).length === 0) {
+      setTravelers(form);
+      navigation.goBack();
+    }
   };
 
   const openModal = (bool, id) => {
@@ -52,8 +77,8 @@ const NewsTravelers = ({ navigation }) => {
 
     let data = {
       ...thisData[id],
-      cpf: maskDocument(thisData[id].cpf)
-    }
+      cpf: maskDocument(thisData[id].cpf),
+    };
 
     if (inputId.current !== null) {
       array[inputId.current] = data;
@@ -109,7 +134,7 @@ const NewsTravelers = ({ navigation }) => {
           handlerLeft={() => navigation.goBack()}
           title={"Viajantes"}
         />
-        {<BodyNewsTravelers {...{ data, openModal, form, setForm, handlerPress }} />}
+        {<BodyNewsTravelers {...{ data, openModal, errors, form, setForm, handlerPress }} />}
       </View>
     </>
   );

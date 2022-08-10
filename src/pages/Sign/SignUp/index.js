@@ -95,13 +95,21 @@ export default ({ navigation }) => {
     }
   };
 
+  const handlerPress = () => {
+    if (!check) {
+      Alert.alert("Aviso", "Para continuar aceite os termos");
+    } else {
+      signUp(user, navigation);
+    }
+  };
+
   const signUp = async () => {
     setLoading(true);
 
     let [name, ...last_name] = user.name.split(" ");
     last_name = last_name.join(" ") || name;
 
-    let imageObject = undefined;
+    let imageObject;
 
     if (user.image) {
       imageObject = {
@@ -132,27 +140,17 @@ export default ({ navigation }) => {
       })
       .catch(error => console.log(error));
 
-    if (data.success) {
+    if (data.type) {
       contextSetUser({ email: user.email });
       navigation.navigate("ConfirmEmail");
+      if (data.message) Alert.alert("Sucesso", data.message);
     } else if (data.error) {
       Alert.alert("Aviso", `Aconteceu um erro, tente novamente mais tarde`);
-      console.log(data);
       setErros(data.error);
       setLoading(false);
     } else {
       setLoading(false);
       Alert.alert("Erro", "Tente novamente mais tarde");
-    }
-  };
-
-  const handlerPress = () => {
-    if (user.password.length < 6 || user.password.length > 9) {
-      Alert.alert("Aviso", "A senha deve conter entre 6 a 9 caracteres.");
-    } else if (!check) {
-      Alert.alert("Aviso", "Para continuar aceite os termos");
-    } else {
-      signUp(user, navigation);
     }
   };
 

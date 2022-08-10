@@ -5,6 +5,7 @@ import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 const CustomInput = ({
   value = "",
   error,
+  errorColor = "#d1d1d1",
   containerStyle,
   onChangeText,
   inputStyle,
@@ -80,7 +81,7 @@ const CustomInput = ({
           </TouchableOpacity>
         )}
       </View>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? <Text style={[styles.error, { color: errorColor }]}>{error}</Text> : null}
     </View>
   );
 };
@@ -111,7 +112,6 @@ const styles = StyleSheet.create({
   },
   error: {
     fontFamily: FONT_DEFAULT_STYLE,
-    color: "#d1d1d1",
     fontSize: 12.5,
     marginTop: 6,
     marginLeft: 4,

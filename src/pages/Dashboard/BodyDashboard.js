@@ -77,9 +77,8 @@ const BodyDashboard = ({
         }
 
         if (filterDays) url += `&qtd_days=${filterDays}`;
-
-        if (filterMouth && filterYear) url += `&month=${filterMouth}&year=${filterYear}`;
       }
+      if (filterMouth && filterYear) url += `&month=${filterMouth}&year=${filterYear}`;
 
       const response = await api.get(url);
       const totalItems = response.data.data.pagination.total_registers;

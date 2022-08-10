@@ -292,12 +292,12 @@ const BodyMyAccount = ({ item }) => {
         {user.credit_card && (
           <View style={styles.cardBody}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <FontAwesome
+              {/* <FontAwesome
                 name='cc-mastercard'
                 size={24}
                 color={"#000"}
                 style={{ marginRight: 16 }}
-              />
+              /> */}
               <Text style={{ fontFamily: FONT_DEFAULT_BOLD_STYLE }}>
                 {user.credit_card.last_digits}
               </Text>
