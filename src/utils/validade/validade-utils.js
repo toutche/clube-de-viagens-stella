@@ -12,9 +12,11 @@ export const validadeForm = (form, errors = {}) => {
         newErrors = {
           ...newErrors,
           [i]: {
-            name: validadeName(name) ? null : "mensagem de erro no nome",
-            birthDate: validadeDate(birth_date) ? null : "mensagem de erro no aniversario",
-            CPF: validadeCPF(cpf) ? null : "mensagem de erro no CPF",
+            name: validadeName(name) ? null : "Nome completo é obrigatório",
+            birthDate: validadeDate(birth_date)
+              ? null
+              : "Digite uma data de nascimento no formato dd/mm/aaaa",
+            CPF: validadeCPF(cpf) ? null : "Digite um CPF no formato válido",
           },
         };
       } else {
