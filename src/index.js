@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/auth";
 import { CheckoutProvider } from "./contexts/checkout";
 import Routes from "./routes";
 import { FilterProvider } from "./contexts/filter";
+import Calendar from "./components/Calendar";
 
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -44,6 +45,7 @@ const App = () => {
       <FilterProvider>
         <CheckoutProvider>
           <NavigationContainer>
+            <Calendar />
             <StatusBar backgroundColor={"transparent"} />
             <Routes />
           </NavigationContainer>

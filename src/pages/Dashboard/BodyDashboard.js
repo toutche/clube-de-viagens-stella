@@ -10,6 +10,7 @@ import useDidMountEffect from "../../hooks/useDidMountEffect";
 import ButtonFilter from "./ButtonFilter";
 import CustomIcon from "../../components/CustomIcon";
 import { FontAwesome, Foundation } from "@expo/vector-icons";
+import Calendar from "../../components/Calendar";
 
 const BodyDashboard = ({
   display = 0,
@@ -154,9 +155,10 @@ const BodyDashboard = ({
             iconSize: 22,
             marginLeft: 2,
             style: styles.button,
-            onPress: () => {
+            onPress: async () => {
               filterId.current = "check";
-              openBottomSheet();
+              const response = await Calendar.show();
+              console.log(response);
             },
           }}
         />
@@ -176,7 +178,7 @@ const BodyDashboard = ({
         />
         <ButtonFilter
           {...{
-            title: "Filtrar",
+            title: "Buscar",
             iconName: "filter-outline",
             iconSize: 22,
             marginLeft: 2,
@@ -247,7 +249,7 @@ const BodyDashboard = ({
         {/*</View>*/}
         <ButtonFilter
           {...{
-            title: "Filtrar",
+            title: "Buscar",
             iconName: "filter-outline",
             iconSize: 22,
             marginLeft: 2,

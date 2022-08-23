@@ -13,8 +13,8 @@ const BodyNewTravelers = ({
   openModal,
   form = [],
   errors = [],
-  setForm = () => {},
-  handlerPress = () => {},
+  setForm = () => { },
+  handlerPress = () => { },
 }) => {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={BEHAVIOR}>
@@ -36,7 +36,7 @@ const BodyNewTravelers = ({
                 inputStyle={styles.input}
                 size={16}
                 color={"#c1c1c1"}
-                placeholder='Insira o nome'
+                placeholder='Insira o nome *'
                 placeholderTextColor={"#a1a1a1"}
                 error={errors[k]?.name}
                 errorColor={PRIMARY_COLOR}
@@ -56,7 +56,7 @@ const BodyNewTravelers = ({
                 errorColor={PRIMARY_COLOR}
                 containerStyle={styles.containerInput}
                 inputStyle={styles.input}
-                placeholder='Data de nascimento'
+                placeholder='Data de nascimento *'
                 keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 size={16}
@@ -77,7 +77,7 @@ const BodyNewTravelers = ({
                 errorColor={PRIMARY_COLOR}
                 containerStyle={styles.containerInput}
                 inputStyle={styles.input}
-                placeholder='CPF'
+                placeholder={'CPF *'}
                 keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 size={16}
@@ -96,7 +96,7 @@ const BodyNewTravelers = ({
               <CustomInput
                 containerStyle={styles.containerInput}
                 inputStyle={styles.input}
-                placeholder='Passaporte (Viagem internacional)'
+                placeholder={'Passaporte (Viagem internacional) *'}
                 placeholderTextColor={"#a1a1a1"}
                 size={16}
                 color={"#c1c1c1"}

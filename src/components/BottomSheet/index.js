@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import {
   Modal,
   StyleSheet,
@@ -17,6 +17,7 @@ import { maskDate, maskOnlyNumbers } from "../../utils/masks";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { AntDesign } from "@expo/vector-icons";
+import Calendar from "../Calendar";
 
 const initial_form = {
   days: "",
@@ -77,23 +78,25 @@ export default ({ isVisible, onClose, id }) => {
     const checkInDate = new Date(form.checkIn.split('/').reverse().join('-'));
     const checkOutMinimunDate = date.setDate(checkInDate.getDate() + 2); */
 
-  const _renderDatePicker = useMemo(
-    () => (
-      <DateTimePickerModal
-        //date={id_check === 0 ? checkInMinimunDate : checkOutMinimunDate}
-        date={new Date()}
-        locale='pt-BR'
-        cancelTextIOS='Cancelar'
-        confirmTextIOS='Confirmar'
-        isVisible={isDatePickerVisible}
-        mode='date'
+  const renderDatePicker = (
+    <View style={{
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexGrow: 1,
+      position: 'absolute',
+      zIndex: 99999,
+      width: '100%',
+      height: '100%'
+    }}>
+      <Calendar
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
-        //minimumDate={id_check === 0 ? checkInMinimunDate : checkOutMinimunDate}
       />
-    ),
-    [isDatePickerVisible],
-  );
+
+    </View>
+  )
+
+
 
   const _renderDays = (
     <>
@@ -313,9 +316,9 @@ export default ({ isVisible, onClose, id }) => {
       onRequestClose={onClose}>
       <TouchableWithoutFeedback onPress={onClose}>
         <>
-          {_renderDatePicker}
+          {renderDatePicker}
           <KeyboardAvoidingView behavior='height' style={styles.container}>
-            <TouchableWithoutFeedback onPress={() => {}}>
+            <TouchableWithoutFeedback onPress={() => { }}>
               <View style={styles.content}>
                 <ScrollView
                   contentContainerStyle={{ alignItems: "center" }}

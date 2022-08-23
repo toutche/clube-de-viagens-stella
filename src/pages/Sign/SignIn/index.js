@@ -21,8 +21,8 @@ export default ({ navigation }) => {
   const [previewPassword, setPreviewPassword] = useState(false);
 
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: __DEV__ ? "igor@toutche.com.br" : "",
+    password: __DEV__ ? "Igor1993" : "",
   });
 
   const [errors, setErros] = useState({
