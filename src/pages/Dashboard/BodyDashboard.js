@@ -34,6 +34,7 @@ const BodyDashboard = ({
     filterCheck,
     filterPeople,
     filterUpdate,
+    setFilterCheck,
     orderPrice,
     segmentsIds,
   } = useFilter();
@@ -158,7 +159,13 @@ const BodyDashboard = ({
             onPress: async () => {
               filterId.current = "check";
               const response = await Calendar.show();
-              console.log(response);
+
+              if (response) {
+                setFilterCheck({
+                  in: response.start,
+                  out: response.end,
+                });
+              }
             },
           }}
         />
