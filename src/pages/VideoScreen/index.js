@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { ActivityIndicator, Platform, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import api from "../../services/api";
 import { AntDesign } from "@expo/vector-icons";
 import CustomIcon from "../../components/CustomIcon";
@@ -40,7 +40,7 @@ export default ({ navigation, route: { params } }) => {
       />
 
       <View style={styles.container}>
-        {url && Platform.OS === "android" ? (
+        {url ? (
           <Video
             ref={video}
             style={styles.video}
