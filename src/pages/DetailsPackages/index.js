@@ -14,30 +14,32 @@ export default ({ route, navigation }) => {
 
   const [item, setItem] = useState([]);
 
-  const getLatLog = (data) => {
+  const getLatLog = data => {
     const hotel = data.hotel;
     let region = {
-      "latitude": 0,
-      "longitude": 0,
-      "latitudeDelta": 0.005,
-      "longitudeDelta": 0.005,
+      latitude: 0,
+      longitude: 0,
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005,
     };
 
     if (hotel && hotel.latitude && hotel.longitude) {
       region = {
         ...region,
-        "latitude": parseFloat(hotel.latitude),
-        "longitude": parseFloat(hotel.longitude)
+        latitude: parseFloat(hotel.latitude),
+        longitude: parseFloat(hotel.longitude),
       };
-    }
-    else {
-      axios.get(`https://maps.google.com/maps/api/geocode/json?address=${data.address}&key=${consts.google_key}`)
+    } else {
+      axios
+        .get(
+          `https://maps.google.com/maps/api/geocode/json?address=${data.address}&key=${consts.google_key}`,
+        )
         .then(res => {
           let loc = res.data.results[0].geometry.location;
           region = {
             ...region,
-            "latitude": parseFloat(loc.lat),
-            "longitude": parseFloat(loc.lng)
+            latitude: parseFloat(loc.lat),
+            longitude: parseFloat(loc.lng),
           };
         })
         .catch(err => console.log(err));
@@ -45,18 +47,21 @@ export default ({ route, navigation }) => {
 
     data = {
       ...data,
-      region
+      region,
     };
 
     return data;
-  }
+  };
 
   useEffect(() => {
-    api.get(`/pacote-viagem/${id}/get`).then(({ data }) => {
-      setTimeout(() => {
-        setItem(getLatLog(data));
-      }, 100);
-    }).catch(e => console.log(e));
+    api
+      .get(`/pacote-viagem/${id}/get`)
+      .then(({ data }) => {
+        setTimeout(() => {
+          setItem(getLatLog(data));
+        }, 100);
+      })
+      .catch(e => console.log(e));
   }, []);
 
   if (item.length === 0)
@@ -68,11 +73,7 @@ export default ({ route, navigation }) => {
 
   return (
     <ScrollView bounces={false} style={styles.container}>
-      <Header
-        navigation={navigation}
-        item={item}
-        plan={user.plan}
-      />
+      <Header navigation={navigation} item={item} plan={user.plan} />
       <Body item={item} />
     </ScrollView>
   );
@@ -88,4 +89,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-

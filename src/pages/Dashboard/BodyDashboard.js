@@ -9,7 +9,7 @@ import { useFilter } from "../../contexts/filter";
 import useDidMountEffect from "../../hooks/useDidMountEffect";
 import ButtonFilter from "./ButtonFilter";
 import CustomIcon from "../../components/CustomIcon";
-import { FontAwesome, Foundation } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import Calendar from "../../components/Calendar";
 
 const BodyDashboard = ({

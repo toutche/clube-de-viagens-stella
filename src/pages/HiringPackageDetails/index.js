@@ -45,7 +45,17 @@ const HiringPackageDetails = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <ModalPayment
-        {...{ navigation, isVisible, onClose, data, index, setIndex, travelers, package_id: id, comment }}
+        {...{
+          navigation,
+          isVisible,
+          onClose,
+          data,
+          index,
+          setIndex,
+          travelers,
+          package_id: id,
+          comment,
+        }}
       />
       <HeaderHiringPackageDetails {...{ navigation, data }} />
       <BodyHiringPackageDetails {...{ data, openModal, comment, setComment }} />

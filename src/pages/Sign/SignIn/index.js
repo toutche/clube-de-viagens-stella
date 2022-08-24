@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View, Text, Image, KeyboardAvoidingView, Platform, Alert } from "react-native";
-
+import * as LocalAuthentication from "expo-local-authentication";
 /*Componentes internos do app */
 import Style from "./style";
 import CustomInput from "../../../components/CustomInput";
@@ -29,6 +29,14 @@ export default ({ navigation }) => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    (async () => {
+      //const response = await LocalAuthentication.authenticateAsync();
+      //console.log(response.success);
+      //if (response.success) console.log(response.success);
+    })();
+  }, []);
 
   const signIn = () => {
     setLoading(true);
