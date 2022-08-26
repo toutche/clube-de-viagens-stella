@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { ScrollView, View, Text, Image, KeyboardAvoidingView, Platform, Alert } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 /*Componentes internos do app */
 import Style from "./style";
 import CustomInput from "../../../components/CustomInput";
@@ -30,25 +32,50 @@ export default ({ navigation }) => {
     password: "",
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     (async () => {
-      //const response = await LocalAuthentication.authenticateAsync();
-      //console.log(response.success);
-      //if (response.success) console.log(response.success);
+      const value = await AsyncStorage.getItem("credentials");
+
+      if (value) {
+        const { success } = await LocalAuthentication.authenticateAsync();
+        if (success) signIn(JSON.parse(value), true);
+      }
     })();
   }, []);
 
-  const signIn = () => {
+  const signIn = ({ email, password }, isBiometric = false) => {
     setLoading(true);
     api
-      .post("/login", { email: user.email, password: user.password })
+      .post("/login", { email, password })
       .then(({ data }) => {
         if (data.error) {
           setLoading(false);
           setErros(data.error);
+        } else {
+          if (isBiometric) {
+            setToken(data.access_token);
+            verifyUser(navigation);
+          } else
+            Alert.alert("Aviso", "Deseja fazer login com biometria?", [
+              {
+                text: "Não",
+                onPress: async () => {
+                  await AsyncStorage.setItem("credentials", null);
+                  setToken(data.access_token);
+                  verifyUser(navigation);
+                },
+                style: "cancel",
+              },
+              {
+                text: "OK",
+                onPress: async () => {
+                  await AsyncStorage.setItem("credentials", JSON.stringify(user));
+                  setToken(data.access_token);
+                  verifyUser(navigation);
+                },
+              },
+            ]);
         }
-        setToken(data.access_token);
-        verifyUser(navigation);
       })
       .catch(e => {
         console.log("erro signIn", e);
@@ -108,7 +135,7 @@ export default ({ navigation }) => {
           />
 
           <CustomButton
-            onPress={signIn}
+            onPress={() => signIn(user)}
             containerStyle={Style.button}
             loadingApi={loading}
             titleStyle={Style.buttonText}
