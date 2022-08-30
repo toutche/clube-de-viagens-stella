@@ -38,7 +38,10 @@ export default ({ navigation }) => {
 
       if (value) {
         const { success } = await LocalAuthentication.authenticateAsync();
-        if (success) signIn(JSON.parse(value), true);
+        if (success) {
+          setUser(JSON.parse(value));
+          signIn(JSON.parse(value), true);
+        }
       }
     })();
   }, []);

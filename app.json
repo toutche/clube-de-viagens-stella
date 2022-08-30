@@ -12,7 +12,7 @@
       "backgroundColor": "#ac092d"
     },
     "plugins": [
-      [
+        [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
@@ -33,9 +33,13 @@
       "**/*"
     ],
     "ios": {
+      "package": "com.priferreira.clubedeviagensstella",
+      "googleServicesFile":"./google-services-ios.json",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.priferreira.clubedeviagensstella",
+      "googleServicesFile":"./google-services-android.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -50,11 +54,21 @@
         "googleMaps": {
           "apiKey": "AIzaSyA7buS3Lhe5HxHDPZFf9xGgWtzaxlsFT-g"
         }
-      },
-      "package": "com.priferreira.clubedeviagensstella"
+      } 
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyCaDURxB_iYNe-3NPJQau1CBU-GLGEdkwA",
+          "authDomain": "rare-phoenix-339912.firebaseapp.com",
+          "projectId": "rare-phoenix-339912",
+          "storageBucket": "rare-phoenix-339912.appspot.com",
+          "messagingSenderId": "232920858926",
+          "appId": "1:232920858926:web:d4f383620751938e253abf",
+          "measurementId": "G-KTVF7M2LDS"
+        }
+      }
     },
     "description": ""
   }
