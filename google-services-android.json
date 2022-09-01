@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "232920858926",
-    "project_id": "rare-phoenix-339912",
-    "storage_bucket": "rare-phoenix-339912.appspot.com"
+    "project_number": "500324408153",
+    "project_id": "clube-de-ferias-b3f24",
+    "storage_bucket": "clube-de-ferias-b3f24.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:232920858926:android:ed2a2903e9bd3e15253abf",
+        "mobilesdk_app_id": "1:500324408153:android:48e1d464f3510a503eca48",
         "android_client_info": {
-          "package_name": "com.priferreira.clubedeviagensstella"
+          "package_name": "com.stellabarros.clubedeferias"
         }
       },
       "oauth_client": [
         {
-          "client_id": "232920858926-62om337bp64rma0g6fc19d2s3eitsc6b.apps.googleusercontent.com",
+          "client_id": "500324408153-finkc68pts2cj8heofm2938nfvpbo05e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCykv6FMzPBt4yEHsQT0JuVaRIAJBl1lws"
+          "current_key": "AIzaSyDBBWbTQwkWKhq_5mZGh0xsqFI3qEcg_tk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "232920858926-62om337bp64rma0g6fc19d2s3eitsc6b.apps.googleusercontent.com",
+              "client_id": "500324408153-finkc68pts2cj8heofm2938nfvpbo05e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

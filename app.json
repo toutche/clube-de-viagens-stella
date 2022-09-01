@@ -33,7 +33,7 @@
       "**/*"
     ],
     "ios": {
-      "googleServicesFile":"./google-services-ios.json",
+      "googleServicesFile":"./google-services-ios.plist",
       "supportsTablet": true
     },
     "android": {
