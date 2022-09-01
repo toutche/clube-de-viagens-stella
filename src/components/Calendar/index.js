@@ -6,6 +6,7 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/varia
 import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../CustomButton";
 import moment from "moment";
+import { formatDateToBRL } from "../../utils";
 
 const monthNames = [
   "Janeiro",
@@ -184,7 +185,7 @@ const Calendar = () => {
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.description}>
-              {`${date.start || "Início"} - ${date.end || "Fim"}`}
+              {`${formatDateToBRL(date.start) || "Início"} - ${formatDateToBRL(date.end) || "Fim"}`}
             </Text>
           </View>
           <LibCalendar

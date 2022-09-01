@@ -33,7 +33,6 @@
       "**/*"
     ],
     "ios": {
-      "package": "com.priferreira.clubedeviagensstella",
       "googleServicesFile":"./google-services-ios.json",
       "supportsTablet": true
     },

@@ -13,11 +13,8 @@ import { TextInput } from "react-native-gesture-handler";
 import { useFilter } from "../../contexts/filter";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import { IS_IOS } from "../../utils/consts";
-import { maskDate, maskOnlyNumbers } from "../../utils/masks";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import moment from "moment";
+import { maskOnlyNumbers } from "../../utils/masks";
 import { AntDesign } from "@expo/vector-icons";
-import Calendar from "../Calendar";
 
 const initial_form = {
   days: "",
@@ -30,16 +27,12 @@ const initial_form = {
   ages: [],
 };
 
-let id_check = null;
-
 export default ({ isVisible, onClose, id }) => {
   const {
     filterDays,
     filterMouth,
     filterYear,
-    filterCheck,
     filterPeople,
-    setFilterCheck,
     setFilterPeople,
     setFilterDays,
     setFilterMouth,
@@ -50,53 +43,10 @@ export default ({ isVisible, onClose, id }) => {
     days: filterDays || "",
     mouth: filterMouth || "",
     year: filterYear || "",
-    checkIn: filterCheck?.in || "",
-    checkOut: filterCheck?.out || "",
     adult: filterPeople?.adult || "",
     children: filterPeople?.children || "",
     ages: [],
   });
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = date => {
-    id_check === 0
-      ? setForm({ ...form, checkIn: moment(date).format("DD/MM/YYYY") })
-      : setForm({ ...form, checkOut: moment(date).format("DD/MM/YYYY") });
-    hideDatePicker();
-  };
-
-  /* const date = new Date();
-    const checkInMinimunDate = date.setDate(date.getDate() + 3);
-    const checkInDate = new Date(form.checkIn.split('/').reverse().join('-'));
-    const checkOutMinimunDate = date.setDate(checkInDate.getDate() + 2); */
-
-  const renderDatePicker = (
-    <View style={{
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexGrow: 1,
-      position: 'absolute',
-      zIndex: 99999,
-      width: '100%',
-      height: '100%'
-    }}>
-      <Calendar
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
-
-    </View>
-  )
-
-
 
   const _renderDays = (
     <>
@@ -150,51 +100,14 @@ export default ({ isVisible, onClose, id }) => {
     </>
   );
 
-  const _renderCheck = (
-    <>
-      <TouchableOpacity
-        onPress={() => {
-          id_check = 0;
-          showDatePicker();
-        }}
-        style={{
-          width: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        <View style={styles.container_input_date}>
-          <Text style={[styles.text_input_date, { color: form.checkIn ? "#333" : "#ccc" }]}>
-            {form.checkIn || "Qual data do check-in?"}
-          </Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          id_check = 1;
-          showDatePicker();
-        }}
-        style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
-        <View style={styles.container_input_date}>
-          <Text style={[styles.text_input_date, { color: form.checkOut ? "#333" : "#ccc" }]}>
-            {form.checkOut || "Qual data do check-out?"}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </>
-  );
-
   const _renderAgeInputs = () => {
     const inputs = [];
-    form.ages.length > 0 &&
-      inputs.push(
-        <Text style={{ fontFamily: FONT_DEFAULT_STYLE, marginBottom: 8 }}>
-          Idades das crianças
-        </Text>,
-      );
 
     for (let i = 0; i < form.children; i++) {
       inputs.push(
-        <View style={[styles.input, { flexDirection: "row", justifyContent: "space-between" }]}>
+        <View
+          key={i}
+          style={[styles.input, { flexDirection: "row", justifyContent: "space-between" }]}>
           <AntDesign
             name='minuscircle'
             size={24}
@@ -214,7 +127,7 @@ export default ({ isVisible, onClose, id }) => {
             placeholderTextColor={"#ccc"}
             keyboardType={"numeric"}
             maxLength={2}
-            value={`${form.ages[i]}`}
+            value={form.ages[i].toString()}
             onChangeText={undefined}
           />
           <AntDesign
@@ -235,7 +148,16 @@ export default ({ isVisible, onClose, id }) => {
       );
     }
 
-    return inputs;
+    return (
+      <>
+        {form.ages.length > 0 && (
+          <Text style={{ fontFamily: FONT_DEFAULT_STYLE, marginBottom: 8 }}>
+            Idades das crianças
+          </Text>
+        )}
+        {inputs}
+      </>
+    );
   };
 
   const _renderPeople = (
@@ -285,11 +207,6 @@ export default ({ isVisible, onClose, id }) => {
     } else if (id === "mouth/year") {
       setFilterMouth(Number(form.mouth));
       setFilterYear(Number(form.year));
-    } else if (id === "check") {
-      setFilterCheck({
-        in: form.checkIn,
-        out: form.checkOut,
-      });
     } else if (id === "people") {
       setFilterPeople({
         adult: Number(form.adult),
@@ -303,7 +220,6 @@ export default ({ isVisible, onClose, id }) => {
   const _renderBottomSheet = () => {
     if (id === "days") return _renderDays;
     else if (id === "mouth/year") return _renderMouthYear;
-    else if (id === "check") return _renderCheck;
     else if (id === "people") return _renderPeople;
   };
 
@@ -316,9 +232,8 @@ export default ({ isVisible, onClose, id }) => {
       onRequestClose={onClose}>
       <TouchableWithoutFeedback onPress={onClose}>
         <>
-          {renderDatePicker}
           <KeyboardAvoidingView behavior='height' style={styles.container}>
-            <TouchableWithoutFeedback onPress={() => { }}>
+            <TouchableWithoutFeedback onPress={() => {}}>
               <View style={styles.content}>
                 <ScrollView
                   contentContainerStyle={{ alignItems: "center" }}

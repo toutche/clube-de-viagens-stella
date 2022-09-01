@@ -11,6 +11,7 @@ import ButtonFilter from "./ButtonFilter";
 import CustomIcon from "../../components/CustomIcon";
 import { FontAwesome } from "@expo/vector-icons";
 import Calendar from "../../components/Calendar";
+import { formatDateToBRL } from "../../utils";
 
 const BodyDashboard = ({
   display = 0,
@@ -151,7 +152,9 @@ const BodyDashboard = ({
         />
         <ButtonFilter
           {...{
-            title: `Data - ${filterCheck?.in || "Check-in"} - ${filterCheck?.out || "Check-out"}`,
+            title: `Data - ${formatDateToBRL(filterCheck?.in) || "Check-in"} - ${
+              formatDateToBRL(filterCheck?.out) || "Check-out"
+            }`,
             iconName: "calendar-month",
             iconSize: 22,
             marginLeft: 2,

@@ -37,7 +37,10 @@ export default ({ navigation }) => {
       const value = await AsyncStorage.getItem("credentials");
 
       if (value) {
-        const { success } = await LocalAuthentication.authenticateAsync();
+        const { success } = await LocalAuthentication.authenticateAsync({
+          promptMessage: "Message",
+          cancelLabel: "Cancelar",
+        });
         if (success) {
           setUser(JSON.parse(value));
           signIn(JSON.parse(value), true);
