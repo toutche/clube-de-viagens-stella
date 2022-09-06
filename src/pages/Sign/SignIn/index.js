@@ -36,9 +36,9 @@ export default ({ navigation }) => {
     (async () => {
       const value = await AsyncStorage.getItem("credentials");
 
-      if (value) {
+      if (value && Platform.OS == "android") {
         const { success } = await LocalAuthentication.authenticateAsync({
-          promptMessage: "Message",
+          promptMessage: "Use sua digital para autenticar no Clube de Férias",
           cancelLabel: "Cancelar",
         });
         if (success) {
@@ -66,7 +66,7 @@ export default ({ navigation }) => {
               {
                 text: "Não",
                 onPress: async () => {
-                  await AsyncStorage.setItem("credentials", null);
+                  await AsyncStorage.setItem("credentials", "");
                   setToken(data.access_token);
                   verifyUser(navigation);
                 },
