@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, StyleSheet, View, Alert } from "react-native";
 import {
   PRIMARY_COLOR,
@@ -10,13 +10,12 @@ import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
 import { MaterialCommunityIcons, FontAwesome, EvilIcons } from "@expo/vector-icons";
 import CustomInput from "../../components/CustomInput";
-import { maskPhone, maskDocument } from "../../utils/masks";
+import { maskPhone } from "../../utils/masks";
 import CustomButton from "../../components/CustomButton";
-import { Switch } from "react-native-elements";
 import CustomModal from "./CustomModal";
 
 const BodyMyAccount = ({ item }) => {
-  const { user, verifyUser } = useAuth();
+  const { user, verifyUser, logoutAccount } = useAuth();
   const [name, setName] = useState(user.name + " " + user.last_name);
   const [nickname, setNickName] = useState(user?.nickname);
   const [phoneNumber, setPhoneNumber] = useState(user.mobile_phone);
@@ -25,9 +24,10 @@ const BodyMyAccount = ({ item }) => {
       user.neighborhood || ""
     }, ${user.city || ""}, ${user.state || ""}`,
   );
-  const [notifications, setNotifications] = useState(true);
-  const [isVisible, setIsVisible] = useState(false);
+
   const [loading, setLoading] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const [icon, setIcon] = useState({
     lib: undefined,
@@ -68,7 +68,6 @@ const BodyMyAccount = ({ item }) => {
     api
       .put("/usuario/atualizar/email", body)
       .then(res => {
-        console.log(res.status, res.data);
         if (res.status == 200 && res.data.message == "E-mail alterado com sucesso") {
           setIsVisible(false);
           Alert.alert("E-mail alterado", "Seu e-mail foi atualizado com sucesso.");
@@ -107,7 +106,6 @@ const BodyMyAccount = ({ item }) => {
   };
 
   const updateCreditCard = body => {
-    console.log(body);
     api
       .post("/cartao/criar", body)
       .then(res => {
@@ -143,6 +141,29 @@ const BodyMyAccount = ({ item }) => {
         console.log(error);
         Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
       });
+  };
+
+  const deleteUser = () => {
+    Alert.alert("Aviso", "Tem certeza que deseja excluir sua conta?", [
+      {
+        text: "Cancelar",
+        onPress: () => {},
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: async () => {
+          try {
+            setDeleting(true);
+            await api.delete("/usuario/deletar");
+            await logoutAccount();
+          } catch (error) {
+            Alert.alert("Erro", error.message);
+            setDeleting(false);
+          }
+        },
+      },
+    ]);
   };
 
   const updateUser = () => {
@@ -337,11 +358,20 @@ const BodyMyAccount = ({ item }) => {
 
       <CustomButton
         onPress={updateUser}
-        containerStyle={styles.button}
+        containerStyle={styles.buttonSave}
         titleStyle={styles.buttonText}
         title={"Salvar"}
-        disabled={loading}
+        disabled={loading || isDeleting}
         loadingApi={loading}
+      />
+
+      <CustomButton
+        onPress={deleteUser}
+        containerStyle={styles.buttonDelete}
+        titleStyle={styles.buttonText}
+        title={"Excluir conta"}
+        disabled={loading || isDeleting}
+        loadingApi={isDeleting}
       />
     </ScrollView>
   );
@@ -363,7 +393,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderColor: "#c0c0c0",
   },
-  button: {
+  buttonSave: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -371,9 +401,17 @@ const styles = StyleSheet.create({
     marginTop: 16,
     width: "100%",
     borderRadius: 25,
-    borderColor: BLUE_COLOR,
     backgroundColor: BLUE_COLOR,
-    borderWidth: 1,
+  },
+  buttonDelete: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 50,
+    marginTop: 16,
+    width: "100%",
+    borderRadius: 25,
+    backgroundColor: PRIMARY_COLOR,
   },
   buttonText: {
     paddingHorizontal: 5,

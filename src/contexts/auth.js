@@ -1,8 +1,8 @@
 import React, { createContext, useState, useContext, useEffect, useRef } from "react";
 import { Alert } from "react-native";
 import api from "../services/api";
-import { getToken, logout, setToken } from "../services/auth";
-import * as Notifications from 'expo-notifications';
+import { getToken, logout } from "../services/auth";
+import * as Notifications from "expo-notifications";
 
 const AuthContext = createContext({});
 
@@ -38,34 +38,32 @@ export const AuthProvider = ({ children }) => {
 
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
+    if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
-    if (finalStatus !== 'granted') {
+    if (finalStatus !== "granted") {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  
-    if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
+
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FF231F7C',
+        lightColor: "#FF231F7C",
       });
     }
 
-    console.log(token);
-
-    api.post('notificacao-push/criar', {token})
-    .then(res => {
-      console.log(`Token enviado com sucesso: ${JSON.stringify(res.data)}`);
-    })
-    .catch(error => {
-      console.log(`Erro ao enviar token: ${e}`);
-    })
+    api
+      .post("notificacao-push/criar", { token })
+      .then(res => {
+        console.log(`Token enviado com sucesso: ${JSON.stringify(res.data)}`);
+      })
+      .catch(error => {
+        console.log(`Erro ao enviar token: ${e}`);
+      });
   }
 
   const verifyUser = navigation => {
@@ -78,14 +76,11 @@ export const AuthProvider = ({ children }) => {
             initialRoute.current = "Sign";
             Alert.alert("Aviso", "Seu token expirou, faça login novamente");
           });
-        } 
-        else if (!data.message.date_activation) {
+        } else if (!data.message.date_activation) {
           navigation ? navigation.replace("ConfirmEmail") : (initialRoute.current = "ConfirmEmail");
-        } 
-        else if (!data.message.address) {
+        } else if (!data.message.address) {
           navigation ? navigation.replace("GetLocation") : (initialRoute.current = "GetLocation");
-        }
-        else
+        } else
           api.get(`/questionario/listar`).then(res => {
             if (res.data.length > 0) setAuth(true);
             else
@@ -107,10 +102,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutAccount = async () => {
-    await logout().then(() => {
-      setUser(null);
-      setAuth(false);
-    });
+    await logout();
+    setUser(null);
+    setAuth(false);
   };
 
   return (
