@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, ImageBackground, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet } from "react-native";
 
 import defaultIcons from "./Icons";
 import FlipCard from "react-native-flip-card";
 
-const BASE_SIZE = { width: 300, height: 190 };
+const BASE_SIZE = { width: "100%", maxWidth: 360, height: 190 };
 
 const s = StyleSheet.create({
   cardContainer: {
     alignSelf: "center",
   },
-  cardFace: {},
+  cardFace: {
+    backgroundColor: "#A9A9A9",
+    borderRadius: 8,
+  },
   icon: {
     position: "absolute",
     top: 15,
@@ -66,7 +69,7 @@ const s = StyleSheet.create({
     fontSize: 16,
     position: "absolute",
     top: 80,
-    right: 30,
+    right: 16,
   },
 });
 
@@ -138,8 +141,8 @@ export default class CardView extends Component {
           perspective={2000}
           clickable={false}
           flip={shouldFlip}>
-          <ImageBackground style={[BASE_SIZE, s.cardFace, transform]} source={imageFront}>
-            <Image style={[s.icon]} source={Icons[brand]} />
+          <View style={[BASE_SIZE, s.cardFace, transform]}>
+            {/* <Image style={[s.icon]} source={Icons[brand]} /> */}
             <Text
               style={[
                 s.baseText,
@@ -183,13 +186,13 @@ export default class CardView extends Component {
                 {!cvc ? placeholder.cvc : cvc}
               </Text>
             )}
-          </ImageBackground>
-          <ImageBackground style={[BASE_SIZE, s.cardFace, transform]} source={imageBack}>
+          </View>
+          <View style={[BASE_SIZE, s.cardFace, transform]}>
             <Text
               style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
               {!cvc ? placeholder.cvc : cvc}
             </Text>
-          </ImageBackground>
+          </View>
         </FlipCard>
       </View>
     );

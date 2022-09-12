@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import CustomButton from "../../components/CustomButton";
-import { FONT_DEFAULT_STYLE, BLUE_COLOR } from "../../utils/variables";
+import { FONT_DEFAULT_STYLE, BLUE_COLOR, PRIMARY_COLOR } from "../../utils/variables";
 
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import CustomInput from "../../components/CustomInput";
@@ -12,6 +12,7 @@ const BodyNewTravelers = ({
   data = [],
   openModal,
   form = [],
+  errors = [],
   setForm = () => { },
   handlerPress = () => { },
 }) => {
@@ -35,8 +36,10 @@ const BodyNewTravelers = ({
                 inputStyle={styles.input}
                 size={16}
                 color={"#c1c1c1"}
-                placeholder='Insira o nome'
+                placeholder='Insira o nome *'
                 placeholderTextColor={"#a1a1a1"}
+                error={errors[k]?.name}
+                errorColor={PRIMARY_COLOR}
                 type={FontAwesome}
                 name={"user-o"}
                 autoCapitalize={"words"}
@@ -47,10 +50,13 @@ const BodyNewTravelers = ({
                   setForm(format);
                 }}
               />
+
               <CustomInput
+                error={errors[k]?.birthDate}
+                errorColor={PRIMARY_COLOR}
                 containerStyle={styles.containerInput}
                 inputStyle={styles.input}
-                placeholder='Data de nascimento'
+                placeholder='Data de nascimento *'
                 keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 size={16}
@@ -65,10 +71,13 @@ const BodyNewTravelers = ({
                   setForm(format);
                 }}
               />
+
               <CustomInput
+                error={errors[k]?.CPF}
+                errorColor={PRIMARY_COLOR}
                 containerStyle={styles.containerInput}
                 inputStyle={styles.input}
-                placeholder='CPF'
+                placeholder={'CPF *'}
                 keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 size={16}
@@ -87,7 +96,7 @@ const BodyNewTravelers = ({
               <CustomInput
                 containerStyle={styles.containerInput}
                 inputStyle={styles.input}
-                placeholder='Passaporte (Viagem internacional)'
+                placeholder={'Passaporte (Viagem internacional) *'}
                 placeholderTextColor={"#a1a1a1"}
                 size={16}
                 color={"#c1c1c1"}

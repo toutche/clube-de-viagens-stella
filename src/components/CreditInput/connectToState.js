@@ -31,15 +31,17 @@ export default function connectToState(CreditCardInput) {
 
     static defaultProps = {
       autoFocus: false,
-      onChange: () => { },
-      onFocus: () => { },
+      onChange: () => {},
+      onFocus: () => {},
       requiresName: false,
       requiresCVC: true,
       requiresPostalCode: false,
       validatePostalCode: (postalCode = "") => {
-        return postalCode.match(/^\d{6}$/) ? "valid" :
-          postalCode.length > 6 ? "invalid" :
-            "incomplete";
+        return postalCode.match(/^\d{6}$/)
+          ? "valid"
+          : postalCode.length > 6
+          ? "invalid"
+          : "incomplete";
       },
     };
 
@@ -52,15 +54,20 @@ export default function connectToState(CreditCardInput) {
       };
     }
 
-    componentDidMount = () => setTimeout(() => { // Hacks because componentDidMount happens before component is rendered
-      this.props.autoFocus && this.focus("number");
-    });
+    componentDidMount = () =>
+      setTimeout(() => {
+        // Hacks because componentDidMount happens before component is rendered
+        this.props.autoFocus && this.focus("number");
+      });
 
     setValues = values => {
       const newValues = { ...this.state.values, ...values };
       const displayedFields = this._displayedFields();
-      const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
-      const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
+      const formattedValues = new CCFieldFormatter(displayedFields).formatValues(newValues);
+      const validation = new CCFieldValidator(
+        displayedFields,
+        this.props.validatePostalCode,
+      ).validateValues(formattedValues);
       const newState = { values: formattedValues, ...validation };
 
       this.setState(newState);
@@ -76,7 +83,7 @@ export default function connectToState(CreditCardInput) {
       return compact([
         "number",
         "expiry",
-        'CPF',
+        "CPF",
         requiresCVC ? "cvc" : null,
         requiresName ? "name" : null,
         requiresPostalCode ? "postalCode" : null,
@@ -105,7 +112,7 @@ export default function connectToState(CreditCardInput) {
       this.setValues({ [field]: value });
     };
 
-    _onFocus = (field) => {
+    _onFocus = field => {
       this.focus(field);
       this.props.onFocus(field);
     };
@@ -118,7 +125,8 @@ export default function connectToState(CreditCardInput) {
           onFocus={this._onFocus}
           onChange={this._change}
           onBecomeEmpty={this._focusPreviousField}
-          onBecomeValid={this._focusNextField} />
+          onBecomeValid={this._focusNextField}
+        />
       );
     }
   }

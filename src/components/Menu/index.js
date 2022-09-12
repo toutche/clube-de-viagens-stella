@@ -85,7 +85,7 @@ const Menu = ({ isVisible = true, onClose }) => {
             />
             <RenderItem
               id={"Escorts"}
-              text={"Acompanhantes"}
+              text={"Viajantes"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/acompanhantes-red.png"}
               noSelected={
@@ -113,7 +113,7 @@ const Menu = ({ isVisible = true, onClose }) => {
             />
             <RenderItem
               id={"Docs"}
-              text={"Documentos"}
+              text={"Docs"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/documentos-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/documentos-white.png"}

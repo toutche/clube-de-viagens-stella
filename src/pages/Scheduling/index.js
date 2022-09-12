@@ -30,8 +30,8 @@ const Scheduling = ({ navigation, route }) => {
 
       <ScrollView bounces={false} style={styles.body}>
         <BoardingPlace {...{ data }} />
-        <Travel  {...{ data, display: data.hour_voo ? 0 : 1 }} />
-        
+        <Travel {...{ data, display: data.hour_voo ? 0 : 1 }} />
+
         <TravelCard display={3} {...{ data }} value_observation={true} />
         <Travelers {...{ data }} onPress={() => navigation.navigate("NewsTravelers")} />
         <CustomButton

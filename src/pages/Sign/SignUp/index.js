@@ -26,6 +26,7 @@ export default ({ navigation }) => {
 
   const [user, setUser] = useState({
     name: "",
+    nickname: "",
     birth_date: "",
     document: "",
     email: "",
@@ -34,14 +35,23 @@ export default ({ navigation }) => {
     image: null,
   });
 
-  const hasMediaPermission = async (option) => {
+  const [errors, setErros] = useState({
+    name: "",
+    nickname: "",
+    birth_date: "",
+    document: "",
+    email: "",
+    phone_number: "",
+    password: "",
+  });
+
+  const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
       let result = undefined;
 
       if (option === "CAMERA") {
         result = await ImagePicker.requestCameraPermissionsAsync();
-      }
-      else {
+      } else {
         result = await ImagePicker.requestMediaLibraryPermissionsAsync();
       }
 
@@ -53,9 +63,9 @@ export default ({ navigation }) => {
     }
   };
 
-  const pickImage = async (option) => {
+  const pickImage = async option => {
     const hasPermission = await hasMediaPermission(option);
-    if(!hasPermission) {
+    if (!hasPermission) {
       return;
     }
 
@@ -68,8 +78,7 @@ export default ({ navigation }) => {
         aspect: [1, 1],
         quality: 0,
       });
-    }
-    else {
+    } else {
       result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
@@ -86,27 +95,36 @@ export default ({ navigation }) => {
     }
   };
 
+  const handlerPress = () => {
+    if (!check) {
+      Alert.alert("Aviso", "Para continuar aceite os termos");
+    } else {
+      signUp(user, navigation);
+    }
+  };
+
   const signUp = async () => {
     setLoading(true);
 
     let [name, ...last_name] = user.name.split(" ");
     last_name = last_name.join(" ") || name;
 
-    let imageObject = undefined;
+    let imageObject;
 
     if (user.image) {
       imageObject = {
         uri: user.image,
         type: "image/jpeg",
-        name: "user.jpg"
-      }
+        name: "user.jpg",
+      };
     }
-    
+
     const body = new FormData();
     body.append("name", name);
     body.append("last_name", last_name);
-    body.append("birth_date", user.birth_date.split('/').reverse().join('-'));
-    body.append("document", user.document.replace('.', '').replace('.', '').replace('-', ''));
+    body.append("birth_date", user.birth_date.split("/").reverse().join("-"));
+    body.append("nickname", user.nickname);
+    body.append("document", user.document.replace(".", "").replace(".", "").replace("-", ""));
     body.append("email", user.email);
     body.append("password", user.password);
     body.append("password_confirmation", user.password);
@@ -115,39 +133,24 @@ export default ({ navigation }) => {
     body.append("accept_terms", "Y");
     body.append("accept_privacy", "Y");
     body.append("image", imageObject);
-  
 
-    const { data } = await api.post(
-      "/cadastrar", 
-      body, {
-      headers: { "Content-Type": "multipart/form-data;",}
-    })
-    .catch(error => console.log(error));
+    const { data } = await api
+      .post("/cadastrar", body, {
+        headers: { "Content-Type": "multipart/form-data;" },
+      })
+      .catch(error => console.log(error));
 
-    console.log(data)
-    if (data.success) {
-      contextSetUser({email: user.email})
+    if (data.type) {
+      contextSetUser({ email: user.email });
       navigation.navigate("ConfirmEmail");
-    }
-    else if (data.error) {
+      if (data.message) Alert.alert("Sucesso", data.message);
+    } else if (data.error) {
       Alert.alert("Aviso", `Aconteceu um erro, tente novamente mais tarde`);
-      console.log(data)
+      setErros(data.error);
       setLoading(false);
     } else {
       setLoading(false);
       Alert.alert("Erro", "Tente novamente mais tarde");
-    }
-  };
-
-  const handlerPress = () => {
-    if (user.password.length < 6 || user.password.length > 9) {
-      Alert.alert("Aviso", "A senha deve conter entre 6 a 9 caracteres.");
-    }
-    else if (!check) {
-      Alert.alert("Aviso", "Para continuar aceite os termos");
-    }
-    else {
-      signUp(user, navigation);
     }
   };
 
@@ -159,27 +162,21 @@ export default ({ navigation }) => {
   };
 
   const chooseImage = () => {
-    return (
-      Alert.alert(
-        "Sua foto",
-        `Deseja tirar uma foto agora ou escolher da galeria?`,
-        [
-          {
-              text: "Cancelar",
-              style: "cancel",
-          },
-          {
-              text: "Câmera",
-              onPress: () => pickImage('CAMERA')
-          },
-          {
-              text: "Galeria",
-              onPress: () => pickImage('MEDIA_LIBRARY')
-          }
-        ]
-      )
-    );
-  }
+    return Alert.alert("Sua foto", `Deseja tirar uma foto agora ou escolher da galeria?`, [
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+      {
+        text: "Câmera",
+        onPress: () => pickImage("CAMERA"),
+      },
+      {
+        text: "Galeria",
+        onPress: () => pickImage("MEDIA_LIBRARY"),
+      },
+    ]);
+  };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
@@ -199,10 +196,7 @@ export default ({ navigation }) => {
 
           <CustomAvatar
             handlerPress={chooseImage}
-            item={
-              user.image ||
-              "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png" 
-            }
+            item={user.image || "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png"}
           />
 
           <CustomInput
@@ -210,6 +204,7 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"user"}
+            error={errors["name"]}
             autoCapitalize={"words"}
             value={user.name}
             onChangeText={text =>
@@ -221,12 +216,29 @@ export default ({ navigation }) => {
           />
 
           <CustomInput
+            placeholder='Como gostaria de ser chamado?'
+            size={16}
+            type={FontAwesome}
+            name={"user-o"}
+            error={errors["nickname"]}
+            autoCapitalize={"words"}
+            value={user.nickname}
+            onChangeText={text =>
+              setUser({
+                ...user,
+                nickname: text,
+              })
+            }
+          />
+
+          <CustomInput
             placeholder='Sua Data de Nascimento?'
             size={18}
             lenght={10}
             type={FontAwesome}
             name={"calendar-o"}
             keyboardType={"numeric"}
+            error={errors["birth_date"]}
             value={user.birth_date}
             onChangeText={text =>
               setUser({
@@ -242,7 +254,8 @@ export default ({ navigation }) => {
             lenght={14}
             type={FontAwesome}
             name={"id-card"}
-            keyboardType={'number-pad'}
+            error={errors["document"]}
+            keyboardType={"number-pad"}
             value={user.document}
             onChangeText={text =>
               setUser({
@@ -254,12 +267,13 @@ export default ({ navigation }) => {
 
           <CustomInput
             placeholder='Seu celular?'
-            size={18}
+            size={20}
             lenght={15}
             type={FontAwesome}
             name={"mobile"}
-            keyboardType={'phone-pad'}
+            keyboardType={"phone-pad"}
             value={user.phone_number}
+            error={errors["phone_number"]}
             onChangeText={text =>
               setUser({
                 ...user,
@@ -275,6 +289,7 @@ export default ({ navigation }) => {
             name={"envelope"}
             keyboardType={"email-address"}
             value={user.email}
+            error={errors["email"]}
             onChangeText={text =>
               setUser({
                 ...user,
@@ -292,6 +307,7 @@ export default ({ navigation }) => {
             previewPassword={previewPassword}
             setPreviewPassword={setPreviewPassword}
             value={user.password}
+            error={errors["password"]}
             onChangeText={text =>
               setUser({
                 ...user,
@@ -300,7 +316,7 @@ export default ({ navigation }) => {
             }
           />
 
-          <View style={{flexDirection: "row",}}>
+          <View style={{ flexDirection: "row" }}>
             <CheckBox
               onPress={() => setCheck(!check)}
               checked={check}
@@ -313,16 +329,22 @@ export default ({ navigation }) => {
                 marginBottom: 10,
               }}
               checkedIcon={<MaterialIcons name='check-box' size={28} color={"white"} />}
-              uncheckedIcon={<MaterialIcons name='check-box-outline-blank' size={28} color='white' />}
+              uncheckedIcon={
+                <MaterialIcons name='check-box-outline-blank' size={28} color='white' />
+              }
             />
 
-            <Text style={{...general_text_style}}>
-              {"Aceitar "} 
-              <Text style={{...general_text_style, textDecorationLine: 'underline'}} onPress={() => navigation.navigate("PrivacyPolicy")}>
+            <Text style={{ ...general_text_style }}>
+              {"Aceitar "}
+              <Text
+                style={{ ...general_text_style, textDecorationLine: "underline" }}
+                onPress={() => navigation.navigate("PrivacyPolicy")}>
                 política de privacidade
-              </Text> 
-              {" e "} 
-              <Text style={{...general_text_style, textDecorationLine: 'underline'}} onPress={() => navigation.navigate("TermsConditions")}>
+              </Text>
+              {" e "}
+              <Text
+                style={{ ...general_text_style, textDecorationLine: "underline" }}
+                onPress={() => navigation.navigate("TermsConditions")}>
                 termos e condições
               </Text>
               .

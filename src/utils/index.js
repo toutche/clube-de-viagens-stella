@@ -13,3 +13,5 @@ export const copyrightSwitch = option => {
 };
 
 export const formatMoneyToBRL = money => money.toFixed(2).toString().replace(".", ",");
+
+export const formatDateToBRL = date => date?.split("-")?.reverse()?.join("/");

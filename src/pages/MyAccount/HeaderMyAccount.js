@@ -1,31 +1,41 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Image, Platform, ImageBackground, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Platform,
+  ImageBackground,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import { FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE, PRIMARY_COLOR } from "../../utils/variables";
-import Logo from "../../../assets/LogoRR.png";
-import CardBackground from "../../../assets/img/carimbos.png"
+import Logo from "../../../assets/logoRR.png";
+import CardBackground from "../../../assets/img/carimbos.png";
 import { useAuth } from "../../contexts/auth";
-import { maskDocument } from '../../utils/masks';
+import { maskDocument } from "../../utils/masks";
 import * as ImagePicker from "expo-image-picker";
 import api from "../../services/api";
 
 const HeaderMyAccount = ({ navigation }) => {
   const { user } = useAuth();
 
-  const [image, setImage] = useState(user.image || 'https://toutche.com.br/clube_de_ferias/maquina-fotografica.png');
+  const [image, setImage] = useState(
+    user.image || "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png",
+  );
 
-  const getDate = (date) => new Date(date).toLocaleDateString();
+  const getDate = date => new Date(date).toLocaleDateString();
 
-  const hasMediaPermission = async (option) => {
+  const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
       let result = undefined;
 
       if (option === "CAMERA") {
         result = await ImagePicker.requestCameraPermissionsAsync();
-      }
-      else {
+      } else {
         result = await ImagePicker.requestMediaLibraryPermissionsAsync();
       }
 
@@ -37,9 +47,9 @@ const HeaderMyAccount = ({ navigation }) => {
     }
   };
 
-  const pickImage = async (option) => {
+  const pickImage = async option => {
     const hasPermission = await hasMediaPermission(option);
-    if(!hasPermission) {
+    if (!hasPermission) {
       return;
     }
 
@@ -52,8 +62,7 @@ const HeaderMyAccount = ({ navigation }) => {
         aspect: [1, 1],
         quality: 0,
       });
-    }
-    else {
+    } else {
       result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
@@ -71,54 +80,46 @@ const HeaderMyAccount = ({ navigation }) => {
         imageObject = {
           uri: image,
           type: "image/jpeg",
-          name: "user.jpg"
-        }
+          name: "user.jpg",
+        };
       }
-      
+
       const body = new FormData();
       body.append("image", imageObject);
-      
-      const { data } = await api.post(
-        "/usuario/atualizar/imagem", 
-        body, {
-        headers: { "Content-Type": "multipart/form-data;",}
-      })
-      .catch(error => {
-        console.log(error);
-        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
-      });
-      
+
+      const { data } = await api
+        .post("/usuario/atualizar/imagem", body, {
+          headers: { "Content-Type": "multipart/form-data;" },
+        })
+        .catch(error => {
+          console.log(error);
+          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+        });
+
       if (data?.message == "Imagem do perfil atualizada") {
         Alert.alert("Sucesso", data.message);
-      }
-      else {
+      } else {
         Alert.alert("Erro", "Aconteceu um erro, tente novamente mais tarde.");
       }
     }
   };
 
   const chooseImage = () => {
-    return (
-      Alert.alert(
-        "Sua foto",
-        `Deseja tirar uma foto agora ou escolher da galeria?`,
-        [
-          {
-              text: "Cancelar",
-              style: "cancel",
-          },
-          {
-              text: "Câmera",
-              onPress: () => pickImage('CAMERA')
-          },
-          {
-              text: "Galeria",
-              onPress: () => pickImage('MEDIA_LIBRARY')
-          }
-        ]
-      )
-    );
-  }
+    return Alert.alert("Sua foto", `Deseja tirar uma foto agora ou escolher da galeria?`, [
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+      {
+        text: "Câmera",
+        onPress: () => pickImage("CAMERA"),
+      },
+      {
+        text: "Galeria",
+        onPress: () => pickImage("MEDIA_LIBRARY"),
+      },
+    ]);
+  };
 
   return (
     <View style={styles.container}>
@@ -143,49 +144,64 @@ const HeaderMyAccount = ({ navigation }) => {
           alignItems: "center",
           justifyContent: "center",
         }}>
-
         <ImageBackground
-          style={{ height: undefined, width: '100%', aspectRatio: 1.7 }}
+          style={{ height: undefined, width: "100%", aspectRatio: 1.7 }}
           imageStyle={{ borderRadius: 20 }}
-          source={CardBackground} >
-
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Image
-              style={styles.logo}
-              source={Logo}
-            />
+          source={CardBackground}>
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <Image style={styles.logo} source={Logo} />
 
             <View style={{ flexDirection: "row", paddingHorizontal: 16, paddingBottom: 16 }}>
               <View style={{ marginRight: 16 }}>
                 <View style={{ flexDirection: "row" }}>
-                  <Image style={{ height: 70, aspectRatio: 0.3, resizeMode: 'contain' }} source={{ uri: user.images.brackets.left }} />
+                  <Image
+                    style={{ height: 70, aspectRatio: 0.3, resizeMode: "contain" }}
+                    source={{ uri: user.images.brackets.left }}
+                  />
                   <TouchableOpacity onPress={chooseImage}>
-                    <View style={{
-                      borderRadius: 999,
-                      borderColor: "rgba(0, 0, 0, 0.2)",
-                      borderWidth: 8,
-                      height: 70,
-                      width: 70,
-                      justifyContent: "center",
-                      alignItems: "center"
-                    }}>
-                      <Image
-                        style={styles.image}
-                        source={{ uri: image }}
-                      />
+                    <View
+                      style={{
+                        borderRadius: 999,
+                        borderColor: "rgba(0, 0, 0, 0.2)",
+                        borderWidth: 8,
+                        height: 70,
+                        width: 70,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}>
+                      <Image style={styles.image} source={{ uri: image }} />
                     </View>
                   </TouchableOpacity>
-                  <Image style={{
-                    height: 70,
-                    aspectRatio: 0.3,
-                    resizeMode: 'contain'
-                  }}
+                  <Image
+                    style={{
+                      height: 70,
+                      aspectRatio: 0.3,
+                      resizeMode: "contain",
+                    }}
                     source={{ uri: user.images.brackets.right }}
                   />
                 </View>
-                {user.plan !== false &&
-                  <View style={{ backgroundColor: user.plan.color, borderRadius: 100, padding: 4, marginTop: 8, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                    <View style={{ backgroundColor: "#696969", borderRadius: 100, height: 22, width: 22, justifyContent: "center", alignItems: "center", marginRight: 8 }}>
+                {user.plan !== false && (
+                  <View
+                    style={{
+                      backgroundColor: user.plan.color,
+                      borderRadius: 100,
+                      padding: 4,
+                      marginTop: 8,
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}>
+                    <View
+                      style={{
+                        backgroundColor: "#696969",
+                        borderRadius: 100,
+                        height: 22,
+                        width: 22,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginRight: 8,
+                      }}>
                       <View
                         style={{
                           backgroundColor: user.plan.color,
@@ -195,19 +211,21 @@ const HeaderMyAccount = ({ navigation }) => {
                         }}
                       />
                     </View>
-                    <Text style={styles.planText}>{user.plan.name.replace('Plano', '')}</Text>
+                    <Text style={styles.planText}>{user.plan.name.replace("Plano", "")}</Text>
                   </View>
-                }
+                )}
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.cardText, { color: '#000', marginBottom: 8 }]}>{(user.name + " " + user.last_name).toLocaleUpperCase()}</Text>
-                <Text style={[styles.cardText, { marginBottom: 8 }]}>{`CPF: ${maskDocument(user.document)}`}</Text>
+                <Text style={[styles.cardText, { color: "#000", marginBottom: 8 }]}>
+                  {(user.name + " " + user.last_name).toLocaleUpperCase()}
+                </Text>
+                <Text style={[styles.cardText, { marginBottom: 8 }]}>{`CPF: ${maskDocument(
+                  user.document,
+                )}`}</Text>
                 <Text style={[styles.cardText]}>
-                  {
-                    user.plan
-                      ? `ASSINANTE DESDE ${getDate(user.created_at)}`
-                      : `MEMBRO DESDE ${getDate(user.created_at)}`
-                  }
+                  {user.plan
+                    ? `ASSINANTE DESDE ${getDate(user.created_at)}`
+                    : `MEMBRO DESDE ${getDate(user.created_at)}`}
                 </Text>
               </View>
             </View>
@@ -283,7 +301,7 @@ const styles = StyleSheet.create({
   image: {
     height: 54,
     width: 54,
-    borderRadius: 100
+    borderRadius: 100,
   },
   cardText: {
     fontSize: 12,

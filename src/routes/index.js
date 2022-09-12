@@ -43,12 +43,14 @@ const Routes = () => {
       </View>
     );
 
-  return auth && user?.email_verified_at ?
+  return auth && user?.email_verified_at ? (
     <>
       <ShareModal />
       <AppRoutes />
     </>
-    : <AuthRoutes />;
+  ) : (
+    <AuthRoutes />
+  );
 };
 
 export default Routes;

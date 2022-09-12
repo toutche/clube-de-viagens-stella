@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { ScrollView, View, Text, Image, KeyboardAvoidingView, Platform } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
+import { ScrollView, View, Text, Image, KeyboardAvoidingView, Platform, Alert } from "react-native";
+import * as LocalAuthentication from "expo-local-authentication";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /*Componentes internos do app */
 import Style from "./style";
@@ -21,21 +23,69 @@ export default ({ navigation }) => {
   const [previewPassword, setPreviewPassword] = useState(false);
 
   const [user, setUser] = useState({
+    email: __DEV__ ? "igor@toutche.com.br" : "",
+    password: __DEV__ ? "Igor1993" : "",
+  });
+
+  const [errors, setErros] = useState({
     email: "",
     password: "",
   });
 
-  const signIn = () => {
+  useLayoutEffect(() => {
+    (async () => {
+      const value = await AsyncStorage.getItem("credentials");
+
+      if (value && Platform.OS == "android") {
+        const { success } = await LocalAuthentication.authenticateAsync({
+          promptMessage: "Use sua digital para autenticar no Clube de Férias",
+          cancelLabel: "Cancelar",
+        });
+        if (success) {
+          setUser(JSON.parse(value));
+          signIn(JSON.parse(value), true);
+        }
+      }
+    })();
+  }, []);
+
+  const signIn = ({ email, password }, isBiometric = false) => {
     setLoading(true);
     api
-      .post("/login", { email: user.email, password: user.password })
+      .post("/login", { email, password })
       .then(({ data }) => {
-        setToken(data.access_token);
-        verifyUser(navigation);
+        if (data.error) {
+          setLoading(false);
+          setErros(data.error);
+        } else {
+          if (isBiometric) {
+            setToken(data.access_token);
+            verifyUser(navigation);
+          } else
+            Alert.alert("Aviso", "Deseja fazer login com biometria?", [
+              {
+                text: "Não",
+                onPress: async () => {
+                  await AsyncStorage.setItem("credentials", "");
+                  setToken(data.access_token);
+                  verifyUser(navigation);
+                },
+                style: "cancel",
+              },
+              {
+                text: "OK",
+                onPress: async () => {
+                  await AsyncStorage.setItem("credentials", JSON.stringify(user));
+                  setToken(data.access_token);
+                  verifyUser(navigation);
+                },
+              },
+            ]);
+        }
       })
       .catch(e => {
-        console.log('erro signIn', e)
-        alert("Email ou senha inválidos");
+        console.log("erro signIn", e);
+        Alert.alert("Aviso", "Email ou senha inválidos");
         setLoading(false);
       });
   };
@@ -61,6 +111,7 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"envelope"}
+            error={errors["email"]}
             keyboardType={"email-address"}
             value={user.email}
             onChangeText={text =>
@@ -76,6 +127,7 @@ export default ({ navigation }) => {
             size={16}
             type={FontAwesome}
             name={"lock"}
+            error={errors["password"]}
             secureTextEntry={!previewPassword}
             previewPassword={previewPassword}
             setPreviewPassword={setPreviewPassword}
@@ -89,7 +141,7 @@ export default ({ navigation }) => {
           />
 
           <CustomButton
-            onPress={signIn}
+            onPress={() => signIn(user)}
             containerStyle={Style.button}
             loadingApi={loading}
             titleStyle={Style.buttonText}

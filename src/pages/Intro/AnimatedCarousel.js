@@ -9,6 +9,7 @@ import {
   ScrollView,
   Image,
   TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -29,7 +30,7 @@ const Slides = [
     image: require("../../../assets/header/Intro-01.jpg"),
     button: "O Clube",
     aspectRatio: 0.8,
-    onPress: (navigation) => navigation.navigate('VideoScreen')
+    onPress: navigation => Platform.OS === "android" && navigation.navigate("VideoScreen"),
   },
   {
     title: "Conecte-se a sua viagem dos sonhos!",
@@ -46,7 +47,7 @@ const Slides = [
     image: require("../../../assets/header/Intro-02.jpg"),
     button: "Vantagens",
     aspectRatio: 1.5,
-    onPress: () => { }
+    onPress: () => {},
   },
   {
     title: "O desconto que você sempre quis!",
@@ -55,18 +56,18 @@ const Slides = [
       "Viabilizar sonhos!",
       "Aqui no Clube de Férias, você vai encontrar as melhores viagens, com condições incríveis e as mais diversas opções para você aproveitar como e com quem quiser. Nossos descontos são exclusivos e ilimitados em pacotes para viagens e hotéis no Brasil e no mundo, para não faltar histórias para contar e nem momentos únicos para compartilhar",
     ],
-    titleFooter: "É hora de preparar suas férias. E aí, preparado? Qual será o seu próximo destino?",
+    titleFooter:
+      "É hora de preparar suas férias. E aí, preparado? Qual será o seu próximo destino?",
     image: require("../../../assets/header/Intro-03.jpg"),
     button: "Produtos",
     aspectRatio: 1.5,
-    onPress: () => { }
+    onPress: () => {},
   },
 ];
 
 export default ({ navigation }) => {
-
   const { width } = useWindowDimensions();
-  const insets = useSafeAreaInsets()
+  const insets = useSafeAreaInsets();
 
   const ListRef = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -83,7 +84,10 @@ export default ({ navigation }) => {
   const jumpButton = () => navigation.navigate("Sign");
 
   return (
-    <ScrollView bounces={false} style={styles.container} contentContainerStyle={[styles.content, { paddingBottom: 24 + insets.bottom }]}>
+    <ScrollView
+      bounces={false}
+      style={styles.container}
+      contentContainerStyle={[styles.content, { paddingBottom: 24 + insets.bottom }]}>
       <FlatList
         ref={ListRef}
         data={Slides}
@@ -110,16 +114,23 @@ export default ({ navigation }) => {
               </TouchableWithoutFeedback>
               <View style={styles.contentText}>
                 <Text style={styles.title}>{item.title}</Text>
-                {index !== 0 && index !== 1 &&
+                {index !== 0 &&
+                  index !== 1 &&
                   item.text.map((it, key) => (
-                    <Text key={key} style={(index === 2 && key === 1) ? styles.title : styles.text}>
+                    <Text key={key} style={index === 2 && key === 1 ? styles.title : styles.text}>
                       {it}
                     </Text>
                   ))}
-                {index !== 0 && index !== 2 &&
+                {index !== 0 &&
+                  index !== 2 &&
                   item.list.map((it, key) => (
-                    <Text key={key} style={[styles.text, { marginBottom: key === 2 || key === 4 ? 16 : 0 }]}>
-                      {index === 1 && (key != 3 && key != 5) && <Ionicons name="md-triangle" size={10} color="yellow" />} {it}
+                    <Text
+                      key={key}
+                      style={[styles.text, { marginBottom: key === 2 || key === 4 ? 16 : 0 }]}>
+                      {index === 1 && key != 3 && key != 5 && (
+                        <Ionicons name='md-triangle' size={10} color='yellow' />
+                      )}{" "}
+                      {it}
                     </Text>
                   ))}
                 <Text style={styles.title}>{item.titleFooter}</Text>
@@ -129,10 +140,8 @@ export default ({ navigation }) => {
         }}
       />
 
-
       <ChoiceButtons data={Slides} index={index} onPress={handlerChoice} />
       <OverflowButton data={Slides} index={index} onPress={jumpButton} />
-
     </ScrollView>
   );
 };
@@ -174,5 +183,5 @@ const styles = StyleSheet.create({
   },
   mgTop: {
     marginTop: 10,
-  }
+  },
 });

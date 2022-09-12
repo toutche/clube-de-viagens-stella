@@ -141,7 +141,7 @@ export default class CreditCardInput extends Component {
             <CCInput
               {...this._inputProps("cvc")}
               containerStyle={{ flex: 0.58 }}
-              maxLength={3}
+              maxLength={4}
               keyboardType='numeric'
             />
           )}

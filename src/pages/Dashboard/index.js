@@ -11,7 +11,6 @@ const Dashboard = ({ navigation }) => {
   const [option, setOption] = useState(0);
 
   const [isVisibleMenu, setVisibleMenu] = useState(false);
-  const [isVisibleShare, setVisibleShare] = useState(false);
   const [isVisibleAutoComplete, setVisibleAutoComplete] = useState(false)
   const [isVisibleBottomSheet, setVisibleBottomSheet] = useState(false)
 

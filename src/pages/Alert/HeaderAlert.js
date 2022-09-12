@@ -4,7 +4,7 @@ import CustomIcon from "../../components/CustomIcon";
 import { PRIMARY_COLOR, FONT_DEFAULT_BOLD_STYLE } from "../../utils/variables";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
-import Logo from "../../../assets/LogoWW.png";
+import Logo from "../../../assets/logoWW.png";
 const HeaderAlert = ({ navigation }) => {
   return (
     <View style={styles.container}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     alignSelf: "center",
-    aspectRatio: 4/2,
+    aspectRatio: 4 / 2,
     marginBottom: 8,
   },
   iconLeft: {

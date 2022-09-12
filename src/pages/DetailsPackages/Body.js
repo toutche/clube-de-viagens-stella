@@ -5,7 +5,6 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import Map from "./Map";
 
 export default ({ item }) => {
-
   return (
     <View style={styles.container}>
       <View
@@ -39,22 +38,22 @@ export default ({ item }) => {
               textAlign: "center",
             }}>
             {item.subname}
-          {item.number_days && <Text style={styles.pipe}>│ </Text>}
-          {item.number_days && (
-            <Text
-              style={{
-                fontFamily: FONT_DEFAULT_STYLE,
-                color: "#777",
-                fontSize: 16,
-                textAlign: "center",
-              }}>
-              {item.number_days}
-            </Text>
-          )}
+            {item.number_days && <Text style={styles.pipe}>│ </Text>}
+            {item.number_days && (
+              <Text
+                style={{
+                  fontFamily: FONT_DEFAULT_STYLE,
+                  color: "#777",
+                  fontSize: 16,
+                  textAlign: "center",
+                }}>
+                {item.number_days}
+              </Text>
+            )}
           </Text>
         </View>
 
-        {item.hotel?.room &&
+        {item.hotel?.room ? (
           <Text
             style={{
               fontFamily: FONT_DEFAULT_STYLE,
@@ -64,7 +63,7 @@ export default ({ item }) => {
             }}>
             {item.hotel.room}
           </Text>
-        }
+        ) : null}
       </View>
 
       <View
@@ -184,7 +183,6 @@ export default ({ item }) => {
 
       {item.day_by_day.length > 0 && (
         <View style={styles.details}>
-
           {item.day_by_day.map((i, n) => (
             <View key={n}>
               <Text style={styles.subTitle}>Dia {i.day}</Text>
@@ -201,7 +199,7 @@ export default ({ item }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20
+    marginTop: 20,
   },
   pipe: {
     color: "#777",
@@ -216,7 +214,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
     fontSize: 15.5,
-    marginBottom:15
+    marginBottom: 15,
   },
   subTitle: {
     fontFamily: FONT_DEFAULT_STYLE,
