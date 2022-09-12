@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import * as Font from "expo-font";
+import * as Notifications from 'expo-notifications';
 import * as SplashScreen from "expo-splash-screen";
 
 import { AuthProvider } from "./contexts/auth";
@@ -15,6 +16,8 @@ const App = () => {
   const routeNameRef = useRef();
   const navigationRef = useNavigationContainerRef();
   const [appIsReady, setAppIsReady] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   useEffect(() => {
     (async () => {
@@ -37,6 +40,35 @@ const App = () => {
         await SplashScreen.hideAsync();
       }
     })();
+  }, []);
+
+  useEffect(() => {
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      //console.log("Notification", notification)
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      let data = (response && response.notification.request.content.data) ? response.notification.request.content.data : null;
+      console.log("Listner", data);
+
+      if(data != null) {
+        let type = (data.type) ? data.type : null;
+        switch (type) {
+          case "package":
+            navigationRef.navigate({
+              name: "DetailsPackages",
+              params: { id: data.id }
+            })
+            break;
+        }
+      }
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, []);
 
   if (!appIsReady) {
