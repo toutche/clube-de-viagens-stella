@@ -2,7 +2,7 @@
   "expo": {
     "name": "Clube de Férias",
     "slug": "clube-de-viagens-stellaa",
-    "version": "2.0.5",
+    "version": "2.0.6",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/logoW.png",
@@ -12,7 +12,7 @@
       "backgroundColor": "#ac092d"
     },
     "plugins": [
-        [
+      [
         "expo-image-picker",
         {
           "photosPermission": "Este aplicativo quer acessar suas fotos para usar como foto de perfil somente para você."
@@ -33,7 +33,7 @@
       "**/*"
     ],
     "ios": {
-      "googleServicesFile":"./google-services-ios.plist",
+      "googleServicesFile": "./google-services-ios.plist",
       "supportsTablet": true,
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Este aplicativo quer acessar suas fotos para usar como foto de perfil somente para você.",
@@ -44,11 +44,11 @@
     },
     "android": {
       "package": "com.stellabarros.clubedeferias",
-      "versionCode": 6,
-      "googleServicesFile":"./google-services-android.json",
+      "versionCode": 7,
+      "googleServicesFile": "./google-services-android.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-clubedeferias.png",
-          "backgroundColor": "#ac092d"
+        "backgroundColor": "#ac092d"
       },
       "permissions": [
         "ACCESS_COARSE_LOCATION",
