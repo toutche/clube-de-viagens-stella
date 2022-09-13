@@ -37,12 +37,12 @@ export const FilterProvider = ({ children }) => {
   };
 
   const onFilterOriginDestiny = () => {
-    Alert.alert("Filtrar", `Deseja filtrar?`, [
+    Alert.alert("Buscar", `Deseja Buscar?`, [
       {
         text:
           filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
             ? "Limpar"
-            : "Voltar",
+            : "Não",
         onPress:
           filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
             ? clearFilterOriginDestiny
@@ -50,7 +50,7 @@ export const FilterProvider = ({ children }) => {
         style: "destructive",
       },
       {
-        text: "Filtrar",
+        text: "Sim",
         onPress: forceUpdateList,
         style: "destructive",
       },
@@ -58,12 +58,12 @@ export const FilterProvider = ({ children }) => {
   };
 
   const onFilterHotels = () => {
-    Alert.alert("Filtrar", `Deseja filtrar?`, [
+    Alert.alert("Buscar", `Deseja Buscar?`, [
       {
         text:
           filterCheck?.in || filterCheck?.out || filterPeople?.adult || filterPeople?.children
             ? "Limpar"
-            : "Voltar",
+            : "Não",
         onPress:
           filterCheck?.in || filterCheck?.out || filterPeople?.adult || filterPeople?.children
             ? clearFilterHotels
@@ -71,7 +71,7 @@ export const FilterProvider = ({ children }) => {
         style: "destructive",
       },
       {
-        text: "Filtrar",
+        text: "Sim",
         onPress: forceUpdateList,
         style: "destructive",
       },
