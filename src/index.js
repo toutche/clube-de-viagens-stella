@@ -57,9 +57,12 @@ const App = () => {
         switch (type) {
           case "package":
             navigationRef.navigate({
-              name: "DetailsPackages",
+              na: "DetailsPackages",
               params: { id: data.id }
-            })
+            });
+            break;
+          case "alert":
+            navigationRef.navigate("Alert");
             break;
         }
       }
