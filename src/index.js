@@ -11,6 +11,7 @@ import Routes from "./routes";
 import { FilterProvider } from "./contexts/filter";
 import Calendar from "./components/Calendar";
 import * as Analytics from "expo-firebase-analytics";
+import linking from "./utils/linking";
 
 const App = () => {
   const routeNameRef = useRef();
@@ -50,16 +51,19 @@ const App = () => {
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       let data = (response && response.notification.request.content.data) ? response.notification.request.content.data : null;
-      console.log("Listner", data);
+      //console.log("Listner", data);
 
       if(data != null) {
         let type = (data.type) ? data.type : null;
         switch (type) {
           case "package":
             navigationRef.navigate({
-              name: "DetailsPackages",
+              na: "DetailsPackages",
               params: { id: data.id }
-            })
+            });
+            break;
+          case "alert":
+            navigationRef.navigate("Alert");
             break;
         }
       }
@@ -80,6 +84,7 @@ const App = () => {
       <FilterProvider>
         <CheckoutProvider>
           <NavigationContainer
+            linking={linking}
             ref={navigationRef}
             onReady={() => {
               routeNameRef.current = navigationRef?.getCurrentRoute()?.name;
