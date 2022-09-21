@@ -34,9 +34,13 @@ const SlidesDashboard = ({ filter = {}, data = [], option }) => {
       //   setSegmentsIds(array);
       // }
       if (option === 0) {
-        const array = [];
-        array[0] = item.id;
-        setSegmentsIds(array);
+        if (segmentsIds.length && segmentsIds[0] === item.id) {
+          setSegmentsIds([]);
+        } else {
+          const array = [];
+          array[0] = item.id;
+          setSegmentsIds(array);
+        }
         toggleFilter();
       }
     };
