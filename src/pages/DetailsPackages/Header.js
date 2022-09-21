@@ -6,7 +6,7 @@ import FavoriteIcon from "../../components/FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
-import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE, PRIMARY_COLOR } from "../../utils/variables";
 import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -19,9 +19,10 @@ export default ({ item, navigation, plan }) => {
 
       <CustomIcon
         onPress={() => navigation.goBack()}
-        size={26}
+        size={30}
         type={AntDesign}
-        name={"arrowleft"}
+        color={PRIMARY_COLOR}
+        name={"leftcircle"}
         containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
 
