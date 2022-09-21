@@ -2,7 +2,7 @@ import React from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import CustomAvatar from "../CustomAvatar";
 import BackgroundCard from "../../../assets/img/carimbos.png";
-import Logo from "../../../assets/LogoRR.png";
+import Logo from "../../../assets/logoRR.png";
 import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { useAuth } from "../../contexts/auth";
 
