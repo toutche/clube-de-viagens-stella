@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ImageBackground, Text, Platform, TouchableOpacity, ActivityIndicator } from "react-native";
+import { Image, View, StyleSheet, ImageBackground, Text, Platform, TouchableOpacity, ActivityIndicator } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import FavoriteIcon from "../FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
@@ -14,6 +14,7 @@ import {
 import Hide from "../Hide";
 import { useCheckout } from "../../contexts/checkout";
 import { useFilter } from "../../contexts/filter";
+import promo from '../../../assets/promo.png';
 
 const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
   const [loading, setLoading] = useState(true)
@@ -71,6 +72,13 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
           }}
           source={{ uri: item.img }}
         >
+          {
+            item.featured &&
+            <Image style={{
+                margin: 10,
+                transform: [{rotate: "-45deg"}],
+            }} source={promo} />
+          }
           {loading ?
             <View style={{ flex: 1, backgroundColor: '#f4f5f7', justifyContent: 'center', borderRadius: 20 }}>
               <ActivityIndicator size={'large'} color={PRIMARY_COLOR} />
@@ -80,6 +88,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
           }
         </ImageBackground>
       </TouchableOpacity>
+      {console.log(item.featured)}
 
       {plan ? <Hide containerStyle={styles.hideIcon} item={item} /> : null}
 
