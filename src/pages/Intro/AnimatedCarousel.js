@@ -30,7 +30,7 @@ const Slides = [
     image: require("../../../assets/header/Intro-01.jpg"),
     button: "O Clube",
     aspectRatio: 0.8,
-    onPress: navigation => Platform.OS === "android" && navigation.navigate("VideoScreen"),
+    onPress: navigation => navigation.navigate("VideoScreen"),
   },
   {
     title: "Conecte-se a sua viagem dos sonhos!",
