@@ -35,6 +35,7 @@ export default ({ item, navigation, plan }) => {
 
       <FavoriteIcon
         favorite={item.favorite}
+        id_package={item.id}
         containerStyle={[styles.favorite, { top: insets.top + (plan ? 70 : 30) }]}
       />
 

@@ -75,8 +75,10 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
           {
             item.featured &&
             <Image style={{
-                margin: 10,
-                transform: [{rotate: "-45deg"}],
+              height: 144,
+              left: -6,
+              top: -6,
+              width: 144,
             }} source={promo} />
           }
           {loading ?
@@ -88,7 +90,6 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
           }
         </ImageBackground>
       </TouchableOpacity>
-      {console.log(item.featured)}
 
       {plan ? <Hide containerStyle={styles.hideIcon} item={item} /> : null}
 

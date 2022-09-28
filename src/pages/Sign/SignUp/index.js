@@ -135,11 +135,11 @@ export default ({ navigation }) => {
     body.append("image", imageObject);
 
     const { data } = await api
-      .post("/cadastrar", body, {
-        headers: { "Content-Type": "multipart/form-data;" },
-      })
-      .catch(error => console.log(error));
-
+    .post("/cadastrar", body, {
+      headers: { "Content-Type": "multipart/form-data;" },
+    })
+    .catch(error => console.log(error));
+    
     if (data.type) {
       contextSetUser({ email: user.email });
       navigation.navigate("ConfirmEmail");
