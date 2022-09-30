@@ -15,6 +15,7 @@ import Hide from "../Hide";
 import { useCheckout } from "../../contexts/checkout";
 import { useFilter } from "../../contexts/filter";
 import promo from '../../../assets/promo.png';
+import promoCopa from '../../../assets/promoCopa.jpeg';
 
 const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
   const [loading, setLoading] = useState(true)
@@ -73,10 +74,18 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
           source={{ uri: item.img }}
         >
           {
-            item.featured &&
-            <Image style={{
-                margin: 10,
-                transform: [{rotate: "-45deg"}],
+            item.featured && item.tag_special
+            ? <Image style={{
+                height: 144,
+                left: -6,
+                top: -6,
+                width: 144,
+              }} uri={tag_special} />
+            : <Image style={{
+              height: 144,
+              left: -6,
+              top: -6,
+              width: 144,
             }} source={promo} />
           }
           {loading ?
