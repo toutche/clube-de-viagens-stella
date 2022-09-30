@@ -23,7 +23,7 @@ const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
         style={[
           styles.content,
           {
-            backgroundColor: name === id ? PRIMARY_COLOR : "#e1e1e1",
+            backgroundColor: name === id ? PRIMARY_COLOR : "#ffffff",
           },
         ]}>
         <Image style={styles.icon} source={{ uri: name === id ? noSelected : selected }} />
@@ -32,7 +32,7 @@ const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
         style={[
           styles.text,
           {
-            color: name === id ? PRIMARY_COLOR : "#777",
+            color: name === id ? PRIMARY_COLOR : "#fff",
           },
         ]}>
         {text}
