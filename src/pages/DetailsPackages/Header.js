@@ -11,7 +11,7 @@ import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default ({ item, navigation, plan }) => {
-  const insets = useSafeAreaInsets()
+  const insets = useSafeAreaInsets();
 
   return (
     <View style={styles.container}>
@@ -22,16 +22,11 @@ export default ({ item, navigation, plan }) => {
         size={30}
         type={AntDesign}
         color={PRIMARY_COLOR}
-        name={"leftcircle"}
+        name={"arrowleft"}
         containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
 
-      {plan &&
-        <Hide
-          containerStyle={[styles.hideIcon, { top: insets.top + 15 }]}
-          item={item}
-        />
-      }
+      {plan && <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />}
 
       <FavoriteIcon
         favorite={item.favorite}
@@ -149,7 +144,7 @@ export default ({ item, navigation, plan }) => {
             color: "#777",
             fontSize: 10,
             marginVertical: 6,
-            textAlign: "center"
+            textAlign: "center",
           }}>
           Os valores e disponibilidade estão sujeitos a alteração sem aviso prévio
         </Text>
@@ -281,4 +276,3 @@ const styles = StyleSheet.create({
     aspectRatio: 1.1,
   },
 });
-
