@@ -220,7 +220,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
                   fontSize: 16,
                   textAlign: "center",
                 }}>
-                {item?.date?.display}
+                {item?.date?.display && item?.date?.display.split(' ')[0] + ' a ' + item?.date?.display.split(' ')[2]}
               </Text>
               {item.number_days && (
                 <Text

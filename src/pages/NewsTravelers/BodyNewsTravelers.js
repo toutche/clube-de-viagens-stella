@@ -20,6 +20,7 @@ const BodyNewTravelers = ({
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={BEHAVIOR}>
       <ScrollView bounces={false} contentContainerStyle={styles.containerScroll}>
         {data.paxs.map((i, k) => {
+          console.log(data)
           return (
             <View key={k} style={styles.form}>
               <Text style={styles.title}>{i}</Text>

@@ -42,7 +42,7 @@ export default ({ navigation }) => {
         });
         if (success) {
           setUser(JSON.parse(value));
-          signIn(JSON.parse(value), true);
+          signIn(JSON.parse(value));
         }
       
     })();
@@ -56,7 +56,8 @@ export default ({ navigation }) => {
         if (data.error) {
           setLoading(false);
           setErros(data.error);
-        } else {
+        }
+        else {
           if (isBiometric) {
             setToken(data.access_token);
             verifyUser(navigation);
