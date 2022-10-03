@@ -13,7 +13,7 @@ const Note = ({ comment, setComment }) => {
       lenght={1024}
       containerStyle={styles.container}
       inputStyle={styles.text}
-      placeholderTextColor={TEXT_COLOR_BKWHITE}
+      placeholderTextColor={'rgba(0,0,0,0.5)'}
       onChangeText={text =>
         setComment(text)
       }
@@ -23,8 +23,10 @@ const Note = ({ comment, setComment }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    height: 60,
     padding: 12,
+    borderWidth: 1,
+    borderColor: '#000',
     marginVertical: 20,
     backgroundColor: "white",
     alignItems: 'flex-start',
@@ -38,6 +40,9 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 13.5,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0,0,0,0.2)',
     color: "#555",
     marginLeft: 8,
   },
