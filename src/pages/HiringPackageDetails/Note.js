@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     height: 60,
     padding: 12,
     borderWidth: 1,
-    borderColor: '#000',
+    // borderColor: '#000',
     marginVertical: 20,
     backgroundColor: "white",
     alignItems: 'flex-start',
