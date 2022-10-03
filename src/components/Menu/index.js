@@ -2,7 +2,7 @@ import React from "react";
 import { View, Modal, StyleSheet } from "react-native";
 import { AntDesign, arrowleft } from "@expo/vector-icons";
 import CustomIcon from "../CustomIcon";
-import { PRIMARY_COLOR } from "../../utils/variables";
+import { SECOND_COLOR } from "../../utils/variables";
 import RenderItem from "./RenderItem";
 import FakeItem from "./FakeItem";
 import { useAuth } from "../../contexts/auth";
@@ -35,7 +35,7 @@ const Menu = ({ isVisible = true, onClose }) => {
               <CustomIcon
                 onPress={onClose}
                 size={32}
-                color={'white'}
+                color={SECOND_COLOR}
                 type={AntDesign}
                 name={"arrowleft"}
                 containerStyle={styles.icon}

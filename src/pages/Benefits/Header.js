@@ -2,13 +2,18 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import CustomIcon from '../../components/CustomIcon';
+import { useFilter } from '../../contexts/filter';
 
 export default ({ data, navigation }) => {
 
-    return (
+  const { isVisibleMenu, setVisibleMenu } = useFilter()
+  return (
         <View style={styles.container}>
             <CustomIcon
-                onPress={() => navigation.goBack()}
+                onPress={() => {
+                    navigation.goBack()
+                    setVisibleMenu(!isVisibleMenu)
+                }}
                 size={26}
                 color={"#222"}
                 type={AntDesign}

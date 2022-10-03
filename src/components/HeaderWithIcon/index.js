@@ -6,13 +6,18 @@ import Icon from './Icon';
 import CustomStatusBar from '../CustomStatusBar';
 import CustomIcon from "../../components/CustomIcon";
 import { PRIMARY_COLOR } from '../../utils/variables';
+import { useFilter } from '../../contexts/filter';
 
 const HeaderWithIcon = ({ url = null, navigation }) => {
-    return (
+  const { isVisibleMenu, setVisibleMenu } = useFilter()
+  return (
         <View style={styles.container}>
             <CustomStatusBar />
             <CustomIcon
-                onPress={() => navigation.goBack()}
+                onPress={() => {
+                    navigation.goBack()
+                    setVisibleMenu(!isVisibleMenu)
+                }}
                 size={26}
                 type={AntDesign}
                 name={'arrowleft'}

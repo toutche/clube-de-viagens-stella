@@ -5,8 +5,11 @@ import CustomStatusBar from "../../components/CustomStatusBar";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import { PRIMARY_COLOR, FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE } from "../../utils/variables";
+import { useFilter } from "../../contexts/filter";
 
 export default ({ navigation }) => {
+  const { isVisibleMenu, setVisibleMenu } = useFilter()
+
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -16,19 +19,22 @@ export default ({ navigation }) => {
 
         <CustomIcon
           size={26}
-          onPress={() => navigation.navigate('Dashboard')}
+          onPress={() => {
+            navigation.navigate('Dashboard')
+            setVisibleMenu(!isVisibleMenu)
+        }}
           type={AntDesign}
           name={"arrowleft"}
           containerStyle={styles.iconLeft}
         />
 
-        <CustomIcon
+        {/* <CustomIcon
           size={26}
           onPress={() => navigation.goBack()}
           type={Ionicons}
           name={"notifications-outline"}
           containerStyle={styles.iconRight}
-        />
+        /> */}
       </View>
       <View style={styles.bottom}>
         <Image

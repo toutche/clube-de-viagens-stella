@@ -19,9 +19,11 @@ import { useAuth } from "../../contexts/auth";
 import { maskDocument } from "../../utils/masks";
 import * as ImagePicker from "expo-image-picker";
 import api from "../../services/api";
+import { useFilter } from "../../contexts/filter";
 
 const HeaderMyAccount = ({ navigation }) => {
   const { user } = useAuth();
+  const { isVisibleMenu, setVisibleMenu } = useFilter()
 
   const [image, setImage] = useState(
     user.image || "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png",
@@ -128,7 +130,10 @@ const HeaderMyAccount = ({ navigation }) => {
       <View style={styles.header}>
         <CustomIcon
           size={26}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            navigation.navigate('Dashboard')
+            setVisibleMenu(!isVisibleMenu)
+          }}
           type={AntDesign}
           name={"arrowleft"}
           containerStyle={styles.iconLeft}

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import BottomSheet from "../../components/BottomSheet";
 import Menu from "../../components/Menu";
+import { useFilter } from "../../contexts/filter";
 import AutoComplete from "./AutoComplete";
 import BodyDashboard from "./BodyDashboard";
 import HeaderDashboard from "./HeaderDashboard";
@@ -9,8 +10,8 @@ import HeaderDashboard from "./HeaderDashboard";
 const Dashboard = ({ navigation }) => {
   const filterId = useRef()
   const [option, setOption] = useState(0);
-
-  const [isVisibleMenu, setVisibleMenu] = useState(false);
+  const { isVisibleMenu, setVisibleMenu } = useFilter()
+  // const [isVisibleMenu, setVisibleMenu] = useState(false);
   const [isVisibleAutoComplete, setVisibleAutoComplete] = useState(false)
   const [isVisibleBottomSheet, setVisibleBottomSheet] = useState(false)
 

@@ -6,8 +6,10 @@ import CustomStatusBar from "../../components/CustomStatusBar";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import Logo from "../../../assets/logoWW.png";
 import { useAuth } from "../../contexts/auth";
+import { useFilter } from "../../contexts/filter";
 
 export default ({ navigation }) => {
+  const { isVisibleMenu, setVisibleMenu } = useFilter()
   const { user } = useAuth();
 
   return (
@@ -17,7 +19,10 @@ export default ({ navigation }) => {
       <View style={styles.header}>
         <CustomIcon
           size={26}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            navigation.navigate('Dashboard')
+            setVisibleMenu(!isVisibleMenu)
+          }}
           type={AntDesign}
           name={"arrowleft"}
           containerStyle={styles.iconLeft}

@@ -38,7 +38,7 @@ export default ({ navigation }) => {
     <View style={styles.container}>
       <ModalCancel 
         isVisible={isVisible} 
-        onClose={() => setVisible(!isVisible)} 
+        onClose={() => setVisible(!isVisible)}
         item={item} 
         getReservations={getReservations} />
       <Header navigation={navigation} />

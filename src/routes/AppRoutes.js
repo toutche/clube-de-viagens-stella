@@ -67,7 +67,6 @@ const AuthRoutes = () => {
       <AuthStack.Screen name='DetailsEscort' component={DetailsEscort} />
       <AuthStack.Screen name='Favorites' component={Favorites} />
       <AuthStack.Screen name='MyAccount' component={MyAccount} />
-
     </AuthStack.Navigator>
   );
 };

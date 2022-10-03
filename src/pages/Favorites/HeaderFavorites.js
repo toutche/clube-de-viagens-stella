@@ -5,28 +5,35 @@ import { Ionicons, AntDesign } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
+import { useFilter } from "../../contexts/filter";
 
 const HeaderFavorites = ({ navigation, option }) => {
+  const { isVisibleMenu, setVisibleMenu } = useFilter()
   return (
     <View style={styles.container}>
       <CustomStatusBar />
 
       <View style={styles.profile}>
         <CustomIcon
-          onPress={() => navigation.goBack()}
+          onPress={() => 
+            {
+              navigation.goBack()
+              setVisibleMenu(!isVisibleMenu);
+            }
+          }
           size={26}
           type={AntDesign}
           name={'arrowleft'}
           containerStyle={styles.iconLeft}
         />
 
-        <CustomIcon
+        {/* <CustomIcon
           size={26}
           onPress={() => navigation.navigate("Wallet")}
           type={Ionicons}
           name={"notifications-outline"}
           containerStyle={styles.iconRight}
-        />
+        /> */}
 
         <ProfileAvatar isShow />
       </View>

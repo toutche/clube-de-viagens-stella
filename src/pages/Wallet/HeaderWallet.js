@@ -6,25 +6,32 @@ import ProfileAvatar from "../../components/ProfileAvatar";
 import CustomButton from "../../components/CustomButton";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import { useAuth } from "../../contexts/auth";
+import { useFilter } from "../../contexts/filter";
 
 const HeaderWallet = ({ navigation, credit }) => {
+  const { isVisibleMenu, setVisibleMenu } = useFilter()
   const { user } = useAuth();
   return (
     <View style={styles.container}>
       <CustomIcon
         size={26}
-        onPress={() => navigation.goBack()}
+        onPress={() => 
+          {
+            navigation.goBack()
+            setVisibleMenu(!isVisibleMenu)
+          }
+        }
         type={AntDesign}
         name={"arrowleft"}
         containerStyle={styles.iconLeft}
       />
-      <CustomIcon
+      {/* <CustomIcon
         size={26}
         onPress={() => navigation.goBack()}
         type={Ionicons}
         name={"notifications-outline"}
         containerStyle={styles.iconRight}
-      />
+      /> */}
 
       <ProfileAvatar isShow />
 
