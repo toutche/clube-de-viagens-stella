@@ -21,7 +21,7 @@ const InfoHotel = ({ display = 0, data }) => {
         </View>
       </View>
 
-      {display !== 2 && <View style={styles.separator} />}
+      {/* {display !== 2 && <View style={styles.separator} />} */}
 
       {display === 0 && (
         <View style={styles.one}>
@@ -30,11 +30,11 @@ const InfoHotel = ({ display = 0, data }) => {
         </View>
       )}
 
-      {display === 1 && (
+      {/* {display === 1 && (
         <View style={styles.two}>
           <QuantifyTravel />
         </View>
-      )}
+      )} */}
     </View>
   );
 };
