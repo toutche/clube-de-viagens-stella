@@ -6,8 +6,15 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import Logo from "../../../assets/logoWW.png";
 import { useFilter } from "../../contexts/filter";
-const HeaderAlert = ({ navigation }) => {
+
+const HeaderAlert = ({fromMenu, navigation }) => {
   const { isVisibleMenu, setVisibleMenu } = useFilter()
+  
+  const navigationFunc = () => {
+    navigation.goBack()
+    setVisibleMenu(!isVisibleMenu) 
+  }
+  
   return (
     <View style={styles.container}>
       <CustomStatusBar />
@@ -15,10 +22,7 @@ const HeaderAlert = ({ navigation }) => {
       <View style={styles.header}>
         <CustomIcon
           size={26}
-          onPress={() => {
-            navigation.goBack()
-            setVisibleMenu(!isVisibleMenu)
-          }}
+          onPress={() => fromMenu ? navigationFunc() : navigation.navigate('Dashboard')}
           type={AntDesign}
           name={"arrowleft"}
           containerStyle={styles.iconLeft}

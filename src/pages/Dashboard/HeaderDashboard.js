@@ -47,7 +47,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
 
         <CustomIcon
           size={26}
-          onPress={() => navigation.navigate("Alert")}
+          onPress={() => navigation.navigate("Alert", { fromMenu: false })}
           type={Ionicons}
           name={"notifications-outline"}
           containerStyle={styles.iconRight}

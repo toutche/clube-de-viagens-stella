@@ -9,18 +9,19 @@ import { useFilter } from "../../contexts/filter";
 
 const HeaderFavorites = ({ navigation, option }) => {
   const { isVisibleMenu, setVisibleMenu } = useFilter()
+
+  const navigationFunc = () => {
+    navigation.goBack()
+    setVisibleMenu(!isVisibleMenu) 
+  }
+
   return (
     <View style={styles.container}>
       <CustomStatusBar />
 
       <View style={styles.profile}>
         <CustomIcon
-          onPress={() => 
-            {
-              navigation.goBack()
-              setVisibleMenu(!isVisibleMenu);
-            }
-          }
+          onPress={() => navigationFunc()}
           size={26}
           type={AntDesign}
           name={'arrowleft'}

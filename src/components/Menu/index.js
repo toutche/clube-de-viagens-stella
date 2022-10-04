@@ -10,6 +10,7 @@ import { BlurView } from "expo-blur";
 
 const Menu = ({ isVisible = true, onClose }) => {
   const { user } = useAuth();
+  
 
   return (
     <Modal

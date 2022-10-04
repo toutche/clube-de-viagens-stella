@@ -6,13 +6,13 @@ import { logout } from "../../services/auth";
 import { useAuth } from "../../contexts/auth";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
-const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
+const RenderItem = ({id, onClose, text, selected, noSelected }) => {
   const { name } = useRoute();
   const { logoutAccount } = useAuth();
   const navigation = useNavigation();
 
   const onGo = () => {
-    id ? navigation.navigate(id) : logoutAccount();
+    id ? navigation.navigate(id, id === 'Alert' && { fromMenu: true }) : logoutAccount();
     onClose();
   };
 
