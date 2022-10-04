@@ -38,7 +38,7 @@ const BodyHiringPackageDetails = ({ openModal, data, comment, setComment }) => {
           onPress={openModal}
           containerStyle={styles.buttonPayment}
           titleStyle={styles.textButtonPayment}
-          title={`Solicitar reserva | R$ ${data?.price_discount}`}
+          title={`Solicitar reserva | ${data?.currency || "R$"} ${data?.price_discount}`}
         />
       </ScrollView>
     </KeyboardAvoidingView>

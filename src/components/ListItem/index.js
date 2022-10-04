@@ -114,7 +114,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
       <View style={styles.bodyItem}>
         <View style={styles.priceItem}>
           <View style={styles.price_differenceView}>
-            <Text style={styles.price_difference}>Economize até R$ {item.price_difference}</Text>
+            <Text style={styles.price_difference}>Economize até {item?.currency || "R$"} {item.price_difference}</Text>
           </View>
 
           <View
@@ -122,7 +122,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
               flexDirection: "row",
               alignItems: "center",
             }}>
-            <Text style={styles.price_discount}> R${item.price}</Text>
+            <Text style={styles.price_discount}>{item?.currency || "R$"}{item.price}</Text>
 
             <Text
               style={{
@@ -140,7 +140,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
                 color: BLUE_COLOR,
                 fontSize: 15,
               }}>
-              R$ {item.price_discount}
+              {item?.currency || "R$"} {item.price_discount}
             </Text>
 
             <Text
@@ -298,7 +298,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
                 marginRight: Platform.OS === "ios" ? 5 : undefined,
               },
             ]}>
-            {` R$${item.latest_information.total_amount_people} `}
+            {`${item?.currency || "R$"}${item.latest_information.total_amount_people} `}
           </Text>
           {item.latest_information.text.replace(" Valor total", "")}
         </Text>

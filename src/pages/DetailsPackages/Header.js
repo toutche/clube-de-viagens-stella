@@ -52,7 +52,7 @@ export default ({ item, navigation, plan }) => {
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>
-          <Text style={styles.price_difference}>Economize até R$ {item.price_difference}</Text>
+          <Text style={styles.price_difference}>Economize até {item?.currency || "R$"} {item.price_difference}</Text>
         </View>
 
         <Text
@@ -78,7 +78,7 @@ export default ({ item, navigation, plan }) => {
               fontSize: 16,
               textDecorationLine: "line-through",
             }}>
-            R$ {item.price}
+            {item?.currency || "R$"} {item.price}
           </Text>
 
           <Text
@@ -97,7 +97,7 @@ export default ({ item, navigation, plan }) => {
               color: BLUE_COLOR,
               fontSize: 16,
             }}>
-            R$ {item.price_discount}
+            {item?.currency || "R$"} {item.price_discount}
           </Text>
 
           <Text
