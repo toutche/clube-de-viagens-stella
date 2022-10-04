@@ -18,6 +18,7 @@ export const FilterProvider = ({ children }) => {
   const [segmentsIds, setSegmentsIds] = useState([]);
 
   const [isVisibleMenu, setVisibleMenu] = useState(false);
+  const [numberNotifications, setNumberNotifications] = useState(false);
 
   const toggleFilter = () => {
     setFilterIdsCategory(true);
@@ -139,6 +140,8 @@ export const FilterProvider = ({ children }) => {
         clearAll,
         forceUpdateList,
 
+        numberNotifications,
+        setNumberNotifications,
         isVisibleMenu,
         setVisibleMenu
       }}>

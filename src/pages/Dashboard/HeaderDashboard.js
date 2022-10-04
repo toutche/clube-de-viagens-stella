@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { SimpleLineIcons, Ionicons } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
@@ -9,9 +9,11 @@ import SlidesDashboard from "./SlidesDashboard";
 import ButtonsChoice from "./ButtonsChoice";
 import api from "../../services/api";
 import { useFilter } from "../../contexts/filter";
+import { SyncOutlined } from "@ant-design/icons";
+import { buildUnavailableHoursBlocks } from "react-native-calendars/src/timeline/Packer";
 
 const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
-  const { clearAll, setOrderPrice } = useFilter()
+  const { clearAll, setOrderPrice, numberNotifications } = useFilter()
 
   const [filter, setFilter] = useState([]);
   const [data, setData] = useState([]);
@@ -44,14 +46,29 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
           name={"menu"}
           containerStyle={styles.iconLeft}
         />
+        <View style={styles.iconRight}>
+          <CustomIcon
+            size={26}
+            onPress={() => navigation.navigate("Alert", { fromMenu: false })}
+            type={Ionicons}
+            name={"notifications-outline"}
+            containerStyle={styles.iconRight}
+          />
 
-        <CustomIcon
-          size={26}
-          onPress={() => navigation.navigate("Alert", { fromMenu: false })}
-          type={Ionicons}
-          name={"notifications-outline"}
-          containerStyle={styles.iconRight}
-        />
+          {
+            numberNotifications
+            ? <TouchableOpacity style={styles.quantityNotification}>
+                <Text style={{
+                  color: '#000',
+                  fontSize: 8,
+                  fontWeight: 'bold', 
+                }}>{numberNotifications}</Text>
+              </TouchableOpacity>
+            : <TouchableOpacity style={styles.noNotification}>
+                <Text>''</Text>
+              </TouchableOpacity>
+          }
+        </View>
 
         <ProfileAvatar isShow source={'dashboard'} />
       </View>
@@ -87,7 +104,9 @@ const styles = StyleSheet.create({
   iconRight: {
     padding: 10,
     right: 5,
+    bottom: 5,
     position: "absolute",
+    // zIndex: 1
   },
   title: {
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
@@ -102,6 +121,21 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 10,
   },
+  quantityNotification: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    bottom: 32,
+    borderRadius: 50,
+    height: 13,
+    right: 15,
+    position: 'absolute',
+    justifyContent: 'center',
+    width: 13,
+    zIndex: -1
+  },
+  noNotification : {
+    display: 'none',
+  }
 });
 
 export default HeaderDashboard;
