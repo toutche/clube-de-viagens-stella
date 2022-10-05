@@ -20,9 +20,9 @@ const BodyMyAccount = ({ item }) => {
   const [nickname, setNickName] = useState(user?.nickname);
   const [phoneNumber, setPhoneNumber] = useState(user.mobile_phone);
   const [address, setAddress] = useState(
-    `${user.address || ""}, ${user.number || ""}${user.complement || ""}, ${
+    `${user.address || ""}${user.address ? ', ' : ''} ${user.number || ""}${user.complement ? ', ' : ''}${user.complement || ""}, ${
       user.neighborhood || ""
-    }, ${user.city || ""}, ${user.state || ""}`,
+    }${user.neighborhood ? ', ' : ''} ${user.city || ""}${user.city ? ', ' : ''} ${user.state || ""}`,
   );
 
   const [loading, setLoading] = useState(false);
