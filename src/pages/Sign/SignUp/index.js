@@ -145,7 +145,7 @@ export default ({ navigation }) => {
       navigation.navigate("ConfirmEmail");
       if (data.message) Alert.alert("Sucesso", data.message);
     } else if (data.error) {
-      Alert.alert("Aviso", `Aconteceu um erro, tente novamente mais tarde`);
+      Alert.alert("Aviso", `Verifique os campos não preenchidos para concluir o cadastro.`);
       setErros(data.error);
       setLoading(false);
     } else {
@@ -205,7 +205,10 @@ export default ({ navigation }) => {
             type={FontAwesome}
             name={"user"}
             error={errors["name"]}
+            errorFontWeight={"bold"}
             autoCapitalize={"words"}
+            errorfontWeight={"bold"}
+            borderWidth={!errors.name ? 1 : 3}
             value={user.name}
             onChangeText={text =>
               setUser({
@@ -239,6 +242,8 @@ export default ({ navigation }) => {
             name={"calendar-o"}
             keyboardType={"numeric"}
             error={errors["birth_date"]}
+            errorFontWeight={"bold"}
+            borderWidth={!errors.birth_date ? 1 : 3}
             value={user.birth_date}
             onChangeText={text =>
               setUser({
@@ -256,6 +261,7 @@ export default ({ navigation }) => {
             name={"id-card"}
             error={errors["document"]}
             keyboardType={"number-pad"}
+            borderWidth={!errors.document ? 1 : 3}
             value={user.document}
             onChangeText={text =>
               setUser({
@@ -273,7 +279,9 @@ export default ({ navigation }) => {
             name={"mobile"}
             keyboardType={"phone-pad"}
             value={user.phone_number}
+            borderWidth={!errors.phone_number ? 1 : 3}
             error={errors["phone_number"]}
+            errorFontWeight={"bold"}
             onChangeText={text =>
               setUser({
                 ...user,
@@ -290,6 +298,8 @@ export default ({ navigation }) => {
             keyboardType={"email-address"}
             value={user.email}
             error={errors["email"]}
+            borderWidth={!errors.email ? 1 : 3}
+            errorFontWeight={"bold"}
             onChangeText={text =>
               setUser({
                 ...user,
@@ -307,7 +317,9 @@ export default ({ navigation }) => {
             previewPassword={previewPassword}
             setPreviewPassword={setPreviewPassword}
             value={user.password}
+            borderWidth={!errors.password ? 1 : 3}
             error={errors["password"]}
+            errorFontWeight={"bold"}
             onChangeText={text =>
               setUser({
                 ...user,
