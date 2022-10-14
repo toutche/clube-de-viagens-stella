@@ -28,7 +28,10 @@ const CustomInput = ({
   rightIconAction = null,
   rightIconSize = null,
   rightIconColor = null,
+  borderColor = "#d1d1d1",
+  borderWidth = 1,
   editable = true,
+  errorFontWeight = null,
   ...rest
 }) => {
   const Icon = type || null;
@@ -36,7 +39,12 @@ const CustomInput = ({
 
   return (
     <View>
-      <View style={[styles.container, containerStyle]}>
+      <View
+        style={[
+          styles.container,
+          containerStyle,
+          { borderColor: borderColor, borderWidth: borderWidth },
+        ]}>
         {uri ? (
           <Image source={{ uri }} style={styles.image} />
         ) : (
@@ -81,7 +89,11 @@ const CustomInput = ({
           </TouchableOpacity>
         )}
       </View>
-      {error ? <Text style={[styles.error, { color: errorColor }]}>{error}</Text> : null}
+      {error ? (
+        <Text style={[styles.error, { color: errorColor, fontWeight: errorFontWeight }]}>
+          {error}
+        </Text>
+      ) : null}
     </View>
   );
 };
