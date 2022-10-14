@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import CustomButton from "../../components/CustomButton";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
+import * as Location from 'expo-location';
+import { LocationEventEmitter } from "expo-location/build/LocationEventEmitter";
 
 const Map = ({ address, region }) => {
+  const [location, setLocation] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      let address = await Location.reverseGeocodeAsync(region);
+      setLocation(address.length && address[0]);
+    })();
+  }, []);
+  
   const copyToClipboard = () => {
     Clipboard.setString(address);
   };
-
-  return (
+  
+  // console.log(location !== null && location[0]);
+  console.log(location);
+      return (
     <View>
       <Text style={styles.text}>Localização</Text>
 
@@ -24,7 +37,13 @@ const Map = ({ address, region }) => {
         />
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>Endereço</Text>
-          <Text style={styles.subTitle}>{address}</Text>
+          <Text style={styles.subTitle}>
+            {
+              location && (
+                `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
+              )
+            }
+          </Text>
         </View>
       </View>
 
