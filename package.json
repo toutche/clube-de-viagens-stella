@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
+    "@jridgewell/set-array": "^1.1.2",
+    "@jridgewell/sourcemap-codec": "^1.4.14",
+    "@jridgewell/trace-mapping": "^0.3.17",
     "@kiwicom/react-native-reverse-geocode": "^0.0.7",
     "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-native-community/datetimepicker": "6.2.0",
@@ -34,6 +37,7 @@
     "expo-linear-gradient": "~11.4.0",
     "expo-linking": "~3.2.2",
     "expo-local-authentication": "~12.3.0",
+    "expo-location": "^15.0.1",
     "expo-modules-core": "~0.11.9",
     "expo-notifications": "~0.16.1",
     "expo-splash-screen": "~0.16.2",
