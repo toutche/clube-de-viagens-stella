@@ -29,6 +29,8 @@ export const FONT_SIZE_SUBTITLE = 16;
 export const FONT_SIZE_BODY = 13;
 export const FONT_SIZE_COPYRIGHT = 10;
 
+export const CONTENT_OFFSET_THRESHOLD = 300;
+
 //Dummy
 export const CONTACT = [
   {
