@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, FlatList, StyleSheet, Text, ActivityIndicator, Linking, Alert } from "react-native";
+import { View, FlatList, StyleSheet, Text, ActivityIndicator, Linking, Alert, TouchableOpacity } from "react-native";
 import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
-import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
+import { CONTENT_OFFSET_THRESHOLD, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
 import { useFilter } from "../../contexts/filter";
@@ -12,6 +12,7 @@ import CustomIcon from "../../components/CustomIcon";
 import { FontAwesome } from "@expo/vector-icons";
 import Calendar from "../../components/Calendar";
 import { formatDateToBRL } from "../../utils";
+import { AntDesign } from '@expo/vector-icons'; 
 
 const BodyDashboard = ({
   display = 0,
@@ -41,11 +42,13 @@ const BodyDashboard = ({
   } = useFilter();
   const total = useRef(null);
   const page = useRef(1);
+  const listRef = useRef(null);
 
   const [feed, setFeed] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-
+  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
+  
   useEffect(() => {
     loadPage();
   }, []);
@@ -288,6 +291,16 @@ const BodyDashboard = ({
 
   return (
     <View style={styles.container}>
+      {
+        contentVerticalOffset > CONTENT_OFFSET_THRESHOLD &&
+        <TouchableOpacity
+        onPress={() => {
+          listRef.current.scrollToOffset({ offset: 0, animated: true });
+        }}  
+        style={ styles.scrollUpButton }>
+          <AntDesign name="arrowup" size={32} color="#fff" />
+        </TouchableOpacity>
+      }
       <FlatList
         data={feed}
         ListHeaderComponent={display === 1 ? ListHeaderItemHotels : ListHeaderItemPackages}
@@ -298,6 +311,10 @@ const BodyDashboard = ({
         onEndReached={() => loadPage()}
         ListFooterComponent={loading ? ListLoading : <Banner />}
         contentContainerStyle={{ paddingTop: 20 }}
+        ref={listRef}
+        onScroll={event => {
+          setContentVerticalOffset(event.nativeEvent.contentOffset.y);
+        }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) => (
@@ -379,6 +396,20 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginBottom: 12,
   },
+  scrollUpButton: {
+    alignItems: 'center',
+    backgroundColor: PRIMARY_COLOR,
+    borderRadius: 50,
+    bottom: 65,
+    height: 55,
+    margin: 10,
+    justifyContent: 'center',
+    opacity: 0.55,
+    position: 'absolute',
+    right: 0,
+    width: 55,
+    zIndex: 1,
+  }
 });
 
 export default BodyDashboard;
