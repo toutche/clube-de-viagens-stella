@@ -9,16 +9,21 @@ import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE, PRIMARY_COLOR } from "../../utils/variables";
 import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useFilter } from "../../contexts/filter";
 
 export default ({ item, navigation, plan }) => {
   const insets = useSafeAreaInsets()
+  const { autoScroll, setAutoScroll } = useFilter();
 
   return (
     <View style={styles.container}>
       <Carousel data={item.gallery} />
 
       <CustomIcon
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          autoScroll && setAutoScroll(false)
+          navigation.goBack()
+        }}
         size={30}
         type={AntDesign}
         color={PRIMARY_COLOR}

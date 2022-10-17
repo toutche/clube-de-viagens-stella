@@ -191,7 +191,8 @@ export default ({ item }) => {
           ))}
         </View>
       )}
-      <Map address={item.address} region={item.region} />
+      {console.log(item)}
+      <Map name={item.subname} address={item.address} region={item.region} />
     </View>
   );
 };

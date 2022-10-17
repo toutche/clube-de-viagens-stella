@@ -1802,7 +1802,7 @@
 
 "@kiwicom/react-native-reverse-geocode@^0.0.7":
   version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@kiwicom/react-native-reverse-geocode/-/react-native-reverse-geocode-0.0.7.tgz#692de5dca996faef8aa8f25bded17c2666679d02"
+  resolved "https://registry.npmjs.org/@kiwicom/react-native-reverse-geocode/-/react-native-reverse-geocode-0.0.7.tgz"
   integrity sha512-XtmbHM8bDZkHzwD43fPy3L4eq2UvBb2gBMsl/e0eC+rMMV1RSSz1V+Z5hKyxAcvF73znm26kHhlsEcGmiK7rwQ==
 
 "@nodelib/fs.scandir@2.1.5":
@@ -3619,7 +3619,7 @@ expo-local-authentication@~12.1.0:
 
 expo-location@~14.0.1:
   version "14.0.2"
-  resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-14.0.2.tgz#933276b36558f546964753f107493b37953068b7"
+  resolved "https://registry.npmjs.org/expo-location/-/expo-location-14.0.2.tgz"
   integrity sha512-xFlj03NM0g9LZfWyIyL8q6AIXDhXskctX96806QGqZKv9C+JI2osEiTiyFxG8ei1MeTJojHfx+E07ORuByWiMw==
   dependencies:
     "@expo/config-plugins" "^4.0.2"
