@@ -46,7 +46,7 @@ const Map = ({ address, region, name, navigation }) => {
   const copyToClipboard = () => {
     Clipboard.setString(status !== 'granted' ? name : 
     location && (
-      `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
+      `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.street || location.street !== null ? ', ' :''}${location.street || location.street !== null ? location.street :''}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
     ));
   };
 
@@ -64,15 +64,16 @@ const Map = ({ address, region, name, navigation }) => {
         <View style={{ flex: 1, height: 50, justifyContent: 'center' }}>
           <Text style={styles.title}>Endereço</Text>
           <Text>
+            {console.log(location)}
             {
               status !== 'granted' ? name : 
               location && 
               <View style={{ flexDirection: 'row', width: 200 }}>
                 <ClipboardToast
                   textToShow={(
-                    `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
+                    `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.street || location.street !== null ? ', ' :''}${location.street || location.street !== null ? location.street :''}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
                     )}
-                  textToCopy={'Regular Text'}
+                  textToCopy={ `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.street || location.street !== null ? ', ' :''}${location.street || location.street !== null ? location.street :''}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`}
                   toastText={'Text copied to clipboard!'}
                   id={'resular'}
                   containerStyle={styles.subTitle}
