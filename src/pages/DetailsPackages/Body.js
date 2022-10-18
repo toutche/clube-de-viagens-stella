@@ -191,7 +191,6 @@ export default ({ item }) => {
           ))}
         </View>
       )}
-      {console.log(item)}
       <Map name={item.subname} address={item.address} region={item.region} />
     </View>
   );

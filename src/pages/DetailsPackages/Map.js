@@ -6,11 +6,10 @@ import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import * as Location from 'expo-location';
-import { LocationEventEmitter } from "expo-location/build/LocationEventEmitter";
-import { FontAwesome5, Entypo } from '@expo/vector-icons'; 
+import { Entypo, Feather } from '@expo/vector-icons'; 
 import { useFilter } from "../../contexts/filter";
 import { BackHandler } from "react-native";
-import { Alert } from "react-native";
+import ClipboardToast from 'react-native-clipboard-toast';
 
 const Map = ({ address, region, name, navigation }) => {
   const [location, setLocation] = useState([]);
@@ -45,9 +44,12 @@ const Map = ({ address, region, name, navigation }) => {
   }, []);
   
   const copyToClipboard = () => {
-    Clipboard.setString(address);
+    Clipboard.setString(status !== 'granted' ? name : 
+    location && (
+      `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
+    ));
   };
-  
+
   return (
     <View>
       <Text style={styles.text}>Localização</Text>
@@ -61,12 +63,25 @@ const Map = ({ address, region, name, navigation }) => {
         />
         <View style={{ flex: 1, height: 50, justifyContent: 'center' }}>
           <Text style={styles.title}>Endereço</Text>
-          <Text style={styles.subTitle}>
+          <Text>
             {
               status !== 'granted' ? name : 
-              location && (
-                `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
-              )
+              location && 
+              <View style={{ flexDirection: 'row', width: 200 }}>
+                <ClipboardToast
+                  textToShow={(
+                    `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
+                    )}
+                  textToCopy={'Regular Text'}
+                  toastText={'Text copied to clipboard!'}
+                  id={'resular'}
+                  containerStyle={styles.subTitle}
+                  textStyle={[styles.subTitle]}
+                  accessibilityLabel={'click me to copy'}
+                  toastOnShow={copyToClipboard}
+                />
+                <Feather name="copy" size={18} color="blue" />
+              </View>
             }
           </Text>
         </View>
@@ -86,22 +101,11 @@ const Map = ({ address, region, name, navigation }) => {
             // <FontAwesome5 name="smile" size={32} color="black" />
             <Entypo name="arrow-with-circle-up" size={32} color="black" />
             :
-            <Entypo name="arrow-with-circle-down" size={32} color="black" />
+            <Entypo name="arrow-with-circle-down" size={32} color="rgba(0, 0, 0, 0.5)" />
             // <Entypo name="emoji-sad" size={32} color="black" />
           }
         </TouchableOpacity>
       </View>
-
-      <CustomButton
-        type={AntDesign}
-        name={'file1'}
-        color={BLUE_COLOR}
-        size={18}
-        titleStyle={styles.button_text_address}
-        title={"Copiar Endereço"}
-        onPress={copyToClipboard}
-        containerStyle={styles.button_address}
-        />
 
       {
         isEnable &&
@@ -153,6 +157,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     color: BLUE_COLOR,
     fontSize: 13,
+    marginRight: 5,
   },
   map: {
     marginTop: 10,
@@ -165,6 +170,15 @@ const styles = StyleSheet.create({
     color: BLUE_COLOR,
     fontSize: 15,
     marginLeft: 25,
+  },
+  clipboardToastContainer: {
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    borderRadius: 5,
+  },
+  clipboardText: {
+    fontSize: 18,
+    textAlign: 'center',
   },
 });
 
