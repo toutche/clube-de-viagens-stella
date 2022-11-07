@@ -32,7 +32,7 @@ export default ({ navigation }) => {
     password: "",
   });
 
-  useLayoutEffect(() => {
+  /* useLayoutEffect(() => {
     (async () => {
       const value = await AsyncStorage.getItem("credentials");
 
@@ -46,7 +46,7 @@ export default ({ navigation }) => {
         }
       
     })();
-  }, []);
+  }, []); */
 
   const signIn = ({ email, password }, isBiometric = false) => {
     setLoading(true);
@@ -57,11 +57,14 @@ export default ({ navigation }) => {
           setLoading(false);
           setErros(data.error);
         } else {
-          if (isBiometric) {
+          setToken(data.access_token);
+          verifyUser(navigation);
+          /* if (isBiometric) {
             setToken(data.access_token);
             verifyUser(navigation);
           } else
-            Alert.alert("Aviso", "Deseja fazer login com biometria?", [
+            
+             Alert.alert("Aviso", "Deseja fazer login com biometria?", [
               {
                 text: "Não",
                 onPress: async () => {
@@ -79,7 +82,7 @@ export default ({ navigation }) => {
                   verifyUser(navigation);
                 },
               },
-            ]);
+            ]); */
         }
       })
       .catch(e => {
