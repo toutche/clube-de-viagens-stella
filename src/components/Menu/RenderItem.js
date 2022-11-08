@@ -13,7 +13,6 @@ const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
 
   const onGo = () => {
     id ? navigation.navigate(id) : logoutAccount();
-    onClose();
   };
 
   return (
@@ -33,6 +32,8 @@ const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
           styles.text,
           {
             color: name === id ? PRIMARY_COLOR : "#777",
+            // fontWeight: 'bold',
+            // color: 'white',
           },
         ]}>
         {text}
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     fontSize: 14,
     top: 5,
-    width: 80,
+    width: 90,
     textAlign: "center",
   },
   content: {

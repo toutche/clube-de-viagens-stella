@@ -16,7 +16,7 @@ export default ({ navigation }) => {
 
         <CustomIcon
           size={26}
-          onPress={() => navigation.navigate('Dashboard')}
+          onPress={() => navigation.navigate('MenuScreen')}
           type={AntDesign}
           name={"arrowleft"}
           containerStyle={styles.iconLeft}
