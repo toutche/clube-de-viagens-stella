@@ -43,7 +43,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => 
       <View style={styles.profile}>
         <CustomIcon
           size={22}
-          onPress={menuOpen}
+          onPress={() => navigation.navigate('MenuScreen')}
           type={SimpleLineIcons}
           name={"menu"}
           containerStyle={styles.iconLeft}

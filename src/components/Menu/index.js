@@ -143,7 +143,7 @@ const Menu = ({ isVisible = true, onClose }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,.5)",
+    backgroundColor: "rgb(0,0,0)",
   },
   content: {
     paddingTop: 40,

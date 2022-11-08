@@ -98,7 +98,6 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
           }
         </ImageBackground>
       </TouchableOpacity>
-      {/* {console.log(item.featured)} */}
 
       {plan ? <Hide containerStyle={styles.hideIcon} item={item} /> : null}
 

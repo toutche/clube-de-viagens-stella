@@ -31,6 +31,7 @@ import NewEscort from "../pages/NewEscort";
 import Favorites from "../pages/Favorites";
 import MyAccount from "../pages/MyAccount";
 import MyPlan from "../pages/MyPlan";
+import { MenuScreen } from "../pages/MenuScreen";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -67,6 +68,15 @@ const AuthRoutes = () => {
       <AuthStack.Screen name='DetailsEscort' component={DetailsEscort} />
       <AuthStack.Screen name='Favorites' component={Favorites} />
       <AuthStack.Screen name='MyAccount' component={MyAccount} />
+      <AuthStack.Screen
+        name='MenuScreen'
+        component={MenuScreen}
+        options={{
+          contentStyle: {
+            backgroundColor: 'white'
+          },
+        }}
+      />
 
     </AuthStack.Navigator>
   );
