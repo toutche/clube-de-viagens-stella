@@ -46,8 +46,6 @@ const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
           styles.text,
           {
             color: name === id ? PRIMARY_COLOR : "#777",
-            // fontWeight: 'bold',
-            // color: 'white',
           },
         ]}>
         {text}
