@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Alert } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
@@ -7,15 +7,36 @@ import CustomStatusBar from "../../components/CustomStatusBar";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import InsertCupom from "../../components/InsertCupom";
 import SubscribeNow from "./SubscribeNow";
+import { useFilter } from "../../contexts/filter";
 
 export default ({ navigation, data }) => {
+  const { setCupomExists } = useFilter();
+
+  const backAction = () => {
+    Alert.alert("Espere!", 'Deseja realmente sair?', [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => {
+        navigation.navigate('MyPlan')
+        setCupomExists(false)
+      }}
+    ])
+    return true;
+  };
+
   return (
     <View style={styles.container}>
       <CustomStatusBar />
 
       <CustomIcon
         size={26}
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          setCupomExists(false)
+          backAction()
+        }}
         type={AntDesign}
         name={"arrowleft"}
         containerStyle={styles.iconLeft}
@@ -27,7 +48,7 @@ export default ({ navigation, data }) => {
         <SubscribeNow amount={data?.amount} discount={data?.discount} />
       </View>
 
-      <InsertCupom />
+      <InsertCupom backAction={backAction} data={data} navigation={navigation} />
     </View>
   );
 };

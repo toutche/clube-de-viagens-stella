@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet, Image, TextInput } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, BackHandler, Image, TextInput } from "react-native";
 
 import api from "../../services/api";
 
@@ -10,20 +10,29 @@ import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, GREEN_COLOR, PRIMARY_COLOR
 
 import { useAuth } from "../../contexts/auth";
 import { useFilter } from '../../contexts/filter';
+import { Alert } from "react-native";
 
-const InsertCupom = () => {
+const InsertCupom = ({ data, navigation, backAction }) => {
   const { user } = useAuth();
   const { cupom, setCupom, cupomExists, setCupomExists } = useFilter();
 
   const handlePress = () => {
     api
-      .get(`/promotions/check?cupom=${cupom}`)
+      .get(`/promotions/check?cupom=${cupom}&plano=${data.id}`)
       .then(res => {
-        setCupomExists(res.data.message)
-        console.log(res.data.message)
+        setCupomExists(res.data.type)
       })
       .catch(e => console.log("error", e.response.data))
+      .finally(() => setCupom(''))
   };
+
+  BackHandler.addEventListener(
+    "hardwareBackPress",
+    backAction
+  )
+
+  useEffect(() => {
+  }, []);
 
   return (
     <View style={styles.externalContainer}>
@@ -48,7 +57,7 @@ const InsertCupom = () => {
         </View>
         <CustomButton
           containerStyle={[styles.button, {
-            backgroundColor: cupomExists ? 'green' : "#ef091a"
+            backgroundColor: cupomExists? 'green' : "#ef091a"
           }]}
           titleStyle={styles.textButton}
           title={cupomExists
