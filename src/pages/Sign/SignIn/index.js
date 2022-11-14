@@ -86,7 +86,7 @@ export default ({ navigation }) => {
         }
       })
       .catch(e => {
-        console.log("erro signIn", e);
+        console.log("erro signIn", e.response.data);
         Alert.alert("Aviso", "Email ou senha inválidos");
         setLoading(false);
       });
