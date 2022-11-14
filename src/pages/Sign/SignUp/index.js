@@ -145,7 +145,7 @@ export default ({ navigation }) => {
       navigation.navigate("ConfirmEmail");
       if (data.message) Alert.alert("Sucesso", data.message);
     } else if (data.error) {
-      Alert.alert("Aviso", `Verifique os campos não preenchidos para concluir o cadastro.`);
+      Alert.alert("Aviso", `Verifique os campos em negrito para concluir o seu cadastro.`);
       setErros(data.error);
       setLoading(false);
     } else {
