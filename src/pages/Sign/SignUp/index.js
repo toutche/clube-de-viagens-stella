@@ -97,7 +97,10 @@ export default ({ navigation }) => {
 
   const handlerPress = () => {
     if (!check) {
-      Alert.alert("Aviso", "Para continuar aceite os termos");
+      Alert.alert(
+        "Aviso",
+        "Para continuar aceite a politica de privacidade e os termos e condições",
+      );
     } else {
       signUp(user, navigation);
     }
