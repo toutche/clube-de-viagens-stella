@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, TouchableOpacity, View, Image } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View, Image, Alert } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { logout } from "../../services/auth";
@@ -12,7 +12,21 @@ const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
   const navigation = useNavigation();
 
   const onGo = () => {
-    id ? navigation.navigate(id) : logoutAccount();
+    id
+    ? navigation.navigate(id)
+    : Alert.alert(
+      "Sair",
+      "Deseja realmente sair do app?",
+      [
+        {
+          text: "cancel",
+        },
+        {
+          text: "sim",
+          onPress: () => logoutAccount(),
+        }
+      ]
+    )
   };
 
   return (
