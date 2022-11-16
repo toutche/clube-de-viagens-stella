@@ -14,7 +14,7 @@ import ClipboardToast from 'react-native-clipboard-toast';
 const Map = ({ address, region, name, navigation }) => {
   const [location, setLocation] = useState([]);
   const [isEnable, setIsEnable] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('granted');
   const { autoScroll, setAutoScroll } = useFilter();
 
   useEffect(() => {
@@ -64,25 +64,21 @@ const Map = ({ address, region, name, navigation }) => {
         <View style={{ flex: 1, height: 50, justifyContent: 'center' }}>
           <Text style={styles.title}>Endereço</Text>
           <Text>
-            {
-              status !== 'granted' ? name : 
-              location && 
-              <View style={{ flexDirection: 'row', width: 200 }}>
-                <ClipboardToast
-                  textToShow={(
-                    `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
-                    )}
-                  textToCopy={'Regular Text'}
-                  toastText={'Text copied to clipboard!'}
-                  id={'resular'}
-                  containerStyle={styles.subTitle}
-                  textStyle={[styles.subTitle]}
-                  accessibilityLabel={'click me to copy'}
-                  toastOnShow={copyToClipboard}
-                />
-                <Feather name="copy" size={18} color="blue" />
-              </View>
-            }
+            <View style={{ flexDirection: 'row', width: 200 }}>
+              <ClipboardToast
+                textToShow={(
+                  `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
+                  )}
+                textToCopy={'Regular Text'}
+                toastText={'Endereço copiado!'}
+                id={'resular'}
+                containerStyle={styles.subTitle}
+                textStyle={[styles.subTitle]}
+                accessibilityLabel={'click me to copy'}
+                toastOnShow={copyToClipboard}
+              />
+              <Feather name="copy" size={18} color="blue" onPress={copyToClipboard} />
+            </View>
           </Text>
         </View>
         <TouchableOpacity
