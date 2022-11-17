@@ -13,8 +13,8 @@ const BodyNewTravelers = ({
   openModal,
   form = [],
   errors = [],
-  setForm = () => { },
-  handlerPress = () => { },
+  setForm = () => {},
+  handlerPress = () => {},
 }) => {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={BEHAVIOR}>
@@ -38,7 +38,7 @@ const BodyNewTravelers = ({
                 color={"#c1c1c1"}
                 placeholder='Insira o nome *'
                 placeholderTextColor={"#a1a1a1"}
-                error={errors[k]?.name}
+                error={errors[k]?.nameViajante}
                 errorColor={PRIMARY_COLOR}
                 type={FontAwesome}
                 name={"user-o"}
@@ -47,6 +47,26 @@ const BodyNewTravelers = ({
                 onChangeText={text => {
                   let format = [...form];
                   format[k] = { ...format[k], name: text };
+                  setForm(format);
+                }}
+              />
+
+              <CustomInput
+                containerStyle={styles.containerInput}
+                inputStyle={styles.input}
+                size={16}
+                color={"#c1c1c1"}
+                placeholder='Insira o sobrenome *'
+                placeholderTextColor={"#a1a1a1"}
+                error={errors[k]?.last_name}
+                errorColor={PRIMARY_COLOR}
+                type={FontAwesome}
+                name={"user-o"}
+                autoCapitalize={"words"}
+                value={form[k]?.last_name}
+                onChangeText={text => {
+                  let format = [...form];
+                  format[k] = { ...format[k], last_name: text };
                   setForm(format);
                 }}
               />
@@ -77,7 +97,7 @@ const BodyNewTravelers = ({
                 errorColor={PRIMARY_COLOR}
                 containerStyle={styles.containerInput}
                 inputStyle={styles.input}
-                placeholder={'CPF *'}
+                placeholder={"CPF *"}
                 keyboardType={"numeric"}
                 placeholderTextColor={"#a1a1a1"}
                 size={16}
@@ -96,7 +116,7 @@ const BodyNewTravelers = ({
               <CustomInput
                 containerStyle={styles.containerInput}
                 inputStyle={styles.input}
-                placeholder={'Passaporte (Viagem internacional) *'}
+                placeholder={"Passaporte (Viagem internacional) *"}
                 placeholderTextColor={"#a1a1a1"}
                 size={16}
                 color={"#c1c1c1"}
