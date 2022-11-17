@@ -89,7 +89,9 @@ const NewsTravelers = ({ navigation }) => {
 
   const _listUsers = ({ item, index }) => (
     <TouchableOpacity onPress={() => selectTraveler(index)} style={styles.item}>
-      <Text style={styles.itemText}>{item?.name}</Text>
+      <Text style={styles.itemText}>
+        {item?.name} {item?.last_name}
+      </Text>
       <Text style={styles.itemText}>{item?.age}</Text>
       <Text style={styles.itemText}>{item?.cpf}</Text>
     </TouchableOpacity>

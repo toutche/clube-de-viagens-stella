@@ -13,6 +13,7 @@ export const validadeForm = (form, errors = {}) => {
           ...newErrors,
           [i]: {
             name: validadeName(name) ? null : "Nome completo é obrigatório",
+            nameViajante: validadeNameViajantes(name) ? null : "Nome completo é obrigatório",
             birthDate: validadeDate(birth_date)
               ? null
               : "Digite uma data de nascimento no formato dd/mm/aaaa",
@@ -31,8 +32,14 @@ export const validadeObjectContentAreTruth = (obj = {}, value) => {
   return Object.values(obj).every((item, index) => !!item === value);
 };
 
+export const validadeNameViajantes = (name = "") => {
+  const [_, ...lastName] = name?.trim()?.split("");
+
+  return lastName.length ? true : false;
+};
+
 export const validadeName = (name = "") => {
-  const [_, ...lastName] = name?.trim()?.split(" ");
+  const [_, ...lastName] = name?.trim()?.split("");
 
   return lastName.length ? true : false;
 };
