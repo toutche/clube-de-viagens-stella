@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, TextInput, StyleSheet, Image } from "react-native";
+import { View, Text, TextInput, StyleSheet, Image } from "react-native";
 import { ViewPropTypes, TextInputPropTypes } from 'deprecated-react-native-prop-types';
 import defaultIcons from "./Icons";
 
