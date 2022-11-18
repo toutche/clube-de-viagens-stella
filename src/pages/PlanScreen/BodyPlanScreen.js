@@ -59,11 +59,11 @@ const BodyPlanScreen = ({ item }) => {
   useEffect(() => {
     let data = { package_id: item.id };
 
-    if(item.code_room) {
+    if (item.code_room) {
       data = {
         id_hotel: item.id,
-        start_date: String(filterCheck.in).split('/').reverse().join('-'),
-        end_date: String(filterCheck.out).split('/').reverse().join('-'),
+        start_date: String(filterCheck.in).split("/").reverse().join("-"),
+        end_date: String(filterCheck.out).split("/").reverse().join("-"),
         qtd_people: String(filterPeople.adult),
         city_code: String(filterDestiny.key),
       };
@@ -82,22 +82,24 @@ const BodyPlanScreen = ({ item }) => {
   }, []);
 
   return (
-    <ScrollView
-      bounces={false}
-      style={styles.container}
-      contentContainerStyle={styles.containerScroll}>
-      {isPlan === null ? null : (
-        <>
-          <Text style={styles.title}>
-            {isPlan?.current_plan
-              ? "Plano atual"
-              : "Escolha o melhor plano e faça parte do Clube :)"}
-          </Text>
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        bounces={false}
+        style={styles.container}
+        contentContainerStyle={styles.containerScroll}>
+        {isPlan === null ? null : (
+          <>
+            <Text style={styles.title}>
+              {isPlan?.current_plan
+                ? "Plano atual"
+                : "Escolha o melhor plano e faça parte do Clube :)"}
+            </Text>
 
-          {isPlan?.current_plan ? renderIfHavePlan(isPlan) : renderIfDontHavePlan(isPlan)}
-        </>
-      )}
-    </ScrollView>
+            {isPlan?.current_plan ? renderIfHavePlan(isPlan) : renderIfDontHavePlan(isPlan)}
+          </>
+        )}
+      </ScrollView>
+    </View>
   );
 };
 

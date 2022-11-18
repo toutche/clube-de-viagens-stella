@@ -23,7 +23,26 @@ import {
   TEXT_COLOR_BKCOLORFUL,
 } from "../../utils/variables";
 
+import Icon from "../../../assets/img/Aviao_Branco.png";
+
 const Slides = [
+  {
+    title: "Garanta agora o seu lugar na Copa do Mundo de 2026!",
+    list: [
+      "Prioridade de compra nos pacotes da Copa do Mundo 2026.",
+      "11% de desconto na compra de qualquer pacote e hotéis.",
+      "Atendimento exclusivo e personalizado.",
+      "Todos os benefícios do Clube de Férias.",
+      "Sem carência, sem fidelidade e sem comprometer o limite do cartão.",
+    ],
+    titleFooter: "Com o Clube de Férias é assim: você ON em todas as Copas!",
+    image: {
+      uri: "https://images-store.us-southeast-1.linodeobjects.com/Foto-Capa---Plano-Copa-2026-01.png",
+    },
+    button: "Copa do mundo",
+    aspectRatio: 1.5,
+    onPress: () => {},
+  },
   {
     title: "Conheça mais sobre o Clube de Férias!",
     titleFooter: "",
@@ -32,23 +51,23 @@ const Slides = [
     aspectRatio: 0.8,
     onPress: navigation => navigation.navigate("VideoScreen"),
   },
-  {
-    title: "Conecte-se a sua viagem dos sonhos!",
-    list: [
-      "Escolha entre mais de 10 mil hotéis",
-      "Descontos exclusivos ilimitados para você curtir como quiser.",
-      "Atendimento diferenciado, para você não ter que se preocupar.",
-      "Não vai mais viajar? Não esquenta!",
-      "Aqui não tem fidelidade.",
-      "Chegou agora e já quer viajar?",
-      "Deixa com a gente. Aqui você pode planejar sua viagem desde o primeiro mês. Tudo isso, sem comprometer o limite do seu cartão.",
-    ],
-    titleFooter: "",
-    image: require("../../../assets/header/Intro-02.jpg"),
-    button: "Vantagens",
-    aspectRatio: 1.5,
-    onPress: () => {},
-  },
+  // {
+  //   title: "Conecte-se a sua viagem dos sonhos!",
+  //   list: [
+  //     "Escolha entre mais de 10 mil hotéis",
+  //     "Descontos exclusivos ilimitados para você curtir como quiser.",
+  //     "Atendimento diferenciado, para você não ter que se preocupar.",
+  //     "Não vai mais viajar? Não esquenta!",
+  //     "Aqui não tem fidelidade.",
+  //     "Chegou agora e já quer viajar?",
+  //     "Deixa com a gente. Aqui você pode planejar sua viagem desde o primeiro mês. Tudo isso, sem comprometer o limite do seu cartão.",
+  //   ],
+  //   titleFooter: "",
+  //   image: require("../../../assets/header/Intro-02.jpg"),
+  //   button: "Vantagens",
+  //   aspectRatio: 1.5,
+  //   onPress: () => {},
+  // },
   {
     title: "O desconto que você sempre quis!",
     text: [
@@ -121,18 +140,19 @@ export default ({ navigation }) => {
                       {it}
                     </Text>
                   ))}
-                {index !== 0 &&
+                {index !== 1 &&
                   index !== 2 &&
                   item.list.map((it, key) => (
-                    <Text
-                      key={key}
-                      style={[styles.text, { marginBottom: key === 2 || key === 4 ? 16 : 0 }]}>
-                      {index === 1 && key != 3 && key != 5 && (
+                    <Text key={key} style={[styles.text, { marginBottom: 10 }]}>
+                      {/* key === 2 || key === 4 ? 16 : 0 */}
+                      {/* {index === 1 && key != 3 && key != 5 && (
                         <Ionicons name='md-triangle' size={10} color='yellow' />
-                      )}{" "}
+                      )}{" "} */}
+                      <Image style={{ width: 25, height: 25 }} source={Icon} />
                       {it}
                     </Text>
                   ))}
+
                 <Text style={styles.title}>{item.titleFooter}</Text>
               </View>
             </View>
@@ -160,6 +180,7 @@ const styles = StyleSheet.create({
     height: undefined,
   },
   contentText: {
+    marginTop: 20,
     paddingHorizontal: "5%",
   },
   title: {
@@ -167,21 +188,21 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: TEXT_COLOR_BKCOLORFUL,
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
-    marginTop: 7,
-    marginBottom: 7,
+    marginTop: 5,
+    marginBottom: 20,
   },
   text: {
     fontFamily: FONT_DEFAULT_STYLE,
-    textAlign: "center",
-    fontSize: 13.5,
+    // textAlign: "center",
+    fontSize: 18,
     color: TEXT_COLOR_BKCOLORFUL,
-    marginBottom: 5,
+    marginBottom: 100,
     opacity: 0.8,
   },
   innerTitle: {
-    marginTop: 15,
+    // marginTop: 15,
   },
   mgTop: {
-    marginTop: 10,
+    marginTop: 20,
   },
 });
