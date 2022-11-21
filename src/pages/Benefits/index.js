@@ -6,8 +6,6 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 import Body from "./Body";
 import Header from "./Header";
 
-import Imagem from "../../../assets/header/planocopa.png";
-
 export default ({ navigation }) => {
   const [data, setData] = useState([]);
 
