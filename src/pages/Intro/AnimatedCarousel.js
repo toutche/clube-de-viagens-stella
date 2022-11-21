@@ -10,8 +10,8 @@ import {
   Image,
   TouchableWithoutFeedback,
   Platform,
+  PixelRatio
 } from "react-native";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import OverflowButton from "./OverflowButton";
@@ -84,6 +84,15 @@ const Slides = [
   },
 ];
 
+var FONT_SIZE_TEXT = 18;
+var FONT_SIZE_TITLE = 15;
+if(PixelRatio.get() <= 2) {
+  FONT_SIZE_TEXT = 14;
+} else if(PixelRatio.get() >= 3) {
+  FONT_SIZE_TEXT = 20;
+  var FONT_SIZE_TITLE = 18;
+}
+
 export default ({ navigation }) => {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
@@ -144,10 +153,6 @@ export default ({ navigation }) => {
                   index !== 2 &&
                   item.list.map((it, key) => (
                     <Text key={key} style={[styles.text, { marginBottom: 10 }]}>
-                      {/* key === 2 || key === 4 ? 16 : 0 */}
-                      {/* {index === 1 && key != 3 && key != 5 && (
-                        <Ionicons name='md-triangle' size={10} color='yellow' />
-                      )}{" "} */}
                       <Image style={{ width: 25, height: 25 }} source={Icon} />
                       {it}
                     </Text>
@@ -180,29 +185,20 @@ const styles = StyleSheet.create({
     height: undefined,
   },
   contentText: {
-    marginTop: 20,
     paddingHorizontal: "5%",
   },
   title: {
     textAlign: "center",
-    fontSize: 15,
+    fontSize: FONT_SIZE_TITLE,
     color: TEXT_COLOR_BKCOLORFUL,
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
-    marginTop: 5,
-    marginBottom: 20,
   },
   text: {
     fontFamily: FONT_DEFAULT_STYLE,
-    // textAlign: "center",
-    fontSize: 18,
+    textAlign: "center",
+    fontSize: FONT_SIZE_TEXT,
     color: TEXT_COLOR_BKCOLORFUL,
-    marginBottom: 100,
+    marginBottom: 45,
     opacity: 0.8,
-  },
-  innerTitle: {
-    // marginTop: 15,
-  },
-  mgTop: {
-    marginTop: 20,
   },
 });

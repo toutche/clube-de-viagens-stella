@@ -10,8 +10,6 @@ import ButtonsChoice from "./ButtonsChoice";
 import api from "../../services/api";
 import { useFilter } from "../../contexts/filter";
 
-import Gif from "../../../assets/gif-copa-banner.gif";
-
 const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => {
   const { clearAll, setOrderPrice } = useFilter();
 

@@ -79,26 +79,15 @@ export default ({ data = [], navigation }) => {
 
   const headerList = () => <Text style={styles.title}>{actualPlan}</Text>;
 
-  const separatorList = () => <View style={{ height: 12 }} />;
-
-  return (
-    <View style={styles.container_bg}>
-      <FlatList
-        data={data}
-        keyExtractor={(item, index) => index.toString()}
-        bounces={false}
-        style={styles.container}
-        ListHeaderComponent={headerList}
-        ItemSeparatorComponent={separatorList}
-        contentContainerStyle={styles.container_list}
-        renderItem={({ item, index }) => <ListItem {...{ item, index, navigation }} />}
-      />
+  const footerList = () => {
+    return(
       <View
         style={{
-          width: 350,
+          width: "100%",
           height: 100,
           backgroundColor: "blue",
           alignSelf: "center",
+          marginTop: 15,
           marginBottom: 50,
           borderRadius: 10,
         }}>
@@ -109,6 +98,24 @@ export default ({ data = [], navigation }) => {
           }}
         />
       </View>
+    );
+  };
+
+  const separatorList = () => <View style={{ height: 12 }} />;
+
+  return (
+    <View style={styles.container_bg}>
+      <FlatList
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        bounces={false}
+        style={styles.container}
+        ListHeaderComponent={headerList}
+        ListFooterComponent={footerList}
+        ItemSeparatorComponent={separatorList}
+        contentContainerStyle={styles.container_list}
+        renderItem={({ item, index }) => <ListItem {...{ item, index, navigation }} />}
+      />
     </View>
   );
 };
