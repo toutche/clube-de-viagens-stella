@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
     height: undefined,
   },
   contentText: {
-    marginTop: 20,
     paddingHorizontal: "5%",
   },
   title: {
