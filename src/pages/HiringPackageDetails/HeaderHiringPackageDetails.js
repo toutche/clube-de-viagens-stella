@@ -24,7 +24,7 @@ const HeaderHiringPackageDetails = ({ navigation, data }) => {
       <View style={styles.header}>
         <ProfileAvatar isShow />
         <View style={styles.separator} />
-        <ValuePackage price_discount={data.price_discount} />
+        <ValuePackage data={data} price_discount={data.price_discount} />
       </View>
 
       {/* <InsertCupom /> */}

@@ -17,6 +17,10 @@ export const FilterProvider = ({ children }) => {
   const [orderPrice, setOrderPrice] = useState("asc");
   const [segmentsIds, setSegmentsIds] = useState([]);
 
+  const [isVisibleMenu, setVisibleMenu] = useState(false);
+  const [numberNotifications, setNumberNotifications] = useState(false);
+  const [autoScroll, setAutoScroll] = useState(false);
+
   const toggleFilter = () => {
     setFilterIdsCategory(true);
     forceUpdateList();
@@ -136,6 +140,9 @@ export const FilterProvider = ({ children }) => {
         clearFilterOriginDestiny,
         clearAll,
         forceUpdateList,
+        numberNotifications, setNumberNotifications,
+        isVisibleMenu, setVisibleMenu,
+        autoScroll, setAutoScroll,
       }}>
       {children}
     </FilterContext.Provider>

@@ -14,6 +14,9 @@ import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
 import Picker from "../../components/Picker";
+import { flatMap } from "lodash";
+import { formatDateToBRL } from "../../utils";
+import { TurboModuleRegistry } from "react-native";
 
 export default ({ data }) => {
   const [loading, setLoading] = useState(false);
@@ -25,8 +28,32 @@ export default ({ data }) => {
     subjectText: "",
     message: "",
   });
+  const [erroForm, setErroForm] = useState({
+    name: false,
+    email: false,
+    subject: false,
+    subjectText: false,
+    message: false,
+  });
+
+  const checkForm = () => {
+    if (form.name === "") {
+      erroForm.name = true;
+    }
+    if (form.email === "") {
+      erroForm.email = true;
+    }
+    if (form.message === "") {
+      erroForm.message = true;
+    }
+    if (form.subjectText == "") {
+      erroForm.subjectText = true;
+    }
+  };
 
   const handlePress = () => {
+    checkForm();
+
     setLoading(true);
 
     api
@@ -38,7 +65,7 @@ export default ({ data }) => {
       })
       .then(({ data }) => {
         if (data.message) {
-          Alert.alert("Mensagem enviada com sucesso! Retornaremos dentro das próximas 24hrs úteis.", data.message);
+          Alert.alert("Mensagem enviada com sucesso!");
         }
       })
       .catch(e => console.log(e))
@@ -91,8 +118,12 @@ export default ({ data }) => {
           containerStyle={styles.containerInput}
           inputStyle={styles.input}
           size={16}
+          // borderColor={form.name === "" && erroForm ? "red" : "#a1a1a1"}
+          borderColor={erroForm.name ? "red" : "#a1a1a1"}
+          error={erroForm.name ? "Digite o nome completo" : null}
+          errorColor={"red"}
+          placeholder='Digite nome completo'
           color={"#c1c1c1"}
-          placeholder='Nome completo'
           placeholderTextColor={"#a1a1a1"}
           uri={data?.icons?.name}
           value={form.name}
@@ -108,6 +139,9 @@ export default ({ data }) => {
           inputStyle={styles.input}
           placeholder='E-mail'
           placeholderTextColor={"#a1a1a1"}
+          error={erroForm.email ? "Digite um email valido" : null}
+          borderColor={erroForm.email ? "red" : "#a1a1a1"}
+          errorColor={"red"}
           size={16}
           uri={data?.icons?.email}
           color={"#c1c1c1"}
@@ -120,7 +154,9 @@ export default ({ data }) => {
           }
         />
 
-        <TouchableOpacity onPress={openPicker} style={styles.fakeButton}>
+        <TouchableOpacity
+          onPress={openPicker}
+          style={[styles.fakeButton, { borderColor: erroForm.subjectText ? "red" : "#a1a1a1" }]}>
           <Image source={{ uri: data?.icons?.subject }} style={styles.image} />
           <Text style={[styles.fakeText, { color: form.subjectText ? "#555" : "#a1a1a1" }]}>
             {form.subjectText || "Assunto"}
@@ -133,6 +169,9 @@ export default ({ data }) => {
           placeholder='Mensagem'
           placeholderTextColor={"#a1a1a1"}
           size={16}
+          error={erroForm.message ? "Digite a mensagem" : null}
+          borderColor={erroForm.message ? "red" : "#a1a1a1"}
+          errorColor={"red"}
           color={"#c1c1c1"}
           uri={data?.icons?.message}
           value={form.message}
@@ -164,7 +203,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 20,
-    height: 20
+    height: 20,
   },
   fakeButton: {
     width: "100%",

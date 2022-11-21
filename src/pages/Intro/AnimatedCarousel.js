@@ -10,8 +10,8 @@ import {
   Image,
   TouchableWithoutFeedback,
   Platform,
+  PixelRatio
 } from "react-native";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import OverflowButton from "./OverflowButton";
@@ -23,32 +23,51 @@ import {
   TEXT_COLOR_BKCOLORFUL,
 } from "../../utils/variables";
 
+import Icon from "../../../assets/img/Aviao_Branco.png";
+
 const Slides = [
+  {
+    title: "Garanta agora o seu lugar na Copa do Mundo de 2026!",
+    list: [
+      "Prioridade de compra nos pacotes da Copa do Mundo 2026.",
+      "11% de desconto na compra de qualquer pacote e hotéis.",
+      "Atendimento exclusivo e personalizado.",
+      "Todos os benefícios do Clube de Férias.",
+      "Sem carência, sem fidelidade e sem comprometer o limite do cartão.",
+    ],
+    titleFooter: "Com o Clube de Férias é assim: você ON em todas as Copas!",
+    image: {
+      uri: "https://images-store.us-southeast-1.linodeobjects.com/Foto-Capa---Plano-Copa-2026-01.png",
+    },
+    button: "Copa do mundo",
+    aspectRatio: 1.5,
+    onPress: () => {},
+  },
   {
     title: "Conheça mais sobre o Clube de Férias!",
     titleFooter: "",
     image: require("../../../assets/header/Intro-01.jpg"),
     button: "O Clube",
     aspectRatio: 0.8,
-    onPress: navigation => Platform.OS === "android" && navigation.navigate("VideoScreen"),
+    onPress: navigation => navigation.navigate("VideoScreen"),
   },
-  {
-    title: "Conecte-se a sua viagem dos sonhos!",
-    list: [
-      "Escolha entre mais de 10 mil hotéis",
-      "Descontos exclusivos ilimitados para você curtir como quiser.",
-      "Atendimento diferenciado, para você não ter que se preocupar.",
-      "Não vai mais viajar? Não esquenta!",
-      "Aqui não tem fidelidade.",
-      "Chegou agora e já quer viajar?",
-      "Deixa com a gente. Aqui você pode planejar sua viagem desde o primeiro mês. Tudo isso, sem comprometer o limite do seu cartão.",
-    ],
-    titleFooter: "",
-    image: require("../../../assets/header/Intro-02.jpg"),
-    button: "Vantagens",
-    aspectRatio: 1.5,
-    onPress: () => {},
-  },
+  // {
+  //   title: "Conecte-se a sua viagem dos sonhos!",
+  //   list: [
+  //     "Escolha entre mais de 10 mil hotéis",
+  //     "Descontos exclusivos ilimitados para você curtir como quiser.",
+  //     "Atendimento diferenciado, para você não ter que se preocupar.",
+  //     "Não vai mais viajar? Não esquenta!",
+  //     "Aqui não tem fidelidade.",
+  //     "Chegou agora e já quer viajar?",
+  //     "Deixa com a gente. Aqui você pode planejar sua viagem desde o primeiro mês. Tudo isso, sem comprometer o limite do seu cartão.",
+  //   ],
+  //   titleFooter: "",
+  //   image: require("../../../assets/header/Intro-02.jpg"),
+  //   button: "Vantagens",
+  //   aspectRatio: 1.5,
+  //   onPress: () => {},
+  // },
   {
     title: "O desconto que você sempre quis!",
     text: [
@@ -64,6 +83,15 @@ const Slides = [
     onPress: () => {},
   },
 ];
+
+var FONT_SIZE_TEXT = 18;
+var FONT_SIZE_TITLE = 15;
+if(PixelRatio.get() <= 2) {
+  FONT_SIZE_TEXT = 14;
+} else if(PixelRatio.get() >= 3) {
+  FONT_SIZE_TEXT = 20;
+  var FONT_SIZE_TITLE = 18;
+}
 
 export default ({ navigation }) => {
   const { width } = useWindowDimensions();
@@ -121,18 +149,15 @@ export default ({ navigation }) => {
                       {it}
                     </Text>
                   ))}
-                {index !== 0 &&
+                {index !== 1 &&
                   index !== 2 &&
                   item.list.map((it, key) => (
-                    <Text
-                      key={key}
-                      style={[styles.text, { marginBottom: key === 2 || key === 4 ? 16 : 0 }]}>
-                      {index === 1 && key != 3 && key != 5 && (
-                        <Ionicons name='md-triangle' size={10} color='yellow' />
-                      )}{" "}
+                    <Text key={key} style={[styles.text, { marginBottom: 10 }]}>
+                      <Image style={{ width: 25, height: 25 }} source={Icon} />
                       {it}
                     </Text>
                   ))}
+
                 <Text style={styles.title}>{item.titleFooter}</Text>
               </View>
             </View>
@@ -164,24 +189,16 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontSize: 15,
+    fontSize: FONT_SIZE_TITLE,
     color: TEXT_COLOR_BKCOLORFUL,
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
-    marginTop: 7,
-    marginBottom: 7,
   },
   text: {
     fontFamily: FONT_DEFAULT_STYLE,
     textAlign: "center",
-    fontSize: 13.5,
+    fontSize: FONT_SIZE_TEXT,
     color: TEXT_COLOR_BKCOLORFUL,
-    marginBottom: 5,
+    marginBottom: 45,
     opacity: 0.8,
-  },
-  innerTitle: {
-    marginTop: 15,
-  },
-  mgTop: {
-    marginTop: 10,
   },
 });

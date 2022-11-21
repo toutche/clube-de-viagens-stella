@@ -37,12 +37,12 @@ const TravelCard = ({ display = 0, display_footer = 0, data, value_observation =
           {display === 1 && (
             <View style={styles.details}>
               <View>
-                <Text style={styles.oldValue}>R$ {room?.price || data?.price}</Text>
-                <Text style={styles.newValue}>R$ {room?.price_discount || data?.price_discount}</Text>
+                <Text style={styles.oldValue}>{data?.currency || "R$"} {room?.price || data?.price}</Text>
+                <Text style={styles.newValue}>{data?.currency || "R$"} {room?.price_discount || data?.price_discount}</Text>
               </View>
               <View style={styles.economic}>
                 <View style={styles.arrow} />
-                <Text style={styles.economicText}>Economize R$ {room?.price_difference || data?.price_difference}</Text>
+                <Text style={styles.economicText}>Economize {data?.currency || "R$"} {room?.price_difference || data?.price_difference}</Text>
                 <View style={styles.separator} />
                 <Text style={styles.discountText}>{room?.percentual_plan || data?.percentual_plan }</Text>
               </View>
@@ -51,9 +51,9 @@ const TravelCard = ({ display = 0, display_footer = 0, data, value_observation =
 
           {display === 2 && (
             <View style={styles.details}>
-              <Text style={styles.oldValue}>R$ {data?.price}</Text>
+              <Text style={styles.oldValue}>{data?.currency || "R$"} {data?.price}</Text>
               <Text style={styles.ball}> ● </Text>
-              <Text style={styles.newValue}>R$ {data?.price_discount}</Text>
+              <Text style={styles.newValue}>{data?.currency || "R$"} {data?.price_discount}</Text>
             </View>
           )}
         </View>

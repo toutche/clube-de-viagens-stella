@@ -9,29 +9,29 @@ import { AntDesign } from "@expo/vector-icons";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE, PRIMARY_COLOR } from "../../utils/variables";
 import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useFilter } from "../../contexts/filter";
 
 export default ({ item, navigation, plan }) => {
   const insets = useSafeAreaInsets()
+  const { autoScroll, setAutoScroll } = useFilter();
 
   return (
     <View style={styles.container}>
       <Carousel data={item.gallery} />
 
       <CustomIcon
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          autoScroll && setAutoScroll(false)
+          navigation.goBack()
+        }}
         size={30}
         type={AntDesign}
         color={PRIMARY_COLOR}
-        name={"leftcircle"}
+        name={"arrowleft"}
         containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
 
-      {plan &&
-        <Hide
-          containerStyle={[styles.hideIcon, { top: insets.top + 15 }]}
-          item={item}
-        />
-      }
+      {plan && <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />}
 
       <FavoriteIcon
         favorite={item.favorite}
@@ -51,7 +51,7 @@ export default ({ item, navigation, plan }) => {
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>
-          <Text style={styles.price_difference}>Economize até R$ {item.price_difference}</Text>
+          <Text style={styles.price_difference}>Economize até {item?.currency || "R$"} {item.price_difference}</Text>
         </View>
 
         <Text
@@ -77,7 +77,7 @@ export default ({ item, navigation, plan }) => {
               fontSize: 16,
               textDecorationLine: "line-through",
             }}>
-            R$ {item.price}
+            {item?.currency || "R$"} {item.price}
           </Text>
 
           <Text
@@ -96,7 +96,7 @@ export default ({ item, navigation, plan }) => {
               color: BLUE_COLOR,
               fontSize: 16,
             }}>
-            R$ {item.price_discount}
+            {item?.currency || "R$"} {item.price_discount}
           </Text>
 
           <Text
@@ -149,7 +149,7 @@ export default ({ item, navigation, plan }) => {
             color: "#777",
             fontSize: 10,
             marginVertical: 6,
-            textAlign: "center"
+            textAlign: "center",
           }}>
           Os valores e disponibilidade estão sujeitos a alteração sem aviso prévio
         </Text>
@@ -281,4 +281,3 @@ const styles = StyleSheet.create({
     aspectRatio: 1.1,
   },
 });
-

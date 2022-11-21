@@ -179,7 +179,7 @@ export default ({ item }) => {
         );
       })}
 
-      {item.alert_covid && <AlertCovid />}
+      {item.alert_covid && <AlertCovid text_alert={item.text_alert} />}
 
       {item.day_by_day.length > 0 && (
         <View style={styles.details}>
@@ -191,7 +191,7 @@ export default ({ item }) => {
           ))}
         </View>
       )}
-      <Map address={item.address} region={item.region} />
+      <Map name={item.subname} address={item.address} region={item.region} />
     </View>
   );
 };

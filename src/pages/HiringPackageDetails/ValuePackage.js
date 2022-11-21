@@ -2,11 +2,11 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
-const ValuePackage = ({ price_discount = 0 }) => {
+const ValuePackage = ({data, price_discount = 0 }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Valor do pacote</Text>
-      <Text style={styles.subTitle}>R$ {price_discount}</Text>
+      <Text style={styles.subTitle}>{data?.currency || "R$"} {price_discount}</Text>
     </View>
   );
 };

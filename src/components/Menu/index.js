@@ -106,7 +106,7 @@ const Menu = ({ isVisible = true, onClose }) => {
           <View style={styles.line}>
             <RenderItem
               id={"Benefits"}
-              text={"Vantagens"}
+              text={"Plano Copa"}
               onClose={onClose}
               selected={"https://toutche.com.br/clube_de_ferias/icones/menu/vantagens-red.png"}
               noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/vantagens-white.png"}

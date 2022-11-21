@@ -10,13 +10,13 @@ const ButtonsChoice = ({ value, onPress }) => {
         containerStyle={[
           styles.button,
           {
-            backgroundColor: value === 0 ? "#cf0110" : "transparent",
+            // backgroundColor: value === 0 ? "#cf0110" : "transparent",
           },
         ]}
         titleStyle={styles.text}
         title={"Pacotes de viagens"}
       />
-      <CustomButton
+      {/* <CustomButton
         onPress={() => onPress(1)}
         containerStyle={[
           styles.button,
@@ -26,7 +26,7 @@ const ButtonsChoice = ({ value, onPress }) => {
         ]}
         titleStyle={styles.text}
         title={"Hospedagem"}
-      />
+      /> */}
     </View>
   );
 };

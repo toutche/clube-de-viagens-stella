@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Button, TouchableOpacity, Image } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { SimpleLineIcons, Ionicons } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
@@ -10,8 +10,8 @@ import ButtonsChoice from "./ButtonsChoice";
 import api from "../../services/api";
 import { useFilter } from "../../contexts/filter";
 
-const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
-  const { clearAll, setOrderPrice } = useFilter()
+const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => {
+  const { clearAll, setOrderPrice } = useFilter();
 
   const [filter, setFilter] = useState([]);
   const [data, setData] = useState([]);
@@ -26,11 +26,15 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
     });
   }, []);
 
-  const handlePress = (value) => {
-    clearAll()
-    option === 0 && setOrderPrice('desc')
-    setOption(value)
+  function handlePlanoCopa() {
+    navigation.navigate("MyPlan");
   }
+
+  const handlePress = value => {
+    clearAll();
+    option === 0 && setOrderPrice("desc");
+    setOption(value);
+  };
 
   return (
     <View style={styles.container}>
@@ -53,17 +57,41 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen }) => {
           containerStyle={styles.iconRight}
         />
 
-        <ProfileAvatar isShow source={'dashboard'} />
+        <ProfileAvatar isShow source={"dashboard"} />
       </View>
 
       <SlidesDashboard {...{ filter, data, option }} />
 
-      <Text style={styles.title}>
+      <TouchableOpacity
+        onPress={handlePlanoCopa}
+        style={{
+          alignSelf: "center",
+          backgroundColor: "blue",
+          height: 110,
+          width: 420,
+        }}>
+        {/* <Image source={Gif} /> */}
+        <Image
+          style={{ width: "100%", height: "100%" }}
+          source={{
+            uri: "https://images-store.us-southeast-1.linodeobjects.com/gif-copa-banner-2.gif",
+          }}
+        />
+
+        {/* <Text style={styles.title}>
+          {option === 0 ? "Conquiste as suas férias dos sonhos" : "Hospedagens em locais incríveis"}
+        </Text>
+        <Text style={styles.subTitle}>
+          {option === 0 ? "Pacotes com preços exclusivos" : "com preços exclusivos"}
+        </Text> */}
+      </TouchableOpacity>
+
+      {/* <Text style={styles.title}>
         {option === 0 ? "Conquiste as suas férias dos sonhos" : "Hospedagens em locais incríveis"}
       </Text>
       <Text style={styles.subTitle}>
         {option === 0 ? "Pacotes com preços exclusivos" : "com preços exclusivos"}
-      </Text>
+      </Text> */}
 
       <ButtonsChoice value={option} onPress={handlePress} />
     </View>

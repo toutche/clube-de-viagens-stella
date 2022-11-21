@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, ActivityIndicator, View } from "react-native";
 import { useAuth } from "../../contexts/auth";
 import api from "../../services/api";
@@ -7,12 +7,14 @@ import Body from "./Body";
 import Header from "./Header";
 import axios from "axios";
 import { consts } from "../../utils/consts";
+import { useFilter } from "../../contexts/filter";
 
 export default ({ route, navigation }) => {
   const { user } = useAuth();
   const { id } = route.params;
-
   const [item, setItem] = useState([]);
+  const scrollViewRef = useRef();
+  const { autoScroll, setAutoScroll } = useFilter();
 
   const getLatLog = data => {
     const hotel = data.hotel;
@@ -72,9 +74,16 @@ export default ({ route, navigation }) => {
     );
 
   return (
-    <ScrollView bounces={false} style={styles.container}>
+    <ScrollView
+      bounces={false}
+      style={styles.container}
+      ref={scrollViewRef}
+      onContentSizeChange={() => {
+        autoScroll && scrollViewRef.current.scrollToEnd({ animated: false })
+      }}
+    >
       <Header navigation={navigation} item={item} plan={user.plan} />
-      <Body item={item} />
+      <Body item={item}/>
     </ScrollView>
   );
 };
