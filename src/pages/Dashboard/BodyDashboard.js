@@ -298,7 +298,7 @@ const BodyDashboard = ({
           listRef.current.scrollToOffset({ offset: 0, animated: true });
         }}  
         style={ styles.scrollUpButton }>
-          <AntDesign name="arrowup" size={32} color="#fff" />
+          <AntDesign name="arrowup" size={32} color={PRIMARY_COLOR} />
         </TouchableOpacity>
       }
       <FlatList
@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
   },
   scrollUpButton: {
     alignItems: 'center',
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: '#fff',
     borderRadius: 50,
     bottom: 65,
     height: 55,

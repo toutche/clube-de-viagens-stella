@@ -19,12 +19,12 @@ const Map = ({ address, region, name, navigation }) => {
 
   useEffect(() => {
     (async () => {
-      // let { status } = await Location.requestForegroundPermissionsAsync();
-      // setStatus(status)
-      // if (status !== 'granted') {
-      //   setErrorMsg('Permission to access location was denied');
-      //   return;
-      // }
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      setStatus(status)
+      if (status !== 'granted') {
+        setErrorMsg('Permissão de localização não foi concedida.');
+        return;
+      }
       let address = await Location.reverseGeocodeAsync(region);
       setLocation(address.length && address[0]);
     })();
