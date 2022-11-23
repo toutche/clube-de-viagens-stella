@@ -9,15 +9,19 @@ import api from "../../services/api";
 
 export default ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [card, setCard] = useState({
+  const [card, setCard] = useState({});
+  const [check, setCheck] = useState(false);
+
+  const CARD_EXAMPLE = {
+    plan_id: data.id,
     card_number: "4000000000000010",
     holder_name: "Igor M. S.",
     holder_cpf: "02660870004",
     validade_year: "23",
     validate_month: "08",
-    cvv: "123",
-  });
-  const [check, setCheck] = useState(false);
+    cvv: "123" ,
+    saved_card: check
+  }
 
   const onChange = ({ values }) => {
     setCard({
@@ -33,7 +37,9 @@ export default ({ data, navigation }) => {
   const handlePress = () => {
     setLoading(true);
     api
-      .post("/transaction/plan/contracting", {
+      .post("/transaction/plan/contracting", 
+      __DEV__ ? CARD_EXAMPLE
+      : {
         plan_id: data.id,
         card_number: card.card_number,
         holder_name: card.holder_name,
@@ -41,7 +47,7 @@ export default ({ data, navigation }) => {
         validade_year: card.validade_year,
         validate_month: card.validate_month,
         cvv: card.cvv,
-        saved_card: check,
+        saved_card: check
       })
       .then(res => {
         console.log("sucess", res.data);
