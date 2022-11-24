@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, ScrollView, Platform, KeyboardAvoidingView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, ScrollView, Platform, KeyboardAvoidingView, Alert } from "react-native";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import { CreditCardInput } from "../../components/CreditInput";
 import { CheckBox } from "react-native-elements";
@@ -14,7 +14,7 @@ export default ({ data, navigation }) => {
 
   const CARD_EXAMPLE = {
     plan_id: data.id,
-    card_number: "4000000000000010",
+    card_number: "4000000000000011",
     holder_name: "Igor M. S.",
     holder_cpf: "02660870004",
     validade_year: "23",
@@ -39,7 +39,8 @@ export default ({ data, navigation }) => {
     api
       .post("/transaction/plan/contracting", 
       __DEV__ ? CARD_EXAMPLE
-      : {
+      :
+      {
         plan_id: data.id,
         card_number: card.card_number,
         holder_name: card.holder_name,
@@ -51,11 +52,19 @@ export default ({ data, navigation }) => {
       })
       .then(res => {
         console.log("sucess", res.data);
-        navigation.navigate({
-          name: "CongratulationPlan",
-          params: { ...res.data },
-          merge: true,
-        });
+        if (res.data.type) {
+          navigation.navigate({
+            name: "CongratulationPlan",
+            params: { ...res.data },
+            merge: true,
+          });
+        } else {
+          Alert.alert("Dados inválidos", 'Insira os dados corretamente.',[
+            {
+              text: "Voltar"
+            }
+          ])
+        }
       })
       .catch(e => console.log("error", e))
       .finally(() => setLoading(false));
