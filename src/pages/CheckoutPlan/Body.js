@@ -38,8 +38,8 @@ export default ({ data, navigation }) => {
     setLoading(true);
     api
       .post("/transaction/plan/contracting", 
-      __DEV__ ? CARD_EXAMPLE
-      :
+      // __DEV__ ? CARD_EXAMPLE
+      // :
       {
         plan_id: data.id,
         card_number: card.card_number,
@@ -59,7 +59,7 @@ export default ({ data, navigation }) => {
             merge: true,
           });
         } else {
-          Alert.alert("Dados inválidos", 'Insira os dados corretamente.',[
+          Alert.alert("Dados inválidos", `Infelizmente não conseguimos concluir sua solicitação, tente novamente revisando os dados de compra.`,[
             {
               text: "Voltar"
             }
