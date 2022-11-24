@@ -88,7 +88,7 @@ export function MenuScreen({ navigation }) {
         <View style={styles.line}>
           <RenderItem
             id={"Benefits"}
-            text={"Vantagens"}
+            text={"Plano Copa"}
             selected={"https://toutche.com.br/clube_de_ferias/icones/menu/vantagens-red.png"}
             noSelected={"https://toutche.com.br/clube_de_ferias/icones/menu/vantagens-white.png"}
           />
