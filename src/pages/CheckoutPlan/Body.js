@@ -38,8 +38,8 @@ export default ({ data, navigation }) => {
     setLoading(true);
     api
       .post("/transaction/plan/contracting", 
-      // __DEV__ ? CARD_EXAMPLE
-      // :
+      __DEV__ ? CARD_EXAMPLE
+      :
       {
         plan_id: data.id,
         card_number: card.card_number,
