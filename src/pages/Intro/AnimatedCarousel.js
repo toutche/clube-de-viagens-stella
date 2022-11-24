@@ -27,9 +27,9 @@ import Icon from "../../../assets/img/Aviao_Branco.png";
 
 const Slides = [
   {
-    title: "Garanta agora o seu lugar na Copa do Mundo de 2026!",
+    title: "Garanta agora o seu lugar na Copa de 2026!",
     list: [
-      "Prioridade de compra nos pacotes da Copa do Mundo 2026.",
+      "Prioridade de compra nos pacotes da Copa 2026.",
       "11% de desconto na compra de qualquer pacote e hotéis.",
       "Atendimento exclusivo e personalizado.",
       "Todos os benefícios do Clube de Férias.",
@@ -39,7 +39,7 @@ const Slides = [
     image: {
       uri: "https://images-store.us-southeast-1.linodeobjects.com/Foto-Capa---Plano-Copa-2026-01.png",
     },
-    button: "Copa do mundo",
+    button: "Copa",
     aspectRatio: 1.5,
     onPress: () => {},
   },
