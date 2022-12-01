@@ -51,6 +51,7 @@
     "lodash.pick": "^4.4.0",
     "lodash.values": "^4.3.0",
     "moment": "^2.29.2",
+    "ngrok": "^4.3.3",
     "patch-package": "^6.5.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
