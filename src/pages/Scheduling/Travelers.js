@@ -1,26 +1,21 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import CustomButton from "../../components/CustomButton";
-import QuantifyTravel from "../../components/QuantifyTravel";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
+
 import { SimpleLineIcons } from '@expo/vector-icons';
-import { TouchableOpacity } from "react-native";
+
+import CustomButton from "../../components/CustomButton";
+import { AddChildren } from "../../components/AddChildren";
+import QuantifyTravel from "../../components/QuantifyTravel";
+import { RegisterChildren } from "../../components/RegisterChildren";
 
 const Travelers = ({ onPress, users = [] }) => {
-  // const renderItem = text => {
-  //   return (
-  //     <View style={styles.item}>
-  //       <AntDesign name='checkcircleo' size={16} color='#287dfd' />
-  //       <Text style={styles.itemText}>{text}</Text>
-  //     </View>
-  //   );
-  // };
 
-  const [showRegisterChildrenModal, setShowRegisterChildrenModal] = useState(false);
+  const [numberOfChildren, setNumberOfChildren] = useState(true);
 
   return (
-    <>
+    <ScrollView>
       <View style={styles.container}>
         <Text style={styles.title}>Viajantes</Text>
 
@@ -39,34 +34,20 @@ const Travelers = ({ onPress, users = [] }) => {
 
         {users.length > 0 && <QuantifyTravel users={users} />}
 
-        <TouchableOpacity
-          style={styles.viewRegisterChildren}
-          onPress={() => setShowRegisterChildrenModal(!showRegisterChildrenModal)}
-        >
-          <CustomButton
-            containerStyle={styles.button2}
-            titleStyle={styles.textButton}
-            title={`Nomear Criança(s)`}
-            onPress={() => setShowRegisterChildrenModal(!showRegisterChildrenModal)}
-          />
-          <View style={styles.icon}>
-            {
-              showRegisterChildrenModal
-                ? <SimpleLineIcons
-                  name="arrow-up"
-                  size={24}
-                  color={BLUE_COLOR}
-                />
-                : <SimpleLineIcons
-                  name="arrow-down"
-                  size={24}
-                  color={BLUE_COLOR}
-                />
-            }
-          </View>
-        </TouchableOpacity>
+        <AddChildren
+          numberOfChildren={numberOfChildren}
+          setNumberOfChildren={setNumberOfChildren}
+        />
+        {
+          numberOfChildren
+            ? <View />
+            : <>
+              <RegisterChildren title='Primeira Criança' />
+              <RegisterChildren title='Segunda Criança' />
+            </>
+        }
       </View>
-    </>
+    </ScrollView>
   );
 };
 
