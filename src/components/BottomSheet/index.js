@@ -8,6 +8,8 @@ import {
   Text,
   KeyboardAvoidingView,
   ScrollView,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { useFilter } from "../../contexts/filter";
@@ -230,23 +232,25 @@ export default ({ isVisible, onClose, id }) => {
       visible={isVisible}
       animationType='fade'
       onRequestClose={onClose}>
-      <TouchableWithoutFeedback onPress={onClose}>
-        <>
-          <KeyboardAvoidingView behavior='height' style={styles.container}>
-            <TouchableWithoutFeedback onPress={() => {}}>
-              <View style={styles.content}>
-                <ScrollView
-                  contentContainerStyle={{ alignItems: "center" }}
-                  style={{ width: "100%" }}>
-                  {_renderBottomSheet()}
-                </ScrollView>
-                <TouchableOpacity onPress={handlePress} style={styles.button_container}>
-                  <Text style={styles.button_text}>Salvar</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
-        </>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          {
+            Keyboard.dismiss();
+          }
+        }}
+        accessible={false}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}>
+          <View style={styles.content}>
+            <ScrollView contentContainerStyle={{ alignItems: "center" }} style={{ width: "100%" }}>
+              {_renderBottomSheet()}
+            </ScrollView>
+            <TouchableOpacity onPress={handlePress} style={styles.button_container}>
+              <Text style={styles.button_text}>Salvar</Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </Modal>
   );
