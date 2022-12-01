@@ -1,33 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import QuantifyTravel from "../../components/QuantifyTravel";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
+import { SimpleLineIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from "react-native";
 
 const Travelers = ({ onPress, users = [] }) => {
-  const renderItem = text => {
-    return (
-      <View style={styles.item}>
-        <AntDesign name='checkcircleo' size={16} color='#287dfd' />
-        <Text style={styles.itemText}>{text}</Text>
-      </View>
-    );
-  };
+  // const renderItem = text => {
+  //   return (
+  //     <View style={styles.item}>
+  //       <AntDesign name='checkcircleo' size={16} color='#287dfd' />
+  //       <Text style={styles.itemText}>{text}</Text>
+  //     </View>
+  //   );
+  // };
+
+  const [showRegisterChildrenModal, setShowRegisterChildrenModal] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Viajantes</Text>
+    <>
+      <View style={styles.container}>
+        <Text style={styles.title}>Viajantes</Text>
 
-      {users.length > 0 && <QuantifyTravel users={users} />}
+        {users.length > 0 && <QuantifyTravel users={users} />}
 
-      <CustomButton
-        containerStyle={styles.button}
-        titleStyle={styles.textButton}
-        title={`Nomear Viajantes`}
-        onPress={onPress}
-      />
-    </View>
+        <CustomButton
+          containerStyle={styles.button}
+          titleStyle={styles.textButton}
+          title={`Nomear Viajantes`}
+          onPress={onPress}
+        />
+      </View>
+
+      <View style={styles.container}>
+        <Text style={styles.title}>Crianças menores de 12 anos</Text>
+
+        {users.length > 0 && <QuantifyTravel users={users} />}
+
+        <TouchableOpacity
+          style={styles.viewRegisterChildren}
+          onPress={() => setShowRegisterChildrenModal(!showRegisterChildrenModal)}
+        >
+          <CustomButton
+            containerStyle={styles.button2}
+            titleStyle={styles.textButton}
+            title={`Nomear Criança(s)`}
+            onPress={() => setShowRegisterChildrenModal(!showRegisterChildrenModal)}
+          />
+          <View style={styles.icon}>
+            {
+              showRegisterChildrenModal
+                ? <SimpleLineIcons
+                  name="arrow-up"
+                  size={24}
+                  color={BLUE_COLOR}
+                />
+                : <SimpleLineIcons
+                  name="arrow-down"
+                  size={24}
+                  color={BLUE_COLOR}
+                />
+            }
+          </View>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 
@@ -48,14 +87,31 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     borderRadius: 10,
   },
-  button: {
+  viewRegisterChildren: {
     borderColor: BLUE_COLOR,
     borderWidth: 1.5,
+    alignItems: "center",
+    flexDirection: 'row',
     borderRadius: 100,
     height: 50,
     width: "100%",
     justifyContent: "center",
     marginTop: 10,
+  },
+  button: {
+    borderColor: BLUE_COLOR,
+    borderWidth: 1.5,
+    alignItems: "center",
+    flexDirection: 'row',
+    borderRadius: 100,
+    height: 50,
+    width: "100%",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  icon: {
+    position: "absolute",
+    right: 20,
   },
   textButton: {
     fontSize: 14.5,
