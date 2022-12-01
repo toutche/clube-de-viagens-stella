@@ -19,7 +19,7 @@ const InsertCupom = ({ data, navigation }) => {
 
   const handlePress = () => {
     api
-      .get(`/promotions/check?cupom=${cupom}&plano=${data.id}`)
+      .get(`/cupons/check?cupom=${cupom}&plano=${data.id}`)
       .then(res => {
         setCupomExists(res.data.type)
         if (!res.data.type) {
@@ -84,8 +84,11 @@ const InsertCupom = ({ data, navigation }) => {
           titleStyle={styles.textButton}
           title={
             ( cupomExists === null ? "Aplicar" : (
-              cupomExists === true ? <AntDesign name="check" size={18} color="white" /> : (
-              !validCupom ? <Ionicons name="close" size={18} color="white" /> : 'Aplicar'
+              cupomExists === true
+              ? <AntDesign name="check" size={18} color="white" />
+              : ( !validCupom
+                ? <Ionicons name="close" size={18} color="white" />
+                : 'Aplicar'
               )
             ))
           }
@@ -127,6 +130,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
   },
   button: {
+    position: 'absolute',
     paddingVertical: 5,
     paddingHorizontal: 15,
     flexDirection: "row",
@@ -140,7 +144,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     borderColor: "rgba(0,0,0,0.01)",
-    width: 80,
+    width: 90,
+    right: 10,
   },inputCupom: {
     color: 'white',
     fontWeight: '700',
