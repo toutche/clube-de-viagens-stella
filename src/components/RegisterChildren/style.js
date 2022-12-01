@@ -24,3 +24,24 @@ export const StyledInput = styled.TextInput`
 
   width: 100%;
 `
+
+export const Button = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+
+  background-color: green;
+  border-radius: 50px;
+
+  margin-top: 20px;
+
+  width: 100%;
+  height: 50px;
+`
+
+export const ButtonTitle = styled.Text`
+  color: white;
+  align-self: center;
+
+  font-size: 16px;
+  font-weight: bold;
+`

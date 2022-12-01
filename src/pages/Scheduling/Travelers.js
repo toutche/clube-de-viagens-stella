@@ -13,6 +13,9 @@ import { RegisterChildren } from "../../components/RegisterChildren";
 const Travelers = ({ onPress, users = [] }) => {
 
   const [numberOfChildren, setNumberOfChildren] = useState(true);
+  const [children, setChildren] = useState([]);
+
+  console.log(children);
 
   return (
     <ScrollView>
@@ -42,8 +45,16 @@ const Travelers = ({ onPress, users = [] }) => {
           numberOfChildren
             ? <View />
             : <>
-              <RegisterChildren title='Primeira Criança' />
-              <RegisterChildren title='Segunda Criança' />
+              <RegisterChildren
+                children={children}
+                setChildren={setChildren}
+                title='Primeira Criança'
+              />
+              <RegisterChildren
+                children={children}
+                setChildren={setChildren}
+                title='Segunda Criança'
+              />
             </>
         }
       </View>
