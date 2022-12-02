@@ -13,6 +13,7 @@ export default ({ navigation, data }) => {
   const { setCupomExists } = useFilter();
   
   function backAction() {
+    navigation.goBack()
     setCupomExists(null)
   }
 
