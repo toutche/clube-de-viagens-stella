@@ -34,17 +34,7 @@ const InsertCupom = ({ data, navigation }) => {
 
   useEffect(() => {
     const backAction = () => {
-      Alert.alert("Espera!", "Deseja realmente sair?", [
-        {
-          text: "Cancel",
-          onPress: () => null,
-          style: "cancel"
-        },
-        { text: "YES", onPress: () => {
-          navigation.goBack()
-          setCupomExists(null)
-        } }
-      ]);
+      setCupomExists(null)
       return true;
     };
 

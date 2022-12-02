@@ -13,17 +13,8 @@ export default ({ navigation, data }) => {
   const { setCupomExists } = useFilter();
   
   function backAction() {
-  Alert.alert("Espera!", "Deseja realmente sair?", [
-    {
-      text: "Cancel",
-      onPress: () => null,
-      style: "cancel"
-    },
-    { text: "YES", onPress: () => {
-      navigation.goBack()
-      setCupomExists(null)
-    } }
-  ])}
+    setCupomExists(null)
+  }
 
   return (
     <View style={styles.container}>
