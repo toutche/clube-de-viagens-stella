@@ -1,10 +1,98 @@
-import React from "react";
-import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { ActivityIndicator, FlatList, Image, Platform, StyleSheet, Text, View } from "react-native";
 import AlertCovid from "../../components/AlertCovid";
-import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
+import { useAuth } from "../../contexts/auth";
+import { useFilter } from "../../contexts/filter";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import Map from "./Map";
+import Banner from "../../components/Banner";
+import api from "../../services/api";
+import ListItem from "../../components/ListItem";
 
-export default ({ item }) => {
+export default ({ item, display = 0, navigation }) => {
+  const [data, setData] = useState([]);
+
+  const {
+    user: { plan },
+  } = useAuth();
+
+  const {
+    onFilterOriginDestiny,
+    onFilterHotels,
+    filterOrigin,
+    filterDestiny,
+    filterDays,
+    filterMouth,
+    filterYear,
+    filterCheck,
+    filterPeople,
+    filterUpdate,
+    setFilterCheck,
+    orderPrice,
+    segmentsIds,
+  } = useFilter();
+  const total = useRef(null);
+  const page = useRef(1);
+  const listRef = useRef(null);
+
+  const [feed, setFeed] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
+
+  useEffect(() => {
+    loadPage();
+  }, []);
+
+  useDidMountEffect(() => {
+    setFeed([]);
+    loadPage(1, true, true);
+  }, [filterUpdate, orderPrice, display]);
+
+  const loadPage = async (pageNumber = page.current, shouldRefresh = false, update = false) => {
+    if (feed?.length === total.current && !update) return;
+    if (loading) return;
+
+    setLoading(true);
+    let ids;
+    for (let i = 0; i < segmentsIds.length; i++) {
+      if (ids) ids = ids + `,${segmentsIds[i]}`;
+      else ids = `&segments_ids=${segmentsIds[i]}`;
+    }
+
+    // let url = `/interesses/listar`;
+
+    let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${
+      ids ? orderPrice + ids : orderPrice
+    }`;
+    const response = await api.get(url);
+    console.log(response);
+
+    const totalItems = response.data.data.pagination.total_registers;
+    const data = response.data.data.packages;
+    // const data = response.data.name;
+
+    total.current = totalItems;
+    page.current = pageNumber + 1;
+
+    setFeed(shouldRefresh ? data || [] : [...feed, ...data]);
+
+    setLoading(false);
+  };
+
+  const refreshList = async () => {
+    setFeed([]);
+    setRefreshing(true);
+
+    await loadPage(1, true, true);
+
+    setRefreshing(false);
+  };
+
+  const ListLoading = () => (
+    <ActivityIndicator style={{ marginVertical: 30 }} size={"large"} color={PRIMARY_COLOR} />
+  );
+
   return (
     <View style={styles.container}>
       <View
@@ -192,6 +280,35 @@ export default ({ item }) => {
         </View>
       )}
       <Map name={item.subname} address={item.address} region={item.region} />
+      <FlatList
+        data={feed}
+        // ListHeaderComponent={display === 1 ? ListHeaderItemHotels : ListHeaderItemPackages}
+        keyExtractor={(item, index) => index.toString()}
+        onRefresh={refreshList}
+        refreshing={refreshing}
+        onEndReachedThreshold={0.1}
+        onEndReached={() => loadPage()}
+        horizontal
+        // ListFooterComponent={loading ? ListLoading : <Banner />}
+        contentContainerStyle={{
+          paddingTop: 20,
+          backgroundColor: "blue",
+          height: 500,
+          // alignItems: "center",
+          // justifyContent: "center",
+          // width: "100%",
+        }}
+        ref={listRef}
+        onScroll={event => {
+          setContentVerticalOffset(event.nativeEvent.contentOffset.y);
+        }}
+        showsHorizontalScrollIndicator={false}
+        keyboardShouldPersistTaps={"always"}
+        renderItem={({ item, index }) => (
+          <ListItem {...{ item, index, display, navigation, plan }} />
+        )}
+      />
+      <Banner />
     </View>
   );
 };
