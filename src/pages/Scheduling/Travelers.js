@@ -3,17 +3,14 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-nati
 
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
-import { SimpleLineIcons } from '@expo/vector-icons';
-
 import CustomButton from "../../components/CustomButton";
 import { AddChildren } from "../../components/AddChildren";
 import QuantifyTravel from "../../components/QuantifyTravel";
 import { RegisterChildren } from "../../components/RegisterChildren";
 
-const Travelers = ({ onPress, users = [] }) => {
+const Travelers = ({ children, setChildren, onPress, users = [] }) => {
 
   const [numberOfChildren, setNumberOfChildren] = useState(true);
-  const [children, setChildren] = useState([]);
 
   console.log(children);
 
