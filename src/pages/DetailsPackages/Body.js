@@ -10,27 +10,11 @@ import api from "../../services/api";
 import ListItem from "../../components/ListItem";
 
 export default ({ item, display = 0, navigation }) => {
-  const [data, setData] = useState([]);
-
   const {
     user: { plan },
   } = useAuth();
 
-  const {
-    onFilterOriginDestiny,
-    onFilterHotels,
-    filterOrigin,
-    filterDestiny,
-    filterDays,
-    filterMouth,
-    filterYear,
-    filterCheck,
-    filterPeople,
-    filterUpdate,
-    setFilterCheck,
-    orderPrice,
-    segmentsIds,
-  } = useFilter();
+  const { filterUpdate, setFilterCheck, orderPrice, segmentsIds } = useFilter();
   const total = useRef(null);
   const page = useRef(1);
   const listRef = useRef(null);
@@ -60,8 +44,6 @@ export default ({ item, display = 0, navigation }) => {
       else ids = `&segments_ids=${segmentsIds[i]}`;
     }
 
-    // let url = `/interesses/listar`;
-
     let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${
       ids ? orderPrice + ids : orderPrice
     }`;
@@ -70,7 +52,6 @@ export default ({ item, display = 0, navigation }) => {
 
     const totalItems = response.data.data.pagination.total_registers;
     const data = response.data.data.packages;
-    // const data = response.data.name;
 
     total.current = totalItems;
     page.current = pageNumber + 1;
@@ -280,23 +261,18 @@ export default ({ item, display = 0, navigation }) => {
         </View>
       )}
       <Map name={item.subname} address={item.address} region={item.region} />
+
       <FlatList
         data={feed}
-        // ListHeaderComponent={display === 1 ? ListHeaderItemHotels : ListHeaderItemPackages}
         keyExtractor={(item, index) => index.toString()}
         onRefresh={refreshList}
         refreshing={refreshing}
         onEndReachedThreshold={0.1}
         onEndReached={() => loadPage()}
         horizontal
-        // ListFooterComponent={loading ? ListLoading : <Banner />}
         contentContainerStyle={{
           paddingTop: 20,
-          backgroundColor: "blue",
           height: 500,
-          // alignItems: "center",
-          // justifyContent: "center",
-          // width: "100%",
         }}
         ref={listRef}
         onScroll={event => {
