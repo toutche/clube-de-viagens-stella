@@ -12,7 +12,7 @@ import CustomIcon from "../../components/CustomIcon";
 import { FontAwesome } from "@expo/vector-icons";
 import Calendar from "../../components/Calendar";
 import { formatDateToBRL } from "../../utils";
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 
 const BodyDashboard = ({
   display = 0,
@@ -40,6 +40,7 @@ const BodyDashboard = ({
     orderPrice,
     segmentsIds,
   } = useFilter();
+
   const total = useRef(null);
   const page = useRef(1);
   const listRef = useRef(null);
@@ -48,7 +49,7 @@ const BodyDashboard = ({
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
-  
+
   useEffect(() => {
     loadPage();
   }, []);
@@ -71,9 +72,8 @@ const BodyDashboard = ({
         else ids = `&segments_ids=${segmentsIds[i]}`;
       }
 
-      let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${
-        ids ? orderPrice + ids : orderPrice
-      }`;
+      let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${ids ? orderPrice + ids : orderPrice
+        }`;
 
       if (filterDestiny?.key) {
         if (filterDestiny?.key && filterOrigin?.key) {
@@ -155,9 +155,8 @@ const BodyDashboard = ({
         />
         <ButtonFilter
           {...{
-            title: `Data - ${formatDateToBRL(filterCheck?.in) || "Check-in"} - ${
-              formatDateToBRL(filterCheck?.out) || "Check-out"
-            }`,
+            title: `Data - ${formatDateToBRL(filterCheck?.in) || "Check-in"} - ${formatDateToBRL(filterCheck?.out) || "Check-out"
+              }`,
             iconName: "calendar-month",
             iconSize: 22,
             marginLeft: 2,
@@ -294,10 +293,10 @@ const BodyDashboard = ({
       {
         contentVerticalOffset > CONTENT_OFFSET_THRESHOLD &&
         <TouchableOpacity
-        onPress={() => {
-          listRef.current.scrollToOffset({ offset: 0, animated: true });
-        }}  
-        style={ styles.scrollUpButton }>
+          onPress={() => {
+            listRef.current.scrollToOffset({ offset: 0, animated: true });
+          }}
+          style={styles.scrollUpButton}>
           <AntDesign name="arrowup" size={32} color={PRIMARY_COLOR} />
         </TouchableOpacity>
       }

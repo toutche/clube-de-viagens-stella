@@ -15,7 +15,9 @@ export default ({ itens = [{}, {}, {}], navigation, openModal }) => {
         ItemSeparatorComponent={Separator}
         keyExtractor={(item, index) => index.toString()}
         keyboardShouldPersistTaps={"always"}
-        renderItem={({ item, index }) => ListPackages({ item, index, navigation, openModal })}
+        renderItem={({ item, index }) =>
+          ListPackages({ item, index, navigation, openModal })
+        }
         ListEmptyComponent={EmptyList}
       />
     </View>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import CustomButton from '../../components/CustomButton';
 import { PRIMARY_COLOR, FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE } from '../../utils/variables';
+import * as Linking from 'expo-linking';
 
 const ListPackages = ({
     item,
@@ -10,6 +11,13 @@ const ListPackages = ({
     navigation,
     openModal
 }) => {
+
+    async function handlePress() {
+        // api.get('/pacote-viagem/minhas-reservas/${item.id}/voucher').then((res) => {
+        //     setData(res.data)
+        // })
+        Linking.openURL('https://www.seattleu.edu/media/college-of-science-and-engineering/files/departments/electricalandcomputerengineering/Fluke_45_ServiceManual3ec7.pdf')
+    }
 
     const renderHeader = () => (
         <View style={styles.header}>
@@ -36,7 +44,7 @@ const ListPackages = ({
                         <Text style={styles.discount}> de desconto exclusivo</Text>
                     </Text>
                 </View>
-                <View style={{flexDirection: "row"}}>
+                <View style={{ flexDirection: "row" }}>
                     <Text style={styles.throughValue}>{item?.price}</Text>
                     <Text style={styles.value}> ● {item?.price_discount}</Text>
                 </View>
@@ -50,13 +58,13 @@ const ListPackages = ({
             {renderBody()}
 
             <CustomButton
-                onPress={ () => { 
+                onPress={() => {
                     navigation.navigate({
                         name: "DetailsContractedPackages",
                         params: {
                             item
                         }
-                    }) 
+                    })
                 }}
                 type={AntDesign}
                 name={'checkcircleo'}
@@ -69,13 +77,25 @@ const ListPackages = ({
             />
 
             <CustomButton
+                onPress={() => handlePress()}
+                type={AntDesign}
+                name={'pdffile1'}
+                color={'white'}
+                size={25}
+                iconStyle={styles.iconButton}
+                containerStyle={styles.buttonPrintVoucher}
+                titleStyle={styles.textButtonTop}
+                title={`Adquirir o voucher`}
+            />
+
+            <CustomButton
                 onPress={() => openModal(item)}
                 type={AntDesign}
                 name={'closecircleo'}
                 color={PRIMARY_COLOR}
                 size={25}
                 iconStyle={styles.iconButton}
-                containerStyle={[styles.buttonBottom, item.requested && {borderColor: "#d1d1d1"}]}
+                containerStyle={[styles.buttonBottom, item.requested && { borderColor: "#d1d1d1" }]}
                 titleStyle={styles.textButtonBottom}
                 title={item.requested ? `Cancelamento solicitado` : `Realizar cancelamento`}
                 disabled={item.requested}
@@ -98,6 +118,15 @@ const styles = StyleSheet.create({
     },
     buttonTop: {
         backgroundColor: '#58ba01',
+        borderRadius: 100,
+        height: 45,
+        marginBottom: 10,
+        width: '80%',
+        alignSelf: 'center',
+        justifyContent: 'center'
+    },
+    buttonPrintVoucher: {
+        backgroundColor: PRIMARY_COLOR,
         borderRadius: 100,
         height: 45,
         marginBottom: 10,

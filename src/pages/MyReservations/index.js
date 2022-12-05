@@ -14,9 +14,10 @@ export default ({ navigation }) => {
 
   const getReservations = () => {
     api.get('/pacote-viagem/minhas-reservas').then((res) => {
+      // console.log(res.data);
       setData(res.data)
     })
-    console.log('buscando pacotes');
+    // console.log('buscando pacotes');
   }
 
   useEffect(() => {
@@ -36,10 +37,10 @@ export default ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ModalCancel 
-        isVisible={isVisible} 
-        onClose={() => setVisible(!isVisible)} 
-        item={item} 
+      <ModalCancel
+        isVisible={isVisible}
+        onClose={() => setVisible(!isVisible)}
+        item={item}
         getReservations={getReservations} />
       <Header navigation={navigation} />
       <Body itens={data} openModal={toggleModal} navigation={navigation} />
