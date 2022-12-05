@@ -44,11 +44,16 @@ export default ({ item, display = 0, navigation }) => {
       else ids = `&segments_ids=${segmentsIds[i]}`;
     }
 
-    let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${
-      ids ? orderPrice + ids : orderPrice
-    }`;
+    // let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${
+    //   ids ? orderPrice + ids : orderPrice
+    // }`;
+
+    let idCategory = item.segments;
+    let url = `/pacote-viagem/listar?per_page=10&page=1&segments_ids=${idCategory}`;
+
     const response = await api.get(url);
-    console.log(response);
+    // console.log("to aqui = " + JSON.stringify(response));
+    console.log("pacote aqui =" + JSON.stringify(item.segments));
 
     const totalItems = response.data.data.pagination.total_registers;
     const data = response.data.data.packages;
@@ -59,15 +64,6 @@ export default ({ item, display = 0, navigation }) => {
     setFeed(shouldRefresh ? data || [] : [...feed, ...data]);
 
     setLoading(false);
-  };
-
-  const refreshList = async () => {
-    setFeed([]);
-    setRefreshing(true);
-
-    await loadPage(1, true, true);
-
-    setRefreshing(false);
   };
 
   const ListLoading = () => (
@@ -265,8 +261,6 @@ export default ({ item, display = 0, navigation }) => {
       <FlatList
         data={feed}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={refreshList}
-        refreshing={refreshing}
         onEndReachedThreshold={0.1}
         onEndReached={() => loadPage()}
         horizontal
@@ -275,9 +269,6 @@ export default ({ item, display = 0, navigation }) => {
           height: 500,
         }}
         ref={listRef}
-        onScroll={event => {
-          setContentVerticalOffset(event.nativeEvent.contentOffset.y);
-        }}
         showsHorizontalScrollIndicator={false}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) => (
