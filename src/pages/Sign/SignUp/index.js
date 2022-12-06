@@ -14,6 +14,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
 import { useAuth } from "../../../contexts/auth";
+import { GenderOptions } from "../../../components/GenderOptions";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -24,6 +25,9 @@ export default ({ navigation }) => {
 
   const { setUser: contextSetUser } = useAuth();
 
+  const [showOptions, setShowOptions] = useState(false);
+  const [genderState, setGenderState] = useState('');
+
   const [user, setUser] = useState({
     name: "",
     nickname: "",
@@ -33,6 +37,7 @@ export default ({ navigation }) => {
     phone_number: "",
     password: "",
     image: null,
+    gender: "",
   });
 
   const [errors, setErros] = useState({
@@ -43,7 +48,10 @@ export default ({ navigation }) => {
     email: "",
     phone_number: "",
     password: "",
+    gender: "",
   });
+
+  console.log(user);
 
   const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
@@ -236,6 +244,41 @@ export default ({ navigation }) => {
               })
             }
           />
+
+          <View style={Style.genderContainer}>
+            <CustomInput
+              placeholder='Qual gênero você se identifica?'
+              size={18}
+              lenght={1000}
+              marginTop={0}
+              type={FontAwesome}
+              showSoftInputOnFocus={false}
+              onFocus={() => {
+                setShowOptions(!showOptions);
+                setGenderState('');
+              }}
+              onBlur={() => {
+                if (genderState !== '') {
+                  setShowOptions(!showOptions)
+                }
+              }}
+              name={"genderless"}
+              error={errors["gender"]}
+              errorFontWeight={"bold"}
+              borderWidth={!errors.gender ? 1 : 3}
+              value={user.gender !== 'None' ? user.gender : 'Não me identifico com nenhum dos gêneros.'}
+            />
+
+            {
+              showOptions &&
+              <GenderOptions
+                showOptions={showOptions}
+                setShowOptions={setShowOptions}
+                setUser={setUser}
+                user={user}
+              />
+            }
+          </View>
 
           <CustomInput
             placeholder='Sua Data de Nascimento?'

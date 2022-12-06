@@ -32,6 +32,7 @@ const CustomInput = ({
   borderWidth = 1,
   editable = true,
   errorFontWeight = null,
+  marginTop = 12,
   ...rest
 }) => {
   const Icon = type || null;
@@ -43,7 +44,7 @@ const CustomInput = ({
         style={[
           styles.container,
           containerStyle,
-          { borderColor: borderColor, borderWidth: borderWidth },
+          { marginTop: marginTop, borderColor: borderColor, borderWidth: borderWidth },
         ]}>
         {uri ? (
           <Image source={{ uri }} style={styles.image} />
@@ -103,7 +104,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     paddingHorizontal: 8,
-    marginTop: 12,
     borderWidth: 1,
     borderRadius: 999,
     borderColor: "white",
