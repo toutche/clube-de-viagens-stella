@@ -11,7 +11,7 @@ import { consts } from "../../utils/consts";
 
 export default ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
-  const { cupom, cupomExists } = useFilter();
+  const { cupom, setCupom, cupomExists, setCupomExists } = useFilter();
   
   const [card, setCard] = useState({});
   const [check, setCheck] = useState(false);
@@ -41,6 +41,7 @@ export default ({ data, navigation }) => {
 
   const handlePress = () => {
     setLoading(true);
+    console.log(cupomExists)
     api
       .post("/transaction/plan/contracting",
         __DEV__ ? CARD_EXAMPLE
@@ -72,7 +73,11 @@ export default ({ data, navigation }) => {
         }
       })
       .catch(e => console.log("error", e.response.data))
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setLoading(false)
+        setCupomExists(null)
+        setCupom('')
+      })
   };
 
   return (

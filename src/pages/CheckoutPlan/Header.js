@@ -11,31 +11,29 @@ import { useFilter } from "../../contexts/filter";
 
 export default ({ navigation, data }) => {
   const { setCupomExists } = useFilter();
-
-  const backAction = () => {
-    Alert.alert("Espere!", 'Deseja realmente sair?', [
-      {
-        text: "Cancel",
-        onPress: () => null,
-        style: "cancel"
-      },
-      { text: "YES", onPress: () => {
-        navigation.navigate('MyPlan')
-        setCupomExists(false)
-      }}
-    ])
-    return true;
-  };
+  
+  function backAction() {
+  Alert.alert("Espera!", "Deseja realmente sair?", [
+    {
+      text: "Cancel",
+      onPress: () => null,
+      style: "cancel"
+    },
+    { text: "YES", onPress: () => {
+      navigation.goBack()
+      setCupomExists(null)
+    } }
+  ])}
 
   return (
     <View style={styles.container}>
       <CustomStatusBar />
 
+
       <CustomIcon
         size={26}
         onPress={() => {
-          setCupomExists(false)
-          backAction()
+          backAction();
         }}
         type={AntDesign}
         name={"arrowleft"}
@@ -48,7 +46,7 @@ export default ({ navigation, data }) => {
         <SubscribeNow amount={data?.amount} discount={data?.discount} />
       </View>
 
-      <InsertCupom backAction={backAction} data={data} navigation={navigation} />
+      <InsertCupom data={data} navigation={navigation} />
     </View>
   );
 };

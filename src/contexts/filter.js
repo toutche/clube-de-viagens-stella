@@ -13,7 +13,7 @@ export const FilterProvider = ({ children }) => {
   const [filterPeople, setFilterPeople] = useState();
   
   const [cupom, setCupom] = useState('');
-  const [cupomExists, setCupomExists] = useState(false);
+  const [cupomExists, setCupomExists] = useState(null);
 
   const [filterIdsCategory, setFilterIdsCategory] = useState(false);
   const [filterUpdate, setFilterUpdate] = useState(false);

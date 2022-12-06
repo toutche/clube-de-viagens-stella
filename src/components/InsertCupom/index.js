@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, BackHandler, Image, TextInput } from "react-native";
 
 import api from "../../services/api";
 
 import CustomButton from "../CustomButton";
 
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, GREEN_COLOR, PRIMARY_COLOR, YELLOW_COLOR } from "../../utils/variables";
 
 import { useAuth } from "../../contexts/auth";
 import { useFilter } from '../../contexts/filter';
 import { Alert } from "react-native";
 
-const InsertCupom = ({ data, navigation, backAction }) => {
+const InsertCupom = ({ data, navigation }) => {
   const { user } = useAuth();
+  const [validCupom, setValidCupom] = useState(false);
   const { cupom, setCupom, cupomExists, setCupomExists } = useFilter();
 
   const handlePress = () => {
@@ -21,17 +22,38 @@ const InsertCupom = ({ data, navigation, backAction }) => {
       .get(`/promotions/check?cupom=${cupom}&plano=${data.id}`)
       .then(res => {
         setCupomExists(res.data.type)
+        if (!res.data.type) {
+          setTimeout(() => {
+            setValidCupom(true);
+          }, 2000);
+          setValidCupom(false);
+        }
       })
       .catch(e => console.log("error", e.response.data))
-      .finally(() => setCupom(''))
   };
 
-  BackHandler.addEventListener(
-    "hardwareBackPress",
-    backAction
-  )
-
   useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Espera!", "Deseja realmente sair?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "YES", onPress: () => {
+          navigation.goBack()
+          setCupomExists(null)
+        } }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
   }, []);
 
   return (
@@ -57,12 +79,15 @@ const InsertCupom = ({ data, navigation, backAction }) => {
         </View>
         <CustomButton
           containerStyle={[styles.button, {
-            backgroundColor: cupomExists? 'green' : "#ef091a"
+            backgroundColor: cupomExists ? 'green' : "#ef091a"
           }]}
           titleStyle={styles.textButton}
-          title={cupomExists
-            ? <AntDesign name="check" size={18} color="white" />
-            : "Aplicar"
+          title={
+            ( cupomExists === null ? "Aplicar" : (
+              cupomExists === true ? <AntDesign name="check" size={18} color="white" /> : (
+              !validCupom ? <Ionicons name="close" size={18} color="white" /> : 'Aplicar'
+              )
+            ))
           }
           onPress={handlePress}
         />
