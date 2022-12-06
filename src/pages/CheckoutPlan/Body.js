@@ -19,7 +19,7 @@ export default ({ data, navigation }) => {
     holder_cpf: "02660870004",
     validade_year: "23",
     validate_month: "08",
-    cvv: "123" ,
+    cvv: "123",
     saved_card: check
   }
 
@@ -37,19 +37,19 @@ export default ({ data, navigation }) => {
   const handlePress = () => {
     setLoading(true);
     api
-      .post("/transaction/plan/contracting", 
-      __DEV__ ? CARD_EXAMPLE
-      :
-      {
-        plan_id: data.id,
-        card_number: card.card_number,
-        holder_name: card.holder_name,
-        holder_cpf: card.holder_cpf,
-        validade_year: card.validade_year,
-        validate_month: card.validate_month,
-        cvv: card.cvv,
-        saved_card: check
-      })
+      .post("/transaction/plan/contracting",
+        __DEV__ ? CARD_EXAMPLE
+          :
+          {
+            plan_id: data.id,
+            card_number: card.card_number,
+            holder_name: card.holder_name,
+            holder_cpf: card.holder_cpf,
+            validade_year: card.validade_year,
+            validate_month: card.validate_month,
+            cvv: card.cvv,
+            saved_card: check
+          })
       .then(res => {
         console.log("sucess", res.data);
         if (res.data.type) {
@@ -59,7 +59,7 @@ export default ({ data, navigation }) => {
             merge: true,
           });
         } else {
-          Alert.alert("Dados inválidos", `Infelizmente não conseguimos concluir sua solicitação, tente novamente revisando os dados de compra.`,[
+          Alert.alert("Quase lá!", `Preencha os dados do seu cartão de crédito por completo para dar andamento a sua assinatura.`, [
             {
               text: "Voltar"
             }
