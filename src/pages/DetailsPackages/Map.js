@@ -48,7 +48,7 @@ const Map = ({ address, region, name, navigation }) => {
       `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
     );
   };
-  
+
   return (
     <View>
       <Text style={styles.text}>Localização</Text>
