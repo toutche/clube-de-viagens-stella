@@ -1,10 +1,13 @@
-import React from "react";
-import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { Image, Platform, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import AlertCovid from "../../components/AlertCovid";
-import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
+import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import Map from "./Map";
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 export default ({ item }) => {
+  const [currentIndex, setCurrentIndex] = useState(null);
   return (
     <View style={styles.container}>
       <View
@@ -184,13 +187,33 @@ export default ({ item }) => {
       {item.day_by_day.length > 0 && (
         <View style={styles.details}>
           {item.day_by_day.map((i, n) => (
-            <View key={n}>
-              <Text style={styles.subTitle}>Dia {i.day}</Text>
-              <Text style={styles.text}>{i.description}</Text>
-            </View>
+            <TouchableOpacity
+              key={n}
+              onPress={() => {
+                setCurrentIndex(i === currentIndex ? null : i);
+              }}
+              style={styles.cardContainer}
+              activeOpacity={30}>
+              <View style={[styles.card]}>
+                <View style={styles.headerCard}>
+                  <Text style={[styles.heading]}>Dia {i.day}</Text>
+                  <Entypo
+                    name={i === currentIndex ? "chevron-up" : "chevron-down"}
+                    size={20}
+                    color={PRIMARY_COLOR}
+                  />
+                </View>
+                {i === currentIndex && (
+                  <View style={styles.list}>
+                    <Text style={styles.body}>{i.description}</Text>
+                  </View>
+                )}
+              </View>
+            </TouchableOpacity>
           ))}
         </View>
       )}
+
       <Map name={item.subname} address={item.address} region={item.region} />
     </View>
   );
@@ -226,5 +249,28 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     marginTop: 2,
     color: "#777",
+  },
+  cardContainer: { flexGrow: 1, borderWidth: 0.5 },
+  card: { flexGrow: 1, alignItems: "center", justifyContent: "center" },
+  heading: {
+    padding: 10,
+    fontSize: 15,
+    fontWeight: "900",
+    textTransform: "uppercase",
+  },
+  body: {
+    fontSize: 14,
+    lineHeight: 20 * 1,
+    textAlign: "left",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    paddingBottom: 20,
+  },
+  headerCard: {
+    paddingHorizontal: 10,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
