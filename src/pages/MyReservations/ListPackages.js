@@ -15,8 +15,9 @@ const ListPackages = ({
     async function handlePress() {
         api.get('/pacote-viagem/minhas-reservas/${item.id}/voucher').then((res) => {
             setData(res.data)
+            Linking.openURL(res.data);
         })
-        Linking.openURL('https://www.seattleu.edu/media/college-of-science-and-engineering/files/departments/electricalandcomputerengineering/Fluke_45_ServiceManual3ec7.pdf')
+        // Linking.openURL('https://www.seattleu.edu/media/college-of-science-and-engineering/files/departments/electricalandcomputerengineering/Fluke_45_ServiceManual3ec7.pdf')
     }
 
     const renderHeader = () => (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Linking } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { BLUE_COLOR, GREEN_COLOR, PRIMARY_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { AntDesign, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
@@ -10,12 +10,20 @@ import InfoHotel from "../../components/InfoHotel";
 import api from "../../services/api";
 import ModalCancel from "../MyReservations/ModalCancel";
 
-const BodyDetailsContractedPackages = ({item}) => {
+const BodyDetailsContractedPackages = ({ item }) => {
   const [scheduling, setScheduling] = useState("")
   const [hotel, setHotel] = useState("")
   const [dayByDay, setDayByDay] = useState("")
   const [isVisible, setVisible] = useState(false)
   const [data, setData] = useState("")
+
+  async function handlePress() {
+    api.get('/pacote-viagem/minhas-reservas/${item.id}/voucher').then((res) => {
+      setData(res.data)
+      Linking.openURL(res.data)
+    })
+    // Linking.openURL('https://www.seattleu.edu/media/college-of-science-and-engineering/files/departments/electricalandcomputerengineering/Fluke_45_ServiceManual3ec7.pdf')
+  }
 
   useEffect(() => {
     (async () => {
@@ -30,6 +38,7 @@ const BodyDetailsContractedPackages = ({item}) => {
       }).catch(err => console.error(err));
     })()
   }, [])
+
   return (
     <View style={styles.container}>
       <CustomButton
@@ -44,49 +53,61 @@ const BodyDetailsContractedPackages = ({item}) => {
       />
 
       <CustomButton
+        onPress={() => handlePress()}
+        type={AntDesign}
+        name={'pdffile1'}
+        color={'white'}
+        size={25}
+        iconStyle={styles.iconButtonPdf}
+        containerStyle={styles.buttonPrintVoucher}
+        titleStyle={styles.textButtonTopPdf}
+        title={`Adquirir o voucher`}
+      />
+
+      <CustomButton
         onPress={() => { setVisible(!isVisible) }}
         type={AntDesign}
         name={"closecircleo"}
         color={PRIMARY_COLOR}
         size={25}
         iconStyle={styles.icon}
-        containerStyle={[styles.buttonBottom, item.requested && {borderColor: "#d1d1d1"}]}
+        containerStyle={[styles.buttonBottom, item.requested && { borderColor: "#d1d1d1" }]}
         titleStyle={styles.textButtonBottom}
         title={item.requested ? `Cancelamento solicitado` : `Realizar cancelamento`}
         disabled={item.requested}
       />
 
-      <View style={{flexDirection: "row", marginBottom: 16}}>
+      <View style={{ flexDirection: "row", marginBottom: 16 }}>
         {
-          data?.locator_hotel && 
+          data?.locator_hotel &&
           <>
             <FontAwesome5 name="hotel" size={20} color={BLUE_COLOR} />
-            <Text style={[styles.text, {marginLeft: 8, marginRight: 16}]}>{data?.locator_hotel}</Text>
+            <Text style={[styles.text, { marginLeft: 8, marginRight: 16 }]}>{data?.locator_hotel}</Text>
           </>
         }
         {
-          data?.locator_aereo && 
+          data?.locator_aereo &&
           <>
             <FontAwesome5 name="plane" size={20} color={BLUE_COLOR} />
-            <Text style={[styles.text, {marginLeft: 8, marginRight: 16}]}>{data?.locator_aereo}</Text>
+            <Text style={[styles.text, { marginLeft: 8, marginRight: 16 }]}>{data?.locator_aereo}</Text>
           </>
         }
         {
-          data?.locator_service && 
+          data?.locator_service &&
           <>
             <MaterialIcons name="room-service" size={20} color={BLUE_COLOR} />
-            <Text style={[styles.text, {marginLeft: 8, marginRight: 16}]}>{data?.locator_service}</Text>
+            <Text style={[styles.text, { marginLeft: 8, marginRight: 16 }]}>{data?.locator_service}</Text>
           </>
         }
       </View>
 
-      <ModalCancel isVisible={isVisible} onClose={() => setVisible(!isVisible)} item={item}/>
+      <ModalCancel isVisible={isVisible} onClose={() => setVisible(!isVisible)} item={item} />
 
-      <TravelCard display={1} data={item}/>
+      <TravelCard display={1} data={item} />
 
-      <Travel data={scheduling}/>
+      <Travel data={scheduling} />
 
-      <InfoHotel data={hotel} display={2}/>
+      <InfoHotel data={hotel} display={2} />
 
       {/* <CustomButton
         left
@@ -100,7 +121,7 @@ const BodyDetailsContractedPackages = ({item}) => {
       /> */}
 
       <AlertCovid containerStyle={styles.covid} />
-      
+
       {dayByDay.length > 0 && (
         <View style={styles.details}>
 
@@ -238,7 +259,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
     fontSize: 15.5,
-    marginBottom:15
+    marginBottom: 15
   },
   subTitle: {
     fontFamily: FONT_DEFAULT_STYLE,
@@ -250,6 +271,24 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     marginTop: 2,
     color: "#777",
+  },
+  iconButtonPdf: {
+    position: 'absolute',
+    left: 10
+  },
+  buttonPrintVoucher: {
+    backgroundColor: PRIMARY_COLOR,
+    borderRadius: 100,
+    height: 45,
+    marginBottom: 10,
+    width: '95%',
+    alignSelf: 'center',
+    justifyContent: 'center'
+  },
+  textButtonTopPdf: {
+    fontSize: 14.5,
+    color: 'white',
+    textAlign: 'center'
   },
 });
 
