@@ -8,9 +8,9 @@
     <true/>
     <key>EXUpdatesLaunchWaitMs</key>
     <integer>0</integer>
-    <key>EXUpdatesSDKVersion</key>
-    <string>46.0.0</string>
     <key>EXUpdatesURL</key>
-    <string>https://exp.host/@igormello/clube-de-viagens-stellaa</string>
+    <string>https://u.expo.dev/69a151d6-be89-473a-b0ae-d1f554bef6a2</string>
+    <key>EXUpdatesRuntimeVersion</key>
+    <string>sdkVersion</string>
   </dict>
 </plist>
