@@ -149,7 +149,10 @@ export const FilterProvider = ({ children }) => {
         cupom,
         setCupom,
         cupomExists,
-        setCupomExists
+        setCupomExists,
+        numberNotifications, setNumberNotifications,
+        isVisibleMenu, setVisibleMenu,
+        autoScroll, setAutoScroll,
       }}>
       {children}
     </FilterContext.Provider>

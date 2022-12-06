@@ -49,9 +49,7 @@ const Map = ({ address, region, name, navigation }) => {
     );
   };
   
-  // console.log(location !== null && location[0]);
-  console.log(location);
-      return (
+  return (
     <View>
       <Text style={styles.text}>Localização</Text>
 
