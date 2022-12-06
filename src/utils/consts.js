@@ -1,8 +1,7 @@
 import { Platform } from "react-native";
 
 const consts = {
-  // URL: __DEV__ ? "https://dev-api.clubedeferias.com/api" : "https://api.clubedeferias.com/api",
-  URL: __DEV__ ? "http://10.0.0.51:8000/api" : "https://api.clubedeferias.com/api",
+  URL: "https://api.clubedeferias.com/api",
   TOKEN_KEY: "TokenCDF",
   google_key: "AIzaSyCaDURxB_iYNe-3NPJQau1CBU-GLGEdkwA",
 };
