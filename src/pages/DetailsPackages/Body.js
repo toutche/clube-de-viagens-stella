@@ -5,7 +5,6 @@ import { useAuth } from "../../contexts/auth";
 import { useFilter } from "../../contexts/filter";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 import Map from "./Map";
-import Banner from "../../components/Banner";
 import api from "../../services/api";
 import ListItem from "../../components/ListItem";
 
@@ -13,6 +12,8 @@ export default ({ item, display = 0, navigation }) => {
   const {
     user: { plan },
   } = useAuth();
+
+  // console.log(navigation);
 
   const { filterUpdate, setFilterCheck, orderPrice, segmentsIds } = useFilter();
   const total = useRef(null);
@@ -38,22 +39,13 @@ export default ({ item, display = 0, navigation }) => {
     if (loading) return;
 
     setLoading(true);
-    let ids;
-    for (let i = 0; i < segmentsIds.length; i++) {
-      if (ids) ids = ids + `,${segmentsIds[i]}`;
-      else ids = `&segments_ids=${segmentsIds[i]}`;
-    }
-
-    // let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}&order_price=${
-    //   ids ? orderPrice + ids : orderPrice
-    // }`;
 
     let idCategory = item.segments;
+
     let url = `/pacote-viagem/listar?per_page=10&page=1&segments_ids=${idCategory}`;
 
     const response = await api.get(url);
-    // console.log("to aqui = " + JSON.stringify(response));
-    console.log("pacote aqui =" + JSON.stringify(item.segments));
+    // console.log("pacote aqui =" + JSON.stringify(idCategory));
 
     const totalItems = response.data.data.pagination.total_registers;
     const data = response.data.data.packages;
@@ -65,10 +57,6 @@ export default ({ item, display = 0, navigation }) => {
 
     setLoading(false);
   };
-
-  const ListLoading = () => (
-    <ActivityIndicator style={{ marginVertical: 30 }} size={"large"} color={PRIMARY_COLOR} />
-  );
 
   return (
     <View style={styles.container}>
@@ -258,24 +246,34 @@ export default ({ item, display = 0, navigation }) => {
       )}
       <Map name={item.subname} address={item.address} region={item.region} />
 
-      <FlatList
-        data={feed}
-        keyExtractor={(item, index) => index.toString()}
-        onEndReachedThreshold={0.1}
-        onEndReached={() => loadPage()}
-        horizontal
-        contentContainerStyle={{
-          paddingTop: 20,
-          height: 500,
-        }}
-        ref={listRef}
-        showsHorizontalScrollIndicator={false}
-        keyboardShouldPersistTaps={"always"}
-        renderItem={({ item, index }) => (
-          <ListItem {...{ item, index, display, navigation, plan }} />
-        )}
-      />
-      <Banner />
+      <View>
+        <Text
+          style={{
+            marginLeft: 10,
+            marginTop: 10,
+            fontWeight: "bold",
+          }}>
+          Sugestões de viagens
+        </Text>
+        <FlatList
+          data={feed}
+          keyExtractor={(item, index) => index.toString()}
+          onEndReachedThreshold={0.1}
+          onEndReached={() => loadPage()}
+          horizontal
+          contentContainerStyle={{
+            paddingTop: 20,
+            height: 550,
+          }}
+          ref={listRef}
+          showsHorizontalScrollIndicator={false}
+          keyboardShouldPersistTaps={"always"}
+          renderItem={({ item, index }) => (
+            <ListItem {...{ item, index, display, navigation, plan }} />
+          )}
+        />
+      </View>
+      {/* <Banner /> */}
     </View>
   );
 };
