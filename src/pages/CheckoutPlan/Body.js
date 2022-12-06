@@ -7,7 +7,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
 import { useFilter } from "../../contexts/filter";
-import { consts } from "../../utils/consts";
 
 export default ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -41,7 +40,6 @@ export default ({ data, navigation }) => {
 
   const handlePress = () => {
     setLoading(true);
-    console.log(cupomExists)
     api
       .post("/transaction/plan/contracting",
         __DEV__ ? CARD_EXAMPLE
