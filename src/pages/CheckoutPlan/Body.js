@@ -6,21 +6,26 @@ import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
+import { useFilter } from "../../contexts/filter";
+import { consts } from "../../utils/consts";
 
 export default ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
+  const { cupom, cupomExists } = useFilter();
+  
   const [card, setCard] = useState({});
   const [check, setCheck] = useState(false);
 
   const CARD_EXAMPLE = {
     plan_id: data.id,
-    card_number: "4000000000000011",
+    card_number: "4000000000000010",
     holder_name: "Igor M. S.",
     holder_cpf: "02660870004",
     validade_year: "23",
     validate_month: "08",
-    cvv: "123",
-    saved_card: check
+    cvv: "123" ,
+    saved_card: check,
+    cupom: cupomExists ? cupom : null,
   }
 
   const onChange = ({ values }) => {
@@ -66,8 +71,8 @@ export default ({ data, navigation }) => {
           ])
         }
       })
-      .catch(e => console.log("error", e))
-      .finally(() => setLoading(false));
+      .catch(e => console.log("error", e.response.data))
+      .finally(() => setLoading(false))
   };
 
   return (

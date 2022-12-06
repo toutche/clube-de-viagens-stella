@@ -1,26 +1,63 @@
 import React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
-import { useAuth } from "../../contexts/auth";
-import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
+import { View, StyleSheet, Image, TextInput } from "react-native";
+
+import api from "../../services/api";
+
 import CustomButton from "../CustomButton";
+
+import { AntDesign } from '@expo/vector-icons';
+import { FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE, GREEN_COLOR, PRIMARY_COLOR, YELLOW_COLOR } from "../../utils/variables";
+
+import { useAuth } from "../../contexts/auth";
+import { useFilter } from '../../contexts/filter';
 
 const InsertCupom = () => {
   const { user } = useAuth();
+  const { cupom, setCupom, cupomExists, setCupomExists } = useFilter();
+
+  const handlePress = () => {
+    api
+      .get(`/promotions/check?cupom=${cupom}`)
+      .then(res => {
+        setCupomExists(res.data.message)
+        console.log(res.data.message)
+      })
+      .catch(e => console.log("error", e.response.data))
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Image
-          source={{ uri: user.images["sale-discount"] }}
-          style={{ width: 22, height: undefined, aspectRatio: 0.8, marginLeft: 8 }}
+    <View style={styles.externalContainer}>
+      <View style={[styles.container, {
+        backgroundColor: 'white',
+      }]}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Image
+            source={{ uri: user.images["sale-discount"] }}
+            style={{ width: 22, height: undefined, aspectRatio: 0.8, marginLeft: 8 }}
+          />
+          <TextInput
+            placeholder="Digite seu cupom"
+            onChangeText={(text) => setCupom(text)}
+            placeholderTextColor={'rgba(0, 0, 0, 0.5)'}
+            autoCapitalize='characters'
+            value={cupom}
+            style={[styles.inputCupom, {
+              color: 'black'
+            }]}
+          />
+        </View>
+        <CustomButton
+          containerStyle={[styles.button, {
+            backgroundColor: cupomExists ? 'green' : "#ef091a"
+          }]}
+          titleStyle={styles.textButton}
+          title={cupomExists
+            ? <AntDesign name="check" size={18} color="white" />
+            : "Aplicar"
+          }
+          onPress={handlePress}
         />
-        <Text style={styles.text}>Insira seu cupom (opcional)</Text>
       </View>
-      <CustomButton
-        containerStyle={styles.button}
-        titleStyle={styles.textButton}
-        title={"Aplicar"}
-      />
     </View>
   );
 };
@@ -35,10 +72,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 10,
     marginBottom: 20,
-    backgroundColor: "#ef091a",
     borderWidth: 1,
     borderRadius: 100,
-    elevation: 5,
+    elevation: 3,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
@@ -53,7 +89,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: 13.5,
-    color: "#e8bc0d",
+    color: "white",
     fontFamily: FONT_DEFAULT_BOLD_STYLE,
   },
   button: {
@@ -62,7 +98,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#ef091a",
     borderWidth: 1,
     borderRadius: 100,
     elevation: 5,
@@ -71,6 +106,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     borderColor: "rgba(0,0,0,0.01)",
+    width: 80,
+  },inputCupom: {
+    color: 'white',
+    fontWeight: '700',
+    width: 220,
+    marginHorizontal: 10,
   },
 });
 

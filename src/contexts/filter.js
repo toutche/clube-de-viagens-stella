@@ -11,6 +11,9 @@ export const FilterProvider = ({ children }) => {
   const [filterYear, setFilterYear] = useState();
   const [filterCheck, setFilterCheck] = useState();
   const [filterPeople, setFilterPeople] = useState();
+  
+  const [cupom, setCupom] = useState('');
+  const [cupomExists, setCupomExists] = useState(false);
 
   const [filterIdsCategory, setFilterIdsCategory] = useState(false);
   const [filterUpdate, setFilterUpdate] = useState(false);
@@ -143,6 +146,10 @@ export const FilterProvider = ({ children }) => {
         numberNotifications, setNumberNotifications,
         isVisibleMenu, setVisibleMenu,
         autoScroll, setAutoScroll,
+        cupom,
+        setCupom,
+        cupomExists,
+        setCupomExists
       }}>
       {children}
     </FilterContext.Provider>
