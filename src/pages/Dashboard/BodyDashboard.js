@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
     height: 55,
     margin: 10,
     justifyContent: 'center',
-    opacity: 0.55,
+    opacity: 0.45,
     position: 'absolute',
     right: 0,
     width: 55,
