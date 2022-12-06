@@ -15,6 +15,7 @@ import Hide from "../Hide";
 import { useCheckout } from "../../contexts/checkout";
 import { useFilter } from "../../contexts/filter";
 import promo from '../../../assets/promo.png';
+import promoCopa from '../../../assets/promoCopa.jpeg';
 
 const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
   const [loading, setLoading] = useState(true)
