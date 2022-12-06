@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, ScrollView, Text, Image, Alert, Platform, View } from "react-native";
 import CustomInput from "../../../components/CustomInput";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import Style from "./style";
 import Copyright from "../../../components/Copyright";
@@ -251,7 +251,7 @@ export default ({ navigation }) => {
               size={18}
               lenght={1000}
               marginTop={0}
-              type={FontAwesome}
+              type={user.gender === 'M' || user.gender === 'F' ? MaterialCommunityIcons : FontAwesome}
               showSoftInputOnFocus={false}
               onFocus={() => {
                 setShowOptions(!showOptions);
@@ -262,11 +262,16 @@ export default ({ navigation }) => {
                   setShowOptions(!showOptions)
                 }
               }}
-              name={"genderless"}
+              name={user.gender === 'M' ? "gender-male"
+                : user.gender === 'F' ? "gender-female" : 'genderless'}
               error={errors["gender"]}
               errorFontWeight={"bold"}
               borderWidth={!errors.gender ? 1 : 3}
-              value={user.gender !== 'None' ? user.gender : 'Não me identifico com nenhum dos gêneros.'}
+              value={
+                user.gender === 'M' ? 'Masculino'
+                  : user.gender === 'F' ? 'Feminino'
+                    : user.gender === 'None' ? 'Não me identifico com nenhum dos gêneros.'
+                      : ''}
             />
 
             {
