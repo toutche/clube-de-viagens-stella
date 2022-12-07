@@ -1,5 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, FlatList, Image, Platform, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  BackHandler,
+} from "react-native";
 import AlertCovid from "../../components/AlertCovid";
 import { useAuth } from "../../contexts/auth";
 import { useFilter } from "../../contexts/filter";
@@ -13,8 +22,6 @@ export default ({ item, display = 0, navigation }) => {
     user: { plan },
   } = useAuth();
 
-  // console.log(navigation);
-
   const { filterUpdate, setFilterCheck, orderPrice, segmentsIds } = useFilter();
   const total = useRef(null);
   const page = useRef(1);
@@ -26,6 +33,8 @@ export default ({ item, display = 0, navigation }) => {
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
 
   useEffect(() => {
+    BackHandler.addEventListener("backPress", () => true);
+    BackHandler.removeEventListener("backPress", () => true);
     loadPage();
   }, []);
 
@@ -41,11 +50,11 @@ export default ({ item, display = 0, navigation }) => {
     setLoading(true);
 
     let idCategory = item.segments;
-
     let url = `/pacote-viagem/listar?per_page=10&page=1&segments_ids=${idCategory}`;
 
+    // let url = `/pacote-viagem/listar?per_page=10&page=${pageNumber}`;
+
     const response = await api.get(url);
-    // console.log("pacote aqui =" + JSON.stringify(idCategory));
 
     const totalItems = response.data.data.pagination.total_registers;
     const data = response.data.data.packages;
@@ -249,8 +258,8 @@ export default ({ item, display = 0, navigation }) => {
       <View>
         <Text
           style={{
-            marginLeft: 10,
-            marginTop: 10,
+            marginLeft: 20,
+            marginTop: 20,
             fontWeight: "bold",
           }}>
           Sugestões de viagens
@@ -273,7 +282,6 @@ export default ({ item, display = 0, navigation }) => {
           )}
         />
       </View>
-      {/* <Banner /> */}
     </View>
   );
 };
