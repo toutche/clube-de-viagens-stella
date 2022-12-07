@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
                 : (initialRoute.current = "Preferences");
           });
       })
-      .catch(e => console.log("me", e));
+      .catch(e => console.log("me", e.response.data));
   };
 
   const updateUser = (update, navigation) => {

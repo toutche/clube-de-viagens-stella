@@ -33,7 +33,7 @@ export default ({ data = [], navigation }) => {
           </View>
           <Text style={styles.text}>
             <Text style={styles.bold}>Garanta agora</Text> o seu lugar na{" "}
-            <Text style={styles.bold}>Copa do Mundo de 2026</Text>.
+            <Text style={styles.bold}>Copa 2026</Text>.
           </Text>
         </View>
 
@@ -42,7 +42,7 @@ export default ({ data = [], navigation }) => {
             <Image style={styles.image} source={Icon} />
           </View>
           <Text style={styles.text}>
-            <Text style={styles.bold}>Prioridade de compra</Text> nos pacotes da Copa do Mundo 2026.
+            <Text style={styles.bold}>Prioridade de compra</Text> nos pacotes da Copa 2026.
           </Text>
         </View>
 

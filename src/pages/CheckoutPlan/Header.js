@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Alert } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";
@@ -7,15 +7,26 @@ import CustomStatusBar from "../../components/CustomStatusBar";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import InsertCupom from "../../components/InsertCupom";
 import SubscribeNow from "./SubscribeNow";
+import { useFilter } from "../../contexts/filter";
 
 export default ({ navigation, data }) => {
+  const { setCupomExists } = useFilter();
+  
+  function backAction() {
+    navigation.goBack()
+    setCupomExists(null)
+  }
+
   return (
     <View style={styles.container}>
       <CustomStatusBar />
 
+
       <CustomIcon
         size={26}
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          backAction();
+        }}
         type={AntDesign}
         name={"arrowleft"}
         containerStyle={styles.iconLeft}
@@ -27,7 +38,7 @@ export default ({ navigation, data }) => {
         <SubscribeNow amount={data?.amount} discount={data?.discount} />
       </View>
 
-      <InsertCupom />
+      <InsertCupom data={data} navigation={navigation} />
     </View>
   );
 };

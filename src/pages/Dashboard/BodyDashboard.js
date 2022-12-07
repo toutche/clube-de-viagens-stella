@@ -1,5 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, FlatList, StyleSheet, Text, ActivityIndicator, Linking, Alert, TouchableOpacity } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  Linking,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
 import { CONTENT_OFFSET_THRESHOLD, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
@@ -12,7 +21,7 @@ import CustomIcon from "../../components/CustomIcon";
 import { FontAwesome } from "@expo/vector-icons";
 import Calendar from "../../components/Calendar";
 import { formatDateToBRL } from "../../utils";
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from "@expo/vector-icons";
 
 const BodyDashboard = ({
   display = 0,
@@ -48,7 +57,7 @@ const BodyDashboard = ({
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
-  
+
   useEffect(() => {
     loadPage();
   }, []);
@@ -280,27 +289,42 @@ const BodyDashboard = ({
     <ActivityIndicator style={{ marginVertical: 30 }} size={"large"} color={PRIMARY_COLOR} />
   );
 
-  const openWhatsapp = async () => {
-    const url = `https://wa.me/5521993184756`;
+  async function openWhatsapp() {
+    const response = await api.get("/links");
+    const link = response.data.whatsapp;
 
-    const result = await Linking.canOpenURL(url);
+    const result = await Linking.canOpenURL(link);
+    if (result) await Linking.openURL(link);
+    else
+      Alert.alert("Aviso!", "Entre em contato pelo nosso email.", [
+        {
+          text: "Entre em Contato",
+          onPress: () => navigation.navigate("Contact"),
+        },
+      ]);
+  }
 
-    if (result) await Linking.openURL(url);
-    else Alert.alert("Aviso", "Confira se o Whatsapp está instalado no dispositivo");
-  };
+  // const openWhatsapp = async () => {
+  //   // const url = `https://wa.me/5521993184756`;
+  //   // let rotaLink = `/links`;
+  //   // const response = await api.post(rotaLink);
+  //   // console.log(response);
+  //   // const result = await Linking.canOpenURL(url);
+  //   // if (result) await Linking.openURL(url);
+  //   // else Alert.alert("Aviso", "Confira se o Whatsapp está instalado no dispositivo");
+  // };
 
   return (
     <View style={styles.container}>
-      {
-        contentVerticalOffset > CONTENT_OFFSET_THRESHOLD &&
+      {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
         <TouchableOpacity
-        onPress={() => {
-          listRef.current.scrollToOffset({ offset: 0, animated: true });
-        }}  
-        style={ styles.scrollUpButton }>
-          <AntDesign name="arrowup" size={32} color={PRIMARY_COLOR} />
+          onPress={() => {
+            listRef.current.scrollToOffset({ offset: 0, animated: true });
+          }}
+          style={styles.scrollUpButton}>
+          <AntDesign name='arrowup' size={32} color={PRIMARY_COLOR} />
         </TouchableOpacity>
-      }
+      )}
       <FlatList
         data={feed}
         ListHeaderComponent={display === 1 ? ListHeaderItemHotels : ListHeaderItemPackages}
@@ -397,19 +421,19 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   scrollUpButton: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    alignItems: "center",
+    backgroundColor: "#fff",
     borderRadius: 50,
     bottom: 65,
     height: 55,
     margin: 10,
-    justifyContent: 'center',
+    justifyContent: "center",
     opacity: 0.55,
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     width: 55,
     zIndex: 1,
-  }
+  },
 });
 
 export default BodyDashboard;

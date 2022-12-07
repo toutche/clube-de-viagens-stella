@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, ScrollView, Platform, KeyboardAvoidingView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, ScrollView, Platform, KeyboardAvoidingView, Alert } from "react-native";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import { CreditCardInput } from "../../components/CreditInput";
 import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
+import { useFilter } from "../../contexts/filter";
 
 export default ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
+  const { cupom, setCupom, cupomExists, setCupomExists } = useFilter();
+  
   const [card, setCard] = useState({});
   const [check, setCheck] = useState(false);
 
@@ -20,7 +23,8 @@ export default ({ data, navigation }) => {
     validade_year: "23",
     validate_month: "08",
     cvv: "123" ,
-    saved_card: check
+    saved_card: check,
+    cupom: cupomExists ? cupom : null,
   }
 
   const onChange = ({ values }) => {
@@ -37,28 +41,41 @@ export default ({ data, navigation }) => {
   const handlePress = () => {
     setLoading(true);
     api
-      .post("/transaction/plan/contracting", 
-      __DEV__ ? CARD_EXAMPLE
-      : {
-        plan_id: data.id,
-        card_number: card.card_number,
-        holder_name: card.holder_name,
-        holder_cpf: card.holder_cpf,
-        validade_year: card.validade_year,
-        validate_month: card.validate_month,
-        cvv: card.cvv,
-        saved_card: check
-      })
+      .post("/transaction/plan/contracting",
+        __DEV__ ? CARD_EXAMPLE
+          :
+          {
+            plan_id: data.id,
+            card_number: card.card_number,
+            holder_name: card.holder_name,
+            holder_cpf: card.holder_cpf,
+            validade_year: card.validade_year,
+            validate_month: card.validate_month,
+            cvv: card.cvv,
+            saved_card: check
+          })
       .then(res => {
         console.log("sucess", res.data);
-        navigation.navigate({
-          name: "CongratulationPlan",
-          params: { ...res.data },
-          merge: true,
-        });
+        if (res.data.type) {
+          navigation.navigate({
+            name: "CongratulationPlan",
+            params: { ...res.data },
+            merge: true,
+          });
+        } else {
+          Alert.alert("Quase lá!", `Preencha os dados do seu cartão de crédito por completo para dar andamento a sua assinatura.`, [
+            {
+              text: "Voltar"
+            }
+          ])
+        }
       })
-      .catch(e => console.log("error", e))
-      .finally(() => setLoading(false));
+      .catch(e => console.log("error", e.response.data))
+      .finally(() => {
+        setLoading(false)
+        setCupomExists(null)
+        setCupom('')
+      })
   };
 
   return (

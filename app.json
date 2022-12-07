@@ -3,7 +3,7 @@
     "name": "Clube de Férias",
     "slug": "clube-de-viagens-stellaa",
     "scheme": "cdf",
-    "version": "2.0.13",
+    "version": "2.0.16",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/logoW.png",
@@ -60,7 +60,7 @@
     },
     "android": {
       "package": "com.stellabarros.clubedeferias",
-      "versionCode": 14,
+      "versionCode": 16,
       "googleServicesFile": "./google-services-android.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-clubedeferias.png",
@@ -99,13 +99,13 @@
       }
     },
     "description": "",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
     "extra": {
       "eas": {
         "projectId": "69a151d6-be89-473a-b0ae-d1f554bef6a2"
       }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
     }
   }
 }
