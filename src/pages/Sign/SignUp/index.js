@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, ScrollView, Text, Image, Alert, Platform, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  Text,
+  Image,
+  Alert,
+  Platform,
+  View,
+  Modal,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import CustomInput from "../../../components/CustomInput";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -12,7 +23,7 @@ import { maskPhone, maskDocument, maskDate } from "../../../utils/masks";
 import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
-import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../../utils/variables";
 import { useAuth } from "../../../contexts/auth";
 
 const titlePage = "É novo por aqui? Cadastre-se";
@@ -21,6 +32,8 @@ export default ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
   const [previewPassword, setPreviewPassword] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [confirmNumber, setConfirmNumber] = useState(false);
 
   const { setUser: contextSetUser } = useAuth();
 
@@ -95,6 +108,11 @@ export default ({ navigation }) => {
     }
   };
 
+  function handleConfirmNumber() {
+    setConfirmNumber(true);
+    setModalVisible(false);
+  }
+
   const handlerPress = () => {
     if (!check) {
       Alert.alert(
@@ -136,6 +154,12 @@ export default ({ navigation }) => {
     body.append("accept_terms", "Y");
     body.append("accept_privacy", "Y");
     body.append("image", imageObject);
+
+    if (!confirmNumber) {
+      setModalVisible(true);
+      setLoading(false);
+      return;
+    }
 
     const { data } = await api
       .post("/cadastrar", body, {
@@ -377,6 +401,109 @@ export default ({ navigation }) => {
 
         <Copyright display={1} />
       </ScrollView>
+      <Modal
+        animationType='slide'
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            {user.phone_number ? (
+              <>
+                <Text style={styles.modalText}>Olá tudo bem ?</Text>
+                <Text style={styles.modalText}>
+                  Precisamos que confirme o seu numero de celular, ele será necessario para a
+                  validação da sua conta.
+                </Text>
+
+                <Text
+                  style={
+                    styles.modalText
+                  }>{`Seu numero é ${user.phone_number} está correto?`}</Text>
+                <View style={styles.btnContainer}>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <Text style={styles.textStyle}>Editar</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={handleConfirmNumber}>
+                    <Text style={styles.textStyle}>Confirmar</Text>
+                  </Pressable>
+                </View>
+              </>
+            ) : (
+              <>
+                <Text style={styles.modalText}>Olá tudo bem ?</Text>
+                <Text style={styles.modalText}>
+                  É muito importante que nos diga seu numero de telefone para validar o cadastro
+                </Text>
+
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <Text style={styles.textStyle}>Ok</Text>
+                </Pressable>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 5,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: PRIMARY_COLOR,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  btnContainer: {
+    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: 250,
+  },
+});
