@@ -109,7 +109,7 @@ const RenderSlides = ({
                 marginVertical: -7,
               }}
               checkedIcon={
-                <MaterialCommunityIcons name='check-box-outline' size={28} color={"#287dfd"} />
+                <MaterialCommunityIcons name='checkbox-outline' size={28} color={"#287dfd"} />
               }
               uncheckedIcon={
                 <MaterialCommunityIcons name='checkbox-blank-outline' size={28} color='#c9c9c9' />
