@@ -8,10 +8,11 @@ import Travelers from "./Travelers";
 import TravelCard from "../../components/TravelCard";
 import CustomButton from "../../components/CustomButton";
 import { useCheckout } from "../../contexts/checkout";
+import { useFilter } from "../../contexts/filter";
 
 const Scheduling = ({ navigation, route }) => {
   const { getScheduling, data, travelers } = useCheckout();
-  const [children, setChildren] = useState([]);
+  const {childrens, setChildrens} = useFilter();
 
   const id = route.params.item.id;
 
@@ -34,7 +35,7 @@ const Scheduling = ({ navigation, route }) => {
         <Travel {...{ data, display: data.hour_voo ? 0 : 1 }} />
 
         <TravelCard display={3} {...{ data }} value_observation={true} />
-        <Travelers children={children} setChildren={setChildren} {...{ data }} onPress={() => navigation.navigate("NewsTravelers")} />
+        <Travelers children={childrens} setChildren={setChildrens} {...{ data }} onPress={() => navigation.navigate("NewsTravelers")} />
         <CustomButton
           disabled={travelers.length === data.qtd_pax ? false : true}
           disabledMessage='Para continuar, nomeie os viajantes'

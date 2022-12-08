@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, ButtonTitle, Container, StyledInput, Title, ErrorLine } from "./style";
 
 import { maskDate } from "../../utils/masks";
+import { Alert } from 'react-native';
 
 const schema = yup.object({
   name: yup.string().required('Necessário preencher o nome.').min(3, 'Deve ter pelo menos 3 caracteres.'),
@@ -20,7 +21,20 @@ export function RegisterChildren({ title, children, setChildren }) {
   function onSubmit(data) {
     if (!children.some((element) => element.cpf === data.cpf)) {
       setChildren((prev) => [...prev, data]);
+    } else {
+      Alert.alert(
+        "Criança ja cadastrada.",
+        "Mude os dados para cadastrar uma criança.",
+        [
+          {
+            text: "Voltar",
+            style: "cancel"
+          },
+        ]
+      );
     }
+
+    console.log(children);
   }
 
   return (

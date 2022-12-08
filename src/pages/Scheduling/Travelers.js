@@ -13,8 +13,6 @@ const Travelers = ({ children, setChildren, onPress, users = [] }) => {
   const [numberOfChildren, setNumberOfChildren] = useState(true);
   const [numberOfChildren2, setNumberOfChildren2] = useState(true);
 
-  console.log(children);
-
   return (
     <ScrollView>
       <View style={styles.container}>
