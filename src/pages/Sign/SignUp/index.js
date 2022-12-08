@@ -413,40 +413,41 @@ export default ({ navigation }) => {
           <View style={styles.modalView}>
             {user.phone_number ? (
               <>
-                <Text style={styles.modalText}>Olá tudo bem ?</Text>
+                <Text style={[styles.modalText, { fontSize: 20, fontWeight: "bold" }]}>
+                  Olá, tudo bem?
+                </Text>
+                <Text style={[styles.modalText, { fontSize: 15, fontWeight: "700" }]}>
+                  Bem-vindo ao Clube de Férias!{" "}
+                </Text>
                 <Text style={styles.modalText}>
-                  Precisamos que confirme o seu numero de celular, ele será necessario para a
-                  validação da sua conta.
+                  Para começar a escolher os seus destinos com descontos exclusivos, precisamos que
+                  confirme o número do seu celular. Ele será necessário para a validação da sua
+                  conta.
                 </Text>
 
                 <Text
                   style={
                     styles.modalText
-                  }>{`Seu numero é ${user.phone_number} está correto?`}</Text>
+                  }>{`O seu numero é ${user.phone_number}, está correto?`}</Text>
                 <View style={styles.btnContainer}>
-                  <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => setModalVisible(!modalVisible)}>
+                  <Pressable style={[styles.button]} onPress={() => setModalVisible(!modalVisible)}>
                     <Text style={styles.textStyle}>Editar</Text>
                   </Pressable>
-                  <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={handleConfirmNumber}>
+                  <Pressable style={[styles.button]} onPress={handleConfirmNumber}>
                     <Text style={styles.textStyle}>Confirmar</Text>
                   </Pressable>
                 </View>
               </>
             ) : (
               <>
-                <Text style={styles.modalText}>Olá tudo bem ?</Text>
+                <Text style={[styles.modalText, { fontSize: 20, fontWeight: "bold" }]}>Opa!</Text>
                 <Text style={styles.modalText}>
-                  É muito importante que nos diga seu numero de telefone para validar o cadastro
+                  É muito importante que nos diga o número do seu celular para validar o seu
+                  cadastro.
                 </Text>
 
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={styles.textStyle}>Ok</Text>
+                <Pressable style={[styles.button]} onPress={() => setModalVisible(!modalVisible)}>
+                  <Text style={styles.textStyle}>OK</Text>
                 </Pressable>
               </>
             )}
@@ -480,15 +481,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
+    marginTop: 20,
+    width: 100,
+    backgroundColor: PRIMARY_COLOR,
     borderRadius: 5,
     padding: 10,
     elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: PRIMARY_COLOR,
   },
   textStyle: {
     color: "white",
