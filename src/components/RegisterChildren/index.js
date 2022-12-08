@@ -1,33 +1,25 @@
-import { useState } from "react";
-import { Alert } from "react-native";
+import {useForm, Controller} from 'react-hook-form'
+
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { Button, ButtonTitle, Container, StyledInput, Title, ErrorLine } from "./style";
+
 import { maskDate } from "../../utils/masks";
-import { Button, ButtonTitle, Container, StyledInput, Title } from "./style";
+
+const schema = yup.object({
+  name: yup.string().required('Necessário preencher o nome.').min(3, 'Deve ter pelo menos 3 caracteres.'),
+  last_name: yup.string().required('Necessário preencher o sobrenome.').min(3, 'Deve ter pelo menos 3 caracteres.'),
+  birth_date: yup.string().required('Necessário preencher a data de nascimento.'),
+  cpf: yup.string().required('Necessário preencher o cpf.').min(11, 'Deve ter 11 números o seu cpf.').max(11, 'Deve ter 11 números o seu cpf.'),
+}).required();
 
 export function RegisterChildren({ title, children, setChildren }) {
-
-  const [obj, setObj] = useState({
-    name: '',
-    last_name: '',
-    birth_date: '',
-    cpf: '',
-    passport: '',
-  });
-
-  function handleChildren() {
-    console.log(children);
-    if (!children.some((element) => element.cpf === obj.cpf)) {
-      setChildren([...children, obj])
-    } else {
-      Alert.alert(
-        "Criança já cadastrada",
-        "Altere os dados para cadastrar corretamente.",
-        [
-          {
-            text: "Cancel",
-            style: "cancel"
-          },
-        ]
-      );
+  const { control, handleSubmit, formState: {errors, isValid} } = useForm({mode: 'onBlur', resolver: yupResolver(schema)})
+  
+  function onSubmit(data) {
+    if (!children.some((element) => element.cpf === data.cpf)) {
+      setChildren((prev) => [...prev, data]);
     }
   }
 
@@ -35,43 +27,95 @@ export function RegisterChildren({ title, children, setChildren }) {
     <Container>
       <Title>{title}</Title>
 
-      <StyledInput
-        placeholder="Insira o nome *"
-        onChangeText={(text) => setObj({ ...obj, name: text })}
-        value={obj.name}
-        minlength={3}
+      <Controller        
+        control={control}        
+        name="name"        
+        render={({field: {onChange, value, onBlur}}) => (            
+          <StyledInput            
+            placeholder="Insira o nome *"         
+            value={value}            
+            onBlur={onBlur}            
+            onChangeText={value => onChange(value)}
+          />        
+        )}
       />
 
-      <StyledInput
-        placeholder="Insira o sobrenome *"
-        onChangeText={(text) => setObj({ ...obj, last_name: text })}
-        value={obj.last_name}
-        minlength={3}
+      {
+        errors.name?.message && <ErrorLine>{errors.name?.message}</ErrorLine>
+      }
+
+      <Controller        
+        control={control}        
+        name="last_name"        
+        render={({field: {onChange, value, onBlur}}) => (            
+          <StyledInput            
+            placeholder="Insira o sobrenome *"         
+            value={value}            
+            onBlur={onBlur}            
+            onChangeText={value => onChange(value)}          
+          />        
+        )}
       />
 
-      <StyledInput
-        placeholder="Data de nascimento *"
-        onChangeText={(text) => setObj({ ...obj, birth_date: maskDate(text) })}
-        value={obj.birth_date}
-        keyboardType={"numeric"}
+      {
+        errors.last_name?.message && <ErrorLine>{errors.last_name?.message}</ErrorLine>
+      }
+
+      <Controller        
+        control={control}        
+        name="birth_date"        
+        render={({field: {onChange, value, onBlur}}) => (            
+          <StyledInput            
+            placeholder="Data de nascimento *"        
+            value={value}            
+            onBlur={onBlur}            
+            onChangeText={value => onChange(maskDate(value))}          
+            keyboardType={"numeric"}
+          />        
+        )}
       />
 
-      <StyledInput
-        placeholder="CPF *"
-        onChangeText={(text) => setObj({ ...obj, cpf: text })}
-        value={obj.cpf}
-        maxLength={11}
+      {
+        errors.birth_date?.message && <ErrorLine>{errors.birth_date?.message}</ErrorLine>
+      }
+
+      <Controller        
+        control={control}        
+        name="cpf"        
+        render={({field: {onChange, value, onBlur}}) => (            
+          <StyledInput            
+            placeholder="CPF *"      
+            value={value}            
+            onBlur={onBlur}            
+            onChangeText={value => onChange((value))}          
+            maxLength={11}
+            keyboardType={"numeric"}
+        />        
+        )}
       />
 
-      <StyledInput
-        placeholder="Passaporte (Viagem Internacional) *"
-        onChangeText={(text) => setObj({ ...obj, passport: text })}
-        value={obj.passport}
+      {
+        errors.cpf?.message && <ErrorLine>{errors.cpf?.message}</ErrorLine>
+      }
+
+      <Controller        
+        control={control}        
+        name="passport"        
+        render={({field: {onChange, value, onBlur}}) => (            
+          <StyledInput            
+            placeholder="Passaporte (Viagem Internacional) *"      
+            value={value}            
+            onBlur={onBlur}            
+            onChangeText={value => onChange((value))}          
+            maxLength={11}
+        />        
+        )} 
       />
 
-      <Button onPress={() => handleChildren()}>
+      <Button onPress={handleSubmit(onSubmit)}>
         <ButtonTitle>Aplicar</ButtonTitle>
       </Button>
+
     </Container>
   )
 }

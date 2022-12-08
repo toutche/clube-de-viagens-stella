@@ -25,6 +25,15 @@ export const StyledInput = styled.TextInput`
   width: 100%;
 `
 
+export const ErrorLine = styled.Text`
+  color: red;
+
+  font-weight: bold;
+
+  margin-left: 10px;
+  margin-top: 5px;
+`
+
 export const Button = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;

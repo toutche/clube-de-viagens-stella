@@ -8,7 +8,9 @@ export function AddChildren({ numberOfChildren, setNumberOfChildren }) {
 
   return (
     <Container
-      onPress={() => (setNumberOfChildren(!numberOfChildren))} >
+      onPress={() => {
+        (setNumberOfChildren(!numberOfChildren))
+        }} >
       {
         numberOfChildren
           ? <AntDesign name="pluscircle" size={24} color={BLUE_COLOR} />
