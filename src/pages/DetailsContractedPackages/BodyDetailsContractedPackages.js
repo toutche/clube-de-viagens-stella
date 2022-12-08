@@ -18,9 +18,9 @@ const BodyDetailsContractedPackages = ({ item }) => {
   const [data, setData] = useState("")
 
   async function handlePress() {
-    api.get('/pacote-viagem/minhas-reservas/${item.id}/voucher').then((res) => {
-      setData(res.data)
-      Linking.openURL(res.data)
+    await api.get('/pacote-viagem/minhas-reservas/${item.id}/voucher').then((res) => {
+      setData(res.data);
+      Linking.openURL(res.data);
     })
     // Linking.openURL('https://www.seattleu.edu/media/college-of-science-and-engineering/files/departments/electricalandcomputerengineering/Fluke_45_ServiceManual3ec7.pdf')
   }
@@ -34,7 +34,8 @@ const BodyDetailsContractedPackages = ({ item }) => {
           service_description: res.data.service_description
         })
         setDayByDay(res.data.day_by_day)
-        setData(res.data)
+        setData(res.data.voucher)
+        console.log(res.data);
       }).catch(err => console.error(err));
     })()
   }, [])
@@ -62,6 +63,7 @@ const BodyDetailsContractedPackages = ({ item }) => {
         containerStyle={styles.buttonPrintVoucher}
         titleStyle={styles.textButtonTopPdf}
         title={`Adquirir o voucher`}
+        disabled={!item.voucher}
       />
 
       <CustomButton

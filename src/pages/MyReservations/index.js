@@ -15,7 +15,8 @@ export default ({ navigation }) => {
   const getReservations = () => {
     api.get('/pacote-viagem/minhas-reservas').then((res) => {
       // console.log(res.data);
-      setData(res.data)
+      setData(res.data);
+      // console.log(res.data);
     })
     // console.log('buscando pacotes');
   }

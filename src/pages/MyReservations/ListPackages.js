@@ -4,6 +4,7 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import CustomButton from '../../components/CustomButton';
 import { PRIMARY_COLOR, FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE } from '../../utils/variables';
 import * as Linking from 'expo-linking';
+import api from '../../services/api';
 
 const ListPackages = ({
     item,
@@ -11,9 +12,10 @@ const ListPackages = ({
     navigation,
     openModal
 }) => {
-
+    
     async function handlePress() {
-        api.get('/pacote-viagem/minhas-reservas/${item.id}/voucher').then((res) => {
+        // console.log('caua gay')
+        await api.get(`/pacote-viagem/minhas-reservas/${item.id}/get/voucher`).then((res) => {
             setData(res.data)
             Linking.openURL(res.data);
         })
@@ -63,7 +65,7 @@ const ListPackages = ({
                     navigation.navigate({
                         name: "DetailsContractedPackages",
                         params: {
-                            item
+                            item,
                         }
                     })
                 }}
@@ -87,6 +89,7 @@ const ListPackages = ({
                 containerStyle={styles.buttonPrintVoucher}
                 titleStyle={styles.textButtonTop}
                 title={`Adquirir o voucher`}
+                disabled={!item.voucher}
             />
 
             <CustomButton
@@ -99,7 +102,7 @@ const ListPackages = ({
                 containerStyle={[styles.buttonBottom, item.requested && { borderColor: "#d1d1d1" }]}
                 titleStyle={styles.textButtonBottom}
                 title={item.requested ? `Cancelamento solicitado` : `Realizar cancelamento`}
-                disabled={item.requested}
+                disabled={!item.requested}
             />
         </View>
     )
