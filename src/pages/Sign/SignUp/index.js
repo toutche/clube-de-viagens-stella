@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, ScrollView, Text, Image, Alert, Platform, View } from "react-native";
 import CustomInput from "../../../components/CustomInput";
-import { AntDesign, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import Style from "./style";
 import Copyright from "../../../components/Copyright";
@@ -14,19 +14,32 @@ import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
 import { useAuth } from "../../../contexts/auth";
-import { GenderOptions } from "../../../components/GenderOptions";
+import { DropDown } from "../../../components/DropDown";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
 export default ({ navigation }) => {
+  const [value, setValue] = useState("");
+  const [items, setItems] = useState([
+    {label: 'Masculino', value: 'M', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+    {label: 'Feminino', value: 'F', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+    {label: 'Não me identifico com nenhum dos gêneros', value: 'None', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+  ]);
+
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
   const [previewPassword, setPreviewPassword] = useState(false);
 
   const { setUser: contextSetUser } = useAuth();
-
-  const [showOptions, setShowOptions] = useState(false);
-  const [genderState, setGenderState] = useState('');
 
   const [user, setUser] = useState({
     name: "",
@@ -37,7 +50,7 @@ export default ({ navigation }) => {
     phone_number: "",
     password: "",
     image: null,
-    gender: "",
+    gender: value,
   });
 
   const [errors, setErros] = useState({
@@ -51,7 +64,9 @@ export default ({ navigation }) => {
     gender: "",
   });
 
-  console.log(user);
+  useEffect(() => {
+    console.log(user);
+  }, [user])
 
   const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
@@ -245,45 +260,18 @@ export default ({ navigation }) => {
             }
           />
 
-          <View style={Style.genderContainer}>
-            <CustomInput
-              placeholder='Qual gênero você se identifica?'
-              size={18}
-              lenght={1000}
-              marginTop={0}
-              type={user.gender === 'M' || user.gender === 'F' ? MaterialCommunityIcons : FontAwesome}
-              showSoftInputOnFocus={false}
-              onFocus={() => {
-                setShowOptions(!showOptions);
-                setGenderState('');
-              }}
-              onBlur={() => {
-                if (genderState !== '') {
-                  setShowOptions(!showOptions)
-                }
-              }}
-              name={user.gender === 'M' ? "gender-male"
-                : user.gender === 'F' ? "gender-female" : 'genderless'}
-              error={errors["gender"]}
-              errorFontWeight={"bold"}
-              borderWidth={!errors.gender ? 1 : 3}
-              value={
-                user.gender === 'M' ? 'Masculino'
-                  : user.gender === 'F' ? 'Feminino'
-                    : user.gender === 'None' ? 'Não me identifico com nenhum dos gêneros.'
-                      : ''}
-            />
-
-            {
-              showOptions &&
-              <GenderOptions
-                showOptions={showOptions}
-                setShowOptions={setShowOptions}
-                setUser={setUser}
-                user={user}
-              />
-            }
-          </View>
+          <DropDown
+            icon={FontAwesome}
+            iconName="genderless"
+            iconSize={24}
+            iconColor="white"
+            items={items}
+            setItems={setItems}
+            value={value}
+            setValue={setValue}
+            placeholder="Qual o seu gênero?"
+            showArrowIcon={false}
+          />
 
           <CustomInput
             placeholder='Sua Data de Nascimento?'
