@@ -19,8 +19,8 @@ import { DropDown } from "../../../components/DropDown";
 const titlePage = "É novo por aqui? Cadastre-se";
 
 export default ({ navigation }) => {
-  const [value, setValue] = useState("");
-  const [items, setItems] = useState([
+  const [selectedDropDownValue, setSelectedDropDownValue] = useState("");
+  const [dropDownItems, setDropDownItems] = useState([
     {label: 'Masculino', value: 'M', labelStyle: {
       fontFamily: FONT_DEFAULT_STYLE,
       fontSize: 14,
@@ -50,7 +50,7 @@ export default ({ navigation }) => {
     phone_number: "",
     password: "",
     image: null,
-    gender: value,
+    gender: "",
   });
 
   const [errors, setErros] = useState({
@@ -63,10 +63,6 @@ export default ({ navigation }) => {
     password: "",
     gender: "",
   });
-
-  useEffect(() => {
-    console.log(user);
-  }, [user])
 
   const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
@@ -155,7 +151,7 @@ export default ({ navigation }) => {
     body.append("password", user.password);
     body.append("password_confirmation", user.password);
     body.append("phone_number", user.phone_number);
-    body.append("gender", "M");
+    body.append("gender", user.gender);
     body.append("accept_terms", "Y");
     body.append("accept_privacy", "Y");
     body.append("image", imageObject);
@@ -203,6 +199,10 @@ export default ({ navigation }) => {
       },
     ]);
   };
+
+  useEffect(() => {
+    setUser({...user, gender: selectedDropDownValue});
+  }, [selectedDropDownValue])
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
@@ -265,10 +265,10 @@ export default ({ navigation }) => {
             iconName="genderless"
             iconSize={24}
             iconColor="white"
-            items={items}
-            setItems={setItems}
-            value={value}
-            setValue={setValue}
+            items={dropDownItems}
+            setItems={setDropDownItems}
+            value={selectedDropDownValue}
+            setValue={setSelectedDropDownValue}
             placeholder="Qual o seu gênero?"
             showArrowIcon={false}
           />
