@@ -44,8 +44,16 @@ const Map = ({ address, region, name, navigation }) => {
   }, []);
   
   const copyToClipboard = () => {
-    Clipboard.setString(
-      `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
+    Clipboard.setString( status !== 'granted' ? name : 
+      `${location.country && location.country}
+      ${location.region !== null && location.region !== 's/n' && location.region && ', '}
+      ${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}
+      ${location.country && ', '}
+      ${location.street && location.street}
+      ${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}
+      ${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}
+      ${location.subregion && location.subregion !== null ? ', ' : ''}
+      ${location.subregion !== null ? location.subregion : ''}`
     );
   };
 
@@ -65,8 +73,16 @@ const Map = ({ address, region, name, navigation }) => {
           <Text>
             <View style={{ flexDirection: 'row', width: 200 }}>
               <ClipboardToast
-                textToShow={(
-                  `${location.country && location.country}${location.region !== null && location.region !== 's/n' && location.region && ', '}${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}${location.country && ', '}${location.street && location.street}${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}${location.subregion && location.subregion !== null ? ', ' : ''}${location.subregion !== null ? location.subregion : ''}`
+                textToShow={status !== 'granted' ? name : (
+                  `${location.country && location.country}
+                  ${location.region !== null && location.region !== 's/n' && location.region && ', '}
+                  ${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}
+                  ${location.country && ', '}
+                  ${location.street && location.street}
+                  ${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}
+                  ${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}
+                  ${location.subregion && location.subregion !== null ? ', ' : ''}
+                  ${location.subregion !== null ? location.subregion : ''}`
                   )}
                 textToCopy={'Regular Text'}
                 toastText={'Endereço copiado!'}
