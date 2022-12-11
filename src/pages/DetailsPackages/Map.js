@@ -1,33 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, BackHandler, TouchableOpacity, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import CustomButton from "../../components/CustomButton";
-import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import { Entypo, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import * as Location from 'expo-location';
-import { Entypo, Feather } from '@expo/vector-icons'; 
 import { useFilter } from "../../contexts/filter";
-import { BackHandler } from "react-native";
 import ClipboardToast from 'react-native-clipboard-toast';
 
 const Map = ({ address, region, name, navigation }) => {
   const [location, setLocation] = useState([]);
+  const [dataLocation, setDataLocation] = useState({});
   const [isEnable, setIsEnable] = useState(false);
   const [status, setStatus] = useState('granted');
   const { autoScroll, setAutoScroll } = useFilter();
+
+  // async function getLocation() {
+  //   const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyBoSxkUBA4HtpFwIiD3tXv1JhnkU-MpX1E`);
+  //   const data = await response.json();
+  //   console.log(data);
+  //   setDataLocation(data);
+  // }
 
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       setStatus(status)
       if (status !== 'granted') {
-        setErrorMsg('Permissão de localização não foi concedida.');
+        console.log('Permissão de localização não foi concedida.');
         return;
       }
-      let address = await Location.reverseGeocodeAsync(region);
-      setLocation(address.length && address[0]);
+      let addresses = await Location.reverseGeocodeAsync(region);
+      setLocation(addresses.length && addresses[0]);
     })();
+    // getLocation();
   }, []);
 
   useEffect(() => {
