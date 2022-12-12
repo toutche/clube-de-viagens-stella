@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { Container, DropDownContainer, IconContainer } from "./style";
 
-export function DropDown({icon, iconName, iconSize, iconColor, showArrowIcon, value, setValue, items, setItems, placeholder = "Select"}) {
+export function DropDown({icon, iconName, iconSize, iconColor, showArrowIcon, value, setValue, items, setItems, placeholder = "Selecione"}) {
   const Icon = icon || null;
 
   const [open, setOpen] = useState(false);

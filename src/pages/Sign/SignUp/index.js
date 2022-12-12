@@ -29,7 +29,7 @@ export default ({ navigation }) => {
       fontFamily: FONT_DEFAULT_STYLE,
       fontSize: 14,
     }},
-    {label: 'Não me identifico com nenhum dos gêneros', value: 'None', labelStyle: {
+    {label: 'Não me identifico com nenhum dos gêneros', value: 'U', labelStyle: {
       fontFamily: FONT_DEFAULT_STYLE,
       fontSize: 14,
     }},
