@@ -41,16 +41,17 @@ export function RegisterChildren({ title, children, setChildren }) {
     <Container>
       <Title>{title}</Title>
 
-      <Controller        
-        control={control}        
-        name="name"        
-        render={({field: {onChange, value, onBlur}}) => (            
-          <StyledInput            
-            placeholder="Insira o nome *"         
-            value={value}            
-            onBlur={onBlur}            
+      <Controller
+        control={control}
+        name="name"
+        render={({field: {onChange, value, onBlur}}) => (
+          <StyledInput
+            placeholder="Insira o nome *"
+            placeholderTextColor='rgba(0, 0, 0, 0.7)'
+            value={value}
+            onBlur={onBlur}
             onChangeText={value => onChange(value)}
-          />        
+          />
         )}
       />
 
@@ -58,16 +59,17 @@ export function RegisterChildren({ title, children, setChildren }) {
         errors.name?.message && <ErrorLine>{errors.name?.message}</ErrorLine>
       }
 
-      <Controller        
-        control={control}        
-        name="last_name"        
-        render={({field: {onChange, value, onBlur}}) => (            
-          <StyledInput            
-            placeholder="Insira o sobrenome *"         
-            value={value}            
-            onBlur={onBlur}            
-            onChangeText={value => onChange(value)}          
-          />        
+      <Controller
+        control={control}
+        name="last_name"
+        render={({field: {onChange, value, onBlur}}) => (
+          <StyledInput
+            placeholder="Insira o sobrenome *"
+            placeholderTextColor='rgba(0, 0, 0, 0.65)'
+            value={value}
+            onBlur={onBlur}
+            onChangeText={value => onChange(value)}
+          />
         )}
       />
 
@@ -75,17 +77,18 @@ export function RegisterChildren({ title, children, setChildren }) {
         errors.last_name?.message && <ErrorLine>{errors.last_name?.message}</ErrorLine>
       }
 
-      <Controller        
-        control={control}        
-        name="birth_date"        
-        render={({field: {onChange, value, onBlur}}) => (            
-          <StyledInput            
-            placeholder="Data de nascimento *"        
-            value={value}            
-            onBlur={onBlur}            
-            onChangeText={value => onChange(maskDate(value))}          
+      <Controller
+        control={control}
+        name="birth_date"
+        render={({field: {onChange, value, onBlur}}) => (
+          <StyledInput
+            placeholder="Data de nascimento *"
+            placeholderTextColor='rgba(0, 0, 0, 0.65)'
+            value={value}
+            onBlur={onBlur}
+            onChangeText={value => onChange(maskDate(value))}
             keyboardType={"numeric"}
-          />        
+          />
         )}
       />
 
@@ -93,18 +96,19 @@ export function RegisterChildren({ title, children, setChildren }) {
         errors.birth_date?.message && <ErrorLine>{errors.birth_date?.message}</ErrorLine>
       }
 
-      <Controller        
-        control={control}        
-        name="cpf"        
-        render={({field: {onChange, value, onBlur}}) => (            
-          <StyledInput            
-            placeholder="CPF *"      
-            value={value}            
-            onBlur={onBlur}            
-            onChangeText={value => onChange((value))}          
+      <Controller
+        control={control}
+        name="cpf"
+        render={({field: {onChange, value, onBlur}}) => (
+          <StyledInput
+            placeholder="CPF *"
+            placeholderTextColor='rgba(0, 0, 0, 0.65)'
+            value={value}
+            onBlur={onBlur}
+            onChangeText={value => onChange((value))}
             maxLength={11}
             keyboardType={"numeric"}
-        />        
+        />
         )}
       />
 
@@ -112,14 +116,15 @@ export function RegisterChildren({ title, children, setChildren }) {
         errors.cpf?.message && <ErrorLine>{errors.cpf?.message}</ErrorLine>
       }
 
-      <Controller        
-        control={control}        
-        name="passport"        
-        render={({field: {onChange, value, onBlur}}) => (            
-          <StyledInput            
-            placeholder="Passaporte (Viagem Internacional) *"      
-            value={value}            
-            onBlur={onBlur}            
+      <Controller
+        control={control}
+        name="passport"
+        render={({field: {onChange, value, onBlur}}) => (
+          <StyledInput
+            placeholder="Passaporte (Viagem Internacional) *"
+            placeholderTextColor='rgba(0, 0, 0, 0.65)'
+            value={value}
+            onBlur={onBlur}
             onChangeText={value => onChange((value))}          
             maxLength={11}
         />        

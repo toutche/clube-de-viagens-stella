@@ -55,6 +55,7 @@ const Travelers = ({ children, setChildren, onPress, users = [] }) => {
         {
           numberOfChildren2 ? <View />
           : <RegisterChildren
+              placeHolderTextColor='rgba(0, 0, 0, 0.65)'
               children={children}
               setChildren={setChildren}
               title='Formulário Infantil'
