@@ -3,21 +3,22 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import CustomButton from '../../components/CustomButton';
 import { PRIMARY_COLOR, FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE } from '../../utils/variables';
-import * as Linking from 'expo-linking';
 import api from '../../services/api';
+import { getToken } from '../../services/auth';
 
 const ListPackages = ({
     item,
     index,
     navigation,
-    openModal
+    openModal,
+    pdfFile,
+    setPdfFile,
 }) => {
-    
+
+
     async function handlePress() {
-        // console.log('caua gay')
         await api.get(`/pacote-viagem/minhas-reservas/${item.id}/get/voucher`).then((res) => {
-            setData(res.data)
-            Linking.openURL(res.data);
+            setPdfFile(res.data);
         })
         // Linking.openURL('https://www.seattleu.edu/media/college-of-science-and-engineering/files/departments/electricalandcomputerengineering/Fluke_45_ServiceManual3ec7.pdf')
     }
@@ -54,7 +55,7 @@ const ListPackages = ({
             </View>
         </View>
     )
-
+    
     return (
         <View style={styles.container}>
             {renderHeader()}
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
         height: 45,
         width: '80%',
         alignSelf: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     textButtonBottom: {
         fontSize: 14.5,

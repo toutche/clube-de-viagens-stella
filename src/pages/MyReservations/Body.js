@@ -1,8 +1,11 @@
 import React from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import ListPackages from "./ListPackages";
+import { useFilter } from '../../contexts/filter';
 
 export default ({ itens = [{}, {}, {}], navigation, openModal }) => {
+  const {pdfFile, setPdfFile} = useFilter();
+
   const Separator = () => <View style={styles.separator} />;
 
   const EmptyList = () => <Text style={styles.text}>Ainda não há reservas ativas.</Text>
@@ -16,7 +19,7 @@ export default ({ itens = [{}, {}, {}], navigation, openModal }) => {
         keyExtractor={(item, index) => index.toString()}
         keyboardShouldPersistTaps={"always"}
         renderItem={({ item, index }) =>
-          ListPackages({ item, index, navigation, openModal })
+          ListPackages({ item, index, navigation, openModal, pdfFile, setPdfFile })
         }
         ListEmptyComponent={EmptyList}
       />

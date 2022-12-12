@@ -21,6 +21,8 @@ export const FilterProvider = ({ children }) => {
   const [numberNotifications, setNumberNotifications] = useState(false);
   const [autoScroll, setAutoScroll] = useState(false);
 
+  const [pdfFile, setPdfFile] = useState('');
+
   const toggleFilter = () => {
     setFilterIdsCategory(true);
     forceUpdateList();
@@ -143,6 +145,7 @@ export const FilterProvider = ({ children }) => {
         numberNotifications, setNumberNotifications,
         isVisibleMenu, setVisibleMenu,
         autoScroll, setAutoScroll,
+        pdfFile, setPdfFile,
       }}>
       {children}
     </FilterContext.Provider>
