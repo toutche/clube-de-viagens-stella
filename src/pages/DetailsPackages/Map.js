@@ -7,6 +7,7 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import * as Location from 'expo-location';
 import { useFilter } from "../../contexts/filter";
 import ClipboardToast from 'react-native-clipboard-toast';
+import { consts } from "../../utils/consts";
 
 const Map = ({ address, region, name, navigation }) => {
   const [location, setLocation] = useState([]);
@@ -16,7 +17,7 @@ const Map = ({ address, region, name, navigation }) => {
   const { autoScroll, setAutoScroll } = useFilter();
 
   // async function getLocation() {
-  //   const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyBoSxkUBA4HtpFwIiD3tXv1JhnkU-MpX1E`);
+  //   const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${region.latitude},${region.longitude}&key=${consts.google_key}`);
   //   const data = await response.json();
   //   console.log(data);
   //   setDataLocation(data);
@@ -34,6 +35,7 @@ const Map = ({ address, region, name, navigation }) => {
       setLocation(addresses.length && addresses[0]);
     })();
     // getLocation();
+    // console.log(region.latitude)
   }, []);
 
   useEffect(() => {
