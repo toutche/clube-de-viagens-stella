@@ -10,7 +10,6 @@ import {
   Platform,
   Alert,
   Modal,
-  Pressable,
   TextInput
 } from "react-native";
 
