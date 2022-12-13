@@ -25,10 +25,27 @@ import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../../utils/variables";
 import { useAuth } from "../../../contexts/auth";
+import { DropDown } from "../../../components/DropDown";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
 export default ({ navigation }) => {
+  const [selectedDropDownValue, setSelectedDropDownValue] = useState("");
+  const [dropDownItems, setDropDownItems] = useState([
+    {label: 'Masculino', value: 'M', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+    {label: 'Feminino', value: 'F', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+    {label: 'Não me identifico com nenhum dos gêneros', value: 'U', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+  ]);
+
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
   const [previewPassword, setPreviewPassword] = useState(false);
@@ -46,6 +63,7 @@ export default ({ navigation }) => {
     phone_number: "",
     password: "",
     image: null,
+    gender: "",
   });
 
   const [errors, setErros] = useState({
@@ -56,6 +74,7 @@ export default ({ navigation }) => {
     email: "",
     phone_number: "",
     password: "",
+    gender: "",
   });
 
   const hasMediaPermission = async option => {
@@ -150,7 +169,7 @@ export default ({ navigation }) => {
     body.append("password", user.password);
     body.append("password_confirmation", user.password);
     body.append("phone_number", user.phone_number);
-    body.append("gender", "M");
+    body.append("gender", user.gender);
     body.append("accept_terms", "Y");
     body.append("accept_privacy", "Y");
     body.append("image", imageObject);
@@ -204,6 +223,10 @@ export default ({ navigation }) => {
       },
     ]);
   };
+
+  useEffect(() => {
+    setUser({...user, gender: selectedDropDownValue});
+  }, [selectedDropDownValue])
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
@@ -259,6 +282,19 @@ export default ({ navigation }) => {
                 nickname: text,
               })
             }
+          />
+
+          <DropDown
+            icon={FontAwesome}
+            iconName="genderless"
+            iconSize={24}
+            iconColor="white"
+            items={dropDownItems}
+            setItems={setDropDownItems}
+            value={selectedDropDownValue}
+            setValue={setSelectedDropDownValue}
+            placeholder="Qual o seu gênero?"
+            showArrowIcon={false}
           />
 
           <CustomInput
