@@ -10,14 +10,14 @@ export function AddChildren({ numberOfChildren, setNumberOfChildren }) {
     <Container
       onPress={() => {
         (setNumberOfChildren(!numberOfChildren))
-        }} >
+      }} >
       {
         numberOfChildren
           ? <AntDesign name="pluscircle" size={24} color={BLUE_COLOR} />
           : <AntDesign name="minuscircle" size={24} color={BLUE_COLOR} />
       }
 
-      <Title>Adicionar Criança</Title>
+      <Title>Adicionar</Title>
     </Container>
   )
 }
