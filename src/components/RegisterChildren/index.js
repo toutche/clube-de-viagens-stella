@@ -1,4 +1,4 @@
-import {useForm, Controller} from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,8 +16,8 @@ const schema = yup.object({
 }).required();
 
 export function RegisterChildren({ title, children, setChildren }) {
-  const { control, handleSubmit, formState: {errors, isValid} } = useForm({mode: 'onBlur', resolver: yupResolver(schema)})
-  
+  const { control, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onBlur', resolver: yupResolver(schema) })
+
   function onSubmit(data) {
     if (!children.some((element) => element.cpf === data.cpf)) {
       setChildren((prev) => [...prev, data]);
@@ -34,7 +34,6 @@ export function RegisterChildren({ title, children, setChildren }) {
       );
     }
 
-    console.log(children);
   }
 
   return (
@@ -44,7 +43,7 @@ export function RegisterChildren({ title, children, setChildren }) {
       <Controller
         control={control}
         name="name"
-        render={({field: {onChange, value, onBlur}}) => (
+        render={({ field: { onChange, value, onBlur } }) => (
           <StyledInput
             placeholder="Insira o nome *"
             placeholderTextColor='rgba(0, 0, 0, 0.7)'
@@ -62,7 +61,7 @@ export function RegisterChildren({ title, children, setChildren }) {
       <Controller
         control={control}
         name="last_name"
-        render={({field: {onChange, value, onBlur}}) => (
+        render={({ field: { onChange, value, onBlur } }) => (
           <StyledInput
             placeholder="Insira o sobrenome *"
             placeholderTextColor='rgba(0, 0, 0, 0.65)'
@@ -80,7 +79,7 @@ export function RegisterChildren({ title, children, setChildren }) {
       <Controller
         control={control}
         name="birth_date"
-        render={({field: {onChange, value, onBlur}}) => (
+        render={({ field: { onChange, value, onBlur } }) => (
           <StyledInput
             placeholder="Data de nascimento *"
             placeholderTextColor='rgba(0, 0, 0, 0.65)'
@@ -99,7 +98,7 @@ export function RegisterChildren({ title, children, setChildren }) {
       <Controller
         control={control}
         name="cpf"
-        render={({field: {onChange, value, onBlur}}) => (
+        render={({ field: { onChange, value, onBlur } }) => (
           <StyledInput
             placeholder="CPF *"
             placeholderTextColor='rgba(0, 0, 0, 0.65)'
@@ -108,7 +107,7 @@ export function RegisterChildren({ title, children, setChildren }) {
             onChangeText={value => onChange((value))}
             maxLength={11}
             keyboardType={"numeric"}
-        />
+          />
         )}
       />
 
@@ -119,16 +118,16 @@ export function RegisterChildren({ title, children, setChildren }) {
       <Controller
         control={control}
         name="passport"
-        render={({field: {onChange, value, onBlur}}) => (
+        render={({ field: { onChange, value, onBlur } }) => (
           <StyledInput
             placeholder="Passaporte (Viagem Internacional) *"
             placeholderTextColor='rgba(0, 0, 0, 0.65)'
             value={value}
             onBlur={onBlur}
-            onChangeText={value => onChange((value))}          
+            onChangeText={value => onChange((value))}
             maxLength={11}
-        />        
-        )} 
+          />
+        )}
       />
 
       <Button onPress={handleSubmit(onSubmit)}>
