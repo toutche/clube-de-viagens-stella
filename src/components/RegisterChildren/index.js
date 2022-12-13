@@ -10,6 +10,24 @@ import { Alert } from 'react-native';
 
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
+function getMinDate() {
+  const year = +((new Date()).getFullYear() - 12);
+  const month = +((new Date()).getMonth() + 1);
+  const day = +((new Date()).getUTCDate());
+  const fullDate = `${day}/${month}/${year}`
+  return fullDate;
+}
+
+const year = (new Date()).getFullYear() - 12;
+const month = (new Date()).getMonth() + 1;
+const day = (new Date()).getUTCDate();
+const fullDate = `${day}/${month}/${year}`
+console.log(fullDate)
+
+function getMaxDate() {
+  return new Date()
+}
+
 const schema = yup.object({
   name: yup.string().required('Necessário preencher o nome.').min(3, 'Deve ter pelo menos 3 caracteres.'),
   last_name: yup.string().required('Necessário preencher o sobrenome.').min(3, 'Deve ter pelo menos 3 caracteres.'),
@@ -19,7 +37,6 @@ const schema = yup.object({
 
 export function RegisterChildren({ title, children, setChildren }) {
   const { control, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', resolver: yupResolver(schema) })
-
 
   function onSubmit(data) {
     if (!children.some((element) => element.cpf === data.cpf)) {
