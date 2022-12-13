@@ -145,7 +145,7 @@ export default ({ navigation }) => {
 
     if (data.type) {
       contextSetUser({ email: user.email });
-      navigation.navigate("ConfirmEmail");
+      navigation.navigate("ConfirmEmail", { phone: user.phone_number });
       if (data.message) Alert.alert("Sucesso", data.message);
     } else if (data.error) {
       Alert.alert("Aviso", `Verifique os campos em negrito para concluir o seu cadastro.`);

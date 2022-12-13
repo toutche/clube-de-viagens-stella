@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   View,
@@ -9,6 +9,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Modal,
+  Pressable,
+  TextInput
 } from "react-native";
 
 import {
@@ -28,8 +31,14 @@ const titlePage = "Insira seu código";
 const subtitlePage =
   "Precisamos confirmar o seu cadastro.\nPor favor, insira o código enviado de 4 digitos enviado por SMS para seu celular.";
 
-const ConfirmEmail = ({ navigation }) => {
+const ConfirmEmail = ({ navigation, route }) => {
   const { user } = useAuth();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [newPhone, setNewPhone] = useState('');
+
+  const { phone } = route.params;
+
+  console.log(phone);
 
   const resendConfirmation = () => {
     const data = { email: undefined };
@@ -51,6 +60,10 @@ const ConfirmEmail = ({ navigation }) => {
       });
   };
 
+  useEffect(() => {
+    setNewPhone(phone);
+  }, [])
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
       <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
@@ -64,6 +77,41 @@ const ConfirmEmail = ({ navigation }) => {
           <InputConfirm navigation={navigation} />
 
           <Text style={Style.quest}>Não recebeu nosso SMS?</Text>
+
+          <Text style={Style.quest}>Gostaria de verificar se seu telefone está cadastrado corretamente?</Text>
+          <TouchableOpacity onPress={() => { setModalVisible(!modalVisible) }} style={Style.buttonResend}>
+            <Text style={Style.resend}>Verificar número cadastrado</Text>
+          </TouchableOpacity>
+
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={Style.centeredView}>
+              <View style={Style.modalView}>
+                <Text style={Style.modalText}>Altere o número cadastrado abaixo</Text>
+                <TextInput
+                  style={Style.textInputNewPhone}
+                  placeholder="Digite o novo número *"
+                  value={newPhone}
+                  onChangeText={(text) => setNewPhone(text)}
+                />
+                <TouchableOpacity
+                  style={Style.button}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={Style.textStyle}>Enviar</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
+          <Text style={Style.quest}>Ou tente reenviar o código clicando no link abaixo.</Text>
 
           <TouchableOpacity onPress={resendConfirmation} style={Style.buttonResend}>
             <Text style={Style.resend}>Reenviar Código</Text>
@@ -140,7 +188,59 @@ const Style = StyleSheet.create({
     textDecorationLine: "underline",
     fontSize: 12,
     textAlign: "center",
+  }, centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
   },
+  modalView: {
+    margin: 20,
+    width: 300,
+    height: 225,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    backgroundColor: PRIMARY_COLOR,
+    borderRadius: 10,
+    width: '100%',
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  textInputNewPhone: {
+    borderWidth: 1,
+    borderRadius: 50,
+    padding: 15,
+    marginBottom: 15,
+    width: "100%",
+    height: 50,
+  }
 });
 
 export default ConfirmEmail;
