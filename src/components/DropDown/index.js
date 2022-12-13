@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { Container, DropDownContainer, IconContainer } from "./style";
 
-export function DropDown({icon, iconName, iconSize, iconColor, showArrowIcon, value, setValue, items, setItems, placeholder = "Selecione"}) {
+export function DropDown({ icon, iconName, iconSize, iconColor, showArrowIcon, value, setValue, items, setItems, placeholder = "Selecione" }) {
   const Icon = icon || null;
 
   const [open, setOpen] = useState(false);
@@ -26,6 +26,10 @@ export function DropDown({icon, iconName, iconSize, iconColor, showArrowIcon, va
         placeholder={placeholder}
         showArrowIcon={showArrowIcon}
         closeOnBackPressed={true}
+        labelStyle={{
+          fontFamily: FONT_DEFAULT_STYLE,
+          color: 'white'
+        }}
         placeholderStyle={{
           color: "white",
           opacity: 0.75,
@@ -37,7 +41,7 @@ export function DropDown({icon, iconName, iconSize, iconColor, showArrowIcon, va
           width: '80%',
           borderWidth: 0,
         }}
-        theme="DARK"
+      // theme="DARK"
       />
     </Container>
   )
