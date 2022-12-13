@@ -3,10 +3,12 @@ import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Button, ButtonTitle, Container, StyledInput, Title, ErrorLine } from "./style";
+import { Button, ButtonTitle, Container, StyledInput, Title, ErrorLine, ContainerInputIcon } from "./style";
 
 import { maskDate } from "../../utils/masks";
 import { Alert } from 'react-native';
+
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
 const schema = yup.object({
   name: yup.string().required('Necessário preencher o nome.').min(3, 'Deve ter pelo menos 3 caracteres.'),
@@ -16,14 +18,25 @@ const schema = yup.object({
 }).required();
 
 export function RegisterChildren({ title, children, setChildren }) {
-  const { control, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onBlur', resolver: yupResolver(schema) })
+  const { control, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', resolver: yupResolver(schema) })
+
 
   function onSubmit(data) {
     if (!children.some((element) => element.cpf === data.cpf)) {
       setChildren((prev) => [...prev, data]);
+      Alert.alert(
+        "Cadastro realizado com sucesso.",
+        "Caso deseje cadastrar outra crinça, use o formulário seguinte.",
+        [
+          {
+            text: "Cancelar",
+            style: 'cancel'
+          }
+        ]
+      )
     } else {
       Alert.alert(
-        "Criança ja cadastrada.",
+        "Criança já cadastrada.",
         "Mude os dados para cadastrar uma criança.",
         [
           {
@@ -33,105 +46,119 @@ export function RegisterChildren({ title, children, setChildren }) {
         ]
       );
     }
-
   }
 
   return (
     <Container>
       <Title>{title}</Title>
 
-      <Controller
-        control={control}
-        name="name"
-        render={({ field: { onChange, value, onBlur } }) => (
-          <StyledInput
-            placeholder="Insira o nome *"
-            placeholderTextColor='rgba(0, 0, 0, 0.7)'
-            value={value}
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-          />
-        )}
-      />
+      <ContainerInputIcon>
+        <FontAwesome style={{ marginLeft: 45 }} name="user-o" size={18} color="rgba(161, 161, 161, 1)" />
+        <Controller
+          control={control}
+          name="name"
+          render={({ field: { onChange, value, onBlur } }) => (
+            <StyledInput
+              placeholder="Insira o nome *"
+              placeholderTextColor='rgba(161, 161, 161, 1)'
+              value={value}
+              onBlur={onBlur}
+              onChangeText={value => onChange(value)}
+            />
+          )}
+        />
+      </ContainerInputIcon>
 
       {
         errors.name?.message && <ErrorLine>{errors.name?.message}</ErrorLine>
       }
 
-      <Controller
-        control={control}
-        name="last_name"
-        render={({ field: { onChange, value, onBlur } }) => (
-          <StyledInput
-            placeholder="Insira o sobrenome *"
-            placeholderTextColor='rgba(0, 0, 0, 0.65)'
-            value={value}
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-          />
-        )}
-      />
+      <ContainerInputIcon>
+        <FontAwesome style={{ marginLeft: 45 }} name="user-o" size={18} color="rgba(161, 161, 161, 1)" />
+        <Controller
+          control={control}
+          name="last_name"
+          render={({ field: { onChange, value, onBlur } }) => (
+            <StyledInput
+              placeholder="Insira o sobrenome *"
+              placeholderTextColor='rgba(161, 161, 161, 1)'
+              value={value}
+              onBlur={onBlur}
+              onChangeText={value => onChange(value)}
+            />
+          )}
+        />
+      </ContainerInputIcon>
 
       {
         errors.last_name?.message && <ErrorLine>{errors.last_name?.message}</ErrorLine>
       }
 
-      <Controller
-        control={control}
-        name="birth_date"
-        render={({ field: { onChange, value, onBlur } }) => (
-          <StyledInput
-            placeholder="Data de nascimento *"
-            placeholderTextColor='rgba(0, 0, 0, 0.65)'
-            value={value}
-            onBlur={onBlur}
-            onChangeText={value => onChange(maskDate(value))}
-            keyboardType={"numeric"}
-          />
-        )}
-      />
+      <ContainerInputIcon>
+        <FontAwesome style={{ marginLeft: 45 }} name="calendar-o" size={18} color="rgba(161, 161, 161, 1)" />
+        <Controller
+          control={control}
+          name="birth_date"
+          render={({ field: { onChange, value, onBlur } }) => (
+            <StyledInput
+              placeholder="Data de nascimento *"
+              placeholderTextColor='rgba(161, 161, 161, 1)'
+              value={value}
+              onBlur={onBlur}
+              onChangeText={value => onChange(maskDate(value))}
+              keyboardType={"numeric"}
+            />
+          )}
+        />
+      </ContainerInputIcon>
 
       {
         errors.birth_date?.message && <ErrorLine>{errors.birth_date?.message}</ErrorLine>
       }
 
-      <Controller
-        control={control}
-        name="cpf"
-        render={({ field: { onChange, value, onBlur } }) => (
-          <StyledInput
-            placeholder="CPF *"
-            placeholderTextColor='rgba(0, 0, 0, 0.65)'
-            value={value}
-            onBlur={onBlur}
-            onChangeText={value => onChange((value))}
-            maxLength={11}
-            keyboardType={"numeric"}
-          />
-        )}
-      />
+      <ContainerInputIcon>
+        <FontAwesome style={{ marginLeft: 45 }} name="id-card-o" size={18} color="rgba(161, 161, 161, 1)" />
+        <Controller
+          control={control}
+          name="cpf"
+          render={({ field: { onChange, value, onBlur } }) => (
+            <StyledInput
+              placeholder="CPF *"
+              placeholderTextColor='rgba(161, 161, 161, 1)'
+              value={value}
+              onBlur={onBlur}
+              onChangeText={value => onChange((value))}
+              maxLength={11}
+              keyboardType={"numeric"}
+            />
+          )}
+        />
+      </ContainerInputIcon>
 
       {
         errors.cpf?.message && <ErrorLine>{errors.cpf?.message}</ErrorLine>
       }
 
-      <Controller
-        control={control}
-        name="passport"
-        render={({ field: { onChange, value, onBlur } }) => (
-          <StyledInput
-            placeholder="Passaporte (Viagem Internacional) *"
-            placeholderTextColor='rgba(0, 0, 0, 0.65)'
-            value={value}
-            onBlur={onBlur}
-            onChangeText={value => onChange((value))}
-            maxLength={11}
-          />
-        )}
-      />
+      <ContainerInputIcon>
+        <FontAwesome5 style={{ marginLeft: 45 }} name="passport" size={18} color="rgba(161, 161, 161, 1)" />
+        <Controller
+          control={control}
+          name="passport"
+          render={({ field: { onChange, value, onBlur } }) => (
+            <StyledInput
+              placeholder="Passaporte (Viagem Internacional) *"
+              placeholderTextColor='rgba(161, 161, 161, 1)'
+              value={value}
+              onBlur={onBlur}
+              onChangeText={value => onChange((value))}
+              maxLength={11}
+            />
+          )}
+        />
+      </ContainerInputIcon>
 
       <Button onPress={handleSubmit(onSubmit)}>
-        <ButtonTitle>Aplicar</ButtonTitle>
+        <ButtonTitle>Salvar</ButtonTitle>
       </Button>
 
     </Container>
