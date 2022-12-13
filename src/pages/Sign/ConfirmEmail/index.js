@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { maskPhone } from "../../../utils/masks";
 import {
   ScrollView,
   View,
@@ -30,14 +31,10 @@ const titlePage = "Insira seu código";
 const subtitlePage =
   "Precisamos confirmar o seu cadastro.\nPor favor, insira o código enviado de 4 digitos enviado por SMS para seu celular.";
 
-const ConfirmEmail = ({ navigation, route }) => {
+const ConfirmEmail = ({ navigation }) => {
   const { user } = useAuth();
   const [modalVisible, setModalVisible] = useState(false);
   const [newPhone, setNewPhone] = useState('');
-
-  const { phone } = route.params;
-
-  console.log(phone);
 
   const resendConfirmation = () => {
     const data = { email: undefined };
@@ -59,9 +56,16 @@ const ConfirmEmail = ({ navigation, route }) => {
       });
   };
 
-  useEffect(() => {
-    setNewPhone(phone);
-  }, [])
+  function redefinePhoneNumber() {
+    api
+      .post("/reenviar-token", { phone_number: newPhone })
+      .then(({ data }) => {
+        Alert.alert("Número alterado com sucesso", '');
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
@@ -75,9 +79,12 @@ const ConfirmEmail = ({ navigation, route }) => {
 
           <InputConfirm navigation={navigation} />
 
-          <Text style={Style.quest}>Não recebeu nosso SMS?</Text>
+          <Text style={Style.quest}>Ué, ainda não recebeu o SMS?</Text>
+          <TouchableOpacity onPress={resendConfirmation} style={Style.buttonResend}>
+            <Text style={Style.resend}>Reenviar Código</Text>
+          </TouchableOpacity>
 
-          <Text style={Style.quest}>Gostaria de verificar se seu telefone está cadastrado corretamente?</Text>
+          <Text style={Style.quest}>Tá precisando alterar o telefone cadastrado?</Text>
           <TouchableOpacity onPress={() => { setModalVisible(!modalVisible) }} style={Style.buttonResend}>
             <Text style={Style.resend}>Verificar número cadastrado</Text>
           </TouchableOpacity>
@@ -87,34 +94,32 @@ const ConfirmEmail = ({ navigation, route }) => {
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
+              Alert.alert("Saindo da tela de alteração de telefone.");
               setModalVisible(!modalVisible);
             }}
           >
             <View style={Style.centeredView}>
               <View style={Style.modalView}>
-                <Text style={Style.modalText}>Altere o número cadastrado abaixo</Text>
+                <Text style={Style.modalText}>OPA, tá com um número novo? Insira abaixo o seu novo número de telefone que vamos alterar rapidinho.</Text>
                 <TextInput
                   style={Style.textInputNewPhone}
                   placeholder="Digite o novo número *"
                   value={newPhone}
-                  onChangeText={(text) => setNewPhone(text)}
+                  onChangeText={(text) => setNewPhone(maskPhone(text))}
+                  keyboardType={"numeric"}
                 />
                 <TouchableOpacity
                   style={Style.button}
-                  onPress={() => setModalVisible(!modalVisible)}
+                  onPress={() => {
+                    redefinePhoneNumber()
+                    setModalVisible(!modalVisible)
+                  }}
                 >
-                  <Text style={Style.textStyle}>Enviar</Text>
+                  <Text style={Style.textStyle}>Alterar</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </Modal>
-
-          <Text style={Style.quest}>Ou tente reenviar o código clicando no link abaixo.</Text>
-
-          <TouchableOpacity onPress={resendConfirmation} style={Style.buttonResend}>
-            <Text style={Style.resend}>Reenviar Código</Text>
-          </TouchableOpacity>
 
           {/* <Text style={Style.text}>
             *Caso não esteja visualizando nosso e-mail na sua Caixa de Entrada, pode ser que tenha
