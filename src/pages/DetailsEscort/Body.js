@@ -25,10 +25,14 @@ export default ({
 
   const handlerPress = () => {
     setLoading(true);
-    let [name, ...last_name] = form?.name.split(" ");
-    last_name = last_name.join(" ") || name;
-    let cpf = form?.cpf.replace(".", "").replace(".", "").replace("-", "");
+    // let [name, ...last_name] = form?.name.split(" ");
+    // last_name = last_name.join(" ") || name;
+    // let cpf = form?.cpf.replace(".", "").replace(".", "").replace("-", "");
     // let cpf = form?.cpf.replaceAll(".", "").replace("-", "");
+    let name = form?.name;
+    let last_name = form?.last_name;
+    let cpf = form?.cpf.replace(".", "").replace(".", "").replace("-", "");
+
     let form_data = form;
 
     form_data = {
