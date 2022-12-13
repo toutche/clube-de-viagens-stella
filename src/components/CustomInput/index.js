@@ -68,7 +68,7 @@ const CustomInput = ({
           multiline={multiline}
           autoCapitalize={autoCapitalize}
           editable={editable}
-          autoComplete={false}
+          autoComplete={"off"}
         />
         {previewPassword !== null && Icon && (
           <TouchableOpacity
