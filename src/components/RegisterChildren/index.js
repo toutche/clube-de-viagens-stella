@@ -25,8 +25,8 @@ export function RegisterChildren({ title, children, setChildren }) {
     if (!children.some((element) => element.cpf === data.cpf)) {
       setChildren((prev) => [...prev, data]);
       Alert.alert(
-        "Cadastro realizado com sucesso.",
-        "Caso deseje cadastrar outra crinça, use o formulário seguinte.",
+        "Criança cadastrada com sucesso!",
+        "",
         [
           {
             text: "Cancelar",
@@ -36,8 +36,8 @@ export function RegisterChildren({ title, children, setChildren }) {
       )
     } else {
       Alert.alert(
-        "Criança já cadastrada.",
-        "Mude os dados para cadastrar uma criança.",
+        "Opa, essa criança já foi cadastrada!",
+        "Insira outros dados para cadastrar uma nova criança. ",
         [
           {
             text: "Voltar",
