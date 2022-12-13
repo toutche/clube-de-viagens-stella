@@ -12,7 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFilter } from "../../contexts/filter";
 
 export default ({ item, navigation, plan }) => {
-  const insets = useSafeAreaInsets()
+  const insets = useSafeAreaInsets();
   const { autoScroll, setAutoScroll } = useFilter();
 
   return (
@@ -21,8 +21,8 @@ export default ({ item, navigation, plan }) => {
 
       <CustomIcon
         onPress={() => {
-          autoScroll && setAutoScroll(false)
-          navigation.goBack()
+          autoScroll && setAutoScroll(false);
+          navigation.navigate("Dashboard");
         }}
         size={30}
         type={AntDesign}
@@ -51,7 +51,9 @@ export default ({ item, navigation, plan }) => {
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>
-          <Text style={styles.price_difference}>Economize até {item?.currency || "R$"} {item.price_difference}</Text>
+          <Text style={styles.price_difference}>
+            Economize até {item?.currency || "R$"} {item.price_difference}
+          </Text>
         </View>
 
         <Text

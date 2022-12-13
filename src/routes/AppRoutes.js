@@ -39,7 +39,13 @@ const AuthRoutes = () => {
   return (
     <AuthStack.Navigator screenOptions={screenOptions} initialRouteName={"Dashboard"}>
       <AuthStack.Screen name='Dashboard' component={Dashboard} />
-      <AuthStack.Screen name='DetailsPackages' component={DetailsPackages} />
+      <AuthStack.Screen
+        name='DetailsPackages'
+        component={DetailsPackages}
+        options={{
+          gestureEnabled: false,
+        }}
+      />
       <AuthStack.Screen name='DetailsHotels' component={DetailsHotels} />
       <AuthStack.Screen name='DetailsContractedPackages' component={DetailsContractedPackages} />
       <AuthStack.Screen name='PlanScreen' component={PlanScreen} />
@@ -73,11 +79,10 @@ const AuthRoutes = () => {
         component={MenuScreen}
         options={{
           contentStyle: {
-            backgroundColor: 'white'
+            backgroundColor: "white",
           },
         }}
       />
-
     </AuthStack.Navigator>
   );
 };
