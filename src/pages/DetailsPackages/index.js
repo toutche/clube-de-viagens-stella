@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, ActivityIndicator, View } from "react-native";
+import { ScrollView, StyleSheet, ActivityIndicator, View, BackHandler } from "react-native";
 import { useAuth } from "../../contexts/auth";
 import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
@@ -56,6 +56,11 @@ export default ({ route, navigation }) => {
   };
 
   useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => true);
+    return () => backHandler.remove();
+  }, []);
+
+  useEffect(() => {
     api
       .get(`/pacote-viagem/${id}/get`)
       .then(({ data }) => {
@@ -64,7 +69,7 @@ export default ({ route, navigation }) => {
         }, 100);
       })
       .catch(e => console.log(e));
-  }, []);
+  }, [id]);
 
   if (item.length === 0)
     return (
@@ -79,11 +84,10 @@ export default ({ route, navigation }) => {
       style={styles.container}
       ref={scrollViewRef}
       onContentSizeChange={() => {
-        autoScroll && scrollViewRef.current.scrollToEnd({ animated: false })
-      }}
-    >
+        autoScroll && scrollViewRef.current.scrollToEnd({ animated: false });
+      }}>
       <Header navigation={navigation} item={item} plan={user.plan} />
-      <Body item={item}/>
+      <Body item={item} />
     </ScrollView>
   );
 };
