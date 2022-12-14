@@ -3,7 +3,7 @@ import { Platform } from "react-native";
 const consts = {
   URL: __DEV__ ? "https://dev-api.clubedeferias.com/api" : "https://api.clubedeferias.com/api",
   TOKEN_KEY: "TokenCDF",
-  google_key: "AIzaSyCaDURxB_iYNe-3NPJQau1CBU-GLGEdkwA",
+  google_key: "AIzaSyCP02bLOadxn_8YdXuUKahedG08aPRIuZU",
 };
 
 export { consts };

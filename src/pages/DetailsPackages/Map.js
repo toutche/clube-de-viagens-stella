@@ -11,31 +11,19 @@ import { consts } from "../../utils/consts";
 
 const Map = ({ address, region, name, navigation }) => {
   const [location, setLocation] = useState([]);
-  const [dataLocation, setDataLocation] = useState({});
+  const [dataLocation, setDataLocation] = useState('');
   const [isEnable, setIsEnable] = useState(false);
   const [status, setStatus] = useState('granted');
   const { autoScroll, setAutoScroll } = useFilter();
 
-  // async function getLocation() {
-  //   const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${region.latitude},${region.longitude}&key=${consts.google_key}`);
-  //   const data = await response.json();
-  //   console.log(data);
-  //   setDataLocation(data);
-  // }
+  async function getLocation() {
+    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${region.latitude},${region.longitude}&key=${consts.google_key}`);
+    const data = await response.json();
+    setDataLocation(data?.results[0]?.formatted_address);
+  }
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      setStatus(status)
-      if (status !== 'granted') {
-        console.log('Permissão de localização não foi concedida.');
-        return;
-      }
-      let addresses = await Location.reverseGeocodeAsync(region);
-      setLocation(addresses.length && addresses[0]);
-    })();
-    // getLocation();
-    // console.log(region.latitude)
+    getLocation();
   }, []);
 
   useEffect(() => {
@@ -52,17 +40,7 @@ const Map = ({ address, region, name, navigation }) => {
   }, []);
   
   const copyToClipboard = () => {
-    Clipboard.setString( status !== 'granted' ? name : 
-      `${location.country && location.country}
-      ${location.region !== null && location.region !== 's/n' && location.region && ', '}
-      ${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}
-      ${location.country && ', '}
-      ${location.street && location.street}
-      ${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}
-      ${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}
-      ${location.subregion && location.subregion !== null ? ', ' : ''}
-      ${location.subregion !== null ? location.subregion : ''}`
-    );
+    Clipboard.setString(dataLocation ? dataLocation : name);
   };
 
   return (
@@ -81,17 +59,7 @@ const Map = ({ address, region, name, navigation }) => {
           <Text>
             <View style={{ flexDirection: 'row', width: 200 }}>
               <ClipboardToast
-                textToShow={status !== 'granted' ? name : (
-                  `${location.country && location.country}
-                  ${location.region !== null && location.region !== 's/n' && location.region && ', '}
-                  ${location.region !== null && location.region !== 's/n' && location.region ? location.region : ''}
-                  ${location.country && ', '}
-                  ${location.street && location.street}
-                  ${location.streetNumber !== null && location.streetNumber && location.streetNumber !== 's/n' ? ', ' : ''}
-                  ${location.streetNumber !== 's/n' && location.streetNumber !== null ? location.streetNumber : ''}
-                  ${location.subregion && location.subregion !== null ? ', ' : ''}
-                  ${location.subregion !== null ? location.subregion : ''}`
-                  )}
+                textToShow={dataLocation ? dataLocation : name}
                 textToCopy={'Regular Text'}
                 toastText={'Endereço copiado!'}
                 id={'resular'}
@@ -100,7 +68,6 @@ const Map = ({ address, region, name, navigation }) => {
                 accessibilityLabel={'click me to copy'}
                 toastOnShow={copyToClipboard}
               />
-              <Feather name="copy" size={18} color="blue" onPress={copyToClipboard} />
             </View>
           </Text>
         </View>
@@ -117,11 +84,9 @@ const Map = ({ address, region, name, navigation }) => {
         }}>
           {
             isEnable ?
-            // <FontAwesome5 name="smile" size={32} color="black" />
             <Entypo name="arrow-with-circle-up" size={32} color="black" />
             :
             <Entypo name="arrow-with-circle-down" size={32} color="rgba(0, 0, 0, 0.5)" />
-            // <Entypo name="emoji-sad" size={32} color="black" />
           }
         </TouchableOpacity>
       </View>
@@ -177,6 +142,7 @@ const styles = StyleSheet.create({
     color: BLUE_COLOR,
     fontSize: 13,
     marginRight: 5,
+    width: '100%'
   },
   map: {
     marginTop: 10,
