@@ -1,3 +1,4 @@
+import { autoBatchEnhancer } from "@reduxjs/toolkit";
 import { StyleSheet } from "react-native";
 import {
   FONT_DEFAULT_BOLD_STYLE,
@@ -64,5 +65,11 @@ export default StyleSheet.create({
     fontSize: 13,
     textAlign: "center",
     textTransform: "uppercase",
+  },
+  genderContainer: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 12,
+    zIndex: 100,
   },
 });

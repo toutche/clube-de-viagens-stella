@@ -19,8 +19,6 @@ export default ({ data = [], navigation, getEscorts }) => {
   const [loading, setLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  // console.log(data)
-  const handlePress = () => {};
 
   const handleDelete = (id, name) => {
     const error_alert = () =>
@@ -131,24 +129,6 @@ export default ({ data = [], navigation, getEscorts }) => {
         titleStyle={styles.textButtonPlus}
         title={`Adicionar novo acompanhante`}
       />
-
-      <View style={styles.bottom}>
-        <CustomButton
-          onPress={handlePress}
-          size={24}
-          containerStyle={styles.buttonLeft}
-          titleStyle={styles.textButtonLeft}
-          title={"Cancelar".toUpperCase()}
-        />
-
-        <CustomButton
-          onPress={handlePress}
-          size={24}
-          containerStyle={styles.buttonRight}
-          titleStyle={styles.textButtonRight}
-          title={"Salvar".toUpperCase()}
-        />
-      </View>
     </ScrollView>
   );
 };
