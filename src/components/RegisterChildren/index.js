@@ -9,24 +9,7 @@ import { maskDate } from "../../utils/masks";
 import { Alert } from 'react-native';
 
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
-
-function getMinDate() {
-  const year = +((new Date()).getFullYear() - 12);
-  const month = +((new Date()).getMonth() + 1);
-  const day = +((new Date()).getUTCDate());
-  const fullDate = `${day}/${month}/${year}`
-  return fullDate;
-}
-
-const year = (new Date()).getFullYear() - 12;
-const month = (new Date()).getMonth() + 1;
-const day = (new Date()).getUTCDate();
-const fullDate = `${day}/${month}/${year}`
-console.log(fullDate)
-
-function getMaxDate() {
-  return new Date()
-}
+import { useState } from 'react';
 
 const schema = yup.object({
   name: yup.string().required('Necessário preencher o nome.').min(3, 'Deve ter pelo menos 3 caracteres.'),
@@ -36,32 +19,45 @@ const schema = yup.object({
 }).required();
 
 export function RegisterChildren({ title, children, setChildren }) {
+  const [validDate, setValidDate] = useState(false);
+
   const { control, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', resolver: yupResolver(schema) })
 
   function onSubmit(data) {
-    if (!children.some((element) => element.cpf === data.cpf)) {
-      setChildren((prev) => [...prev, data]);
-      Alert.alert(
-        "Criança cadastrada com sucesso!",
-        "",
-        [
-          {
-            text: "Cancelar",
-            style: 'cancel'
-          }
-        ]
-      )
+    let from = data.birth_date.split("/");
+    let birthdateTimeStamp = new Date(from[2], from[1] - 1, from[0]);
+    let cur = new Date();
+    let diff = cur - birthdateTimeStamp;
+    let currentAge = Math.floor(diff / 31557600000);
+
+    if (currentAge > 12) {
+      setValidDate(true);
     } else {
-      Alert.alert(
-        "Opa, essa criança já foi cadastrada!",
-        "Insira outros dados para cadastrar uma nova criança. ",
-        [
-          {
-            text: "Voltar",
-            style: "cancel"
-          },
-        ]
-      );
+      if (!children.some((element) => element.cpf === data.cpf)) {
+        setValidDate(false);
+        setChildren((prev) => [...prev, data]);
+        Alert.alert(
+          "Criança cadastrada com sucesso!",
+          "",
+          [
+            {
+              text: "Cancelar",
+              style: 'cancel'
+            }
+          ]
+        )
+      } else {
+        Alert.alert(
+          "Opa, essa criança já foi cadastrada!",
+          "Insira outros dados para cadastrar uma nova criança. ",
+          [
+            {
+              text: "Voltar",
+              style: "cancel"
+            },
+          ]
+        );
+      }
     }
   }
 
@@ -132,6 +128,9 @@ export function RegisterChildren({ title, children, setChildren }) {
       {
         errors.birth_date?.message && <ErrorLine>{errors.birth_date?.message}</ErrorLine>
       }
+      {
+        validDate && <ErrorLine>Data Inválida</ErrorLine>
+      }
 
       <ContainerInputIcon>
         <FontAwesome style={{ marginLeft: 45 }} name="id-card-o" size={18} color="rgba(161, 161, 161, 1)" />
@@ -147,6 +146,7 @@ export function RegisterChildren({ title, children, setChildren }) {
               onChangeText={value => onChange((value))}
               maxLength={11}
               keyboardType={"numeric"}
+
             />
           )}
         />
