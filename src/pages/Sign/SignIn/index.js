@@ -14,6 +14,8 @@ import CustomIcon from "../../../components/CustomIcon";
 import { useAuth } from "../../../contexts/auth";
 import { setToken } from "../../../services/auth";
 import api from "../../../services/api";
+import { ContentType, EventType, ScreenName } from "../../../services/firebase/constant";
+import { logEvent } from "../../../services/firebase";
 
 const titlePage = "Acesse seu Clube de Férias:";
 
@@ -57,6 +59,10 @@ export default ({ navigation }) => {
           setLoading(false);
           setErros(data.error);
         } else {
+          logEvent(EventType.selectContent, {
+            screen_name: ScreenName.signIn,
+            content_type: ContentType.logged
+          }); 
           setToken(data.access_token);
           verifyUser(navigation);
           /* if (isBiometric) {
@@ -150,7 +156,13 @@ export default ({ navigation }) => {
             title={"Entrar"}
           />
 
-          <Text style={Style.recoverText} onPress={() => navigation.navigate("RecoverPassword")}>
+          <Text style={Style.recoverText} onPress={() => {
+              logEvent(EventType.selectContent, {
+                screen_name: ScreenName.signIn,
+                content_type: ContentType.forgotPassword
+              }); 
+              navigation.navigate("RecoverPassword")
+            }}>
             Esqueceu a senha?
           </Text>
         </View>

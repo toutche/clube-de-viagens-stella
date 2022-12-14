@@ -4,6 +4,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import * as Animatable from "react-native-animatable";
 import api from "../../services/api";
+import { logEvent } from "../../services/firebase";
+import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
 
 const FavoriteIcon = ({ containerStyle, favorite = false, id_package, refreshList = undefined }) => {
   const buttonRef = useRef(null);
@@ -11,7 +13,13 @@ const FavoriteIcon = ({ containerStyle, favorite = false, id_package, refreshLis
 
   const pressHandler = () => {
     buttonRef.current.pulse();
-    
+    logEvent(EventType.selectContent, {
+      screen_name: ScreenName.dashboard,
+      content_type: check ? ContentType.unlike : ContentType.like,
+      description: {
+          id: id_package,
+      }
+  });
     if (!check) {
       api.post("/desejos/cadastrar", {
         id_package

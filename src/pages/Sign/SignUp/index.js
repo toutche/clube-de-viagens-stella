@@ -14,6 +14,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
 import { useAuth } from "../../../contexts/auth";
+import { logEvent } from "../../../services/firebase";
+import { ContentType, EventType, ScreenName } from "../../../services/firebase/constant";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -102,6 +104,10 @@ export default ({ navigation }) => {
         "Para continuar aceite a politica de privacidade e os termos e condições",
       );
     } else {
+      logEvent(EventType.selectContent, {
+        screen_name: ScreenName.signUp,
+        content_type: ContentType.Registered
+      });
       signUp(user, navigation);
     }
   };

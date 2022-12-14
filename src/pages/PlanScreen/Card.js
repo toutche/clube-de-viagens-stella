@@ -7,6 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
+import { logEvent } from "../../services/firebase";
+import { EventType, ScreenName } from "../../services/firebase/constant";
 
 const Card = ({ plan, isPlan = false }) => {
   const { user } = useAuth();
@@ -14,6 +16,18 @@ const Card = ({ plan, isPlan = false }) => {
   const [loading, setLoading] = useState(false);
 
   const handlePress = () => {
+    logEvent(EventType.selectContent, {
+      screen_name: ScreenName.planScreen,
+      content_type: plan.name,
+      description: {
+          id_plan: plan.id,
+          name: plan.name,
+          summary: plan?.summary,
+          amount: plan.amount,
+          item_amount: plan?.item_amount,
+          item_amount_discount: plan?.item_amount_discount
+      }
+    });
     setLoading(true);
     api
       .post("/plano/get", { id: plan.id })

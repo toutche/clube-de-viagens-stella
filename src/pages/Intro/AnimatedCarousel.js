@@ -24,6 +24,8 @@ import {
 } from "../../utils/variables";
 
 import Icon from "../../../assets/img/Aviao_Branco.png";
+import { logEvent } from "../../services/firebase";
+import { ContentType, ScreenName, EventType } from "../../services/firebase/constant";
 
 const Slides = [
   {
@@ -41,7 +43,7 @@ const Slides = [
     },
     button: "Copa",
     aspectRatio: 1.5,
-    onPress: () => {},
+    onPress: () => { },
   },
   {
     title: "Conheça mais sobre o Clube de Férias!",
@@ -49,7 +51,13 @@ const Slides = [
     image: require("../../../assets/header/Intro-01.jpg"),
     button: "O Clube",
     aspectRatio: 0.8,
-    onPress: navigation => navigation.navigate("VideoScreen"),
+    onPress: navigation => {
+      logEvent(EventType.viewPromotion, {
+        screen_name: ScreenName.landingPageIntro,
+        content_type: ContentType.playVideoIntro
+      });
+      return navigation.navigate("VideoScreen");
+    },
   },
   // {
   //   title: "Conecte-se a sua viagem dos sonhos!",
@@ -80,15 +88,15 @@ const Slides = [
     image: require("../../../assets/header/Intro-03.jpg"),
     button: "Produtos",
     aspectRatio: 1.5,
-    onPress: () => {},
+    onPress: () => { },
   },
 ];
 
 var FONT_SIZE_TEXT = 18;
 var FONT_SIZE_TITLE = 15;
-if(PixelRatio.get() <= 2) {
+if (PixelRatio.get() <= 2) {
   FONT_SIZE_TEXT = 14;
-} else if(PixelRatio.get() >= 3) {
+} else if (PixelRatio.get() >= 3) {
   FONT_SIZE_TEXT = 20;
   var FONT_SIZE_TITLE = 18;
 }
@@ -106,10 +114,32 @@ export default ({ navigation }) => {
 
   const [index, setIndex] = useState(0);
 
-  const handlerChoice = index =>
-    ListRef.current.scrollToIndex({ animated: false, index, viewPosition: 0 });
+  useEffect = () => {
+    logEvent(EventType.viewPromotion, {
+      screen_name: `
+        ${ScreenName.landingPageIntro}_${Slides[index].button.toLowerCase().replace(' ', '_')}
+      `,
+      content_type: ContentType.cup,
+      description: Slides[index].title,
+    });
+  }, [];
 
-  const jumpButton = () => navigation.navigate("Sign");
+  const handlerChoice = index => {
+    logEvent(EventType.viewPromotion, {
+      screen_name: `${ScreenName.landingPageIntro}_${Slides[index].button.toLowerCase().replace(' ', '_')}`,
+      content_type: `${Slides[index].button.toLowerCase().replace(' ', '_')}`,
+      description: Slides[index].title,
+    });
+    ListRef.current.scrollToIndex({ animated: false, index, viewPosition: 0 })
+  };
+
+  const jumpButton = () => {
+    logEvent(EventType.selectContent, {
+      screen_name: `${ScreenName.landingPageIntro}_${Slides[index].button.toLowerCase().replace(' ', '_')}`,
+      content_type: index !== (Slides.length - 1) ? ContentType.jump : ContentType.continue,
+    });
+    navigation.navigate("Sign");
+  };
 
   return (
     <ScrollView
@@ -157,7 +187,6 @@ export default ({ navigation }) => {
                       {it}
                     </Text>
                   ))}
-
                 <Text style={styles.title}>{item.titleFooter}</Text>
               </View>
             </View>

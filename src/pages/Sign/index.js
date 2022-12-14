@@ -13,6 +13,8 @@ import {
 import { AntDesign, Fontisto } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import TextWithBold from "../../components/TextWithBold";
+import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
+import { logEvent } from "../../services/firebase";
 
 export default ({ navigation }) => {
   return (
@@ -65,7 +67,13 @@ export default ({ navigation }) => {
 
         <View style={Style.containerSignButtons}>
           <CustomButton
-            onPress={() => navigation.navigate("SignIn")}
+            onPress={() => {
+              logEvent(EventType.selectContent, {
+                screen_name: ScreenName.sign,
+                content_type: ContentType.logIn
+              });
+              navigation.navigate("SignIn")
+            }}
             containerStyle={[Style.button, { marginBottom: 15 }]}
             titleStyle={Style.buttonText}
             title={"Entre com"}
@@ -73,7 +81,13 @@ export default ({ navigation }) => {
           />
 
           <CustomButton
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => {
+              logEvent(EventType.selectContent, {
+                screen_name: ScreenName.sign,
+                content_type: ContentType.register
+              }); 
+              navigation.navigate("SignUp")
+            }}
             containerStyle={Style.button}
             titleStyle={Style.buttonText}
             title={"É novo por aqui?"}

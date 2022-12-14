@@ -1,21 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import * as Font from "expo-font";
 import * as Notifications from 'expo-notifications';
 import * as SplashScreen from "expo-splash-screen";
+import analytics from '@react-native-firebase/analytics';
 
 import { AuthProvider } from "./contexts/auth";
 import { CheckoutProvider } from "./contexts/checkout";
 import Routes from "./routes";
 import { FilterProvider } from "./contexts/filter";
 import Calendar from "./components/Calendar";
-import * as Analytics from "expo-firebase-analytics";
 import linking from "./utils/linking";
 
 const App = () => {
   const routeNameRef = useRef();
-  const navigationRef = useNavigationContainerRef();
+  const navigationRef = useRef();
   const [appIsReady, setAppIsReady] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -53,7 +53,7 @@ const App = () => {
       let data = (response && response.notification.request.content.data) ? response.notification.request.content.data : null;
       //console.log("Listner", data);
 
-      if(data != null) {
+      if (data != null) {
         let type = (data.type) ? data.type : null;
         switch (type) {
           case "package":
@@ -87,24 +87,21 @@ const App = () => {
             linking={linking}
             ref={navigationRef}
             onReady={() => {
-              routeNameRef.current = navigationRef?.getCurrentRoute()?.name;
+              routeNameRef.current = navigationRef.current.getCurrentRoute().name;
             }}
             onStateChange={async () => {
               const previousRouteName = routeNameRef.current;
-              const currentRouteName = navigationRef.getCurrentRoute().name;
+              const currentRouteName = navigationRef.current.getCurrentRoute().name;
 
               if (previousRouteName !== currentRouteName) {
-                // The line below uses the expo-firebase-analytics tracker
-                // https://docs.expo.io/versions/latest/sdk/firebase-analytics/
-                // Change this line to use another Mobile analytics SDK
-                await Analytics.logEvent("screen_view", {
-                  currentScreen: currentRouteName,
+                await analytics.logScreenView({
+                  screen_name: currentRouteName,
+                  screen_class: currentRouteName,
                 });
               }
-
-              // Save the current route name for later comparison
               routeNameRef.current = currentRouteName;
-            }}>
+            }}
+          >
             <Calendar />
             <StatusBar backgroundColor={"transparent"} />
             <Routes />

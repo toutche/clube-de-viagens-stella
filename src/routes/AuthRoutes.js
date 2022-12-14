@@ -15,8 +15,6 @@ import ConfirmEmail from "../pages/Sign/ConfirmEmail";
 import GetLocation from "../pages/Sign/GetLocation";
 import VideoScreen from "../pages/VideoScreen";
 
-import * as Analytics from "expo-firebase-analytics";
-
 const AppStack = createNativeStackNavigator();
 
 const AuthRoutes = () => {
