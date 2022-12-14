@@ -33,8 +33,8 @@ export function RegisterChildren({ title, children, setChildren }) {
     if (currentAge > 12) {
       setValidDate(true);
     } else {
+      setValidDate(false);
       if (!children.some((element) => element.cpf === data.cpf)) {
-        setValidDate(false);
         setChildren((prev) => [...prev, data]);
         Alert.alert(
           "Criança cadastrada com sucesso!",
@@ -129,7 +129,7 @@ export function RegisterChildren({ title, children, setChildren }) {
         errors.birth_date?.message && <ErrorLine>{errors.birth_date?.message}</ErrorLine>
       }
       {
-        validDate && <ErrorLine>Data Inválida</ErrorLine>
+        validDate && <ErrorLine>A criança precisa ter menos de 12 anos</ErrorLine>
       }
 
       <ContainerInputIcon>
