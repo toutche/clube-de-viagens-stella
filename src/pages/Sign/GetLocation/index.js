@@ -138,35 +138,35 @@ const GetLocation = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={Style.container}>
-      <>
-        <Image source={require("../../../../assets/header/Location.jpg")} style={Style.image} />
+    <>
+      <ScrollView style={Style.container}>
+        <View style={Style.header}>
+          <Image source={require("../../../../assets/header/Location.jpg")} style={Style.image} />
 
-        <CustomIcon
-          size={26}
-          onPress={handleBackButton}
-          color={"#222"}
-          type={AntDesign}
-          name={"arrowleft"}
-          containerStyle={Style.icon}
-        />
-      </>
+          <CustomIcon
+            size={26}
+            onPress={handleBackButton}
+            color={"#222"}
+            type={AntDesign}
+            name={"arrowleft"}
+            containerStyle={Style.icon}
+          />
+        </View>
 
-      <View style={Style.body}>
-        {panel ? (
-          <Text style={Style.title}>Complete o seu endereço</Text>
-        ) : (
-          <>
-            <Text style={Style.title}>{titlePage}</Text>
+        <View style={Style.body}>
+          {panel ? (
+            <Text style={Style.title}>Complete o seu endereço</Text>
+          ) : (
+            <>
+              <Text style={Style.title}>{titlePage}</Text>
 
-            <Text style={Style.subtitle}>{subtitlePage}</Text>
+              <Text style={Style.subtitle}>{subtitlePage}</Text>
 
-            <Text style={Style.subtitle}>{}</Text>
-          </>
-        )}
-        {/* ) : null} */}
-        {
-          panel ? (
+              <Text style={Style.subtitle}>{}</Text>
+            </>
+          )}
+          {/* ) : null} */}
+          {panel ? (
             <Location
               isKeyboard={isKeyboard}
               address={address}
@@ -204,37 +204,13 @@ const GetLocation = ({ navigation }) => {
                 <></>
               )}
             </View>
-          )
-          /* <GooglePlacesAutocomplete
-            ref={googleRef}
-            placeholder='Digite o seu Endereço ou CEP'
-            enablePoweredByContainer={false}
-            minLength={1}
-            returnKeyType='search'
-            listViewDisplayed='auto'
-            fetchDetails
-            renderLeftButton={() => <AntDesign size={22} color={PRIMARY_COLOR} name={"search1"} />}
-            renderDescription={row => row.description}
-            onPress={pressHander}
-            query={{
-              key: consts.google_key,
-              language: "pt-BR",
-              components: "country:br",
-            }}
-            styles={autoCompleteStyle(isKeyboard)}
-            nearbyPlacesAPI='GooglePlacesSearch'
-            GooglePlacesSearchQuery={{
-              rankby: "distance",
-              type: "store",
-            }}
-            GooglePlacesDetailsQuery={{ fields: "formatted_address,geometry,address_component" }}
-            filterReverseGeocodingByTypes={["locality", "administrative_area_level_3"]}
-            debounce={200}
-          /> */
-        }
+          )}
+        </View>
+      </ScrollView>
+      <View style={Style.footer}>
+        <Copyright display={1} />
       </View>
-      {!isKeyboard ? <Copyright display={1} /> : null}
-    </ScrollView>
+    </>
   );
 };
 
@@ -265,6 +241,7 @@ const Style = StyleSheet.create({
   body: {
     flex: 1,
     paddingHorizontal: "10%",
+    marginVertical: 50,
   },
   title: {
     fontSize: 16,
@@ -306,6 +283,9 @@ const Style = StyleSheet.create({
   },
   autocomplete: {
     fontFamily: FONT_DEFAULT_STYLE,
+  },
+  footer: {
+    backgroundColor: PRIMARY_COLOR,
   },
 });
 
