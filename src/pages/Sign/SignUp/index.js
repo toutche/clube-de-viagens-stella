@@ -367,6 +367,7 @@ export default ({ navigation }) => {
           <IntlPhoneInput
             onChangeText={onChangeText}
             defaultCountry="BR"
+            screen='signUp'
             // renderAction={() => <Text>XX</Text>}
           />
 
