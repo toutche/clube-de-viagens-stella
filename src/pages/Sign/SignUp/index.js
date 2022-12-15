@@ -26,6 +26,7 @@ import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../../utils/variables";
 import { useAuth } from "../../../contexts/auth";
 import { DropDown } from "../../../components/DropDown";
+import IntlPhoneInput from 'react-native-international-telephone-input';
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -66,6 +67,8 @@ export default ({ navigation }) => {
     gender: "",
   });
 
+  console.log(user);
+
   const [errors, setErros] = useState({
     name: "",
     nickname: "",
@@ -76,6 +79,14 @@ export default ({ navigation }) => {
     password: "",
     gender: "",
   });
+
+  const onChangeText = ({dialCode, unmaskedPhoneNumber, phoneNumber, isVerified}) => {
+    const fullPhoneNumber = `${dialCode} ${phoneNumber}`;
+    setUser({
+      ...user,
+      phone_number: (fullPhoneNumber),
+    })
+  };
 
   const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
@@ -334,7 +345,7 @@ export default ({ navigation }) => {
             }
           />
 
-          <CustomInput
+          {/* <CustomInput
             placeholder='Seu celular?'
             size={20}
             lenght={15}
@@ -351,6 +362,12 @@ export default ({ navigation }) => {
                 phone_number: maskPhone(text),
               })
             }
+          /> */}
+
+          <IntlPhoneInput
+            onChangeText={onChangeText}
+            defaultCountry="BR"
+            // renderAction={() => <Text>XX</Text>}
           />
 
           <CustomInput
