@@ -67,7 +67,7 @@ export default ({ navigation }) => {
     gender: "",
   });
 
-  console.log(user);
+  // console.log(user);
 
   const [errors, setErros] = useState({
     name: "",
@@ -81,11 +81,19 @@ export default ({ navigation }) => {
   });
 
   const onChangeText = ({dialCode, unmaskedPhoneNumber, phoneNumber, isVerified}) => {
-    const fullPhoneNumber = `${dialCode} ${phoneNumber}`;
-    setUser({
-      ...user,
-      phone_number: (fullPhoneNumber),
-    })
+    if(dialCode === '+55') {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber.split(' ')[0]} ${phoneNumber.split(' ')[1]}-${phoneNumber.split(' ')[2]}`;
+      setUser({
+        ...user,
+        phone_number: (fullPhoneNumber),
+      })
+    } else {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber}`;
+      setUser({
+        ...user,
+        phone_number: (fullPhoneNumber),
+      })
+    }
   };
 
   const hasMediaPermission = async option => {
