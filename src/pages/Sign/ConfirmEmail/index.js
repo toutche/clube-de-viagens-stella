@@ -27,6 +27,8 @@ import InputConfirm from "./InputConfirm";
 import { useAuth } from "../../../contexts/auth";
 import api from "../../../services/api";
 
+import IntlPhoneInput from 'react-native-international-telephone-input';
+
 const titlePage = "Insira seu código";
 const subtitlePage =
   "Precisamos confirmar o seu cadastro.\nPor favor, insira o código enviado de 4 digitos enviado por SMS para seu celular.";
@@ -67,6 +69,11 @@ const ConfirmEmail = ({ navigation }) => {
       });
   }
 
+  const onChangeText = ({dialCode, unmaskedPhoneNumber, phoneNumber, isVerified}) => {
+    const fullPhoneNumber = `${dialCode} ${phoneNumber}`
+    setNewPhone(fullPhoneNumber);
+  };
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
       <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
@@ -101,12 +108,17 @@ const ConfirmEmail = ({ navigation }) => {
             <View style={Style.centeredView}>
               <View style={Style.modalView}>
                 <Text style={Style.modalText}>OPA, tá com um número novo? Insira abaixo o seu novo número de telefone que vamos alterar rapidinho.</Text>
-                <TextInput
+                {/* <TextInput
                   style={Style.textInputNewPhone}
                   placeholder="Digite o novo número *"
                   value={newPhone}
                   onChangeText={(text) => setNewPhone(maskPhone(text))}
                   keyboardType={"numeric"}
+                /> */}
+                <IntlPhoneInput
+                  onChangeText={onChangeText}
+                  defaultCountry="BR"
+                  // renderAction={() => <Text>XX</Text>}
                 />
                 <TouchableOpacity
                   style={Style.button}
