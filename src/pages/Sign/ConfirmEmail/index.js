@@ -70,8 +70,13 @@ const ConfirmEmail = ({ navigation }) => {
   }
 
   const onChangeText = ({dialCode, unmaskedPhoneNumber, phoneNumber, isVerified}) => {
-    const fullPhoneNumber = `${dialCode} ${phoneNumber}`
-    setNewPhone(fullPhoneNumber);
+    if (dialCode === '+55') {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber.split(' ')[0]} ${phoneNumber.split(' ')[1]}-${phoneNumber.split(' ')[2]}`;
+      setNewPhone(fullPhoneNumber);
+    } else {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber}`;
+      setNewPhone(fullPhoneNumber);
+    }
   };
 
   return (
