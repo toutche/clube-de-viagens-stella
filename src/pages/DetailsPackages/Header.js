@@ -34,6 +34,7 @@ export default ({ item, navigation, plan }) => {
       {plan && <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />}
 
       <FavoriteIcon
+        item={item}
         favorite={item.favorite}
         containerStyle={[styles.favorite, { top: insets.top + (plan ? 70 : 30) }]}
       />

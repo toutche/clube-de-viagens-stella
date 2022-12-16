@@ -5,19 +5,23 @@ import { PRIMARY_COLOR } from "../../utils/variables";
 import * as Animatable from "react-native-animatable";
 import api from "../../services/api";
 
-const FavoriteIcon = ({ containerStyle, favorite = false, id_package, refreshList = undefined }) => {
+const FavoriteIcon = ({item, containerStyle, favorite = false, id_package, refreshList = undefined }) => {
   const buttonRef = useRef(null);
   const [check, setCheck] = useState(favorite);
 
   const pressHandler = () => {
     buttonRef.current.pulse();
+
+    const id = +item?.id || +id_package;
     
+    console.log(id);
+
     if (!check) {
       api.post("/desejos/cadastrar", {
-        id_package
+        id_package: id
       })
       .then((res) => {
-        if(res.status === 200 && res.data.message === "Desejo cadastrado com sucesso") {
+        if(res.status === 200) {
           setCheck(!check);
         }
       })
@@ -26,9 +30,9 @@ const FavoriteIcon = ({ containerStyle, favorite = false, id_package, refreshLis
       });
     }
     else {
-      api.delete(`/desejos/${id_package}/deletar`)
+      api.delete(`/desejos/${id}/deletar`)
       .then((res) => {
-        if(res.status === 200 && res.data.message === "Desejo excluído") {
+        if(res.status === 200) {
           setCheck(!check);
           refreshList && refreshList();
         }

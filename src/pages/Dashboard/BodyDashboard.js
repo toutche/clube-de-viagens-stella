@@ -60,7 +60,7 @@ const BodyDashboard = ({
 
   useEffect(() => {
     loadPage();
-  }, []);
+  });
 
   useDidMountEffect(() => {
     setFeed([]);
