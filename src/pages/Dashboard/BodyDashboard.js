@@ -300,13 +300,13 @@ const BodyDashboard = ({
     } else {
       const result = await Linking.canOpenURL(linkWhatsappRedirect);
       if (result) await Linking.openURL(linkWhatsappRedirect);
+      Alert.alert("Aviso!", "Entre em contato pelo nosso email.", [
+        {
+          text: "Entre em Contato",
+          onPress: () => navigation.navigate("Contact"),
+        },
+      ]);
     }
-    Alert.alert("Aviso!", "Entre em contato pelo nosso email.", [
-      {
-        text: "Entre em Contato",
-        onPress: () => navigation.navigate("Contact"),
-      },
-    ]);
   }
 
   return (
