@@ -14,8 +14,6 @@ const FavoriteIcon = ({item, containerStyle, favorite = false, id_package, refre
 
     const id = +item?.id || +id_package;
     
-    console.log(id);
-
     if (!check) {
       api.post("/desejos/cadastrar", {
         id_package: id
