@@ -291,28 +291,23 @@ const BodyDashboard = ({
 
   async function openWhatsapp() {
     const response = await api.get("/links");
-    const link = response.data.whatsapp;
+    const linkWhatsapp = response.data.whatsapp;
+    const linkWhatsappRedirect = response.data.whatsapp_redirect;
 
-    const result = await Linking.canOpenURL(link);
-    if (result) await Linking.openURL(link);
-    else
-      Alert.alert("Aviso!", "Entre em contato pelo nosso email.", [
-        {
-          text: "Entre em Contato",
-          onPress: () => navigation.navigate("Contact"),
-        },
-      ]);
+    const result = await Linking.canOpenURL(linkWhatsapp);
+    if (result) {
+      await Linking.openURL(linkWhatsapp);
+    } else {
+      const result = await Linking.canOpenURL(linkWhatsappRedirect);
+      if (result) await Linking.openURL(linkWhatsappRedirect);
+    }
+    Alert.alert("Aviso!", "Entre em contato pelo nosso email.", [
+      {
+        text: "Entre em Contato",
+        onPress: () => navigation.navigate("Contact"),
+      },
+    ]);
   }
-
-  // const openWhatsapp = async () => {
-  //   // const url = `https://wa.me/5521993184756`;
-  //   // let rotaLink = `/links`;
-  //   // const response = await api.post(rotaLink);
-  //   // console.log(response);
-  //   // const result = await Linking.canOpenURL(url);
-  //   // if (result) await Linking.openURL(url);
-  //   // else Alert.alert("Aviso", "Confira se o Whatsapp está instalado no dispositivo");
-  // };
 
   return (
     <View style={styles.container}>
