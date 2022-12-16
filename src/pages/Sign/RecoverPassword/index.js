@@ -35,7 +35,6 @@ export default ({ navigation }) => {
   const recoverPass = ({ navigation }) => {
     if (email) {
       setLoading(true);
-      console.log(email);
       api
         .post("/esqueci-senha", { email })
         .then(res => {
