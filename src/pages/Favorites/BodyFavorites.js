@@ -21,7 +21,7 @@ const BodyFavorites = ({ display = 1, navigation }) => {
 
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-
+  
   useEffect(() => {
     loadPage();
   }, []);
