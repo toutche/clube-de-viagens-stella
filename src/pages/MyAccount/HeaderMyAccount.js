@@ -19,9 +19,18 @@ import { useAuth } from "../../contexts/auth";
 import { maskDocument } from "../../utils/masks";
 import * as ImagePicker from "expo-image-picker";
 import api from "../../services/api";
+import { ModalAlert } from "../../components/ModalAlert";
 
 const HeaderMyAccount = ({ navigation }) => {
   const { user } = useAuth();
+
+  const [modalVisiblePermission, setModalVisiblePermission] = useState(false);
+  const [modalVisibleError, setModalVisibleError] = useState(false);
+
+  const [textModal, setTextModal] = useState({
+    title: '',
+    message: '',
+  })
 
   const [image, setImage] = useState(
     user.image || "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png",
@@ -40,7 +49,11 @@ const HeaderMyAccount = ({ navigation }) => {
       }
 
       if (result?.status !== "granted") {
-        alert("Precisamos das permissões de acesso a câmera e a galeria.");
+        setTextModal({
+          title: 'Permissão',
+          message: "Precisamos das permissões de acesso a câmera e a galeria.",
+        })
+        setModalVisiblePermission(!modalVisiblePermission);
         return false;
       }
       return true;
@@ -93,13 +106,17 @@ const HeaderMyAccount = ({ navigation }) => {
         })
         .catch(error => {
           console.log(error);
-          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+          setModalVisibleError(!modalVisibleError);
         });
 
       if (data?.message == "Imagem do perfil atualizada") {
-        Alert.alert("Sucesso", data.message);
+        setTextModal({
+          title: 'Sucesso',
+          message: data.message,
+        })
+        setModalVisiblePermission(!modalVisiblePermission);
       } else {
-        Alert.alert("Erro", "Aconteceu um erro, tente novamente mais tarde.");
+        setModalVisibleError(!modalVisibleError);
       }
     }
   };
@@ -232,6 +249,16 @@ const HeaderMyAccount = ({ navigation }) => {
           </View>
         </ImageBackground>
       </View>
+
+      <ModalAlert
+        modalVisible={modalVisiblePermission || modalVisibleError}
+        setModalVisible={modalVisiblePermission ? setModalVisiblePermission : setModalVisibleError}
+        title={modalVisiblePermission ? textModal.title : "Aviso"}
+        text={modalVisiblePermission ? textModal.message : "Aconteceu um erro, tente novamente mais tarde."
+        }
+        textFirstButton='Voltar'
+      />
+
     </View>
   );
 };
