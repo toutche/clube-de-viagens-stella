@@ -6,7 +6,7 @@ export const ModalContainer = styled.Modal`
 `
 
 export const ExternalContainerWrapper = styled.View`
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
 
   flex: 1;
 
