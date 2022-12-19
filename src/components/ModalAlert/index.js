@@ -7,12 +7,12 @@ export function ModalAlert(props) {
     setModalVisible,
     animationType = 'fade',
     transparent = true,
-    visible,
     onRequestClose,
     statusBarTranslucent = true,
     title,
     text,
     textFirstButton = 'Cancelar',
+    firstButtonFunction,
     textSecondButton,
     secondButton,
     secondButtonFunction,
@@ -22,7 +22,7 @@ export function ModalAlert(props) {
     <ModalContainer
       animationType={animationType}
       transparent={transparent}
-      visible={visible}
+      visible={modalVisible}
       onRequestClose={onRequestClose}
       statusBarTranslucent={statusBarTranslucent}
     >
@@ -36,7 +36,10 @@ export function ModalAlert(props) {
           <Title>{title}</Title>
           <TextModal>{text}</TextModal>
           
-          <Button onPress={() => setModalVisible(!modalVisible)}>
+          <Button onPress={() => {
+            setModalVisible(!modalVisible)
+            secondButton && firstButtonFunction()
+            }}>
             <TextButton>
               {textFirstButton}
             </TextButton>
