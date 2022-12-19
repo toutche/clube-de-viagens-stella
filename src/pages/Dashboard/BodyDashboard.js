@@ -6,7 +6,6 @@ import {
   Text,
   ActivityIndicator,
   Linking,
-  Alert,
   TouchableOpacity,
 } from "react-native";
 import Banner from "../../components/Banner";
@@ -106,12 +105,7 @@ const BodyDashboard = ({
       total.current = totalItems;
       page.current = pageNumber + 1;
 
-      if (totalItems === 0)
-      setVisibleModalFirst(!visibleModalFirst);
-        // Alert.alert(
-        //   "Que pena ):",
-        //   "O destino escolhido não está mais disponível, refaça a sua busca!",
-        // );
+      if (totalItems === 0) setVisibleModalFirst(!visibleModalFirst);
 
       setFeed(shouldRefresh ? data || [] : [...feed, ...data]);
     } else if (display === 1) {
@@ -308,26 +302,9 @@ const BodyDashboard = ({
     const link = response.data.whatsapp;
 
     const result = await Linking.canOpenURL(link);
-    // if (result) await Linking.openURL(link);
-    // else
-      setVisibleModalSecond(!visibleModalSecond);
-      // Alert.alert("Aviso!", "Entre em contato pelo nosso email.", [
-      //   {
-      //     text: "Entre em Contato",
-      //     onPress: () => navigation.navigate("Contact"),
-      //   },
-      // ]);
+    if (result) await Linking.openURL(link);
+    else setVisibleModalSecond(!visibleModalSecond);
   }
-
-  // const openWhatsapp = async () => {
-  //   // const url = `https://wa.me/5521993184756`;
-  //   // let rotaLink = `/links`;
-  //   // const response = await api.post(rotaLink);
-  //   // console.log(response);
-  //   // const result = await Linking.canOpenURL(url);
-  //   // if (result) await Linking.openURL(url);
-  //   // else Alert.alert("Aviso", "Confira se o Whatsapp está instalado no dispositivo");
-  // };
 
   return (
     <View style={styles.container}>
