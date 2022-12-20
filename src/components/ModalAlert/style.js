@@ -124,3 +124,22 @@ export const TextButton = styled.Text`
     }
   }} 
 `
+
+export const ThirdButton = styled.TouchableOpacity`
+  background-color: ${PRIMARY_COLOR};
+
+  border: 1px solid ${PRIMARY_COLOR};
+
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+
+  border-radius: 8px;
+
+  padding: 10px 18px;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 10px 0 0 0;
+
+  width: 100%;
+`

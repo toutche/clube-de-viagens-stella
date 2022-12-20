@@ -27,6 +27,8 @@ const HeaderMyAccount = ({ navigation }) => {
   const [modalVisiblePermission, setModalVisiblePermission] = useState(false);
   const [modalVisibleError, setModalVisibleError] = useState(false);
 
+  const [modalVisibleGetPicture, setModalVisibleGetPicture] = useState(false);
+
   const [textModal, setTextModal] = useState({
     title: '',
     message: '',
@@ -122,20 +124,26 @@ const HeaderMyAccount = ({ navigation }) => {
   };
 
   const chooseImage = () => {
-    return Alert.alert("Sua foto", `Deseja tirar uma foto agora ou escolher da galeria?`, [
-      {
-        text: "Cancelar",
-        style: "cancel",
-      },
-      {
-        text: "Câmera",
-        onPress: () => pickImage("CAMERA"),
-      },
-      {
-        text: "Galeria",
-        onPress: () => pickImage("MEDIA_LIBRARY"),
-      },
-    ]);
+    setTextModal({
+      title: 'Sua Foto',
+      message: `Deseja tirar uma foto agora ou escolher da galeria?`,
+    })
+
+    setModalVisibleGetPicture(!modalVisibleGetPicture);
+    // return Alert.alert("Sua foto", `Deseja tirar uma foto agora ou escolher da galeria?`, [
+    //   {
+    //     text: "Cancelar",
+    //     style: "cancel",
+    //   },
+    //   {
+    //     text: "Câmera",
+    //     onPress: () => pickImage("CAMERA"),
+    //   },
+    //   {
+    //     text: "Galeria",
+    //     onPress: () => pickImage("MEDIA_LIBRARY"),
+    //   },
+    // ]);
   };
 
   return (
@@ -257,6 +265,21 @@ const HeaderMyAccount = ({ navigation }) => {
         text={modalVisiblePermission ? textModal.message : "Aconteceu um erro, tente novamente mais tarde."
         }
         textFirstButton='Voltar'
+      />
+
+      <ModalAlert
+        modalVisible={modalVisibleGetPicture}
+        setModalVisible={setModalVisibleGetPicture}
+        title={textModal.title}
+        text={textModal.message}
+        textFirstButton='Galeria'
+        firstButtonFunction={() => pickImage("MEDIA_LIBRARY")}
+        secondButton
+        textSecondButton='Voltar'
+        secondButtonFunction={() => setModalVisibleGetPicture(!modalVisibleGetPicture)}
+        thirdButton
+        textThirdButton='Câmera'
+        thirdButtonFunction={() => pickImage("CAMERA")}
       />
 
     </View>
