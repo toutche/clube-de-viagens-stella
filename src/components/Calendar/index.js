@@ -7,6 +7,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../CustomButton";
 import moment from "moment";
 import { formatDateToBRL } from "../../utils";
+import { ModalAlert } from "../ModalAlert";
 
 const monthNames = [
   "Janeiro",
@@ -95,6 +96,12 @@ const Calendar = () => {
   const [isVisible, setVisible] = useState(false);
   const [date, setDate] = useState(initialDate);
 
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [textModal, setTextModal] = useState({
+    title: '',
+    message: '',
+  });
+
   Calendar.show = () =>
     new Promise((resolve, reject) => {
       setVisible(true);
@@ -111,7 +118,15 @@ const Calendar = () => {
   const handlePress = () => {
     const { start, end } = date;
     if (date.isEnd) onClose({ start, end });
-    else Alert.alert("Aviso", "Para filtrar preencha início e fim");
+    else {
+      setTextModal({
+        title: "Aviso",
+        message: "Para filtrar preencha início e fim",
+      });
+
+      setVisibleModal(!visibleModal);
+      // Alert.alert("Aviso", "Para filtrar preencha início e fim");
+    }
   };
 
   const onRequestClose = () => onClose();
@@ -215,6 +230,13 @@ const Calendar = () => {
             <CustomButton title={"Ok"} onPress={handlePress} containerStyle={styles.acceptButton} />
           </View>
         </View>
+        <ModalAlert
+          modalVisible={visibleModal}
+          setModalVisible={setVisibleModal}
+          title={textModal.title}
+          text={textModal.message}
+          textFirstButton='Continuar'
+        />
       </View>
     </Modal>
   );
