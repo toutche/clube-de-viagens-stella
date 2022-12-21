@@ -84,25 +84,6 @@ const BodyDashboard = ({
       message: 'Deseja buscar?'
     });
     setSearchModalVisible(!searchModalVisible);
-
-    // Alert.alert("Buscar", `Deseja Buscar?`, [
-    //   {
-    //     text:
-    //       filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
-    //         ? "Limpar"
-    //         : "Não",
-    //     onPress:
-    //       filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
-    //         ? clearFilterOriginDestiny
-    //         : null,
-    //     style: "destructive",
-    //   },
-    //   {
-    //     text: "Sim",
-    //     onPress: forceUpdateList,
-    //     style: "destructive",
-    //   },
-    // ]);
   };
 
   const loadPage = async (pageNumber = page.current, shouldRefresh = false, update = false) => {
