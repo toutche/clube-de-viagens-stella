@@ -32,8 +32,18 @@ export default ({ item, display = 0, navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
 
+  function backAction (){
+    navigation.navigate('Dashboard')
+    return true
+  }
+
   useEffect(() => {
     loadPage();
+    
+    BackHandler.addEventListener("hardwareBackPress", backAction);	
+    return ()=> {
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }
   }, []);
 
   useDidMountEffect(() => {
