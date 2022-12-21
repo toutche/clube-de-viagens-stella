@@ -26,7 +26,7 @@ import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../../utils/variables";
 import { useAuth } from "../../../contexts/auth";
 import { DropDown } from "../../../components/DropDown";
-import IntlPhoneInput from 'react-native-international-telephone-input';
+import IntlPhoneInputLocal from "../../../components/IntlPhoneInput/IntlPhoneInput";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -372,11 +372,15 @@ export default ({ navigation }) => {
             }
           /> */}
 
-          <IntlPhoneInput
+          <IntlPhoneInputLocal
             onChangeText={onChangeText}
             defaultCountry="BR"
             screen='signUp'
-            // renderAction={() => <Text>XX</Text>}
+            containerStyle={styles.containerStyle}
+            flagStyle={styles.flagStyle}
+            closeText="Fechar"
+            dialCodeTextStyle={styles.dialCodeTextStyle}
+            phoneInputStyle={styles.phoneInputStyle}
           />
 
           <CustomInput
@@ -565,5 +569,24 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: 250,
+  },
+  containerStyle: {
+    backgroundColor: PRIMARY_COLOR,
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    borderRadius: 50,
+    height: 50,
+    marginTop: 10,
+    alignItems: "center",
+  },
+  flagStyle: {
+    fontSize: 18,
+  },
+  dialCodeTextStyle: {
+    marginRight: 2,
+    color: 'white',
+  },
+  phoneInputStyle: {
+    color: "white",
   },
 });
