@@ -39,7 +39,9 @@
             "useFrameworks": "static"
           }
         }
-      ]
+      ],
+      "@react-native-firebase/app",
+      "@react-native-firebase/analytics"
     ],
     "updates": {
       "fallbackToCacheTimeout": 0,
