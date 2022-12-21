@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Linking,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
@@ -35,7 +36,7 @@ const BodyDashboard = ({
   } = useAuth();
 
   const {
-    onFilterOriginDestiny,
+    clearFilterOriginDestiny,
     onFilterHotels,
     filterOrigin,
     filterDestiny,
@@ -45,6 +46,7 @@ const BodyDashboard = ({
     filterCheck,
     filterPeople,
     filterUpdate,
+    forceUpdateList,
     setFilterCheck,
     orderPrice,
     segmentsIds,
@@ -61,6 +63,12 @@ const BodyDashboard = ({
   const [visibleModalFirst, setVisibleModalFirst] = useState(false);
   const [visibleModalSecond, setVisibleModalSecond] = useState(false);
 
+  const [searchModalVisible, setSearchModalVisible] = useState(false);
+  const [searchTextModal, setSearchTextModal] = useState({
+    title: '',
+    message: '',
+  });
+
   useEffect(() => {
     loadPage();
   }, []);
@@ -69,6 +77,33 @@ const BodyDashboard = ({
     setFeed([]);
     loadPage(1, true, true);
   }, [filterUpdate, orderPrice, display]);
+
+  const onFilterOriginDestiny = () => {
+    setSearchTextModal({
+      title: 'Buscar',
+      message: 'Deseja buscar?'
+    });
+    setSearchModalVisible(!searchModalVisible);
+
+    // Alert.alert("Buscar", `Deseja Buscar?`, [
+    //   {
+    //     text:
+    //       filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+    //         ? "Limpar"
+    //         : "Não",
+    //     onPress:
+    //       filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+    //         ? clearFilterOriginDestiny
+    //         : null,
+    //     style: "destructive",
+    //   },
+    //   {
+    //     text: "Sim",
+    //     onPress: forceUpdateList,
+    //     style: "destructive",
+    //   },
+    // ]);
+  };
 
   const loadPage = async (pageNumber = page.current, shouldRefresh = false, update = false) => {
     if (feed?.length === total.current && !update) return;
@@ -337,6 +372,7 @@ const BodyDashboard = ({
           <ListItem {...{ item, index, display, navigation, plan }} />
         )}
       />
+      {/* Alerta padrão para aviso de sucesso ou não na busca. */}
       <ModalAlert
         modalVisible={visibleModalFirst || visibleModalSecond}
         setModalVisible={setVisibleModalFirst || setVisibleModalSecond}
@@ -347,6 +383,22 @@ const BodyDashboard = ({
         secondButton={visibleModalSecond && true}
         textSecondButton={visibleModalSecond && 'Voltar'}
         secondButtonFunction={visibleModalSecond && secondButtonModalAlert}
+      />
+      {/* Modal criado para o mecanismo de busca. */}
+      <ModalAlert
+        modalVisible={searchModalVisible}
+        setModalVisible={setSearchModalVisible}
+        title={searchTextModal.title}
+        text={searchTextModal.message}
+        firstButtonFunction={forceUpdateList}
+        textFirstButton={'Sim'}
+        textSecondButton={filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+          ? "Limpar"
+          : "Não"}
+        secondButtonFunction={filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+          ? () => {clearFilterOriginDestiny(); setSearchModalVisible(!searchModalVisible)}
+          : () => setSearchModalVisible(!searchModalVisible)}
+        secondButton
       />
       <CustomIcon
         size={35}
