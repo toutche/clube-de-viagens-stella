@@ -13,6 +13,8 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import data from '../../utils/countries';
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/variables';
+import { AntDesign } from '@expo/vector-icons';
 
 export default class IntlPhoneInputLocal extends React.Component {
     constructor(props) {
@@ -126,12 +128,13 @@ export default class IntlPhoneInputLocal extends React.Component {
     } = this.props;
     
     return (
-        <Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
-        <SafeAreaView style={{ flex: 1 }}>
+        <Modal statusBarTranslucent animationType="slide" transparent={false} visible={this.state.modalVisible}>
+        <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
         <View style={[styles.modalContainer, modalContainer]}>
             <View style={styles.filterInputStyleContainer}>
             <TextInput autoFocus onChangeText={this.filterCountries} placeholder={filterText || 'Filter'} style={[styles.filterInputStyle, filterInputStyle]} />
-            <Text style={[styles.searchIconStyle, searchIconStyle]}>🔍</Text>
+            {/* <Text style={[styles.searchIconStyle, searchIconStyle]}>🔍</Text> */}
+            <AntDesign name="search1" size={24} color="lightgrey" />
             </View>
             <FlatList
             style={{ flex: 1 }}
@@ -217,14 +220,14 @@ IntlPhoneInputLocal.propTypes = {
     defaultCountry: PropTypes.string,
     onChangeText: PropTypes.func,
     customModal: PropTypes.func,
-  phoneInputStyle: PropTypes.object, // {}
-  containerStyle: PropTypes.object, // {}
-  dialCodeTextStyle: PropTypes.object, // {}
-  flagStyle: PropTypes.object, // {}
-  modalContainer: PropTypes.object, // {}
-  filterInputStyle: PropTypes.object, // {}
-  closeButtonStyle: PropTypes.object, // {}
-  modalCountryItemCountryNameStyle: PropTypes.object, // {}
+    phoneInputStyle: PropTypes.object, // {}
+    containerStyle: PropTypes.object, // {}
+    dialCodeTextStyle: PropTypes.object, // {}
+    flagStyle: PropTypes.object, // {}
+    modalContainer: PropTypes.object, // {}
+    filterInputStyle: PropTypes.object, // {}
+    closeButtonStyle: PropTypes.object, // {}
+    modalCountryItemCountryNameStyle: PropTypes.object, // {}
     filterText: PropTypes.string,
     closeText: PropTypes.string,
     searchIconStyle: PropTypes.object,
@@ -236,15 +239,17 @@ const styles = StyleSheet.create({
     closeTextStyle: {
     padding: 5,
     fontSize: 20,
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold'
     },
     modalCountryItemCountryDialCodeStyle: {
-    fontSize: 15
+    fontSize: 15,
+    fontFamily: FONT_DEFAULT_STYLE,
     },
     modalCountryItemCountryNameStyle: {
     flex: 1,
-    fontSize: 15
+    fontSize: 15,
+    fontFamily: FONT_DEFAULT_STYLE,
     },
     modalCountryItemContainer: {
     flex: 1,
@@ -268,8 +273,8 @@ const styles = StyleSheet.create({
     },
     countryModalStyle: {
     flex: 1,
-    borderColor: 'black',
     borderTopWidth: 1,
+    borderColor: 'lightgrey',
     padding: 12,
     flexDirection: 'row',
     alignItems: 'center',
@@ -294,6 +299,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
     },
     phoneInputStyle: {
     marginLeft: 5,
@@ -330,7 +336,11 @@ const styles = StyleSheet.create({
     padding: 12,
     },
     closeButtonStyle: {
-    padding: 12,
+    padding: 5,
+    width: '90%',
     alignItems: 'center',
+    marginBottom: 10,
+    borderRadius: 30,
+    backgroundColor: PRIMARY_COLOR,
     }
 });

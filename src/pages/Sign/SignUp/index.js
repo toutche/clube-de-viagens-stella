@@ -11,21 +11,30 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
-import CustomInput from "../../../components/CustomInput";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
+
 import Style from "./style";
-import Copyright from "../../../components/Copyright";
-import CustomButton from "../../../components/CustomButton";
-import CustomIcon from "../../../components/CustomIcon";
-import CustomAvatar from "../../../components/CustomAvatar";
-import { maskPhone, maskDocument, maskDate } from "../../../utils/masks";
-import { CheckBox } from "react-native-elements";
-import { MaterialIcons } from "@expo/vector-icons";
+
 import api from "../../../services/api";
+
+import { CheckBox } from "react-native-elements";
+
+import * as ImagePicker from "expo-image-picker";
+
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+
+
+import { maskDocument, maskDate } from "../../../utils/masks";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../../utils/variables";
+
 import { useAuth } from "../../../contexts/auth";
+
+import Copyright from "../../../components/Copyright";
+import CustomIcon from "../../../components/CustomIcon";
 import { DropDown } from "../../../components/DropDown";
+import CustomInput from "../../../components/CustomInput";
+import CustomAvatar from "../../../components/CustomAvatar";
+import CustomButton from "../../../components/CustomButton";
 import IntlPhoneInputLocal from "../../../components/IntlPhoneInput/IntlPhoneInput";
 
 const titlePage = "É novo por aqui? Cadastre-se";
@@ -66,8 +75,6 @@ export default ({ navigation }) => {
     image: null,
     gender: "",
   });
-
-  // console.log(user);
 
   const [errors, setErros] = useState({
     name: "",
@@ -381,6 +388,7 @@ export default ({ navigation }) => {
             closeText="Fechar"
             dialCodeTextStyle={styles.dialCodeTextStyle}
             phoneInputStyle={styles.phoneInputStyle}
+            filterText='Choose your country'
           />
 
           <CustomInput
