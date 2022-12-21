@@ -23,10 +23,6 @@ import api from "../../services/api";
 const HeaderMyAccount = ({ navigation }) => {
   const { user, updateUser } = useAuth();
 
-  // const [image, setImage] = useState(
-  //   user.image || "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png",
-  // );
-
   const getDate = date => new Date(date).toLocaleDateString();
 
   const hasMediaPermission = async option => {
@@ -72,12 +68,8 @@ const HeaderMyAccount = ({ navigation }) => {
     }
 
     if (!result.canceled) {
-      
-      // setImage(result.assets[0].uri);
       let imageObject = undefined;
-
-      // if (image) {
-      // }
+  
       imageObject = {
         uri: result.assets[0].uri,
         type: "image/jpeg",
