@@ -11,21 +11,31 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
-import CustomInput from "../../../components/CustomInput";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
+
 import Style from "./style";
-import Copyright from "../../../components/Copyright";
-import CustomButton from "../../../components/CustomButton";
-import CustomIcon from "../../../components/CustomIcon";
-import CustomAvatar from "../../../components/CustomAvatar";
-import { maskPhone, maskDocument, maskDate } from "../../../utils/masks";
-import { CheckBox } from "react-native-elements";
-import { MaterialIcons } from "@expo/vector-icons";
+
 import api from "../../../services/api";
+
+import { CheckBox } from "react-native-elements";
+
+import * as ImagePicker from "expo-image-picker";
+
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+
+
+import { maskDocument, maskDate } from "../../../utils/masks";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../../utils/variables";
+
 import { useAuth } from "../../../contexts/auth";
+
+import Copyright from "../../../components/Copyright";
+import CustomIcon from "../../../components/CustomIcon";
 import { DropDown } from "../../../components/DropDown";
+import CustomInput from "../../../components/CustomInput";
+import CustomAvatar from "../../../components/CustomAvatar";
+import CustomButton from "../../../components/CustomButton";
+import IntlPhoneInputLocal from "../../../components/IntlPhoneInput/IntlPhoneInput";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -76,6 +86,22 @@ export default ({ navigation }) => {
     password: "",
     gender: "",
   });
+
+  const onChangeText = ({dialCode, unmaskedPhoneNumber, phoneNumber, isVerified}) => {
+    if(dialCode === '+55') {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber.split(' ')[0]} ${phoneNumber.split(' ')[1]}-${phoneNumber.split(' ')[2]}`;
+      setUser({
+        ...user,
+        phone_number: (fullPhoneNumber),
+      })
+    } else {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber}`;
+      setUser({
+        ...user,
+        phone_number: (fullPhoneNumber),
+      })
+    }
+  };
 
   const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
@@ -334,7 +360,7 @@ export default ({ navigation }) => {
             }
           />
 
-          <CustomInput
+          {/* <CustomInput
             placeholder='Seu celular?'
             size={20}
             lenght={15}
@@ -351,6 +377,18 @@ export default ({ navigation }) => {
                 phone_number: maskPhone(text),
               })
             }
+          /> */}
+
+          <IntlPhoneInputLocal
+            onChangeText={onChangeText}
+            defaultCountry="BR"
+            screen='signUp'
+            containerStyle={styles.containerStyle}
+            flagStyle={styles.flagStyle}
+            closeText="Fechar"
+            dialCodeTextStyle={styles.dialCodeTextStyle}
+            phoneInputStyle={styles.phoneInputStyle}
+            filterText='Choose your country'
           />
 
           <CustomInput
@@ -539,5 +577,24 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: 250,
+  },
+  containerStyle: {
+    backgroundColor: PRIMARY_COLOR,
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    borderRadius: 50,
+    height: 50,
+    marginTop: 10,
+    alignItems: "center",
+  },
+  flagStyle: {
+    fontSize: 18,
+  },
+  dialCodeTextStyle: {
+    marginRight: 2,
+    color: 'white',
+  },
+  phoneInputStyle: {
+    color: "white",
   },
 });
