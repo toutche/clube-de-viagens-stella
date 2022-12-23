@@ -1,28 +1,36 @@
-import React from "react";
-import { View, Image, ImageBackground } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, ImageBackground, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { Ionicons } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
-
-const data = [
-  {
-    key: 1,
-    backgroundColor: "#59b2ab",
-    image: require("../../../assets/imagem-splash.png"),
-  },
-  {
-    key: 2,
-    backgroundColor: "#febe29",
-    image: require("../../../assets/imagem-splash.png"),
-  },
-  {
-    key: 3,
-    backgroundColor: "#22bcb5",
-    image: require("../../../assets/imagem-splash.png"),
-  },
-];
+import api from "../../services/api/";
 
 export default ({ navigation }) => {
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    getImage();
+  }, []);
+
+  const getImage = async () => {
+    const response = await api.get("/links");
+    const link = response.data.onboard;
+
+    setImage(link);
+  };
+  const data = [
+    {
+      key: 1,
+      image: image.first,
+    },
+    {
+      key: 2,
+      image: image.second,
+    },
+    {
+      key: 3,
+      image: image.third,
+    },
+  ];
   function done() {
     navigation.navigate("SignIn");
   }
@@ -66,20 +74,25 @@ export default ({ navigation }) => {
       </View>
     );
   }
+
   function renderItem({ item }) {
     return (
       <ImageBackground
         resizeMode='contain'
         style={{ width: "100%", height: "100%" }}
-        source={item.image}
+        source={{ uri: item.image }}
       />
     );
   }
+
+  console.log(image);
 
   return (
     <AppIntroSlider
       renderItem={renderItem}
       data={data}
+      onSkip={done}
+      onDone={done}
       showSkipButton
       renderSkipButton={doneButton}
       renderDoneButton={doneButton}
