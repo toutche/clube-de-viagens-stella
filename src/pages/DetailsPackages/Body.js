@@ -35,10 +35,18 @@ export default ({ item, display = 0, navigation }) => {
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(null);
 
+  function backAction (){
+    navigation.navigate('Dashboard')
+    return true
+  }
+
   useEffect(() => {
-    BackHandler.addEventListener("backPress", () => true);
-    BackHandler.removeEventListener("backPress", () => true);
     loadPage();
+    
+    BackHandler.addEventListener("hardwareBackPress", backAction);	
+    return ()=> {
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }
   }, []);
 
   useDidMountEffect(() => {
