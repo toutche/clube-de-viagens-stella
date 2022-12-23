@@ -23,6 +23,7 @@ export const FilterProvider = ({ children }) => {
   const [isVisibleMenu, setVisibleMenu] = useState(false);
   const [numberNotifications, setNumberNotifications] = useState(false);
   const [autoScroll, setAutoScroll] = useState(false);
+  const [childrens, setChildrens] = useState([]);
 
   const toggleFilter = () => {
     setFilterIdsCategory(true);
@@ -153,6 +154,7 @@ export const FilterProvider = ({ children }) => {
         numberNotifications, setNumberNotifications,
         isVisibleMenu, setVisibleMenu,
         autoScroll, setAutoScroll,
+        childrens, setChildrens,
       }}>
       {children}
     </FilterContext.Provider>

@@ -13,6 +13,7 @@ import { CheckBox } from "react-native-elements";
 import { useAuth } from "../../contexts/auth";
 import CustomPicker from "../../components/CustomPicker";
 import api from "../../services/api";
+import { useFilter } from "../../contexts/filter";
 
 const ModalPayment = ({
   navigation,
@@ -34,6 +35,7 @@ const ModalPayment = ({
   const [installments, setInstallments] = useState(data?.payment_infos?.installments);
   const [btnPrice, setBtnPrice] = useState(data?.payment_infos?.btn_payment?.price);
   // const [data, setData] = useState();
+  const {childrens} = useFilter();
 
   const parse = (number) => {
     try {
@@ -111,10 +113,12 @@ const ModalPayment = ({
         installments: index,
         use_credit: check,
         travelers,
+        childrens,
         comments: comment,
       })
       .then(res => {
         onClose();
+        // console.log(res.data);
         navigation.replace("CongratulationPackage", { ...res.data });
       })
       .catch(() => setLoading(false));

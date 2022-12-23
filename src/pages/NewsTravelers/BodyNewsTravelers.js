@@ -13,8 +13,8 @@ const BodyNewTravelers = ({
   openModal,
   form = [],
   errors = [],
-  setForm = () => {},
-  handlerPress = () => {},
+  setForm = () => { },
+  handlerPress = () => { },
 }) => {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={BEHAVIOR}>

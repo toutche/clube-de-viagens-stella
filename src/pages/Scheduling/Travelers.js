@@ -1,33 +1,69 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import CustomButton from "../../components/CustomButton";
-import QuantifyTravel from "../../components/QuantifyTravel";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+
 import { BLUE_COLOR, FONT_DEFAULT_STYLE } from "../../utils/variables";
 
-const Travelers = ({ onPress, users = [] }) => {
-  const renderItem = text => {
-    return (
-      <View style={styles.item}>
-        <AntDesign name='checkcircleo' size={16} color='#287dfd' />
-        <Text style={styles.itemText}>{text}</Text>
-      </View>
-    );
-  };
+import CustomButton from "../../components/CustomButton";
+import { AddChildren } from "../../components/AddChildren";
+import QuantifyTravel from "../../components/QuantifyTravel";
+import { RegisterChildren } from "../../components/RegisterChildren";
+
+const Travelers = ({ children, setChildren, onPress, users = [] }) => {
+
+  const [numberOfChildren, setNumberOfChildren] = useState(true);
+  const [numberOfChildren2, setNumberOfChildren2] = useState(true);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Viajantes</Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.title}>Viajantes</Text>
 
-      {users.length > 0 && <QuantifyTravel users={users} />}
+        {users.length > 0 && <QuantifyTravel users={users} />}
 
-      <CustomButton
-        containerStyle={styles.button}
-        titleStyle={styles.textButton}
-        title={`Nomear Viajantes`}
-        onPress={onPress}
-      />
-    </View>
+        <CustomButton
+          containerStyle={styles.button}
+          titleStyle={styles.textButton}
+          title={`Nomear Viajantes`}
+          onPress={onPress}
+        />
+      </View>
+
+      <View style={styles.container}>
+        <Text style={styles.title}>Crianças menores de 12 anos</Text>
+
+        {users.length > 0 && <QuantifyTravel users={users} />}
+
+        <AddChildren
+          numberOfChildren={numberOfChildren}
+          setNumberOfChildren={setNumberOfChildren}
+          />
+        {
+          numberOfChildren
+            ? <View />
+            : <>
+              <RegisterChildren
+                children={children}
+                setChildren={setChildren}
+                title='Formulário Infantil'
+              />
+              <AddChildren
+                numberOfChildren={numberOfChildren2}
+                setNumberOfChildren={setNumberOfChildren2}
+              />
+            </>
+        }
+        {
+          numberOfChildren2 ? <View />
+          : <RegisterChildren
+              placeHolderTextColor='rgba(0, 0, 0, 0.65)'
+              children={children}
+              setChildren={setChildren}
+              title='Formulário Infantil'
+            />
+        }
+        
+      </View>
+    </ScrollView>
   );
 };
 
@@ -48,14 +84,31 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     borderRadius: 10,
   },
-  button: {
+  viewRegisterChildren: {
     borderColor: BLUE_COLOR,
     borderWidth: 1.5,
+    alignItems: "center",
+    flexDirection: 'row',
     borderRadius: 100,
     height: 50,
     width: "100%",
     justifyContent: "center",
     marginTop: 10,
+  },
+  button: {
+    borderColor: BLUE_COLOR,
+    borderWidth: 1.5,
+    alignItems: "center",
+    flexDirection: 'row',
+    borderRadius: 100,
+    height: 50,
+    width: "100%",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  icon: {
+    position: "absolute",
+    right: 20,
   },
   textButton: {
     fontSize: 14.5,
