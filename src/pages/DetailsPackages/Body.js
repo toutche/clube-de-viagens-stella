@@ -33,8 +33,8 @@ export default ({ item, display = 0, navigation }) => {
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
 
   useEffect(() => {
-    BackHandler.addEventListener("backPress", () => true);
-    BackHandler.removeEventListener("backPress", () => true);
+    BackHandler.addEventListener("backPress", () => navigation.goBack());
+    // BackHandler.removeEventListener("backPress", () => true);
     loadPage();
   }, []);
 
