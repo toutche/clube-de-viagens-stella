@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, Text, StyleSheet, View, Alert } from "react-native";
+import { ScrollView, Text, StyleSheet, View, Alert, TouchableOpacity } from "react-native";
 import {
   PRIMARY_COLOR,
   TITLE_COLOR_BKCOLORFUL,
@@ -304,21 +304,24 @@ const BodyMyAccount = ({ item }) => {
           <Text style={styles.boldGreyText}>
             {user.credit_card ? user.credit_card.holder_name : "Cartão de Crédito"}
           </Text>
-          <Text
-            style={styles.boldPrimaryText}
-            onPress={() => openModal("Alterar cartão", "Salvar", updateCreditCard)}>
-            {user.credit_card ? "Editar" : "Cadastrar"}
-          </Text>
+          <View style={styles.removeEditButtonWrapper}>
+            <Text
+              style={styles.boldPrimaryText}
+              onPress={() => openModal("Alterar cartão", "Salvar", updateCreditCard)}>
+              {user.credit_card ? "Editar" : "Cadastrar"}
+            </Text>
+            {!user.plan && 
+              <TouchableOpacity>
+                <Text style={styles.removeButtonText}>
+                  Remover
+                </Text>
+              </TouchableOpacity>
+            }
+          </View>
         </View>
         {user.credit_card && (
           <View style={styles.cardBody}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              {/* <FontAwesome
-                name='cc-mastercard'
-                size={24}
-                color={"#000"}
-                style={{ marginRight: 16 }}
-              /> */}
               <Text style={{ fontFamily: FONT_DEFAULT_BOLD_STYLE }}>
                 {user.credit_card.last_digits}
               </Text>
@@ -343,18 +346,6 @@ const BodyMyAccount = ({ item }) => {
           <Text style={{ fontFamily: FONT_DEFAULT_BOLD_STYLE }}>{address}</Text>
         </View>
       </View>
-
-      {/*
-        <View style={styles.switchInput}>
-          <Text style={styles.boldGreyText}>Receber notificação</Text>
-
-          <Switch
-            value={notifications}
-            onValueChange={() => setNotifications(!notifications)}
-            color={BLUE_COLOR}
-          />
-        </View>
-      */}
 
       <CustomButton
         onPress={updateUser}
@@ -471,6 +462,14 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  removeEditButtonWrapper: {
+    flexDirection: "row",
+  },
+  removeButtonText: {
+    marginLeft: 16,
+    color: PRIMARY_COLOR,
+    fontFamily: FONT_DEFAULT_BOLD_STYLE,
   },
 });
 
