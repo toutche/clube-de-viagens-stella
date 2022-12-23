@@ -36,11 +36,12 @@ import CustomIcon from "../../../components/CustomIcon";
 import CustomButton from "../../../components/CustomButton";
 import { logout } from "../../../services/auth";
 const titlePage = "Você pode nos ajudar e indicar o seu endereço?.";
-const subtitlePage = "Sabendo um pouco mais de você, poderemos conectar você com a sua próxima viagem!";
+const subtitlePage =
+  "Sabendo um pouco mais de você, poderemos conectar você com a sua próxima viagem!";
 const text = "";
 import api from "../../../services/api";
 import MaskInput from "react-native-mask-input";
-const zipCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+const zipCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/];
 
 const GetLocation = ({ navigation }) => {
   const googleRef = useRef();
@@ -79,63 +80,67 @@ const GetLocation = ({ navigation }) => {
   };
 
   const handleBackButton = () => {
-    if (navigation.canGoBack())
-      navigation.goBack();
+    if (navigation.canGoBack()) navigation.goBack();
     else {
       logout();
       navigation.replace("Sign");
     }
   };
 
-  const formatted_address = (details) => {
-    let array = []
+  const formatted_address = details => {
+    let array = [];
 
     for (let i = 0; i < details.length; i++) {
       array[i] = details[i].short_name;
     }
 
-    return array
-  }
+    return array;
+  };
 
   // const pressHander = (datas, details) => {
-  const pressHander = async (cep) => {
+  const pressHander = async cep => {
     try {
       setCEP(cep);
-      if(cep.length >= 8 ) {
-        await api.get(`https://viacep.com.br/ws/${cep}/json`)
-        .then(response => {
-          if(response.data.erro) {
-            setAutocomplete("CEP não encontrado!");
-          } else {
-            setAutocomplete(
-              response.data.logradouro + " - " +
-              response.data.bairro + " " +
-              response.data.complemento + " - " +
-              response.data.localidade + ", " +
-              response.data.uf
+      if (cep.length >= 8) {
+        await api
+          .get(`https://viacep.com.br/ws/${cep}/json`)
+          .then(response => {
+            if (response.data.erro) {
+              setAutocomplete("CEP não encontrado!");
+            } else {
+              setAutocomplete(
+                response.data.logradouro +
+                  " - " +
+                  response.data.bairro +
+                  " " +
+                  response.data.complemento +
+                  " - " +
+                  response.data.localidade +
+                  ", " +
+                  response.data.uf,
               );
-            setAddress(response.data);
-            console.log(address)
-            // console.log(address);
-          }
-          setIsAutocompleteVisible(true);
-        })
-        .catch(e => {
-          throw e.message;
-        })
+              setAddress(response.data);
+              console.log(address);
+              // console.log(address);
+            }
+            setIsAutocompleteVisible(true);
+          })
+          .catch(e => {
+            throw e.message;
+          });
       } else {
         setAutocomplete("");
         setIsAutocompleteVisible(false);
       }
-    } catch(e) {
+    } catch (e) {
       console.error(e);
     }
   };
 
   return (
-    <View style={Style.container}>
-      {!isKeyboard &&
-        <>
+    <>
+      <ScrollView style={Style.container}>
+        <View style={Style.header}>
           <Image source={require("../../../../assets/header/Location.jpg")} style={Style.image} />
 
           <CustomIcon
@@ -146,14 +151,12 @@ const GetLocation = ({ navigation }) => {
             name={"arrowleft"}
             containerStyle={Style.icon}
           />
-        </>
-      }
+        </View>
 
-      <View style={Style.body}>
-        {!isKeyboard ?
-          panel ?
+        <View style={Style.body}>
+          {panel ? (
             <Text style={Style.title}>Complete o seu endereço</Text>
-            :
+          ) : (
             <>
               <Text style={Style.title}>{titlePage}</Text>
 
@@ -161,78 +164,53 @@ const GetLocation = ({ navigation }) => {
 
               <Text style={Style.subtitle}>{}</Text>
             </>
-          : null}
-
-        {panel ?
-          <Location
-            isKeyboard={isKeyboard}
-            address={address}
-            addressArr={addressArr}
-            numberAddress={number}
-            CEP={CEP}
-            onChange={text => setAddress(text)}
-            changePanel={index => setPanel(index)}
-            onChangeKeyboard={onChange => setIsKeyboard(onChange)}
-            navigation={navigation}
-          />
-          :
-          <View>
-            <MaskInput
-              value={CEP}
-              // onChange={ () => pressHander() }
-              onChangeText={ (masked, unmasked) => {
-                pressHander(unmasked)
-              }} 
-              mask={zipCodeMask}
-              style={Style.input}
-              placeholder='Digite seu CEP'
-              autoComplete='postal-code'
-              placeholderTextColor={TEXT_COLOR_BKWHITE}
-              keyboardType={"numeric"}
+          )}
+          {/* ) : null} */}
+          {panel ? (
+            <Location
+              isKeyboard={isKeyboard}
+              address={address}
+              addressArr={addressArr}
+              numberAddress={number}
+              CEP={CEP}
+              onChange={text => setAddress(text)}
+              changePanel={index => setPanel(index)}
+              onChangeKeyboard={onChange => setIsKeyboard(onChange)}
+              navigation={navigation}
             />
-            {
-              isAutocompleteVisible ?
-                <TouchableOpacity 
-                  onPress={() => setPanel(1)} 
+          ) : (
+            <View>
+              <MaskInput
+                value={CEP}
+                // onChange={ () => pressHander() }
+                onChangeText={(masked, unmasked) => {
+                  pressHander(unmasked);
+                }}
+                mask={zipCodeMask}
+                style={Style.input}
+                placeholder='Digite seu CEP'
+                autoComplete='postal-code'
+                placeholderTextColor={TEXT_COLOR_BKWHITE}
+                keyboardType={"numeric"}
+              />
+              {isAutocompleteVisible ? (
+                <TouchableOpacity
+                  onPress={() => setPanel(1)}
                   value={autocomplete}
-                  style={Style.autocompleteContainer}
-                >
-                  <Text style={Style.autocomplete}> { autocomplete } </Text>
-                </TouchableOpacity> 
-              : <></>
-            }
-          </View>
-          /* <GooglePlacesAutocomplete
-            ref={googleRef}
-            placeholder='Digite o seu Endereço ou CEP'
-            enablePoweredByContainer={false}
-            minLength={1}
-            returnKeyType='search'
-            listViewDisplayed='auto'
-            fetchDetails
-            renderLeftButton={() => <AntDesign size={22} color={PRIMARY_COLOR} name={"search1"} />}
-            renderDescription={row => row.description}
-            onPress={pressHander}
-            query={{
-              key: consts.google_key,
-              language: "pt-BR",
-              components: "country:br",
-            }}
-            styles={autoCompleteStyle(isKeyboard)}
-            nearbyPlacesAPI='GooglePlacesSearch'
-            GooglePlacesSearchQuery={{
-              rankby: "distance",
-              type: "store",
-            }}
-            GooglePlacesDetailsQuery={{ fields: "formatted_address,geometry,address_component" }}
-            filterReverseGeocodingByTypes={["locality", "administrative_area_level_3"]}
-            debounce={200}
-          /> */
-        }
+                  style={Style.autocompleteContainer}>
+                  <Text style={Style.autocomplete}> {autocomplete} </Text>
+                </TouchableOpacity>
+              ) : (
+                <></>
+              )}
+            </View>
+          )}
+        </View>
+      </ScrollView>
+      <View style={Style.footer}>
+        <Copyright display={1} />
       </View>
-
-      {!isKeyboard ? <Copyright display={1} /> : null}
-    </View>
+    </>
   );
 };
 
@@ -263,6 +241,7 @@ const Style = StyleSheet.create({
   body: {
     flex: 1,
     paddingHorizontal: "10%",
+    marginVertical: 50,
   },
   title: {
     fontSize: 16,
@@ -288,7 +267,7 @@ const Style = StyleSheet.create({
     borderRadius: 100,
     height: 40,
     paddingHorizontal: 15,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     fontFamily: FONT_DEFAULT_STYLE,
     textAlign: "center",
   },
@@ -300,10 +279,13 @@ const Style = StyleSheet.create({
     borderRadius: 10,
     marginTop: 20,
     elevation: 5,
-    textAlign: "left"
+    textAlign: "left",
   },
   autocomplete: {
     fontFamily: FONT_DEFAULT_STYLE,
+  },
+  footer: {
+    backgroundColor: PRIMARY_COLOR,
   },
 });
 
@@ -349,7 +331,7 @@ const autoCompleteStyle = isKeyboard => ({
     top: 50,
     maxHeight: 168,
     backgroundColor: "white",
-    overflow: 'hidden'
+    overflow: "hidden",
   },
   description: {
     fontSize: 14,
