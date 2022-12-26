@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, Text, StyleSheet, View, Alert } from "react-native";
+import { ScrollView, Text, StyleSheet, View, Alert, Linking } from "react-native";
 import {
   PRIMARY_COLOR,
   TITLE_COLOR_BKCOLORFUL,
@@ -8,11 +8,13 @@ import {
 } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
-import { MaterialCommunityIcons, FontAwesome, EvilIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome, EvilIcons, Ionicons } from "@expo/vector-icons";
 import CustomInput from "../../components/CustomInput";
 import { maskPhone } from "../../utils/masks";
 import CustomButton from "../../components/CustomButton";
 import CustomModal from "./CustomModal";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Button } from "react-native-web";
 
 const BodyMyAccount = ({ item }) => {
   const { user, verifyUser, logoutAccount } = useAuth();
@@ -165,6 +167,14 @@ const BodyMyAccount = ({ item }) => {
       },
     ]);
   };
+
+  async function openSetting() {
+    if (Platform.OS === "ios") {
+      Linking.openURL("app-settings:");
+    } else {
+      await Linking.openSettings();
+    }
+  }
 
   const updateUser = () => {
     setLoading(true);
@@ -344,17 +354,28 @@ const BodyMyAccount = ({ item }) => {
         </View>
       </View>
 
-      {/*
-        <View style={styles.switchInput}>
-          <Text style={styles.boldGreyText}>Receber notificação</Text>
-
-          <Switch
-            value={notifications}
-            onValueChange={() => setNotifications(!notifications)}
-            color={BLUE_COLOR}
-          />
-        </View>
-      */}
+      <CustomButton
+        title={"Ative as notificações"}
+        onPress={openSetting}
+        type={Ionicons}
+        name={"notifications"}
+        right
+        iconStyle={{ color: "black" }}
+        containerStyle={{
+          marginTop: 10,
+          height: 60,
+          paddingHorizontal: 20,
+          borderRadius: 10,
+          backgroundColor: "white",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexDirection: "row",
+        }}
+        titleStyle={{
+          color: "black",
+          fontSize: 20,
+        }}
+      />
 
       <CustomButton
         onPress={updateUser}
