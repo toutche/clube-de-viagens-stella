@@ -32,7 +32,7 @@ export default ({ navigation }) => {
     },
   ];
   function done() {
-    navigation.navigate("SignIn");
+    navigation.navigate("Sign");
   }
   function nextButton() {
     return (
