@@ -147,7 +147,7 @@ export default ({ item, navigation, plan, select, filters }) => {
                 onPress={() => {
                     logEvent(EventType.selectContent, {
                         screen_name: ScreenName.detailHotel,
-                        content_type: plan ? ContentType.reserveNow : ContentType.makePartOfClub
+                        content_type: plan ? ContentType.bookNow : ContentType.makePartOfClub
                     });
                     navigation.navigate({
                         name: plan ? "HotelScheduling" : "PlanScreen",

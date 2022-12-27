@@ -287,7 +287,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
             onPress={() => {
               logEvent(EventType.selectContent, {
                 screen_name: ScreenName.dashboard,
-                content_type: plan ? ContentType.reserveNow : ContentType.makePartOfClub
+                content_type: plan ? ContentType.bookNow : ContentType.makePartOfClub
               });
               handlePressRightButton();
             }}

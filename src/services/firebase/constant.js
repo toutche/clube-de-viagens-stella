@@ -9,15 +9,13 @@ export const ContentType = {
     register: 'cadastrar',
     Registered: 'cadastrado',
     logged: 'logado',
-    bookNow: 'reservar_gora',
+    bookNow: 'reservar_agora',
     makePartOfClub: 'faca_parte_do_clube',
     like: 'favorito',
     unlike: 'desfavoritar',
     payment: 'realizar_pagamento',
     saveCard: 'salvar_cartao',
     playVideoSobre: 'play_video_sobre',
-    reserveNow: 'reservar_agora',
-    makePartOfClub: 'faca_parte_do_clube'
 }
 
 export const ScreenName = {
