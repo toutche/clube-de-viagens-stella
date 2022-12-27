@@ -5,6 +5,8 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from '../../utils/varia
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import * as Clipboard from "expo-clipboard";
+import { logEvent } from '../../services/firebase';
+import { ContentType, EventType, ScreenName } from '../../services/firebase/constant';
 
 export default ({ item, navigation, plan, select, setSelect }) => {
 
@@ -146,6 +148,10 @@ export default ({ item, navigation, plan, select, setSelect }) => {
                                     containerStyle={styles.button_room}
                                     titleStyle={styles.button_text_room}
                                     onPress={() => {
+                                        logEvent(EventType.selectContent, {
+                                            screen_name: ScreenName.detailHotel,
+                                            content_type: plan ? ContentType.reserveNow : ContentType.makePartOfClub
+                                        });
                                         navigation.navigate({
                                             name: plan ? "HotelScheduling" : "PlanScreen",
                                             params: {

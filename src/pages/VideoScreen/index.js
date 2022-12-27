@@ -7,6 +7,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import CustomStatusBar from "../../components/CustomStatusBar";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import { Video } from "expo-av";
+import { logEvent } from "../../services/firebase";
+import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
 
 export default ({ navigation, route: { params } }) => {
   const insets = useSafeAreaInsets();
@@ -21,6 +23,11 @@ export default ({ navigation, route: { params } }) => {
         Platform.OS === "ios" ? setUrl(res.data.ios) : setUrl(res.data.android);
       })
       .catch(e => console.log(e));
+
+      logEvent(EventType.selectContent, {
+        screen_name: ScreenName.video,
+        content_type: ContentType.playVideoSobre
+    });
   }, []);
 
   const goBack = () => {

@@ -15,6 +15,8 @@ import Hide from "../Hide";
 import { useCheckout } from "../../contexts/checkout";
 import { useFilter } from "../../contexts/filter";
 import promo from '../../../assets/promo.png';
+import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
+import { logEvent } from "../../services/firebase";
 
 const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
   const [loading, setLoading] = useState(true)
@@ -42,7 +44,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
         params: { item }
       });
     } else if (display === 1) {
-      let hotelData = {item, filterDestiny, filterCheck, filterPeople}
+      let hotelData = { item, filterDestiny, filterCheck, filterPeople }
       getScheduling(item.id, hotelData);
 
       navigation.navigate({
@@ -74,20 +76,20 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
         >
           {
             item.featured && item.tag_special
-            ? <Image style={{
+              ? <Image style={{
                 height: 144,
                 left: -6,
                 top: -6,
                 width: 144,
               }} source={{ uri: item.tag_special }} />
-            : item.featured ? 
-            <Image style={{
-              height: 144,
-              left: -6,
-              top: -6,
-              width: 144,
-            }} source={promo} />
-            : null
+              : item.featured ?
+                <Image style={{
+                  height: 144,
+                  left: -6,
+                  top: -6,
+                  width: 144,
+                }} source={promo} />
+                : null
           }
           {loading ?
             <View style={{ flex: 1, backgroundColor: '#f4f5f7', justifyContent: 'center', borderRadius: 20 }}>
@@ -282,7 +284,13 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
               },
             ]}
             titleStyle={styles.textButton}
-            onPress={handlePressRightButton}
+            onPress={() => {
+              logEvent(EventType.selectContent, {
+                screen_name: ScreenName.dashboard,
+                content_type: plan ? ContentType.reserveNow : ContentType.makePartOfClub
+              });
+              handlePressRightButton();
+            }}
             title={plan ? "Reservar Agora" : "Faça parte do clube"}
           />
         </View>

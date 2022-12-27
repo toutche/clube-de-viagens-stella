@@ -41,7 +41,14 @@ export default ({ data = [], navigation }) => {
                                 onPress={() => {
                                     logEvent(EventType.selectContent, {
                                         screen_name: ScreenName.docs,
-                                        content_type: `${item.title.toLowerCase().replace(' ', '_')}`,
+                                        content_type: `
+                                            ${
+                                                item.title
+                                                    .toLowerCase()
+                                                    .replace(' ', '_')
+                                                    .normalize("NFD")
+                                            }
+                                        `,
                                     });
                                     openPDF(item.link);
                                 }}

@@ -10,6 +10,8 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE, LIGHT_BLUE, PRIMARY_COLOR } from "../..
 import Carousel from "../../components/Carousel";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFilter } from "../../contexts/filter";
+import { logEvent } from "../../services/firebase";
+import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
 
 export default ({ item, navigation, plan }) => {
   const insets = useSafeAreaInsets()
@@ -158,6 +160,10 @@ export default ({ item, navigation, plan }) => {
         containerStyle={styles.button}
         titleStyle={styles.textButton}
         onPress={() => {
+          logEvent(EventType.selectContent, {
+            screen_name: ScreenName.detailPackages,
+            content_type: plan ? ContentType.reserveNow : ContentType.makePartOfClub
+        });
           navigation.navigate({
             name: plan ? "Scheduling" : "PlanScreen",
             params: {

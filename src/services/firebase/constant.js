@@ -14,7 +14,10 @@ export const ContentType = {
     like: 'favorito',
     unlike: 'desfavoritar',
     payment: 'realizar_pagamento',
-    saveCard: 'salvar_cartao'
+    saveCard: 'salvar_cartao',
+    playVideoSobre: 'play_video_sobre',
+    reserveNow: 'reservar_agora',
+    makePartOfClub: 'faca_parte_do_clube'
 }
 
 export const ScreenName = {
@@ -25,7 +28,10 @@ export const ScreenName = {
     dashboard: 'page_dashboard',
     planScreen: 'page_plan_screen',
     checkoutPlan: 'page_checkout_plan',
-    docs: 'page_docs'
+    docs: 'page_docs',
+    video: 'page_video',
+    detailHotel: 'page_detail_hotel',
+    detailPackages: 'page_detail_packages'
 }
 
 export const EventType = {
