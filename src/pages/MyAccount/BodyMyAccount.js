@@ -199,6 +199,29 @@ const BodyMyAccount = ({ item }) => {
     setLoading(false);
   };
 
+  async function deleteCreditCard() {
+    setLoading(true);
+
+    const id_credit_card = user.credit_card.id;
+
+    api
+      .delete(`cartao/${id_credit_card}/deletar`)
+      .then(res => {
+        if (res.status === 200 && res.data.message === "Cartão deletado") {
+          setIsVisible(false);
+          Alert.alert("Cartão deletado", "Suas informações foram atualizadas com sucesso.");
+          verifyUser();
+        } else {
+          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+      });
+    setLoading(false);
+  }
+
   return (
     <ScrollView
       bounces={false}
@@ -311,7 +334,7 @@ const BodyMyAccount = ({ item }) => {
               {user.credit_card ? "Editar" : "Cadastrar"}
             </Text>
             {!user.plan && 
-              <TouchableOpacity>
+              <TouchableOpacity onPress={deleteCreditCard}>
                 <Text style={styles.removeButtonText}>
                   Remover
                 </Text>
