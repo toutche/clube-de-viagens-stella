@@ -180,7 +180,9 @@ renderAction=()=>{
         flagStyle,
         phoneInputStyle,
         dialCodeTextStyle,
+        placeholderTextColor = 'lightgray',
         inputProps,
+        iconColor = 'white',
     } = this.props;
     return (
         <View style={{
@@ -190,7 +192,7 @@ renderAction=()=>{
         <TouchableOpacity onPress={() => this.showModal()}>
             <View style={styles.openDialogView}>
             <Text style={[styles.flagStyle, flagStyle]}>{flag}</Text>
-            <MaterialIcons name="keyboard-arrow-down" size={20} color="white" />
+            <MaterialIcons name="keyboard-arrow-down" size={20} color={iconColor} />
             <Text style={[styles.dialCodeTextStyle, dialCodeTextStyle]}>{this.state.dialCode}</Text>
             </View>
         </TouchableOpacity>
@@ -200,7 +202,7 @@ renderAction=()=>{
             style={[styles.phoneInputStyle, phoneInputStyle]}
             placeholder={this.props.placeholder || this.state.mask.replace(/9/g, '_')}
             autoCorrect={false}
-            placeholderTextColor='lightgrey'
+            placeholderTextColor={placeholderTextColor}
             keyboardType="number-pad"
             secureTextEntry={false}
             value={this.state.phoneNumber}
