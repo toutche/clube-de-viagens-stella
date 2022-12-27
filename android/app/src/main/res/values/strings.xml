@@ -1,0 +1,8 @@
+<resources>
+  <string name="app_name">Clube de Férias</string>
+  <string name="expo_splash_screen_resize_mode" translatable="false">cover</string>
+  <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+  <string name="facebook_app_id">3226621684243595</string>
+  <string name="facebook_client_token">dbc88996f6774f69893064069d844f46</string>
+  <string name="fb_login_protocol_scheme">fb3226621684243595</string>
+</resources>

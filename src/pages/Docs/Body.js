@@ -3,6 +3,8 @@ import { Dimensions, FlatList, StyleSheet, Text, View, Linking, Alert } from 're
 import CustomIcon from '../../components/CustomIcon';
 import { FONT_DEFAULT_STYLE } from '../../utils/variables';
 import { Entypo } from "@expo/vector-icons";
+import { EventType, ScreenName } from '../../services/firebase/constant';
+import { logEvent } from '../../services/firebase';
 
 export default ({ data = [], navigation }) => {
 
@@ -36,7 +38,13 @@ export default ({ data = [], navigation }) => {
                                 <Text style={styles.date_item}>{item.date}</Text>
                             </View>
                             <CustomIcon
-                                onPress={() => openPDF(item.link)}
+                                onPress={() => {
+                                    logEvent(EventType.selectContent, {
+                                        screen_name: ScreenName.docs,
+                                        content_type: `${item.title.toLowerCase().replace(' ', '_')}`,
+                                    });
+                                    openPDF(item.link);
+                                }}
                                 size={24}
                                 color={'#d1d1d1'}
                                 type={Entypo}

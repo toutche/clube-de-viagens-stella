@@ -9,22 +9,27 @@ export const ContentType = {
     register: 'cadastrar',
     Registered: 'cadastrado',
     logged: 'logado',
-    bookNow: 'Reservar_gora',
+    bookNow: 'reservar_gora',
     makePartOfClub: 'faca_parte_do_clube',
     like: 'favorito',
     unlike: 'desfavoritar',
+    payment: 'realizar_pagamento',
+    saveCard: 'salvar_cartao'
 }
 
 export const ScreenName = {
-    landingPageIntro: 'intro',
-    sign: 'sign',
-    signUp: 'sign_up',
-    signIn: 'sign_in',
-    dashboard: 'dashboard',
-    planScreen: 'plan_screen'
+    landingPageIntro: 'page_intro',
+    sign: 'page_sign',
+    signUp: 'page_sign_up',
+    signIn: 'page_sign_in',
+    dashboard: 'page_dashboard',
+    planScreen: 'page_plan_screen',
+    checkoutPlan: 'page_checkout_plan',
+    docs: 'page_docs'
 }
 
 export const EventType = {
     selectContent: 'select_content',
-    viewPromotion: 'view_promotion'
+    viewPromotion: 'view_promotion',
+    purchase: 'purchase'
 }

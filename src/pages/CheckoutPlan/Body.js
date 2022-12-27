@@ -7,6 +7,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
 import { useFilter } from "../../contexts/filter";
+import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
+import { logEvent } from "../../services/firebase";
 
 export default ({ data, navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -56,6 +58,13 @@ export default ({ data, navigation }) => {
           })
       .then(res => {
         console.log("sucess", res.data);
+        logEvent(EventType.purchase, {
+          screen_name: ScreenName.checkoutPlan,
+          content_type: ContentType.payment,
+          description: {
+            plan_id: data.id
+          }
+        });
         if (res.data.type) {
           navigation.navigate({
             name: "CongratulationPlan",
@@ -87,7 +96,13 @@ export default ({ data, navigation }) => {
         <Text style={styles.title}>Informe seus dados do cartão:</Text>
         <CreditCardInput requiresName onChange={onChange} />
         <CheckBox
-          onPress={() => setCheck(!check)}
+          onPress={() => {
+            logEvent(EventType.selectContent, {
+              screen_name: ScreenName.checkoutPlan,
+              content_type: ContentType.saveCard
+            });
+            setCheck(!check)
+          }}
           checked={check}
           title={"Salvar cartão"}
           textStyle={{

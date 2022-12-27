@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import * as Font from "expo-font";
 import * as Notifications from 'expo-notifications';
@@ -15,7 +15,7 @@ import linking from "./utils/linking";
 
 const App = () => {
   const routeNameRef = useRef();
-  const navigationRef = useRef();
+  const navigationRef = useNavigationContainerRef();
   const [appIsReady, setAppIsReady] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -85,16 +85,14 @@ const App = () => {
         <CheckoutProvider>
           <NavigationContainer
             linking={linking}
-            ref={navigationRef}
             onReady={() => {
-              routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+              routeNameRef.current = navigationRef?.current?.getCurrentRoute()?.name;
             }}
             onStateChange={async () => {
               const previousRouteName = routeNameRef.current;
-              const currentRouteName = navigationRef.current.getCurrentRoute().name;
-
+              const currentRouteName = navigationRef?.current?.getCurrentRoute()?.name;
               if (previousRouteName !== currentRouteName) {
-                await analytics.logScreenView({
+                analytics().setCurrentScreen({
                   screen_name: currentRouteName,
                   screen_class: currentRouteName,
                 });

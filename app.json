@@ -40,8 +40,18 @@
           }
         }
       ],
-      "@react-native-firebase/app",
-      "@react-native-firebase/analytics"
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "3226621684243595",
+          "clientToken": "dbc88996f6774f69893064069d844f46",
+          "displayName": "Clube de Férias",
+          "autoLogAppEventsEnabled": true,
+          "isAutoInitEnabled": true,
+          "iosUserTrackingPermission": "Este identificador será usado para entregar anúncios personalizados para você."
+        }
+      ],
+      "@react-native-firebase/app"
     ],
     "updates": {
       "fallbackToCacheTimeout": 0,
