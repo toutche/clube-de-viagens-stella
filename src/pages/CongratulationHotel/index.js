@@ -9,6 +9,8 @@ import TravelCard from "../../components/TravelCard";
 import { BLUE_COLOR, FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { useAuth } from "../../contexts/auth";
 import { useCheckout } from "../../contexts/checkout";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 const CongratulationPackage = ({ route, navigation }) => {
   const { data: item } = useCheckout();
@@ -16,6 +18,7 @@ const CongratulationPackage = ({ route, navigation }) => {
   const data = route.params;
 
   useEffect(() => {
+    logScreen(ScreenView.CongratulationHotel);
     const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton);
     return () => backHandler.remove();
   }, []);

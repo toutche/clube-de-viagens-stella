@@ -7,6 +7,8 @@ import api from "../../services/api";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import Body from "./Body";
 import Header from "./Header";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 export default ({ route, navigation }) => {
     const { user } = useAuth();
@@ -15,12 +17,16 @@ export default ({ route, navigation }) => {
 
     const { item } = route.params;
 
+    useEffect(() => {
+        logScreen(ScreenView.DetailsHotels);
+    }, []);
+
     const [select, setSelect] = useState({
         id: 0
     })
 
     useEffect(() => {
-        let hotelData = {item, filterDestiny, filterCheck, filterPeople}
+        let hotelData = { item, filterDestiny, filterCheck, filterPeople }
         getScheduling(item.id, hotelData);
     }, []);
 

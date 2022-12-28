@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import BottomSheet from "../../components/BottomSheet";
 import Menu from "../../components/Menu";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 import AutoComplete from "./AutoComplete";
 import BodyDashboard from "./BodyDashboard";
 import HeaderDashboard from "./HeaderDashboard";
@@ -9,6 +11,10 @@ import HeaderDashboard from "./HeaderDashboard";
 const Dashboard = ({ navigation }) => {
   const filterId = useRef()
   const [option, setOption] = useState(0);
+
+  useEffect(() => {
+    logScreen(ScreenView.Dashboard);
+  }, []);
 
   // const [isVisibleMenu, setVisibleMenu] = useState(false);
   const [isVisibleAutoComplete, setVisibleAutoComplete] = useState(false)

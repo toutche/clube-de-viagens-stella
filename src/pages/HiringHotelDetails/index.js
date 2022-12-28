@@ -3,6 +3,8 @@ import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { useCheckout } from "../../contexts/checkout";
 import { useFilter } from "../../contexts/filter";
 import api from "../../services/api";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import BodyHiringPackageDetails from "./BodyHiringPackageDetails";
 import HeaderHiringPackageDetails from "./HeaderHiringPackageDetails";
@@ -12,6 +14,10 @@ const HiringPackageDetails = ({ navigation, route }) => {
   const { filterDestiny, filterCheck, filterPeople } = useFilter();
   const { travelers, data } = useCheckout();
   const { roomIndex } = route.params;
+
+  useEffect(() => {
+    logScreen(ScreenView.HiringHotelDetails);
+  }, []);
 
   const [isVisible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);

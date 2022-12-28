@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, StyleSheet, View, ScrollView, Text } from "react-native";
 
 import Copyright from "../../components/Copyright";
@@ -13,10 +13,14 @@ import {
 import { AntDesign, Fontisto } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import TextWithBold from "../../components/TextWithBold";
-import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
-import { logEvent } from "../../services/firebase";
+import { ContentType, EventType, ScreenName, ScreenView } from "../../services/firebase/constant";
+import { logEvent, logScreen } from "../../services/firebase";
 
 export default ({ navigation }) => {
+  useEffect(() => {
+    logScreen(ScreenView.Sign);
+  }, []);
+
   return (
     <ScrollView bounces={false} style={Style.container} contentContainerStyle={Style.content}>
       <Image
@@ -85,7 +89,7 @@ export default ({ navigation }) => {
               logEvent(EventType.selectContent, {
                 screen_name: ScreenName.sign,
                 content_type: ContentType.register
-              }); 
+              });
               navigation.navigate("SignUp")
             }}
             containerStyle={Style.button}

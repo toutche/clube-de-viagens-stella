@@ -11,6 +11,8 @@ import { PRIMARY_COLOR, TEXT_COLOR_BKCOLORFUL } from "../../utils/variables";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
 import { logout } from "../../services/auth";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 const Slides = data => [
   {
@@ -38,6 +40,7 @@ export default ({ navigation }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    logScreen(ScreenView.Preferences);
     const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton);
     return () => backHandler.remove();
   }, []);

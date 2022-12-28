@@ -40,10 +40,16 @@ const subtitlePage = "Sabendo um pouco mais de você, poderemos conectar você c
 const text = "";
 import api from "../../../services/api";
 import MaskInput from "react-native-mask-input";
+import { logScreen } from "../../../services/firebase";
+import { ScreenView } from "../../../services/firebase/constant";
 const zipCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
 const GetLocation = ({ navigation }) => {
   const googleRef = useRef();
+
+  useEffect(() => {
+    logScreen(ScreenView.GetLocation);
+  }, []);
 
   const [panel, setPanel] = useState(0);
   const [isKeyboard, setIsKeyboard] = useState(false);

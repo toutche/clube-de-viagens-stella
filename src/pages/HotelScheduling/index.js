@@ -11,11 +11,17 @@ import { useCheckout } from "../../contexts/checkout";
 import { useFilter } from "../../contexts/filter";
 import Room from "./Room";
 import { PRIMARY_COLOR } from "../../utils/variables";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 const Scheduling = ({ navigation, route }) => {
   const { getScheduling, data, travelers } = useCheckout();
   const { filterDestiny, filterCheck, filterPeople } = useFilter();
   const { roomIndex } = route.params;
+
+  useEffect(() => {
+    logScreen(ScreenView.HotelScheduling);
+}, []);
 
   if (Object.keys(data).length === 0)
     return (

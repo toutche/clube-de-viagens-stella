@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
 
@@ -6,8 +6,14 @@ import CustomIcon from '../../components/CustomIcon';
 import RenderItem from '../../components/Menu/RenderItem';
 
 import { PRIMARY_COLOR } from '../../utils/variables';
+import { logScreen } from '../../services/firebase';
+import { ScreenView } from '../../services/firebase/constant';
 
 export function MenuScreen({ navigation }) {
+  useEffect(() => {
+    logScreen(ScreenView.MenuScreen);
+  }, []);
+
   return(
     <View style={styles.container}>
         <View style={styles.line}>

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -25,6 +25,8 @@ import Item11 from "./items/item11";
 import Item12 from "./items/item12";
 import Item13 from "./items/item13";
 import Item14 from "./items/item14";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 const image = require("../../../assets/header/TermsAndPolicy.jpg");
 const titlePage = "Aviso de Privacidade";
@@ -54,6 +56,10 @@ const emailContato = " dpo@grupoaguia.com.br.";
 
 export default ({ navigation }) => {
   const scrollRef = useRef();
+  useEffect(() => {
+    logScreen(ScreenView.PrivacyPolicy);
+  }, []);
+
   const onScrollTopPress = () => {
     scrollRef.current?.scrollTo({
       y: 0,

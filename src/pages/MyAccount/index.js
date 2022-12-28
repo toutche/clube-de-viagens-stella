@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 import { BLUE_COLOR } from "../../utils/variables";
 import BodyMyAccount from "./BodyMyAccount";
 import HeaderMyAccount from "./HeaderMyAccount";
 
 const MyAccount = ({ navigation, item }) => {
+  useEffect(() => {
+    logScreen(ScreenView.MyAccount);
+  }, []);
 
   return (
     <View style={styles.container}>

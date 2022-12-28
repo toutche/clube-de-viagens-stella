@@ -8,6 +8,8 @@ import Travelers from "./Travelers";
 import TravelCard from "../../components/TravelCard";
 import CustomButton from "../../components/CustomButton";
 import { useCheckout } from "../../contexts/checkout";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 const Scheduling = ({ navigation, route }) => {
   const { getScheduling, data, travelers } = useCheckout();
@@ -15,6 +17,7 @@ const Scheduling = ({ navigation, route }) => {
   const id = route.params.item.id;
 
   useEffect(() => {
+    logScreen(ScreenView.Scheduling);
     getScheduling(id);
   }, []);
 

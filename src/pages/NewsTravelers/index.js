@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -22,11 +22,17 @@ import {
   validadeName,
   validadeObjectContentAreTruth,
 } from "../../utils/validade/validade-utils";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 const NewsTravelers = ({ navigation }) => {
   const { data, travelers, setTravelers } = useCheckout();
 
   const inputId = useRef(null);
+
+  useEffect(() => {
+    logScreen(ScreenView.NewsTravelers);
+  }, []);
 
   const [thisData, setData] = useState([]);
   const [form, setForm] = useState(travelers || []);

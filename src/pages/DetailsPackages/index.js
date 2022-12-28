@@ -8,6 +8,8 @@ import Header from "./Header";
 import axios from "axios";
 import { consts } from "../../utils/consts";
 import { useFilter } from "../../contexts/filter";
+import { ScreenView } from "../../services/firebase/constant";
+import { logScreen } from "../../services/firebase";
 
 export default ({ route, navigation }) => {
   const { user } = useAuth();
@@ -15,6 +17,10 @@ export default ({ route, navigation }) => {
   const [item, setItem] = useState([]);
   const scrollViewRef = useRef();
   const { autoScroll, setAutoScroll } = useFilter();
+
+  useEffect(() => {
+    logScreen(ScreenView.DetailsPackages);
+  }, []);
 
   const getLatLog = data => {
     const hotel = data.hotel;

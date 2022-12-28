@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 import { BLUE_COLOR } from "../../utils/variables";
 import BodyPlanScreen from "./BodyPlanScreen";
 import HeaderPlanScreen from "./HeaderPlanScreen";
 
 const PlanScreen = ({ navigation, route }) => {
   const { item } = route.params;
+
+  useEffect(() => {
+    logScreen(ScreenView.PlanScreen);
+  }, []);
 
   return (
     <View style={styles.container}>

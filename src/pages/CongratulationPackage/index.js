@@ -8,12 +8,15 @@ import Travel from "../../components/Travel";
 import TravelCard from "../../components/TravelCard";
 import { BLUE_COLOR, FONT_DEFAULT_BOLD_STYLE, FONT_DEFAULT_STYLE } from "../../utils/variables";
 import { useAuth } from "../../contexts/auth";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 const CongratulationPackage = ({ route, navigation }) => {
   const data = route.params;
   const { user } = useAuth();
 
   useEffect(() => {
+     logScreen(ScreenView.CongratulationPackage);
     const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton);
     return () => backHandler.remove();
   }, []);

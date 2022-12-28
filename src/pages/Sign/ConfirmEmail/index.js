@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -23,6 +23,8 @@ import InputConfirm from "./InputConfirm";
 
 import { useAuth } from "../../../contexts/auth";
 import api from "../../../services/api";
+import { logScreen } from "../../../services/firebase";
+import { ScreenView } from "../../../services/firebase/constant";
 
 const titlePage = "Insira seu código";
 const subtitlePage =
@@ -34,8 +36,13 @@ const ConfirmEmail = ({ navigation }) => {
   const resendConfirmation = () => {
     const data = { email: undefined };
     if (user) {
-      data.email = user.email;
+      data.email = user.
+      email;
     }
+
+    useEffect(() => {
+      logScreen(ScreenView.ConfirmEmail);
+    }, []);
 
     api
       .post("/reenviar-email", data)

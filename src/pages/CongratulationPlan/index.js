@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { BackHandler, StyleSheet, View } from "react-native";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 import Body from "./Body";
 import Header from "./Header";
 
@@ -7,6 +9,7 @@ export default ({ navigation, route }) => {
   const data = route.params;
 
   useEffect(() => {
+    logScreen(ScreenView.CongratulationPlan);
     const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton);
     return () => backHandler.remove();
   }, []);

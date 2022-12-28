@@ -5,12 +5,18 @@ import Body from "./Body";
 import Header from "./Header";
 import ModalCancel from "./ModalCancel";
 import { useFocusEffect } from '@react-navigation/native';
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 export default ({ navigation }) => {
   const [isVisible, setVisible] = useState(false);
   const [item, setItem] = useState({});
 
-  const [data, setData] = useState([])
+  useEffect(() => {
+    logScreen(ScreenView.MyReservations);
+}, []);
+
+  const [data, setData] = useState([]);
 
   const getReservations = () => {
     api.get('/pacote-viagem/minhas-reservas').then((res) => {

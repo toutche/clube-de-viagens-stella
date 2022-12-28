@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, ImageBackground } from "react-native";
 import { AntDesign, Fontisto, FontAwesome } from "@expo/vector-icons";
 
@@ -32,6 +32,8 @@ import Item15 from "./items/item15";
 const image = require("../../../assets/header/TermsAndPolicy.jpg");
 import { useAuth } from "../../contexts/auth";
 import style from "../Sign/SignUp/style";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 
 const titlePage = "Termos e condições gerais de uso e de compra e venda";
 
@@ -67,6 +69,10 @@ const box3 =
 
 export default ({ navigation }) => {
   const { loadingApi, updateUser } = useAuth();
+
+  useEffect(() => {
+    logScreen(ScreenView.TermsConditions);
+  }, []);
 
   const scrollRef = useRef();
   const onScrollTopPress = () => {

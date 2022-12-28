@@ -8,3 +8,6 @@ export const logEvent = async (event, {screen_name, content_type, description = 
     });
 };
 
+export const logScreen = async (screen) => {
+    await analytics().logScreenView({screen_name: screen});
+};

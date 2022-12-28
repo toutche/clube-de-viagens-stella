@@ -14,12 +14,16 @@ import { MaterialIcons } from "@expo/vector-icons";
 import api from "../../../services/api";
 import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
 import { useAuth } from "../../../contexts/auth";
-import { logEvent } from "../../../services/firebase";
-import { ContentType, EventType, ScreenName } from "../../../services/firebase/constant";
+import { logEvent, logScreen } from "../../../services/firebase";
+import { ContentType, EventType, ScreenName, ScreenView } from "../../../services/firebase/constant";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
 export default ({ navigation }) => {
+  useEffect(() => {
+    logScreen(ScreenView.SignUp);
+  }, []);
+
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
   const [previewPassword, setPreviewPassword] = useState(false);

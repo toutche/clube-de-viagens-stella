@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -24,12 +24,18 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import Copyright from "../../../components/Copyright";
 import CustomIcon from "../../../components/CustomIcon";
 import api from "../../../services/api";
+import { logScreen } from "../../../services/firebase";
+import { ScreenView } from "../../../services/firebase/constant";
 
 const titlePage = "Insira o seu e-mail cadastrado para recuperar a senha.";
 
 export default ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    logScreen(ScreenView.RecoverPassword);
+  }, []);
 
   const recoverPass = ({ navigation }) => {
     if (email) {

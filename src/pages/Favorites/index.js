@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 import BodyFavorites from "./BodyFavorites";
 import HeaderFavorites from "./HeaderFavorites";
 
 const Favorites = ({ navigation }) => {
+  useEffect(() => {
+    logScreen(ScreenView.Favorites);
+  }, []);
+
   return (
     <View style={styles.container}>
       <HeaderFavorites

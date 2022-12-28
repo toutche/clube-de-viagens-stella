@@ -88,17 +88,6 @@ const App = () => {
             onReady={() => {
               routeNameRef.current = navigationRef?.current?.getCurrentRoute()?.name;
             }}
-            onStateChange={async () => {
-              const previousRouteName = routeNameRef.current;
-              const currentRouteName = navigationRef?.current?.getCurrentRoute()?.name;
-              if (previousRouteName !== currentRouteName) {
-                analytics().setCurrentScreen({
-                  screen_name: currentRouteName,
-                  screen_class: currentRouteName,
-                });
-              }
-              routeNameRef.current = currentRouteName;
-            }}
           >
             <Calendar />
             <StatusBar backgroundColor={"transparent"} />

@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 import BodyDetailsContractedPackages from "./BodyDetailsContractedPackages";
 import HeaderDetailsContractedPackages from "./HeaderDetailsContractedPackages";
 
 const DetailsContractedPackages = ({ navigation, route }) => {
   const { item } = route.params;
+
+  useEffect(() => {
+    logScreen(ScreenView.DetailsContractedPackages);
+  }, []);
 
   return (
     <ScrollView style={styles.container}>

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { ScrollView, View, Text, Image, KeyboardAvoidingView, Platform, Alert } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,12 +14,16 @@ import CustomIcon from "../../../components/CustomIcon";
 import { useAuth } from "../../../contexts/auth";
 import { setToken } from "../../../services/auth";
 import api from "../../../services/api";
-import { ContentType, EventType, ScreenName } from "../../../services/firebase/constant";
-import { logEvent } from "../../../services/firebase";
+import { ContentType, EventType, ScreenName, ScreenView } from "../../../services/firebase/constant";
+import { logEvent, logScreen } from "../../../services/firebase";
 
 const titlePage = "Acesse seu Clube de Férias:";
 
 export default ({ navigation }) => {
+  useEffect(() => {
+    logScreen(ScreenView.SignIn);
+  }, []);
+
   const { verifyUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [previewPassword, setPreviewPassword] = useState(false);

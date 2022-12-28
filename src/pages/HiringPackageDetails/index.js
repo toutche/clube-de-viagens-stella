@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { useCheckout } from "../../contexts/checkout";
 import api from "../../services/api";
+import { logScreen } from "../../services/firebase";
+import { ScreenView } from "../../services/firebase/constant";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import BodyHiringPackageDetails from "./BodyHiringPackageDetails";
 import HeaderHiringPackageDetails from "./HeaderHiringPackageDetails";
@@ -18,6 +20,7 @@ const HiringPackageDetails = ({ navigation, route }) => {
   const [comment, setComment] = useState("");
 
   useEffect(() => {
+    logScreen(ScreenView.HiringPackageDetails);
     api
       .get(`/pacote-viagem/${id}/Y/get/agendamento/pagamento`)
       .then(({ data }) => {
