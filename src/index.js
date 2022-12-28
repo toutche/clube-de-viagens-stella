@@ -4,7 +4,6 @@ import { StatusBar } from "expo-status-bar";
 import * as Font from "expo-font";
 import * as Notifications from 'expo-notifications';
 import * as SplashScreen from "expo-splash-screen";
-import analytics from '@react-native-firebase/analytics';
 
 import { AuthProvider } from "./contexts/auth";
 import { CheckoutProvider } from "./contexts/checkout";
