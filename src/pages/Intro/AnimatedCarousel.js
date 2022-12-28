@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ImageBackground, Image } from "react-native";
+import { View, ImageBackground, Image, TouchableOpacity } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { Ionicons } from "@expo/vector-icons";
 import api from "../../services/api/";
@@ -21,6 +21,7 @@ export default ({ navigation }) => {
     {
       key: 1,
       image: image.first,
+      onPress: () => navigation.navigate("VideoScreen"),
     },
     {
       key: 2,
@@ -77,15 +78,15 @@ export default ({ navigation }) => {
 
   function renderItem({ item }) {
     return (
-      <ImageBackground
-        resizeMode='contain'
-        style={{ width: "100%", height: "100%" }}
-        source={{ uri: item.image }}
-      />
+      <TouchableOpacity onPress={item.onPress}>
+        <ImageBackground
+          resizeMode='contain'
+          style={{ width: "100%", height: "100%" }}
+          source={{ uri: item.image }}
+        />
+      </TouchableOpacity>
     );
   }
-
-  console.log(image);
 
   return (
     <AppIntroSlider
