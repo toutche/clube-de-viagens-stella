@@ -145,8 +145,8 @@ android {
         applicationId 'com.stellabarros.clubedeferias'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "2.0.16"
+        versionCode 18
+        versionName "2.0.18"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {

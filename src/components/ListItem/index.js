@@ -23,10 +23,9 @@ import {
 import Hide from "../Hide";
 import { useCheckout } from "../../contexts/checkout";
 import { useFilter } from "../../contexts/filter";
-import promo from '../../../assets/promo.png';
 import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
 import { logEvent } from "../../services/firebase";
-import promo from "../../../assets/promo.png";
+import promo from "../../../assets/img/promo.png";
 
 const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
   const [loading, setLoading] = useState(true);
