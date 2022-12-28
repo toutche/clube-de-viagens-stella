@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Image, View, StyleSheet, ImageBackground, Text, Platform, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  Image,
+  View,
+  StyleSheet,
+  ImageBackground,
+  Text,
+  Platform,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import CustomButton from "../../components/CustomButton";
 import FavoriteIcon from "../FavoriteIcon";
 import ShareIcon from "../../components/ShareIcon";
@@ -17,105 +26,125 @@ import { useFilter } from "../../contexts/filter";
 import promo from '../../../assets/promo.png';
 import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
 import { logEvent } from "../../services/firebase";
+import promo from "../../../assets/promo.png";
 
 const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const { getScheduling } = useCheckout();
   const { filterDestiny, filterCheck, filterPeople } = useFilter();
 
   const handlePressLeftButton = () => {
     if (display === 0) {
-      navigation.navigate({
-        name: "DetailsPackages",
-        params: { id: item.id }
-      })
+      navigation.replace("DetailsPackages", { id: item.id });
+      // navigation.navigate({
+      //   name: "DetailsPackages",
+      //   params: { id: item.id },
+      // });
     } else if (display === 1) {
       navigation.navigate({
         name: "DetailsHotels",
-        params: { item }
+        params: { item },
       });
     }
-  }
+  };
 
   const handlePressRightButton = () => {
     if (display === 0) {
       navigation.navigate({
         name: plan ? "Scheduling" : "PlanScreen",
-        params: { item }
+        params: { item },
       });
     } else if (display === 1) {
-      let hotelData = { item, filterDestiny, filterCheck, filterPeople }
+      let hotelData = { item, filterDestiny, filterCheck, filterPeople };
       getScheduling(item.id, hotelData);
 
       navigation.navigate({
         name: plan ? "HotelScheduling" : "PlanScreen",
         params: {
           item,
-          roomIndex: 0
+          roomIndex: 0,
         },
       });
     }
-  }
+  };
 
   let shareTop = display === 0 ? 0 : 45;
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={handlePressLeftButton}>
+      <TouchableOpacity activeOpacity={0.8} onPress={handlePressLeftButton}>
         <ImageBackground
           onLoadEnd={() => setLoading(false)}
           style={styles.image}
           imageStyle={{
             borderRadius: 20,
             width: "100%",
-            height: '100%',
+            height: "100%",
           }}
-          source={{ uri: item.img }}
-        >
-          {
-            item.featured && item.tag_special
-              ? <Image style={{
+          source={{ uri: item.img }}>
+          {item.featured && item.tag_special ? (
+            <Image
+              style={{
                 height: 144,
                 left: -6,
                 top: -6,
                 width: 144,
-              }} source={{ uri: item.tag_special }} />
-              : item.featured ?
-                <Image style={{
-                  height: 144,
-                  left: -6,
-                  top: -6,
-                  width: 144,
-                }} source={promo} />
-                : null
-          }
-          {loading ?
-            <View style={{ flex: 1, backgroundColor: '#f4f5f7', justifyContent: 'center', borderRadius: 20 }}>
-              <ActivityIndicator size={'large'} color={PRIMARY_COLOR} />
+              }}
+              source={{ uri: item.tag_special }}
+            />
+          ) : item.featured ? (
+            <Image
+              style={{
+                height: 144,
+                left: -6,
+                top: -6,
+                width: 144,
+              }}
+              source={promo}
+            />
+          ) : null}
+          {loading ? (
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "#f4f5f7",
+                justifyContent: "center",
+                borderRadius: 20,
+              }}>
+              <ActivityIndicator size={"large"} color={PRIMARY_COLOR} />
             </View>
-            :
-            null
-          }
+          ) : null}
         </ImageBackground>
       </TouchableOpacity>
 
       {plan ? <Hide containerStyle={styles.hideIcon} item={item} /> : null}
 
-      {display === 0 && <FavoriteIcon
-        favorite={item.favorite}
-        containerStyle={[styles.favoriteIcon, !plan && { top: 20 }]}
-        id_package={item.id}
-        refreshList={refreshList}
-      />}
+      {display === 0 && (
+        <FavoriteIcon
+          favorite={item.favorite}
+          containerStyle={[styles.favoriteIcon, !plan && { top: 20 }]}
+          id_package={item.id}
+          refreshList={refreshList}
+        />
+      )}
 
-      <ShareIcon {...{ item, option: display, containerStyle: [styles.shareIcon, { top: !plan ? display === 0 ? 75 : 25 : display === 0 ? 120 : 65 }] }} />
+      <ShareIcon
+        {...{
+          item,
+          option: display,
+          containerStyle: [
+            styles.shareIcon,
+            { top: !plan ? (display === 0 ? 75 : 25) : display === 0 ? 120 : 65 },
+          ],
+        }}
+      />
 
       <View style={styles.bodyItem}>
         <View style={styles.priceItem}>
           <View style={styles.price_differenceView}>
-            <Text style={styles.price_difference}>Economize até {item?.currency || "R$"} {item.price_difference}</Text>
+            <Text style={styles.price_difference}>
+              Economize até {item?.currency || "R$"} {item.price_difference}
+            </Text>
           </View>
 
           <View
@@ -123,7 +152,10 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
               flexDirection: "row",
               alignItems: "center",
             }}>
-            <Text style={styles.price_discount}>{item?.currency || "R$"}{item.price}</Text>
+            <Text style={styles.price_discount}>
+              {item?.currency || "R$"}
+              {item.price}
+            </Text>
 
             <Text
               style={{
@@ -175,7 +207,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
                   marginTop: -2,
                   color: BLUE_COLOR,
                 }}>
-                {display === 0 ? 'pessoa' : 'quarto'}
+                {display === 0 ? "pessoa" : "quarto"}
               </Text>
             </View>
           </View>
@@ -208,7 +240,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
             {item.name}
           </Text>
 
-          {display === 0 ?
+          {display === 0 ? (
             <View
               style={{
                 flexDirection: "row",
@@ -242,7 +274,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
                 </Text>
               )}
             </View>
-            :
+          ) : (
             <Text
               style={{
                 fontFamily: FONT_DEFAULT_STYLE,
@@ -252,7 +284,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
               }}>
               {item?.subname}
             </Text>
-          }
+          )}
         </View>
 
         <View style={styles.containerButtons}>

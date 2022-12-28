@@ -14,7 +14,7 @@ import { logEvent } from "../../services/firebase";
 import { ContentType, EventType, ScreenName } from "../../services/firebase/constant";
 
 export default ({ item, navigation, plan }) => {
-  const insets = useSafeAreaInsets()
+  const insets = useSafeAreaInsets();
   const { autoScroll, setAutoScroll } = useFilter();
 
   return (
@@ -23,8 +23,8 @@ export default ({ item, navigation, plan }) => {
 
       <CustomIcon
         onPress={() => {
-          autoScroll && setAutoScroll(false)
-          navigation.goBack()
+          autoScroll && setAutoScroll(false);
+          navigation.navigate("Dashboard");
         }}
         size={30}
         type={AntDesign}
@@ -36,6 +36,7 @@ export default ({ item, navigation, plan }) => {
       {plan && <Hide containerStyle={[styles.hideIcon, { top: insets.top + 15 }]} item={item} />}
 
       <FavoriteIcon
+        item={item}
         favorite={item.favorite}
         containerStyle={[styles.favorite, { top: insets.top + (plan ? 70 : 30) }]}
       />
@@ -53,7 +54,9 @@ export default ({ item, navigation, plan }) => {
 
       <View style={styles.content}>
         <View style={styles.price_differenceView}>
-          <Text style={styles.price_difference}>Economize até {item?.currency || "R$"} {item.price_difference}</Text>
+          <Text style={styles.price_difference}>
+            Economize até {item?.currency || "R$"} {item.price_difference}
+          </Text>
         </View>
 
         <Text

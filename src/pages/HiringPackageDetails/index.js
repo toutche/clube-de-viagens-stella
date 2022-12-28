@@ -11,6 +11,7 @@ import ModalPayment from "./ModalPayment";
 
 const HiringPackageDetails = ({ navigation, route }) => {
   const id = route.params?.id;
+
   const { travelers } = useCheckout();
 
   const [isVisible, setVisible] = useState(false);
@@ -25,6 +26,7 @@ const HiringPackageDetails = ({ navigation, route }) => {
       .get(`/pacote-viagem/${id}/Y/get/agendamento/pagamento`)
       .then(({ data }) => {
         setData(data);
+        console.log(data);
       })
       .catch(e => console.log(e))
       .finally(() => setLoading(false));

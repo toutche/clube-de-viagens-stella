@@ -49,33 +49,33 @@ export default ({ data = [], navigation }) => {
   };
 
   const handlerPress = async () => {
-    if (index === 2) {
-      const activities = data[2].activities;
-      setLoading(true);
-      const question = await api.post("/questionario/criar", {
-        question_1: questions[0] || null,
-        question_2: questions[1] || null,
-        question_3: questions[2] || null,
-        question_4: questions[3] || null,
-        question_5: questions[4] || null,
-      });
+    // if (index === 2) {
+    const activities = data[2].activities;
+    setLoading(true);
+    const question = await api.post("/questionario/criar", {
+      question_1: questions[0] || null,
+      question_2: questions[1] || null,
+      question_3: questions[2] || null,
+      question_4: questions[3] || null,
+      question_5: questions[4] || null,
+    });
 
-      let id = activities.filter(i => i.check === true);
-      id = id.map(item => item.id);
+    let id = activities.filter(i => i.check === true);
+    id = id.map(item => item.id);
 
-      const activity = await api.post("/interesses/criar", {
-        id,
-      });
+    const activity = await api.post("/interesses/criar", {
+      id,
+    });
 
-      if (activity.data && question.data) {
-        //verifyUser(navigation)
-        setAuth(true);
-      }
-      setLoading(false);
-    } else {
-      ListRef.current.scrollToIndex({ animated: false, index: 3, viewPosition: 0 });
-      setIndex(5);
+    if (activity.data && question.data) {
+      //verifyUser(navigation)
+      setAuth(true);
     }
+    setLoading(false);
+    // } else {
+    //   ListRef.current.scrollToIndex({ animated: false, index: 3, viewPosition: 0 });
+    //   setIndex(5);
+    // }
   };
 
   return (

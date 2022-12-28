@@ -1,21 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, ScrollView, Text, Image, Alert, Platform, View } from "react-native";
-import CustomInput from "../../../components/CustomInput";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  Text,
+  Image,
+  Alert,
+  Platform,
+  View,
+  Modal,
+  StyleSheet,
+  Pressable,
+} from "react-native";
+
 import Style from "./style";
-import Copyright from "../../../components/Copyright";
-import CustomButton from "../../../components/CustomButton";
-import CustomIcon from "../../../components/CustomIcon";
-import CustomAvatar from "../../../components/CustomAvatar";
-import { maskPhone, maskDocument, maskDate } from "../../../utils/masks";
-import { CheckBox } from "react-native-elements";
-import { MaterialIcons } from "@expo/vector-icons";
+
 import api from "../../../services/api";
-import { FONT_DEFAULT_STYLE } from "../../../utils/variables";
+
+import { CheckBox } from "react-native-elements";
+
+import * as ImagePicker from "expo-image-picker";
+
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+
+
+import { maskDocument, maskDate } from "../../../utils/masks";
+import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../../utils/variables";
+
 import { useAuth } from "../../../contexts/auth";
 import { logEvent, logScreen } from "../../../services/firebase";
 import { ContentType, EventType, ScreenName, ScreenView } from "../../../services/firebase/constant";
+
+import Copyright from "../../../components/Copyright";
+import CustomIcon from "../../../components/CustomIcon";
+import { DropDown } from "../../../components/DropDown";
+import CustomInput from "../../../components/CustomInput";
+import CustomAvatar from "../../../components/CustomAvatar";
+import CustomButton from "../../../components/CustomButton";
+import IntlPhoneInputLocal from "../../../components/IntlPhoneInput/IntlPhoneInput";
 
 const titlePage = "É novo por aqui? Cadastre-se";
 
@@ -23,10 +45,27 @@ export default ({ navigation }) => {
   useEffect(() => {
     logScreen(ScreenView.SignUp);
   }, []);
+  const [selectedDropDownValue, setSelectedDropDownValue] = useState("");
+  const [dropDownItems, setDropDownItems] = useState([
+    {label: 'Masculino', value: 'M', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+    {label: 'Feminino', value: 'F', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+    {label: 'Não me identifico com nenhum dos gêneros', value: 'U', labelStyle: {
+      fontFamily: FONT_DEFAULT_STYLE,
+      fontSize: 14,
+    }},
+  ]);
 
   const [loading, setLoading] = useState(false);
   const [check, setCheck] = useState(false);
   const [previewPassword, setPreviewPassword] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [confirmNumber, setConfirmNumber] = useState(false);
 
   const { setUser: contextSetUser } = useAuth();
 
@@ -39,6 +78,7 @@ export default ({ navigation }) => {
     phone_number: "",
     password: "",
     image: null,
+    gender: "",
   });
 
   const [errors, setErros] = useState({
@@ -49,7 +89,24 @@ export default ({ navigation }) => {
     email: "",
     phone_number: "",
     password: "",
+    gender: "",
   });
+
+  const onChangeText = ({dialCode, unmaskedPhoneNumber, phoneNumber, isVerified}) => {
+    if(dialCode === '+55') {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber.split(' ')[0]} ${phoneNumber.split(' ')[1]}-${phoneNumber.split(' ')[2]}`;
+      setUser({
+        ...user,
+        phone_number: (fullPhoneNumber),
+      })
+    } else {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber}`;
+      setUser({
+        ...user,
+        phone_number: (fullPhoneNumber),
+      })
+    }
+  };
 
   const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
@@ -101,6 +158,11 @@ export default ({ navigation }) => {
     }
   };
 
+  function handleConfirmNumber() {
+    setConfirmNumber(true);
+    setModalVisible(false);
+  }
+
   const handlerPress = () => {
     if (!check) {
       Alert.alert(
@@ -142,10 +204,16 @@ export default ({ navigation }) => {
     body.append("password", user.password);
     body.append("password_confirmation", user.password);
     body.append("phone_number", user.phone_number);
-    body.append("gender", "M");
+    body.append("gender", user.gender);
     body.append("accept_terms", "Y");
     body.append("accept_privacy", "Y");
     body.append("image", imageObject);
+
+    if (!confirmNumber) {
+      setModalVisible(true);
+      setLoading(false);
+      return;
+    }
 
     const { data } = await api
       .post("/cadastrar", body, {
@@ -190,6 +258,10 @@ export default ({ navigation }) => {
       },
     ]);
   };
+
+  useEffect(() => {
+    setUser({...user, gender: selectedDropDownValue});
+  }, [selectedDropDownValue])
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null}>
@@ -247,6 +319,19 @@ export default ({ navigation }) => {
             }
           />
 
+          <DropDown
+            icon={FontAwesome}
+            iconName="genderless"
+            iconSize={24}
+            iconColor="white"
+            items={dropDownItems}
+            setItems={setDropDownItems}
+            value={selectedDropDownValue}
+            setValue={setSelectedDropDownValue}
+            placeholder="Qual o seu gênero?"
+            showArrowIcon={false}
+          />
+
           <CustomInput
             placeholder='Sua Data de Nascimento?'
             size={18}
@@ -284,7 +369,7 @@ export default ({ navigation }) => {
             }
           />
 
-          <CustomInput
+          {/* <CustomInput
             placeholder='Seu celular?'
             size={20}
             lenght={15}
@@ -301,6 +386,18 @@ export default ({ navigation }) => {
                 phone_number: maskPhone(text),
               })
             }
+          /> */}
+
+          <IntlPhoneInputLocal
+            onChangeText={onChangeText}
+            defaultCountry="BR"
+            screen='signUp'
+            containerStyle={styles.containerStyle}
+            flagStyle={styles.flagStyle}
+            closeText="Fechar"
+            dialCodeTextStyle={styles.dialCodeTextStyle}
+            phoneInputStyle={styles.phoneInputStyle}
+            filterText='Choose your country'
           />
 
           <CustomInput
@@ -387,6 +484,126 @@ export default ({ navigation }) => {
 
         <Copyright display={1} />
       </ScrollView>
+      <Modal
+        animationType='slide'
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            {user.phone_number ? (
+              <>
+                <Text style={[styles.modalText, { fontSize: 20, fontWeight: "bold" }]}>
+                  Olá, tudo bem?
+                </Text>
+                <Text style={[styles.modalText, { fontSize: 15, fontWeight: "700" }]}>
+                  Bem-vindo ao Clube de Férias!{" "}
+                </Text>
+                <Text style={styles.modalText}>
+                  Para começar a escolher os seus destinos com descontos exclusivos, precisamos que
+                  confirme o número do seu celular. Ele será necessário para a validação da sua
+                  conta.
+                </Text>
+
+                <Text
+                  style={
+                    styles.modalText
+                  }>{`O seu numero é ${user.phone_number}, está correto?`}</Text>
+                <View style={styles.btnContainer}>
+                  <Pressable style={[styles.button]} onPress={() => setModalVisible(!modalVisible)}>
+                    <Text style={styles.textStyle}>Editar</Text>
+                  </Pressable>
+                  <Pressable style={[styles.button]} onPress={handleConfirmNumber}>
+                    <Text style={styles.textStyle}>Confirmar</Text>
+                  </Pressable>
+                </View>
+              </>
+            ) : (
+              <>
+                <Text style={[styles.modalText, { fontSize: 20, fontWeight: "bold" }]}>Opa!</Text>
+                <Text style={styles.modalText}>
+                  É muito importante que nos diga o número do seu celular para validar o seu
+                  cadastro.
+                </Text>
+
+                <Pressable style={[styles.button]} onPress={() => setModalVisible(!modalVisible)}>
+                  <Text style={styles.textStyle}>OK</Text>
+                </Pressable>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    marginTop: 20,
+    width: 100,
+    backgroundColor: PRIMARY_COLOR,
+    borderRadius: 5,
+    padding: 10,
+    elevation: 2,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  btnContainer: {
+    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: 250,
+  },
+  containerStyle: {
+    backgroundColor: PRIMARY_COLOR,
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    borderRadius: 50,
+    height: 50,
+    marginTop: 10,
+    alignItems: "center",
+  },
+  flagStyle: {
+    fontSize: 18,
+  },
+  dialCodeTextStyle: {
+    marginRight: 2,
+    color: 'white',
+  },
+  phoneInputStyle: {
+    color: "white",
+  },
+});

@@ -85,11 +85,10 @@ export default ({ route, navigation }) => {
       style={styles.container}
       ref={scrollViewRef}
       onContentSizeChange={() => {
-        autoScroll && scrollViewRef.current.scrollToEnd({ animated: false })
-      }}
-    >
+        autoScroll && scrollViewRef.current.scrollToEnd({ animated: false });
+      }}>
       <Header navigation={navigation} item={item} plan={user.plan} />
-      <Body item={item}/>
+      <Body navigation={navigation} item={item} />
     </ScrollView>
   );
 };
