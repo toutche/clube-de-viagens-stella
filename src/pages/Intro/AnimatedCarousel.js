@@ -15,7 +15,10 @@ export default ({ navigation }) => {
     const response = await api.get("/links");
     const link = response.data.onboard;
 
+    console.log(link);
+
     setImage(link);
+    console.log(image);
   };
   const data = [
     {
@@ -78,9 +81,9 @@ export default ({ navigation }) => {
 
   function renderItem({ item }) {
     return (
-      <TouchableOpacity onPress={item.onPress}>
+      <TouchableOpacity onPress={item.onPress} style={{ width: "100%", height: "100%" }}>
         <ImageBackground
-          resizeMode='contain'
+          resizeMode='stretch'
           style={{ width: "100%", height: "100%" }}
           source={{ uri: item.image }}
         />
