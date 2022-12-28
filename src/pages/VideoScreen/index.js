@@ -35,7 +35,8 @@ export default ({ navigation, route: { params } }) => {
         onPress={goBack}
         size={30}
         type={AntDesign}
-        name={"arrowleft"}
+        name={"leftcircle"}
+        color={PRIMARY_COLOR}
         containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
 
@@ -46,7 +47,8 @@ export default ({ navigation, route: { params } }) => {
             style={styles.video}
             source={{ uri: url }}
             shouldPlay={true}
-            useNativeControls
+            useNativeControls={false}
+            isLooping
             resizeMode='contain'
           />
         ) : (
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
   },
   video: {
     width: "100%",
-    height: undefined,
+    height: "100%",
     aspectRatio: 1,
   },
   icon: {
