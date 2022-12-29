@@ -82,9 +82,10 @@ const HeaderDashboard = ({ navigation, option, setOption }) => {
             numberNotifications !== 0 &&
             <Text style={{
               position: 'absolute',
+              color: '#606060',
               fontWeight: 'bold',
               textAlign: 'center',
-              backgroundColor: 'white',
+              backgroundColor: '#Ffc5c5',
               borderRadius: 100,
               width: 15,
               top: 3,
