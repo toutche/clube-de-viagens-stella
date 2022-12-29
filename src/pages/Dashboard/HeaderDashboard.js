@@ -78,15 +78,19 @@ const HeaderDashboard = ({ navigation, option, setOption }) => {
             name={"notifications-outline"}
             containerStyle={styles.iconRight}
           />
-          <Text style={{
-            position: 'absolute',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            backgroundColor: 'white',
-            borderRadius: 100,
-            width: 15,
-            right: 10,
-        }}>{ readAlerts === 'N' ? numberNotifications + recievedNotifications : recievedNotifications }</Text>
+          {
+            numberNotifications !== 0 &&
+            <Text style={{
+              position: 'absolute',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              backgroundColor: 'white',
+              borderRadius: 100,
+              width: 15,
+              top: 3,
+              right: 12,
+            }}>{ numberNotifications }</Text>
+          }
         </View>
         
       </View>

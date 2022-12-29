@@ -12,7 +12,6 @@ const BodyAlert = ({ }) => {
   const { setReadAlerts } = useFilter();
 
   useEffect(() => {
-      // setReadAlerts('S');
     api.post("usuario/alerts/read", { read: 'S' }).then(({ data }) => {
       setReadAlerts('S');
     });
