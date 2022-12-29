@@ -12,6 +12,8 @@ export const FilterProvider = ({ children }) => {
   const [filterCheck, setFilterCheck] = useState();
   const [filterPeople, setFilterPeople] = useState();
   
+  const [readAlerts, setReadAlerts] = useState('N');
+
   const [cupom, setCupom] = useState('');
   const [cupomExists, setCupomExists] = useState(null);
 
@@ -155,6 +157,7 @@ export const FilterProvider = ({ children }) => {
         isVisibleMenu, setVisibleMenu,
         autoScroll, setAutoScroll,
         childrens, setChildrens,
+        readAlerts, setReadAlerts,
       }}>
       {children}
     </FilterContext.Provider>

@@ -5,11 +5,18 @@ import { PRIMARY_COLOR, BLUE_COLOR, FONT_DEFAULT_STYLE, FONT_DEFAULT_BOLD_STYLE,
 import api from "../../services/api";
 import moment from "moment";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFilter } from "../../contexts/filter";
 
 const BodyAlert = ({ }) => {
   const [data, setData] = useState([]);
+  const { setReadAlerts } = useFilter();
 
   useEffect(() => {
+      // setReadAlerts('S');
+    api.post("usuario/alerts/read", { read: 'S' }).then(({ data }) => {
+      setReadAlerts('S');
+    });
+    
     api.get("/alerts/list").then(({ data }) => {
       setData(data);
     });

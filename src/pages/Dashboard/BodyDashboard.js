@@ -8,6 +8,7 @@ import {
   Linking,
   Alert,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
@@ -22,6 +23,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Calendar from "../../components/Calendar";
 import { formatDateToBRL } from "../../utils";
 import { AntDesign } from "@expo/vector-icons";
+import * as Notifications from 'expo-notifications';
 
 const BodyDashboard = ({
   display = 0,
@@ -309,8 +311,25 @@ const BodyDashboard = ({
     }
   }
 
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got mail! 📬",
+        body: 'Here is the notification body',
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 2 },
+    });
+  }
+
   return (
     <View style={styles.container}>
+      <Button
+        title="Press to schedule a notification"
+        onPress={async () => {
+          await schedulePushNotification();
+        }}
+      />
       {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
         <TouchableOpacity
           onPress={() => {

@@ -11,8 +11,8 @@ import api from "../../services/api";
 import { useFilter } from "../../contexts/filter";
 import * as Notifications from 'expo-notifications';
 
-const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => {
-  const { clearAll, setOrderPrice } = useFilter();
+const HeaderDashboard = ({ navigation, option, setOption }) => {
+  const { clearAll, setOrderPrice, readAlerts  } = useFilter();
 
   const [filter, setFilter] = useState([]);
   const [numberNotifications, setNumberNotifications] = useState(0);
@@ -21,14 +21,14 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => 
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    api.get("/usuario/alerts/unread").then(({ data }) => {
+      setNumberNotifications(data.notifications);
+    });
+
     let array = [];
     Notifications.addNotificationReceivedListener(notification => {
       array.push(notification);
-      setRecievedNotifications(array.length);
-    });
-
-    api.get("/alerts/list").then(({ data }) => {
-      setNumberNotifications(data.alerts.length);
+      setNumberNotifications(numberNotifications + array.length);
     });
 
     api.get("/interesses/show-filtrar").then(res => {
@@ -86,7 +86,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => 
             borderRadius: 100,
             width: 15,
             right: 10,
-        }}>{ numberNotifications + recievedNotifications }</Text>
+        }}>{ readAlerts === 'N' ? numberNotifications + recievedNotifications : recievedNotifications }</Text>
         </View>
         
       </View>
