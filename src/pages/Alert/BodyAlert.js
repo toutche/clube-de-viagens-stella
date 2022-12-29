@@ -9,11 +9,12 @@ import { useFilter } from "../../contexts/filter";
 
 const BodyAlert = ({ }) => {
   const [data, setData] = useState([]);
-  const { setReadAlerts } = useFilter();
+  const { setReadAlerts, setNumberNotifications } = useFilter();
 
   useEffect(() => {
-    api.post("usuario/alerts/read", { read: 'S' }).then(({ data }) => {
-      setReadAlerts('S');
+    api.get("/alerts/read").then(({ data }) => {
+      setReadAlerts('Y');
+      setNumberNotifications(0);
     });
     
     api.get("/alerts/list").then(({ data }) => {

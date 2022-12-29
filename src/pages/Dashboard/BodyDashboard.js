@@ -324,12 +324,6 @@ const BodyDashboard = ({
 
   return (
     <View style={styles.container}>
-      <Button
-        title="Press to schedule a notification"
-        onPress={async () => {
-          await schedulePushNotification();
-        }}
-      />
       {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
         <TouchableOpacity
           onPress={() => {

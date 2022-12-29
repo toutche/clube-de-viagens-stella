@@ -12,17 +12,15 @@ import { useFilter } from "../../contexts/filter";
 import * as Notifications from 'expo-notifications';
 
 const HeaderDashboard = ({ navigation, option, setOption }) => {
-  const { clearAll, setOrderPrice, readAlerts  } = useFilter();
+  const { clearAll, setOrderPrice, numberNotifications, setNumberNotifications  } = useFilter();
 
   const [filter, setFilter] = useState([]);
-  const [numberNotifications, setNumberNotifications] = useState(0);
-  const [recievedNotifications, setRecievedNotifications] = useState(0);
 
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    api.get("/usuario/alerts/unread").then(({ data }) => {
-      setNumberNotifications(data.notifications);
+    api.get("/alerts/unread").then(({ data }) => {
+      setNumberNotifications(data.unread_alerts);
     });
 
     let array = [];

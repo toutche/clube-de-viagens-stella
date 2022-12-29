@@ -153,7 +153,6 @@ export const FilterProvider = ({ children }) => {
         setCupom,
         cupomExists,
         setCupomExists,
-        numberNotifications, setNumberNotifications,
         isVisibleMenu, setVisibleMenu,
         autoScroll, setAutoScroll,
         childrens, setChildrens,
