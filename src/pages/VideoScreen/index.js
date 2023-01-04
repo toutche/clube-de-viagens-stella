@@ -30,12 +30,11 @@ export default ({ navigation, route: { params } }) => {
   return (
     <View style={{ flex: 1 }}>
       <CustomStatusBar />
-
       <CustomIcon
         onPress={goBack}
         size={30}
         type={AntDesign}
-        name={"leftcircle"}
+        name={"arrowleft"}
         color={PRIMARY_COLOR}
         containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
@@ -71,7 +70,6 @@ const styles = StyleSheet.create({
   video: {
     width: "100%",
     height: "100%",
-    aspectRatio: 1,
   },
   icon: {
     top: 0,
