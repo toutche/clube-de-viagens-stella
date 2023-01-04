@@ -359,11 +359,12 @@ const BodyMyAccount = ({ item }) => {
         onPress={openSetting}
         type={Ionicons}
         name={"notifications"}
+        size={20}
         right
         iconStyle={{ color: "black" }}
         containerStyle={{
           marginTop: 10,
-          height: 60,
+          height: 50,
           paddingHorizontal: 20,
           borderRadius: 10,
           backgroundColor: "white",
@@ -373,7 +374,8 @@ const BodyMyAccount = ({ item }) => {
         }}
         titleStyle={{
           color: "black",
-          fontSize: 20,
+          fontSize: 14,
+          fontWeight: "bold",
         }}
       />
 
