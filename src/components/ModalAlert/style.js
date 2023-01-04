@@ -30,8 +30,11 @@ export const InternalContainerWrapper = styled.View`
 `
 
 export const Logo = styled.Image`
-  width: 200px;
-  height: 135px;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 5px;
+  right: 5px;
 `
 
 export const Title = styled.Text`
@@ -77,7 +80,7 @@ export const Button = styled.TouchableOpacity`
 
           margin: 10px 0 0 0;
 
-          width: 100%;
+          width: 90%;
         `;
       default:
         return css`
@@ -96,7 +99,7 @@ export const Button = styled.TouchableOpacity`
 
           margin: 20px 0 0 0;
 
-          width: 100%;
+          width: 90%;
         `;
     }
   }}
