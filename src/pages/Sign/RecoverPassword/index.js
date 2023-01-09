@@ -37,7 +37,7 @@ export default ({ navigation }) => {
       api
         .post("/esqueci-senha", { email })
         .then(res => {
-          Alert.alert("Aviso", "Um e-mail com o token foi enviado para você");
+          Alert.alert("Aviso", "Enviado e-mail para a redefinição de senha");
           navigation.goBack();
         })
         .catch(e => setLoading(false));
