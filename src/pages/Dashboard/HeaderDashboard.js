@@ -16,6 +16,8 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => 
   const [filter, setFilter] = useState([]);
   const [data, setData] = useState([]);
 
+  const urlBanner = "https://images-store.us-southeast-1.linodeobjects.com/gif-copa-banner-2.gif";
+
   useEffect(() => {
     api.get("/interesses/show-filtrar").then(res => {
       setFilter(res.data);
@@ -24,7 +26,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => 
     api.get("/interesses/listar").then(res => {
       setData(res.data);
     });
-  }, []);
+  }, [urlBanner]);
 
   function handlePlanoCopa() {
     navigation.navigate("MyPlan");
@@ -43,7 +45,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => 
       <View style={styles.profile}>
         <CustomIcon
           size={22}
-          onPress={() => navigation.navigate('MenuScreen')}
+          onPress={() => navigation.navigate("MenuScreen")}
           type={SimpleLineIcons}
           name={"menu"}
           containerStyle={styles.iconLeft}
@@ -74,7 +76,7 @@ const HeaderDashboard = ({ navigation, option, setOption, menuOpen, route }) => 
         <Image
           style={{ width: "100%", height: "100%" }}
           source={{
-            uri: "https://images-store.us-southeast-1.linodeobjects.com/gif-copa-banner-2.gif",
+            uri: urlBanner,
           }}
         />
 
