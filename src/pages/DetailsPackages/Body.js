@@ -19,6 +19,8 @@ import api from "../../services/api";
 import ListItem from "../../components/ListItem";
 import { Entypo } from "@expo/vector-icons";
 
+import { Fontisto } from "@expo/vector-icons";
+
 export default ({ item, display = 0, navigation }) => {
   const {
     user: { plan },
@@ -33,20 +35,20 @@ export default ({ item, display = 0, navigation }) => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(false);
 
-  function backAction (){
-    navigation.navigate('Dashboard')
-    return true
+  function backAction() {
+    navigation.navigate("Dashboard");
+    return true;
   }
 
   useEffect(() => {
     loadPage();
-    
-    BackHandler.addEventListener("hardwareBackPress", backAction);	
-    return ()=> {
+
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () => {
       BackHandler.removeEventListener("hardwareBackPress", backAction);
-    }
+    };
   }, []);
 
   useDidMountEffect(() => {
@@ -256,31 +258,34 @@ export default ({ item, display = 0, navigation }) => {
 
       {item.day_by_day.length > 0 && (
         <View style={styles.details}>
-          {item.day_by_day.map((i, n) => (
-            <TouchableOpacity
-              key={n}
-              onPress={() => {
-                setCurrentIndex(i === currentIndex ? null : i);
-              }}
-              style={styles.cardContainer}
-              activeOpacity={30}>
+          <TouchableOpacity
+            onPress={() => {
+              setCurrentIndex(currentIndex ? false : true);
+            }}
+            style={styles.cardContainer}
+            activeOpacity={30}>
+            <View style={styles.headerCard}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Fontisto name='map' size={24} color='black' style={{ marginRight: 10 }} />
+                <Text>Confira nosso roteiro</Text>
+              </View>
+              <Entypo
+                name={currentIndex ? "chevron-up" : "chevron-down"}
+                size={30}
+                // color={PRIMARY_COLOR}
+              />
+            </View>
+            {item.day_by_day.map((i, n) => (
               <View style={[styles.card]}>
-                <View style={styles.headerCard}>
-                  <Text style={[styles.heading]}>Dia {i.day}</Text>
-                  <Entypo
-                    name={i === currentIndex ? "chevron-up" : "chevron-down"}
-                    size={20}
-                    color={PRIMARY_COLOR}
-                  />
-                </View>
-                {i === currentIndex && (
-                  <View style={styles.list}>
+                {currentIndex && (
+                  <View style={{ borderTopWidth: 0.3, paddingTop: 20, paddingHorizontal: 20 }}>
+                    <Text style={styles.heading}>Dia {i.day}</Text>
                     <Text style={styles.body}>{i.description}</Text>
                   </View>
                 )}
               </View>
-            </TouchableOpacity>
-          ))}
+            ))}
+          </TouchableOpacity>
         </View>
       )}
 
@@ -348,24 +353,26 @@ const styles = StyleSheet.create({
     marginTop: 2,
     color: "#777",
   },
-  cardContainer: { flexGrow: 1, borderWidth: 0.5 },
-  card: { flexGrow: 1, alignItems: "center", justifyContent: "center" },
+  cardContainer: { flexGrow: 1, borderWidth: 0.5, borderRadius: 16 },
+  card: { alignItems: "center", justifyContent: "center" },
   heading: {
-    padding: 10,
+    // paddingHorizontal: 20,
     fontSize: 15,
     fontWeight: "900",
     textTransform: "uppercase",
+    color: PRIMARY_COLOR,
   },
   body: {
     fontSize: 14,
     lineHeight: 20 * 1,
     textAlign: "left",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    // paddingHorizontal: 20,
+    // paddingVertical: 10,
     paddingBottom: 20,
   },
   headerCard: {
-    paddingHorizontal: 10,
+    height: 70,
+    paddingHorizontal: 20,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
