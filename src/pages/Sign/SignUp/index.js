@@ -516,8 +516,7 @@ export default ({ navigation }) => {
               <>
                 <Text style={[styles.modalText, { fontSize: 20, fontWeight: "bold" }]}>Opa!</Text>
                 <Text style={styles.modalText}>
-                  É muito importante que nos diga o número do seu celular para validar o seu
-                  cadastro.
+                  É muito importante que preencha todos os campos para validar o seu cadastro.
                 </Text>
 
                 <Pressable style={[styles.button]} onPress={() => setModalVisible(!modalVisible)}>
