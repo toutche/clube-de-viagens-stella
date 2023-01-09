@@ -25,6 +25,8 @@ const BodyMyAccount = ({ item }) => {
     }, ${user.city || ""}, ${user.state || ""}`,
   );
 
+    console.log(user.credit_card);
+
   const [loading, setLoading] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -199,6 +201,17 @@ const BodyMyAccount = ({ item }) => {
     setLoading(false);
   };
 
+  function removeCreditCard() {
+    try {
+      api.delete(`/cartao/${user.credit_card.id}/deletar`)
+      .then(res => {
+        console.log(res.data.message);
+      })
+    } catch (e) {
+      console.log(e);
+    }
+  } 
+
   return (
     <ScrollView
       bounces={false}
@@ -310,8 +323,11 @@ const BodyMyAccount = ({ item }) => {
               onPress={() => openModal("Alterar cartão", "Salvar", updateCreditCard)}>
               {user.credit_card ? "Editar" : "Cadastrar"}
             </Text>
-            {!user.plan && 
-              <TouchableOpacity>
+            {!user.plan && user.credit_card &&
+              <TouchableOpacity onPress={() => {
+                removeCreditCard();
+                updateUser();
+              }} >
                 <Text style={styles.removeButtonText}>
                   Remover
                 </Text>
