@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   View,
@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Modal,
 } from "react-native";
 
 import {
@@ -23,6 +24,8 @@ import InputConfirm from "./InputConfirm";
 
 import { useAuth } from "../../../contexts/auth";
 import api from "../../../services/api";
+import IntlPhoneInputLocal from "../../../components/IntlPhoneInput/IntlPhoneInput";
+import { lightgray } from "color-name";
 
 const titlePage = "Insira seu código";
 const subtitlePage =
@@ -30,6 +33,30 @@ const subtitlePage =
 
 const ConfirmEmail = ({ navigation }) => {
   const { user } = useAuth();
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [newPhone, setNewPhone] = useState('');
+
+  function redefinePhoneNumber() {
+    api
+      .post("/reenviar-token", { phone_number: newPhone })
+      .then(({ data }) => {
+        Alert.alert("Número alterado com sucesso", '');
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  const onChangeText = ({dialCode, unmaskedPhoneNumber, phoneNumber, isVerified}) => {
+    if (dialCode === '+55') {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber.split(' ')[0]} ${phoneNumber.split(' ')[1]}-${phoneNumber.split(' ')[2]}`;
+      setNewPhone(fullPhoneNumber);
+    } else {
+      const fullPhoneNumber = `${dialCode} ${phoneNumber}`;
+      setNewPhone(fullPhoneNumber);
+    }
+  };
 
   const resendConfirmation = () => {
     const data = { email: undefined };
@@ -63,11 +90,69 @@ const ConfirmEmail = ({ navigation }) => {
 
           <InputConfirm navigation={navigation} />
 
-          <Text style={Style.quest}>Não recebeu nosso SMS?</Text>
+          <Text style={Style.quest}>Ué, ainda não recebeu o SMS?</Text>
 
           <TouchableOpacity onPress={resendConfirmation} style={Style.buttonResend}>
             <Text style={Style.resend}>Reenviar Código</Text>
           </TouchableOpacity>
+
+          <Text style={Style.quest}>Tá precisando alterar o telefone cadastrado?</Text>
+          <TouchableOpacity onPress={() => { setModalVisible(!modalVisible) }} style={Style.buttonResend}>
+            <Text style={Style.resend}>Verificar número cadastrado</Text>
+          </TouchableOpacity>
+
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Saindo da tela de alteração de telefone.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={Style.centeredView}>
+              <View style={Style.modalView}>
+                <Text style={Style.modalText}>OPA, tá com um número novo? Insira abaixo o seu novo número de telefone que vamos alterar rapidinho.</Text>
+                {/* <TextInput
+                  style={Style.textInputNewPhone}
+                  placeholder="Digite o novo número *"
+                  value={newPhone}
+                  onChangeText={(text) => setNewPhone(maskPhone(text))}
+                  keyboardType={"numeric"}
+                /> */}
+                <IntlPhoneInputLocal
+                  onChangeText={onChangeText}
+                  defaultCountry="BR"
+                  screen='signUp'
+                  containerStyle={Style.containerStyle}
+                  flagStyle={Style.flagStyle}
+                  closeText="Fechar"
+                  dialCodeTextStyle={Style.dialCodeTextStyle}
+                  phoneInputStyle={Style.phoneInputStyle}
+                  filterText='Choose your country'
+                  placeholderTextColor='black'
+                  iconColor='black'
+                />
+                <TouchableOpacity
+                  style={Style.button}
+                  onPress={() => {
+                    redefinePhoneNumber()
+                    setModalVisible(!modalVisible)
+                  }}
+                >
+                  <Text style={Style.textStyle}>Alterar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={Style.button2}
+                  onPress={() => {
+                    setModalVisible(!modalVisible)
+                  }}
+                >
+                  <Text style={Style.textStyle2}>Voltar</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
 
           {/* <Text style={Style.text}>
             *Caso não esteja visualizando nosso e-mail na sua Caixa de Entrada, pode ser que tenha
@@ -140,6 +225,80 @@ const Style = StyleSheet.create({
     textDecorationLine: "underline",
     fontSize: 12,
     textAlign: "center",
+  },
+  containerStyle: {
+    backgroundColor: 'white',
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 50,
+    marginTop: 10,
+    alignItems: "center",
+  },
+  flagStyle: {
+    fontSize: 18,
+  },
+  dialCodeTextStyle: {
+    marginRight: 2,
+    color: 'black',
+  },
+  phoneInputStyle: {
+    color: "black",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  modalView: {
+    margin: 20,
+    width: '90%',
+    height: 'auto',
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    backgroundColor: PRIMARY_COLOR,
+    borderRadius: 10,
+    width: '100%',
+    padding: 10,
+    elevation: 2,
+    marginTop: 20,
+  },
+  button2: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'lightgray',
+    marginTop: 10,
+    width: '100%',
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  textStyle2: {
+    color: PRIMARY_COLOR,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
   },
 });
 
