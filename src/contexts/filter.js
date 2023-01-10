@@ -25,6 +25,8 @@ export const FilterProvider = ({ children }) => {
   const [autoScroll, setAutoScroll] = useState(false);
   const [childrens, setChildrens] = useState([]);
 
+  const [selectedFavorite, setSelectedFavorite] = useState([]);
+
   const toggleFilter = () => {
     setFilterIdsCategory(true);
     forceUpdateList();
@@ -155,6 +157,7 @@ export const FilterProvider = ({ children }) => {
         isVisibleMenu, setVisibleMenu,
         autoScroll, setAutoScroll,
         childrens, setChildrens,
+        selectedFavorite, setSelectedFavorite,
       }}>
       {children}
     </FilterContext.Provider>
