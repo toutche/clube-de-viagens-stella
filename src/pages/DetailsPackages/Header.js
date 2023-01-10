@@ -23,6 +23,7 @@ export default ({ item, navigation, plan }) => {
         onPress={() => {
           autoScroll && setAutoScroll(false);
           navigation.goBack();
+          // navigation.navigate("Dashboard");
         }}
         size={30}
         type={AntDesign}

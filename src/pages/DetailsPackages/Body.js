@@ -41,6 +41,8 @@ export default ({ item, display = 0, navigation }) => {
   }
 
   useEffect(() => {
+    BackHandler.addEventListener("backPress", () => navigation.goBack());
+    // BackHandler.removeEventListener("backPress", () => true);
     loadPage();
     
     BackHandler.addEventListener("hardwareBackPress", backAction);	
