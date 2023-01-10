@@ -272,13 +272,13 @@ export default ({ item, display = 0, navigation }) => {
               <Entypo
                 name={currentIndex ? "chevron-up" : "chevron-down"}
                 size={30}
-                // color={PRIMARY_COLOR}
+                color={"##d1d1d1"}
               />
             </View>
             {item.day_by_day.map((i, n) => (
-              <View style={[styles.card]}>
+              <View style={styles.card}>
                 {currentIndex && (
-                  <View style={{ borderTopWidth: 0.3, paddingTop: 20, paddingHorizontal: 20 }}>
+                  <View style={{ borderTopWidth: 0.3, paddingTop: 20 }}>
                     <Text style={styles.heading}>Dia {i.day}</Text>
                     <Text style={styles.body}>{i.description}</Text>
                   </View>
@@ -333,7 +333,9 @@ const styles = StyleSheet.create({
     marginHorizontal: Platform.OS === "ios" ? -3 : undefined,
   },
   details: {
-    paddingHorizontal: 20,
+    width: "95%",
+    alignSelf: "center",
+    // paddingHorizontal: 20,
     paddingBottom: 15,
   },
   title: {
@@ -353,10 +355,10 @@ const styles = StyleSheet.create({
     marginTop: 2,
     color: "#777",
   },
-  cardContainer: { flexGrow: 1, borderWidth: 0.5, borderRadius: 16 },
-  card: { alignItems: "center", justifyContent: "center" },
+  cardContainer: { flexGrow: 1, borderWidth: 1, borderRadius: 10, borderColor: "#d1d1d1" },
+  // card: { alignItems: "center", justifyContent: "center" },
   heading: {
-    // paddingHorizontal: 20,
+    paddingHorizontal: 20,
     fontSize: 15,
     fontWeight: "900",
     textTransform: "uppercase",
@@ -366,6 +368,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20 * 1,
     textAlign: "left",
+    marginHorizontal: 20,
     // paddingHorizontal: 20,
     // paddingVertical: 10,
     paddingBottom: 20,
