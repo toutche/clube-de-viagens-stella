@@ -13,6 +13,7 @@ import CustomInput from "../../components/CustomInput";
 import { maskPhone } from "../../utils/masks";
 import CustomButton from "../../components/CustomButton";
 import CustomModal from "./CustomModal";
+import { ModalAlert } from "../../components/ModalAlert";
 
 const BodyMyAccount = ({ item }) => {
   const { user, verifyUser, logoutAccount } = useAuth();
@@ -41,6 +42,15 @@ const BodyMyAccount = ({ item }) => {
   const [forgotPassword, setForgotPassword] = useState(false);
   const [title, setTitle] = useState("");
 
+  const [modalSuccess, setModalSuccess] = useState(false);
+  const [modalError, setModalError] = useState(false);
+  const [modalDeleteAccount, setModalDeleteAccount] = useState(false);
+
+  const [texts, setTexts] = useState({
+    title: '',
+    message: '',
+  });
+
   const openModal = (
     title,
     actionTitle,
@@ -65,105 +75,123 @@ const BodyMyAccount = ({ item }) => {
   };
 
   const changeEmail = body => {
+    const title = "E-mail alterado";
+    const message = "Seu e-mail foi atualizado com sucesso."
+    setTexts({ title, message });
+
     api
       .put("/usuario/atualizar/email", body)
       .then(res => {
         if (res.status == 200 && res.data.message == "E-mail alterado com sucesso") {
           setIsVisible(false);
-          Alert.alert("E-mail alterado", "Seu e-mail foi atualizado com sucesso.");
+          setModalSuccess(!modalSuccess);
           verifyUser();
         } else {
-          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+          setModalError(!modalError);
         }
       })
       .catch(error => {
         console.log(error);
-        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+        setModalError(!modalError);
       });
   };
 
   const changePassword = body => {
     if (body.new_password !== body.new_password_confirmation) {
-      Alert.alert("Aviso", "As senhas digitadas não são iguais.");
+      const title = "Aviso";
+      const message = "As senhas digitadas precisam ser iguais."
+      setTexts({ title, message });
+
+      // foi utilizado o modal success pois simplifica a implementação do código sem ter q criar outro modal ou um lógica mais compléxa.
+      setModalSuccess(!modalSuccess);
       return;
     }
+
+    const title = "Senha alterada";
+    const message = "Sua senha foi atualizada com sucesso."
+    setTexts({ title, message });
 
     api
       .put("/usuario/atualizar/senha", body)
       .then(res => {
-        // console.log(res.status, res.data);
         if (res.status == 200 && res.data.message == "Senha alterada com sucesso") {
           setIsVisible(false);
-          Alert.alert("Senha alterada", "Sua senha foi atualizada com sucesso.");
+          setModalSuccess(!modalSuccess);
         } else {
-          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+          setModalError(!modalError);
         }
       })
       .catch(error => {
         console.log(error);
-        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+          setModalError(!modalError);
       });
   };
 
   const updateCreditCard = body => {
+    const title = "Cartão alterado";
+    const message = "Seu cartão foi atualizado com sucesso."
+    setTexts({ title, message });
+
     api
       .post("/cartao/criar", body)
       .then(res => {
-        // console.log(res.status, res.data);
         if (res.status == 200 && res.data.message == "Cartão Cadastrado") {
           setIsVisible(false);
-          Alert.alert("Cartão alterado", "Seu cartão foi atualizado com sucesso.");
+          setModalSuccess(!modalSuccess);
           verifyUser();
         } else {
-          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+          setModalError(!modalError);
         }
       })
       .catch(error => {
         console.log(error);
-        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+        setModalError(!modalError);
       });
   };
 
   const changeAddress = body => {
+    const title = "Endereço alterado";
+    const message = "Seu endereço foi atualizado com sucesso."
+    setTexts({ title, message });
+
     api
       .put("/usuario/atualizar", body)
       .then(res => {
-        // console.log(res.status, res.data);
         if (res.status == 200 && res.data.message == "Usuario Atualizado") {
           setIsVisible(false);
-          Alert.alert("Endereço alterado", "Seu endereço foi atualizado com sucesso.");
+          setModalSuccess(!modalSuccess);
           verifyUser();
         } else {
-          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+          setModalError(!modalError);
         }
       })
       .catch(error => {
         console.log(error);
-        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+        setModalError(!modalError);
       });
   };
 
+  async function onConfirmDelete() {
+    try {
+      setDeleting(true);
+      await api.delete("/usuario/deletar");
+      await logoutAccount();
+    } catch (error) {
+      const title = "Erro";
+      const message = error.message
+      setTexts({ title, message });
+
+      setModalDeleteAccount(!modalDeleteAccount);
+      setDeleting(false);
+    }
+  }
+
   const deleteUser = () => {
-    Alert.alert("Aviso", "Tem certeza que deseja excluir sua conta?", [
-      {
-        text: "Cancelar",
-        onPress: () => {},
-        style: "cancel",
-      },
-      {
-        text: "OK",
-        onPress: async () => {
-          try {
-            setDeleting(true);
-            await api.delete("/usuario/deletar");
-            await logoutAccount();
-          } catch (error) {
-            Alert.alert("Erro", error.message);
-            setDeleting(false);
-          }
-        },
-      },
-    ]);
+    const title = "Aviso";
+    const message = "Tem certeza que deseja excluir sua conta?"
+    setTexts({ title, message });
+
+    setModalDeleteAccount(!modalDeleteAccount);
   };
 
   const updateUser = () => {
@@ -179,21 +207,24 @@ const BodyMyAccount = ({ item }) => {
       nickname,
     };
 
+    const title = "Usuário atualizado";
+    const message = "Suas informações foram atualizadas com sucesso."
+    setTexts({ title, message });
+
     api
       .put("/usuario/atualizar", body)
       .then(res => {
-        // console.log(res.status, res.data);
         if (res.status == 200 && res.data.message == "Usuario Atualizado") {
           setIsVisible(false);
-          Alert.alert("Usuário atualizado", "Suas informações foram atualizadas com sucesso.");
+          setModalSuccess(!modalSuccess);
           verifyUser();
         } else {
-          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+          setModalError(!modalError);
         }
       })
       .catch(error => {
         console.log(error);
-        Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+        setModalError(!modalError);
       });
 
     setLoading(false);
@@ -313,12 +344,6 @@ const BodyMyAccount = ({ item }) => {
         {user.credit_card && (
           <View style={styles.cardBody}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              {/* <FontAwesome
-                name='cc-mastercard'
-                size={24}
-                color={"#000"}
-                style={{ marginRight: 16 }}
-              /> */}
               <Text style={{ fontFamily: FONT_DEFAULT_BOLD_STYLE }}>
                 {user.credit_card.last_digits}
               </Text>
@@ -344,17 +369,27 @@ const BodyMyAccount = ({ item }) => {
         </View>
       </View>
 
-      {/*
-        <View style={styles.switchInput}>
-          <Text style={styles.boldGreyText}>Receber notificação</Text>
+        {/* Modal criado pala confirmação de alteração de cadastro ou para mostrar que deu algum erro na hora da alteração. */}
+        <ModalAlert
+          modalVisible={modalSuccess || modalError}
+          setModalVisible={modalSuccess ? setModalSuccess : setModalError}
+          title={modalSuccess ? texts.title : 'Aviso'}
+          text={modalSuccess ? texts.message : "Aconteceu um erro, tente novamente mais tarde."}
+          textFirstButton='Voltar'
+        />
 
-          <Switch
-            value={notifications}
-            onValueChange={() => setNotifications(!notifications)}
-            color={BLUE_COLOR}
-          />
-        </View>
-      */}
+        {/* Modal criado para exclusão de conta */}
+        <ModalAlert
+          modalVisible={modalDeleteAccount}
+          setModalVisible={setModalDeleteAccount}
+          title={texts.title}
+          text={texts.message}
+          textFirstButton='Confirmar'
+          firstButtonFunction={() => onConfirmDelete()}
+          secondButton
+          textSecondButton='Voltar'
+          secondButtonFunction={() => setModalDeleteAccount(!modalDeleteAccount)}
+        />
 
       <CustomButton
         onPress={updateUser}

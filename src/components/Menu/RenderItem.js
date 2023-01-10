@@ -1,33 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, StyleSheet, TouchableOpacity, View, Image, Alert } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { logout } from "../../services/auth";
 import { useAuth } from "../../contexts/auth";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
+import { ModalAlert } from "../ModalAlert";
 
 const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
   const { name } = useRoute();
   const { logoutAccount } = useAuth();
   const navigation = useNavigation();
 
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [textModal, setTextModal] = useState({
+    title: '',
+    message: '',
+  });
+
   const onGo = () => {
-    id
-    ? navigation.navigate(id)
-    : Alert.alert(
-      "Sair",
-      "Deseja realmente sair do app?",
-      [
-        {
-          text: "cancel",
-        },
-        {
-          text: "sim",
-          onPress: () => logoutAccount(),
-        }
-      ]
-    )
+    if (id) navigation.navigate(id);
+    else {
+      setTextModal({
+        title: "Sair",
+        message: "Deseja realmente sair do app?",
+      });
+
+      setVisibleModal(!visibleModal);
+    }
   };
+
+  function secondButtonModal() {
+    setVisibleModal(!visibleModal);
+  }
 
   return (
     <View style={styles.container}>
@@ -50,6 +55,17 @@ const RenderItem = ({ id, onClose, text, selected, noSelected }) => {
         ]}>
         {text}
       </Text>
+      <ModalAlert
+        modalVisible={visibleModal}
+        setModalVisible={setVisibleModal}
+        title={textModal.title}
+        text={textModal.message}
+        textFirstButton='Sair'
+        firstButtonFunction={() => logoutAccount()}
+        secondButton
+        textSecondButton='Voltar'
+        secondButtonFunction={secondButtonModal}
+      />
     </View>
   );
 };

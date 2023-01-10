@@ -44,26 +44,26 @@ export const FilterProvider = ({ children }) => {
     forceUpdateList();
   };
 
-  const onFilterOriginDestiny = () => {
-    Alert.alert("Buscar", `Deseja Buscar?`, [
-      {
-        text:
-          filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
-            ? "Limpar"
-            : "Não",
-        onPress:
-          filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
-            ? clearFilterOriginDestiny
-            : null,
-        style: "destructive",
-      },
-      {
-        text: "Sim",
-        onPress: forceUpdateList,
-        style: "destructive",
-      },
-    ]);
-  };
+  // const onFilterOriginDestiny = () => {
+  //   Alert.alert("Buscar", `Deseja Buscar?`, [
+  //     {
+  //       text:
+  //         filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+  //           ? "Limpar"
+  //           : "Não",
+  //       onPress:
+  //         filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+  //           ? clearFilterOriginDestiny
+  //           : null,
+  //       style: "destructive",
+  //     },
+  //     {
+  //       text: "Sim",
+  //       onPress: forceUpdateList,
+  //       style: "destructive",
+  //     },
+  //   ]);
+  // };
 
   const onFilterHotels = () => {
     Alert.alert("Buscar", `Deseja Buscar?`, [
@@ -138,7 +138,7 @@ export const FilterProvider = ({ children }) => {
         setSegmentsIds,
         toggleFilter,
         toggleOrder,
-        onFilterOriginDestiny,
+        // onFilterOriginDestiny,
         onFilterHotels,
         clearFilterCategory,
         clearFilterOriginDestiny,

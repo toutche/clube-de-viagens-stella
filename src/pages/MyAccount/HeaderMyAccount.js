@@ -19,9 +19,24 @@ import { useAuth } from "../../contexts/auth";
 import { maskDocument } from "../../utils/masks";
 import * as ImagePicker from "expo-image-picker";
 import api from "../../services/api";
+import { ModalAlert } from "../../components/ModalAlert";
 
 const HeaderMyAccount = ({ navigation }) => {
-  const { user, updateUser } = useAuth();
+  const { user } = useAuth();
+
+  const [modalVisiblePermission, setModalVisiblePermission] = useState(false);
+  const [modalVisibleError, setModalVisibleError] = useState(false);
+
+  const [modalVisibleGetPicture, setModalVisibleGetPicture] = useState(false);
+
+  const [textModal, setTextModal] = useState({
+    title: '',
+    message: '',
+  })
+
+  const [image, setImage] = useState(
+    user.image || "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png",
+  );
 
   const getDate = date => new Date(date).toLocaleDateString();
 
@@ -36,7 +51,11 @@ const HeaderMyAccount = ({ navigation }) => {
       }
 
       if (result?.status !== "granted") {
-        alert("Precisamos das permissões de acesso a câmera e a galeria.");
+        setTextModal({
+          title: 'Permissão',
+          message: "Precisamos das permissões de acesso a câmera e a galeria.",
+        })
+        setModalVisiblePermission(!modalVisiblePermission);
         return false;
       }
       return true;
@@ -85,33 +104,42 @@ const HeaderMyAccount = ({ navigation }) => {
         })
         .catch(error => {
           console.log(error);
-          Alert.alert("Aviso", "Aconteceu um erro, tente novamente mais tarde.");
+          setModalVisibleError(!modalVisibleError);
         });
 
       if (data?.message == "Imagem do perfil atualizada") {
-        updateUser()
-        Alert.alert("Sucesso", data.message);
+        setTextModal({
+          title: 'Sucesso',
+          message: data.message,
+        })
+        setModalVisiblePermission(!modalVisiblePermission);
       } else {
-        Alert.alert("Erro", "Aconteceu um erro, tente novamente mais tarde.");
+        setModalVisibleError(!modalVisibleError);
       }
     }
   };
 
   const chooseImage = () => {
-    return Alert.alert("Sua foto", `Deseja tirar uma foto agora ou escolher da galeria?`, [
-      {
-        text: "Cancelar",
-        style: "cancel",
-      },
-      {
-        text: "Câmera",
-        onPress: () => pickImage("CAMERA"),
-      },
-      {
-        text: "Galeria",
-        onPress: () => pickImage("MEDIA_LIBRARY"),
-      },
-    ]);
+    setTextModal({
+      title: 'Sua Foto',
+      message: `Deseja tirar uma foto agora ou escolher da galeria?`,
+    })
+
+    setModalVisibleGetPicture(!modalVisibleGetPicture);
+    // return Alert.alert("Sua foto", `Deseja tirar uma foto agora ou escolher da galeria?`, [
+    //   {
+    //     text: "Cancelar",
+    //     style: "cancel",
+    //   },
+    //   {
+    //     text: "Câmera",
+    //     onPress: () => pickImage("CAMERA"),
+    //   },
+    //   {
+    //     text: "Galeria",
+    //     onPress: () => pickImage("MEDIA_LIBRARY"),
+    //   },
+    // ]);
   };
 
   return (
@@ -226,6 +254,31 @@ const HeaderMyAccount = ({ navigation }) => {
           </View>
         </ImageBackground>
       </View>
+
+      <ModalAlert
+        modalVisible={modalVisiblePermission || modalVisibleError}
+        setModalVisible={modalVisiblePermission ? setModalVisiblePermission : setModalVisibleError}
+        title={modalVisiblePermission ? textModal.title : "Aviso"}
+        text={modalVisiblePermission ? textModal.message : "Aconteceu um erro, tente novamente mais tarde."
+        }
+        textFirstButton='Voltar'
+      />
+
+      <ModalAlert
+        modalVisible={modalVisibleGetPicture}
+        setModalVisible={setModalVisibleGetPicture}
+        title={textModal.title}
+        text={textModal.message}
+        textFirstButton='Galeria'
+        firstButtonFunction={() => pickImage("MEDIA_LIBRARY")}
+        secondButton
+        textSecondButton='Voltar'
+        secondButtonFunction={() => setModalVisibleGetPicture(!modalVisibleGetPicture)}
+        thirdButton
+        textThirdButton='Câmera'
+        thirdButtonFunction={() => pickImage("CAMERA")}
+      />
+
     </View>
   );
 };

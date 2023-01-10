@@ -6,7 +6,6 @@ import {
   Platform,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Alert,
   Image,
 } from "react-native";
 import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
@@ -14,9 +13,7 @@ import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import api from "../../services/api";
 import Picker from "../../components/Picker";
-import { flatMap } from "lodash";
-import { formatDateToBRL } from "../../utils";
-import { TurboModuleRegistry } from "react-native";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default ({ data }) => {
   const [loading, setLoading] = useState(false);
@@ -35,6 +32,8 @@ export default ({ data }) => {
     subjectText: false,
     message: false,
   });
+
+  const [visibleModal, setVisibleModal] = useState(false);
 
   const checkForm = () => {
     if (form.name === "") {
@@ -65,7 +64,7 @@ export default ({ data }) => {
       })
       .then(({ data }) => {
         if (data.message) {
-          Alert.alert("Mensagem enviada com sucesso!");
+          setVisibleModal(!visibleModal);
         }
       })
       .catch(e => console.log(e))
@@ -184,8 +183,17 @@ export default ({ data }) => {
           multiline
           lenght={300}
         />
+
+        <ModalAlert
+          modalVisible={visibleModal}
+          setModalVisible={setVisibleModal}
+          title="Opa, valeu pela mensagem!"
+          text='Iremos responder em breve, beleza?'
+          textFirstButton='Fechar'
+        />
+
         <CustomButton
-          onPress={handlePress}
+          onPress={() => {handlePress()}}
           loadingApi={loading}
           loadingApiColor={"white"}
           containerStyle={styles.button}

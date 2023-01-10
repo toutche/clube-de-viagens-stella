@@ -1,16 +1,19 @@
-import React, { useRef, useState } from 'react'
-import { Dimensions, FlatList, StyleSheet, Text, View, Linking, Alert } from 'react-native'
+import React, { useState } from 'react'
+import { Dimensions, FlatList, StyleSheet, Text, View, Linking } from 'react-native'
 import CustomIcon from '../../components/CustomIcon';
 import { FONT_DEFAULT_STYLE } from '../../utils/variables';
 import { Entypo } from "@expo/vector-icons";
+import { ModalAlert } from '../../components/ModalAlert';
 
 export default ({ data = [], navigation }) => {
+
+    const [visibleModal, setVisibleModal] = useState(false);
 
     const openPDF = async (link) => {
         try {
             await Linking.openURL(link)
         } catch (error) {
-            Alert.alert('Erro', 'Não foi possivel abrir o documento')
+            setVisibleModal(!visibleModal);
         }
     }
 
@@ -18,6 +21,13 @@ export default ({ data = [], navigation }) => {
     return (
         <View style={styles.container}>
 
+            <ModalAlert
+                modalVisible={visibleModal}
+                setModalVisible={setVisibleModal}
+                title="Algo deu errado!"
+                text='Não conseguimos abrir o documento corretamente.'
+                textFirstButton='Voltar'
+            />
 
             <Text style={styles.title}>{data?.message}</Text>
 

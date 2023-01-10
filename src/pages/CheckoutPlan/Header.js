@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Alert } from "react-native";
+import { StyleSheet, View } from "react-native";
 import CustomIcon from "../../components/CustomIcon";
 import { AntDesign } from "@expo/vector-icons";
 import ProfileAvatar from "../../components/ProfileAvatar";

@@ -8,6 +8,7 @@ import api from "../../services/api";
 import CustomButton from "../CustomButton";
 import CustomInput from "../CustomInput";
 import { useFilter } from "../../contexts/filter";
+import { ModalAlert } from "../ModalAlert";
 
 const ShareModal = ({ }) => {
   const { filterDestiny, filterCheck, filterPeople } = useFilter()
@@ -19,6 +20,12 @@ const ShareModal = ({ }) => {
   const [email, setEmail] = useState('')
   const [visibleShare, setVisibleShare] = useState(false)
   const [visibleInput, setVisibleInput] = useState(false)
+
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [textModal, setTextModal] = useState({
+    title: '',
+    message: '',
+  });
 
   ShareModal.show = (item) => {
     data.current = { ...item }
@@ -43,8 +50,24 @@ const ShareModal = ({ }) => {
     if (data.current.option === 0) {
       const response = await api.post('/share/email', { email, id_package: data.current.id }).catch((res) => console.log('erro de enviar email', res))
 
-      if (response) Alert.alert('Aviso', 'Seu email foi enviado com sucesso')
-      else Alert.alert('Aviso', 'Aconteceu um erro ao enviar seu email, tente novamente mais tarde')
+      if (response) {
+        setTextModal({
+          title: "Aviso",
+          message: 'Seu email foi enviado com sucesso',
+        });
+  
+        setVisibleModal(!visibleModal);
+        // Alert.alert('Aviso', 'Seu email foi enviado com sucesso')
+      }
+      else {
+        setTextModal({
+          title: "Aviso",
+          message: 'Aconteceu um erro ao enviar seu email, tente novamente mais tarde',
+        });
+  
+        setVisibleModal(!visibleModal);
+        // Alert.alert('Aviso', 'Aconteceu um erro ao enviar seu email, tente novamente mais tarde')
+      }
 
     } else {
       api.post('/share/email', {
@@ -83,7 +106,15 @@ const ShareModal = ({ }) => {
     const result = await Linking.canOpenURL(url)
 
     if (result) await Linking.openURL(url)
-    else Alert.alert('Aviso', 'Confira se o Whatsapp está instalado no dispositivo')
+    else {
+      setTextModal({
+        title: "Aviso",
+        message: 'Confira se o Whatsapp está instalado no dispositivo',
+      });
+
+      setVisibleModal(!visibleModal);
+      // Alert.alert('Aviso', 'Confira se o Whatsapp está instalado no dispositivo')
+    }
 
     ShareModal.hide()
   }
@@ -192,6 +223,14 @@ const ShareModal = ({ }) => {
             right: 0,
             top: Platform.OS === "ios" ? -27 : -30,
           }}
+        />
+
+        <ModalAlert
+          modalVisible={visibleModal}
+          setModalVisible={setVisibleModal}
+          title={textModal.title}
+          text={textModal.message}
+          textFirstButton='Voltar'
         />
       </View>
     </Modal>

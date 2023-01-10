@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { View, FlatList, StyleSheet, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { View, FlatList, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useFilter } from "../../contexts/filter";
 import { FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/variables";
 
