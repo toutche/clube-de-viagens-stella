@@ -22,7 +22,8 @@ export default ({ item, navigation, plan }) => {
       <CustomIcon
         onPress={() => {
           autoScroll && setAutoScroll(false);
-          navigation.navigate("Dashboard");
+          navigation.goBack();
+          // navigation.navigate("Dashboard");
         }}
         size={30}
         type={AntDesign}

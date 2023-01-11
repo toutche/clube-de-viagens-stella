@@ -24,6 +24,7 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import Copyright from "../../../components/Copyright";
 import CustomIcon from "../../../components/CustomIcon";
 import api from "../../../services/api";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const titlePage = "Insira o seu e-mail cadastrado para recuperar a senha.";
 
@@ -37,7 +38,7 @@ export default ({ navigation }) => {
       api
         .post("/esqueci-senha", { email })
         .then(res => {
-          Alert.alert("Aviso", "Um e-mail com o token foi enviado para você");
+          Alert.alert("Aviso", res.data.message);
           navigation.goBack();
         })
         .catch(e => setLoading(false));

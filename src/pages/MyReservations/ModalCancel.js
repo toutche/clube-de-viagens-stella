@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Modal, Alert } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import CustomButton from '../../components/CustomButton';
-import { PRIMARY_COLOR } from '../../utils/variables';
+
 import api from "../../services/api";
+import { PRIMARY_COLOR } from '../../utils/variables';
+
+import CustomButton from '../../components/CustomButton';
+import { ModalAlert } from '../../components/ModalAlert';
 
 const ModalCancel = ({
     isVisible = true,
@@ -11,16 +13,31 @@ const ModalCancel = ({
     item,
     getReservations
 }) => {
+    const [visibleModal, setVisibleModal] = useState(false);
+    const [textModal, setTextModal] = useState({
+        title: '',
+        message: '',
+    })
+
     const handleCancel = async () => {
         await api
         .get(`/pacote-viagem/minhas-reservas/cancelamento/${item.id}/${item.sale_id}}`)
         .then( ({ data }) => {
             onClose();
             getReservations && getReservations();
-            Alert.alert("Cancelamento solicitado", data.message );
+            setTextModal({
+                title: 'Cancelamento solicitado',
+                message: data.message,
+            })
+            setVisibleModal(!visibleModal);
+            // Alert.alert("Cancelamento solicitado", data.message );
         })
         .catch((e) => { 
-            Alert.alert("Aviso", "Não foi possível cancelar a reserva selecionada. Por favor, tente novamente.");
+            setTextModal({
+                title: 'Aviso',
+                message: "Não foi possível cancelar a reserva selecionada. Por favor, tente novamente.",
+            })
+            setVisibleModal(!visibleModal);
             console.error(e)
         });
     }
@@ -65,6 +82,13 @@ const ModalCancel = ({
                         />
                     </View>
                 </View>
+                <ModalAlert
+                    modalVisible={visibleModal}
+                    setModalVisible={setVisibleModal}
+                    title={textModal.title}
+                    text={textModal.message}
+                    textFirstButton='Voltar'
+                />
             </View>
         </Modal>
     )

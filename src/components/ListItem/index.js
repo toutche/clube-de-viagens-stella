@@ -32,11 +32,7 @@ const ListItem = ({ item, index, display, navigation, plan, refreshList }) => {
 
   const handlePressLeftButton = () => {
     if (display === 0) {
-      navigation.replace("DetailsPackages", { id: item.id });
-      // navigation.navigate({
-      //   name: "DetailsPackages",
-      //   params: { id: item.id },
-      // });
+      navigation.push("DetailsPackages", { id: item.id });
     } else if (display === 1) {
       navigation.navigate({
         name: "DetailsHotels",

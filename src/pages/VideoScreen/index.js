@@ -30,12 +30,12 @@ export default ({ navigation, route: { params } }) => {
   return (
     <View style={{ flex: 1 }}>
       <CustomStatusBar />
-
       <CustomIcon
         onPress={goBack}
         size={30}
         type={AntDesign}
         name={"arrowleft"}
+        color={PRIMARY_COLOR}
         containerStyle={[styles.icon, { top: insets.top + 8 }]}
       />
 
@@ -46,7 +46,8 @@ export default ({ navigation, route: { params } }) => {
             style={styles.video}
             source={{ uri: url }}
             shouldPlay={true}
-            useNativeControls
+            useNativeControls={false}
+            isLooping
             resizeMode='contain'
           />
         ) : (
@@ -68,8 +69,7 @@ const styles = StyleSheet.create({
   },
   video: {
     width: "100%",
-    height: undefined,
-    aspectRatio: 1,
+    height: "100%",
   },
   icon: {
     top: 0,

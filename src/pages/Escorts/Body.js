@@ -14,46 +14,47 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/varia
 import { AntDesign, EvilIcons, SimpleLineIcons } from "@expo/vector-icons";
 import CustomIcon from "../../components/CustomIcon";
 import api from "../../services/api";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default ({ data = [], navigation, getEscorts }) => {
-  const [loading, setLoading] = useState(false);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModalError, setVisibleModalError] = useState(false);
+  const [visibleModalSuccess, setVisibleModalSuccess] = useState(false);
+
+  const [modal,setModal] = useState({
+    modal: false,
+    error: false,
+    success: false
+  })
+
+  const [deleteData, setDeleteData] = useState({
+    id: '',
+    name: '',
+  });
+
+  function requestDeleteApi() {
+    api
+      .delete(`/familiar/${deleteData.id}/deletar`)
+      .then(({ status, data }) => {
+        if (status == 200 && data.message == "Familiar deletado") {
+          getEscorts();
+          setVisibleModalSuccess(!visibleModalSuccess);
+        } else {
+          setModal({...modal, error: !modal.error})
+          setVisibleModalError(!visibleModalError);
+        }
+      })
+      .catch(error => {
+        setVisibleModalError(!visibleModalError);
+        console.log("Ocorreu um erro", error);
+      });
+  }
 
   const handleDelete = (id, name) => {
-    const error_alert = () =>
-      Alert.alert(
-        "Erro",
-        `Não foi possível excluir o viajante ${name}. Por favor, tente novamente.`,
-      );
-
-    error_alert;
-
-    Alert.alert("Confirmar exclusão", `Confirmar a exclusão do viajante ${name}?`, [
-      {
-        text: "Cancelar",
-        style: "cancel",
-      },
-      {
-        text: "Excluir",
-        onPress: () => {
-          api
-            .delete(`/familiar/${id}/deletar`)
-            .then(({ status, data }) => {
-              if (status == 200 && data.message == "Familiar deletado") {
-                getEscorts();
-                Alert.alert("Viajante excluído", `Viajante ${name} foi excluído com sucesso.`);
-              } else {
-                error_alert();
-              }
-            })
-            .catch(error => {
-              error_alert();
-              console.log("Ocorreu um erro", error);
-            });
-        },
-      },
-    ]);
+    setDeleteData({
+      id, name,
+    })
+    setVisibleModal(!visibleModal);
   };
 
   return (
@@ -111,6 +112,31 @@ export default ({ data = [], navigation, getEscorts }) => {
           );
         })}
       </View>
+
+      {/* Modal para confirmar ou cancelar exclusão de familiar! */}
+      <ModalAlert
+        modalVisible={visibleModal}
+        setModalVisible={setVisibleModal}
+        title="Confirmar exclusão"
+        text={`Confirmar a exclusão do viajante ${deleteData.name}?`}
+        textFirstButton='Continuar'
+        secondButton
+        firstButtonFunction={() => requestDeleteApi()}
+        textSecondButton='Voltar'
+        secondButtonFunction={() => setVisibleModal(!visibleModal)}
+      />
+
+      {/* Modal para mostrar erro caso nao exclua e sucesso caso exclua */}
+      <ModalAlert
+        modalVisible={visibleModalError || visibleModalSuccess}
+        setModalVisible={visibleModalError ? setVisibleModalError : setVisibleModalSuccess}
+        title={visibleModalError ? "Erro" : "Viajante excluído"}
+        text={visibleModalError
+          ? `Não foi possível excluir o viajante ${deleteData.name}. Por favor, tente novamente.`
+          : `Viajante ${deleteData.name} foi excluído com sucesso.`
+        }
+        textFirstButton='Voltar'
+      />
 
       <CustomButton
         onPress={() =>

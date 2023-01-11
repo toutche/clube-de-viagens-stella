@@ -6,8 +6,8 @@ import {
   Text,
   ActivityIndicator,
   Linking,
-  Alert,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Banner from "../../components/Banner";
 import ListItem from "../../components/ListItem";
@@ -22,6 +22,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Calendar from "../../components/Calendar";
 import { formatDateToBRL } from "../../utils";
 import { AntDesign } from "@expo/vector-icons";
+import { ModalAlert } from "../../components/ModalAlert";
 
 const BodyDashboard = ({
   display = 0,
@@ -35,7 +36,7 @@ const BodyDashboard = ({
   } = useAuth();
 
   const {
-    onFilterOriginDestiny,
+    clearFilterOriginDestiny,
     onFilterHotels,
     filterOrigin,
     filterDestiny,
@@ -45,6 +46,7 @@ const BodyDashboard = ({
     filterCheck,
     filterPeople,
     filterUpdate,
+    forceUpdateList,
     setFilterCheck,
     orderPrice,
     segmentsIds,
@@ -58,6 +60,15 @@ const BodyDashboard = ({
   const [refreshing, setRefreshing] = useState(false);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
 
+  const [visibleModalFirst, setVisibleModalFirst] = useState(false);
+  const [visibleModalSecond, setVisibleModalSecond] = useState(false);
+
+  const [searchModalVisible, setSearchModalVisible] = useState(false);
+  const [searchTextModal, setSearchTextModal] = useState({
+    title: '',
+    message: '',
+  });
+
   useEffect(() => {
     loadPage();
   }, []);
@@ -66,6 +77,14 @@ const BodyDashboard = ({
     setFeed([]);
     loadPage(1, true, true);
   }, [filterUpdate, orderPrice, display]);
+
+  const onFilterOriginDestiny = () => {
+    setSearchTextModal({
+      title: 'Buscar',
+      message: 'Deseja buscar?'
+    });
+    setSearchModalVisible(!searchModalVisible);
+  };
 
   const loadPage = async (pageNumber = page.current, shouldRefresh = false, update = false) => {
     if (feed?.length === total.current && !update) return;
@@ -102,11 +121,7 @@ const BodyDashboard = ({
       total.current = totalItems;
       page.current = pageNumber + 1;
 
-      if (totalItems === 0)
-        Alert.alert(
-          "Que pena ):",
-          "O destino escolhido não está mais disponível, refaça a sua busca!",
-        );
+      if (totalItems === 0) setVisibleModalFirst(!visibleModalFirst);
 
       setFeed(shouldRefresh ? data || [] : [...feed, ...data]);
     } else if (display === 1) {
@@ -136,6 +151,15 @@ const BodyDashboard = ({
     }
     setLoading(false);
   };
+
+  function firstButtonModalAlert() {
+    navigation.navigate("Contact");
+    setVisibleModalSecond(!visibleModalSecond);
+  }
+
+  function secondButtonModalAlert() {
+    setVisibleModalSecond(!visibleModalSecond);
+  }
 
   const refreshList = async () => {
     setFeed([]);
@@ -294,19 +318,9 @@ const BodyDashboard = ({
     const linkWhatsapp = response.data.whatsapp;
     const linkWhatsappRedirect = response.data.whatsapp_redirect;
 
-    const result = await Linking.canOpenURL(linkWhatsapp);
-    if (result) {
-      await Linking.openURL(linkWhatsapp);
-    } else {
-      const result = await Linking.canOpenURL(linkWhatsappRedirect);
-      if (result) await Linking.openURL(linkWhatsappRedirect);
-      Alert.alert("Aviso!", "Entre em contato pelo nosso email.", [
-        {
-          text: "Entre em Contato",
-          onPress: () => navigation.navigate("Contact"),
-        },
-      ]);
-    }
+    const result = await Linking.canOpenURL(link);
+    if (result) await Linking.openURL(link);
+    else setVisibleModalSecond(!visibleModalSecond);
   }
 
   return (
@@ -339,6 +353,34 @@ const BodyDashboard = ({
         renderItem={({ item, index }) => (
           <ListItem {...{ item, index, display, navigation, plan }} />
         )}
+      />
+      {/* Alerta padrão para aviso de sucesso ou não na busca. */}
+      <ModalAlert
+        modalVisible={visibleModalFirst || visibleModalSecond}
+        setModalVisible={setVisibleModalFirst || setVisibleModalSecond}
+        title={visibleModalFirst ? 'Que pena ):' : "Aviso!"}
+        text={visibleModalFirst ? 'O destino escolhido não está mais disponível, refaça a sua busca!' : 'Entre em contato pelo nosso email.'}
+        textFirstButton={visibleModalFirst ? 'Voltar' : 'Contato'}
+        firstButtonFunction={firstButtonModalAlert }
+        secondButton={visibleModalSecond && true}
+        textSecondButton={visibleModalSecond && 'Voltar'}
+        secondButtonFunction={visibleModalSecond && secondButtonModalAlert}
+      />
+      {/* Modal criado para o mecanismo de busca. */}
+      <ModalAlert
+        modalVisible={searchModalVisible}
+        setModalVisible={setSearchModalVisible}
+        title={searchTextModal.title}
+        text={searchTextModal.message}
+        firstButtonFunction={forceUpdateList}
+        textFirstButton={'Sim'}
+        textSecondButton={filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+          ? "Limpar"
+          : "Não"}
+        secondButtonFunction={filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+          ? () => {clearFilterOriginDestiny(); setSearchModalVisible(!searchModalVisible)}
+          : () => setSearchModalVisible(!searchModalVisible)}
+        secondButton
       />
       <CustomIcon
         size={35}

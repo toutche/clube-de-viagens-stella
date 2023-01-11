@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, ScrollView, Platform, KeyboardAvoidingView, Alert } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, ScrollView, Platform, KeyboardAvoidingView } from "react-native";
 import { PRIMARY_COLOR } from "../../utils/variables";
 import { CreditCardInput } from "../../components/CreditInput";
+import { ModalAlert } from "../../components/ModalAlert";
 import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
@@ -14,6 +15,8 @@ export default ({ data, navigation }) => {
   
   const [card, setCard] = useState({});
   const [check, setCheck] = useState(false);
+
+  const [visibleModal, setVisibleModal] = useState(false);
 
   const CARD_EXAMPLE = {
     plan_id: data.id,
@@ -63,11 +66,7 @@ export default ({ data, navigation }) => {
             merge: true,
           });
         } else {
-          Alert.alert("Quase lá!", `Preencha os dados do seu cartão de crédito por completo para dar andamento a sua assinatura.`, [
-            {
-              text: "Voltar"
-            }
-          ])
+          setVisibleModal(!visibleModal);
         }
       })
       .catch(e => console.log("error", e.response.data))
@@ -103,6 +102,13 @@ export default ({ data, navigation }) => {
           }}
           checkedIcon={<MaterialIcons name='check-box' size={28} color={PRIMARY_COLOR} />}
           uncheckedIcon={<MaterialIcons name='check-box-outline-blank' size={28} color='#c9c9c9' />}
+        />
+        <ModalAlert
+          modalVisible={visibleModal}
+          setModalVisible={setVisibleModal}
+          title="Quase lá!"
+          text='Preencha os dados do seu cartão de crédito por completo para dar andamento a sua assinatura.'
+          textFirstButton='Continuar'
         />
         <CustomButton
           loadingApiColor={"white"}
