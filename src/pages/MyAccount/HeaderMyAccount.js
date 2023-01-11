@@ -38,7 +38,20 @@ const HeaderMyAccount = ({ navigation }) => {
     user.image || "https://toutche.com.br/clube_de_ferias/maquina-fotografica.png",
   );
 
-  const getDate = date => new Date(date).toLocaleDateString();
+  const getDate = date => new Date(date).toLocaleDateString().toString();
+
+  function changeRegisterDateToBrDate() {
+    const createdPlanAmericanDate = (getDate(user?.plan?.created_at).split('/'))[1] + '/' + (getDate(user?.plan?.created_at).split('/'))[0] + '/' + (getDate(user?.plan?.created_at).split('/'))[2];
+    const registerAmericanDate = (getDate(user?.created_at).split('/'))[1] + '/' + (getDate(user?.created_at).split('/'))[0] + '/' + (getDate(user?.created_at).split('/'))[2];
+
+    if (user.plan) {
+      return createdPlanAmericanDate;
+    }
+
+    return registerAmericanDate;
+  }
+
+  changeRegisterDateToBrDate();
 
   const hasMediaPermission = async option => {
     if (Platform.OS !== "web") {
@@ -246,8 +259,8 @@ const HeaderMyAccount = ({ navigation }) => {
                 )}`}</Text>
                 <Text style={[styles.cardText]}>
                   {user.plan
-                    ? `ASSINANTE DESDE ${getDate(user.created_at)}`
-                    : `MEMBRO DESDE ${getDate(user.created_at)}`}
+                    ? `ASSINANTE DESDE ${changeRegisterDateToBrDate()}`
+                    : `MEMBRO DESDE ${changeRegisterDateToBrDate()}`}
                 </Text>
               </View>
             </View>

@@ -276,7 +276,7 @@ const BodyMyAccount = ({ item }) => {
         inputStyle={{ color: "#000" }}
         color='#c0c0c0'
         size={24}
-        lenght={15}
+        lenght={20}
         type={FontAwesome}
         name={"mobile"}
         keyboardType={"phone-pad"}
