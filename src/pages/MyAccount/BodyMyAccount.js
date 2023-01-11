@@ -30,6 +30,8 @@ const BodyMyAccount = ({ item }) => {
   const [isDeleting, setDeleting] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [icon, setIcon] = useState({
     lib: undefined,
     name: undefined,
@@ -87,11 +89,13 @@ const BodyMyAccount = ({ item }) => {
           setModalSuccess(!modalSuccess);
           verifyUser();
         } else {
+          console.log(res.data);
+          setErrorMessage(res.data.error.new_email[0]);        
           setModalError(!modalError);
         }
       })
       .catch(error => {
-        console.log(error);
+        setErrorMessage(error?.response?.data?.message);        
         setModalError(!modalError);
       });
   };
@@ -117,12 +121,11 @@ const BodyMyAccount = ({ item }) => {
         if (res.status == 200 && res.data.message == "Senha alterada com sucesso") {
           setIsVisible(false);
           setModalSuccess(!modalSuccess);
-        } else {
-          setModalError(!modalError);
         }
       })
       .catch(error => {
         console.log(error);
+          setErrorMessage(error?.response?.data?.message);
           setModalError(!modalError);
       });
   };
@@ -139,12 +142,11 @@ const BodyMyAccount = ({ item }) => {
           setIsVisible(false);
           setModalSuccess(!modalSuccess);
           verifyUser();
-        } else {
-          setModalError(!modalError);
         }
       })
       .catch(error => {
-        console.log(error);
+        setErrorMessage(error?.response?.data?.message);
+
         setModalError(!modalError);
       });
   };
@@ -160,15 +162,19 @@ const BodyMyAccount = ({ item }) => {
         if (res.status == 200 && res.data.message == "Usuario Atualizado") {
           setIsVisible(false);
           setModalSuccess(!modalSuccess);
-          verifyUser();
         } else {
+          console.log(res.data.message);
+          setErrorMessage(res.data.message[Object.keys(res.data.message)[0]][0]);        
           setModalError(!modalError);
         }
       })
       .catch(error => {
-        console.log(error);
+        setErrorMessage(error?.response?.data?.message);
         setModalError(!modalError);
-      });
+      })
+      .finally(() => {
+        verifyUser();
+      })
   };
 
   async function onConfirmDelete() {
@@ -374,7 +380,7 @@ const BodyMyAccount = ({ item }) => {
           modalVisible={modalSuccess || modalError}
           setModalVisible={modalSuccess ? setModalSuccess : setModalError}
           title={modalSuccess ? texts.title : 'Aviso'}
-          text={modalSuccess ? texts.message : "Aconteceu um erro, tente novamente mais tarde."}
+          text={modalSuccess ? texts.message : errorMessage}
           textFirstButton='Voltar'
         />
 
