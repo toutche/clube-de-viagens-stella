@@ -17,9 +17,10 @@ import { BLUE_COLOR, FONT_DEFAULT_STYLE, PRIMARY_COLOR } from "../../utils/varia
 import Map from "./Map";
 import api from "../../services/api";
 import ListItem from "../../components/ListItem";
-import { Entypo } from "@expo/vector-icons";
-
-import { Fontisto } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Fontisto, Entypo } from "@expo/vector-icons";
+import { CustomDropdown } from "../../components/CustomDropDown";
+import { CustomGuide } from "../../components/CustomGuide";
 
 export default ({ item, display = 0, navigation }) => {
   const {
@@ -140,7 +141,6 @@ export default ({ item, display = 0, navigation }) => {
           </Text>
         ) : null}
       </View>
-
       <View
         style={{
           flex: 1,
@@ -176,7 +176,6 @@ export default ({ item, display = 0, navigation }) => {
           );
         })}
       </View>
-
       {item.flights.map((i, n) => {
         return (
           <View key={n}>
@@ -253,44 +252,30 @@ export default ({ item, display = 0, navigation }) => {
           </View>
         );
       })}
-
       {item.alert_covid && <AlertCovid text_alert={item.text_alert} />}
-
       {item.day_by_day.length > 0 && (
-        <View style={styles.details}>
-          <TouchableOpacity
-            onPress={() => {
-              setCurrentIndex(currentIndex ? false : true);
-            }}
-            style={styles.cardContainer}
-            activeOpacity={30}>
-            <View style={styles.headerCard}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Fontisto name='map' size={24} color='black' style={{ marginRight: 10 }} />
-                <Text>Confira nosso roteiro</Text>
-              </View>
-              <Entypo
-                name={currentIndex ? "chevron-up" : "chevron-down"}
-                size={30}
-                color={"##d1d1d1"}
-              />
+        <CustomDropdown
+          onPress={() => setCurrentIndex(currentIndex ? false : true)}
+          currentIndex={currentIndex}
+          title={"Confira nosso roteiro"}
+          icon={"map-outline"}
+          type={AntDesign}>
+          {item.day_by_day.map((i, n) => (
+            <View
+              style={{
+                borderBottomWidth: 0.3,
+                borderBottomColor: "#C3C3C3",
+                width: "90%",
+                alignSelf: "center",
+                paddingTop: 20,
+              }}>
+              <Text style={styles.heading}>Dia {i.day}</Text>
+              <Text style={styles.body}>{i.description}</Text>
             </View>
-            {item.day_by_day.map((i, n) => (
-              <View style={styles.card}>
-                {currentIndex && (
-                  <View style={{ borderTopWidth: 0.3, paddingTop: 20 }}>
-                    <Text style={styles.heading}>Dia {i.day}</Text>
-                    <Text style={styles.body}>{i.description}</Text>
-                  </View>
-                )}
-              </View>
-            ))}
-          </TouchableOpacity>
-        </View>
+          ))}
+        </CustomDropdown>
       )}
-
       <Map name={item.subname} address={item.address} region={item.region} />
-
       <View>
         <Text
           style={{
@@ -332,12 +317,6 @@ const styles = StyleSheet.create({
     fontFamily: FONT_DEFAULT_STYLE,
     marginHorizontal: Platform.OS === "ios" ? -3 : undefined,
   },
-  details: {
-    width: "95%",
-    alignSelf: "center",
-    // paddingHorizontal: 20,
-    paddingBottom: 15,
-  },
   title: {
     fontFamily: FONT_DEFAULT_STYLE,
     color: "#333",
@@ -355,10 +334,8 @@ const styles = StyleSheet.create({
     marginTop: 2,
     color: "#777",
   },
-  cardContainer: { flexGrow: 1, borderWidth: 1, borderRadius: 10, borderColor: "#d1d1d1" },
-  // card: { alignItems: "center", justifyContent: "center" },
   heading: {
-    paddingHorizontal: 20,
+    marginBottom: 10,
     fontSize: 15,
     fontWeight: "900",
     textTransform: "uppercase",
@@ -368,17 +345,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20 * 1,
     textAlign: "left",
-    marginHorizontal: 20,
-    // paddingHorizontal: 20,
-    // paddingVertical: 10,
     paddingBottom: 20,
-  },
-  headerCard: {
-    height: 70,
-    paddingHorizontal: 20,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
 });
