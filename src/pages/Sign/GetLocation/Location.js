@@ -13,12 +13,10 @@ const GetLocation = ({
   changePanel,
   navigation,
   onChangeKeyboard,
-  CEP
+  CEP,
 }) => {
-
-  
   const { updateUser, loadingApi } = useAuth();
-  
+
   const [number, setNumber] = useState(numberAddress);
   const [complement, setComplement] = useState("");
   const [street, setStreet] = useState("");
@@ -28,45 +26,43 @@ const GetLocation = ({
   const [country, setCountry] = useState("BR");
   const [cep, setCEP] = useState(CEP);
   const [edit, setEdit] = useState(false);
-  const [editButtonText, setEditButtonText] = useState("Editar")
+  const [editButtonText, setEditButtonText] = useState("Editar");
 
-  const check = (string) => {
-    if(string === null || string === undefined || string.length === 0) {
-      return { ok: false }
+  const check = string => {
+    if (string === null || string === undefined || string.length === 0) {
+      return { ok: false };
     } else {
-      return { ok: true }
+      return { ok: true };
     }
-  }
+  };
 
-  const updateAddressHandler = (event) => {
+  const updateAddressHandler = event => {
     try {
-  
-        if( ! check(cep).ok ) throw { message: "Informe o número da seu CEP" }
-        if( ! check(street).ok ) throw { message: "Informe o nome da sua rua" }
-        if( ! check(neighborhood).ok ) throw { message: "Informe o nome do seu bairro" }
-        if( ! check(city).ok ) throw { message: "Informe o nome da sua cidade" }
-        if( ! check(region).ok ) throw { message: "Informe o nome do seu estado" }
-        if( ! check(number).ok ) throw { message: "Informe o número da sua residência" }
+      if (!check(cep).ok) throw { message: "Informe o número da seu CEP" };
+      if (!check(street).ok) throw { message: "Informe o nome da sua rua" };
+      if (!check(neighborhood).ok) throw { message: "Informe o nome do seu bairro" };
+      if (!check(city).ok) throw { message: "Informe o nome da sua cidade" };
+      if (!check(region).ok) throw { message: "Informe o nome do seu estado" };
+      if (!check(number).ok) throw { message: "Informe o número da sua residência" };
 
-        updateUser(
-          {
-            address: street,
-            zip_code: cep,
-            street,
-            neighborhood,
-            city,
-            state: region,
-            country,
-            number,
-            complement,
-          },
-          navigation,
-        )
-      
-    } catch(e) {
-      alert(e.message)
+      updateUser(
+        {
+          address: street,
+          zip_code: cep,
+          street,
+          neighborhood,
+          city,
+          state: region,
+          country,
+          number,
+          complement,
+        },
+        navigation,
+      );
+    } catch (e) {
+      alert(e.message);
     }
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -76,69 +72,76 @@ const GetLocation = ({
         setNeighborhood(address.bairro);
         setRegion(address.uf);
         setCEP(address.cep);
-      } catch(e) {
+      } catch (e) {
         console.error(e);
       }
-    })()
+    })();
   }, [address]);
 
   const editHandler = () => {
     // const addressArr = address.split(/-|,/);
-    setEditButtonText( edit ? "Editar" : "Descartar" )
-    setEdit( edit => !edit );
-    
-    
-  }
+    setEditButtonText(edit ? "Editar" : "Descartar");
+    setEdit(edit => !edit);
+  };
 
   return (
     <View style={styles.container}>
-      <ScrollView
-       contentContainerStyle={{ paddingBottom: 20, paddingTop: 10 }}
+      {/* <ScrollView
+        contentContainerStyle={{ paddingBottom: 20, paddingTop: 10 }}
         style={[
           styles.content,
           {
             marginTop: isKeyboard ? 50 : 0,
           },
-        ]}>
+        ]}> */}
+      <View style={{ backgroundColor: "white", padding: 15, borderRadius: 20 }}>
         <View style={styles.containerTitle}>
           <Text style={styles.title}>Endereço</Text>
         </View>
         {
-          
-          <View >
+          <View>
             <Text style={styles.text}>Rua</Text>
-            <TextInput 
+            <TextInput
               value={street}
-              onChangeText={(street) => { setStreet(street) }}
+              onChangeText={street => {
+                setStreet(street);
+              }}
               style={styles.input}
             />
             <Text style={styles.text}>Bairro</Text>
-            <TextInput 
+            <TextInput
               value={neighborhood}
-              onChangeText={(neighborhood) => { setNeighborhood(neighborhood) }}
+              onChangeText={neighborhood => {
+                setNeighborhood(neighborhood);
+              }}
               style={styles.input}
             />
             <Text style={styles.text}>Cidade</Text>
-            <TextInput 
+            <TextInput
               value={city}
-              onChangeText={(city) => { setCity(city) }}
+              onChangeText={city => {
+                setCity(city);
+              }}
               style={styles.input}
             />
             <Text style={styles.text}>Estado</Text>
-            <TextInput 
+            <TextInput
               value={region}
-              onChangeText={(region) => { setRegion(region) }}
+              onChangeText={region => {
+                setRegion(region);
+              }}
               style={styles.input}
             />
             <Text style={styles.text}>CEP</Text>
-            <TextInput 
+            <TextInput
               value={cep}
-              onChangeText={(cep) => { setCEP(cep) }}
+              onChangeText={cep => {
+                setCEP(cep);
+              }}
               style={styles.input}
             />
           </View>
-          
-        }    
+        }
 
         <Text style={styles.text}>Número</Text>
 
@@ -146,25 +149,20 @@ const GetLocation = ({
           value={number}
           keyboardType={"numeric"}
           maxLength={8}
-          onChangeText={(number) => { setNumber(number) }}
+          onChangeText={number => {
+            setNumber(number);
+          }}
           style={styles.input}
         />
 
         <Text style={styles.text}>Complemento(Ex: Apto/Bloco/Casa)</Text>
 
-        <TextInput
-          value={complement}
-          onChangeText={setComplement}
-          style={styles.input}
-        />
-
-      </ScrollView>
-
+        <TextInput value={complement} onChangeText={setComplement} style={styles.input} />
+        {/* </ScrollView> */}
+      </View>
       <CustomButton
         loadingApi={loadingApi}
-        onPress={() =>
-          updateAddressHandler()
-        }
+        onPress={() => updateAddressHandler()}
         containerStyle={styles.button}
         titleStyle={styles.buttonText}
         title={"Confirmar"}
@@ -176,6 +174,8 @@ const GetLocation = ({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    // height: "100%",
+    // backgroundColor: "blue",
     marginBottom: 10,
     marginTop: 2,
   },
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     // paddingVertical: 0,
     borderRadius: 10,
-    maxHeight: 280
+    maxHeight: 280,
   },
   input: {
     fontSize: 14.5,
