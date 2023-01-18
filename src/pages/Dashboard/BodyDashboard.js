@@ -65,8 +65,8 @@ const BodyDashboard = ({
 
   const [searchModalVisible, setSearchModalVisible] = useState(false);
   const [searchTextModal, setSearchTextModal] = useState({
-    title: '',
-    message: '',
+    title: "",
+    message: "",
   });
 
   useEffect(() => {
@@ -80,8 +80,8 @@ const BodyDashboard = ({
 
   const onFilterOriginDestiny = () => {
     setSearchTextModal({
-      title: 'Buscar',
-      message: 'Deseja buscar?'
+      title: "Buscar",
+      message: "Deseja buscar?",
     });
     setSearchModalVisible(!searchModalVisible);
   };
@@ -318,9 +318,14 @@ const BodyDashboard = ({
     const linkWhatsapp = response.data.whatsapp;
     const linkWhatsappRedirect = response.data.whatsapp_redirect;
 
-    const result = await Linking.canOpenURL(link);
-    if (result) await Linking.openURL(link);
-    else setVisibleModalSecond(!visibleModalSecond);
+    const result = await Linking.canOpenURL(linkWhatsapp);
+    if (result) {
+      await Linking.openURL(linkWhatsapp);
+    } else {
+      const result = await Linking.canOpenURL(linkWhatsappRedirect);
+      if (result) await Linking.openURL(linkWhatsappRedirect);
+      setVisibleModalSecond(!visibleModalSecond);
+    }
   }
 
   return (
@@ -358,12 +363,16 @@ const BodyDashboard = ({
       <ModalAlert
         modalVisible={visibleModalFirst || visibleModalSecond}
         setModalVisible={setVisibleModalFirst || setVisibleModalSecond}
-        title={visibleModalFirst ? 'Que pena ):' : "Aviso!"}
-        text={visibleModalFirst ? 'O destino escolhido não está mais disponível, refaça a sua busca!' : 'Entre em contato pelo nosso email.'}
-        textFirstButton={visibleModalFirst ? 'Voltar' : 'Contato'}
-        firstButtonFunction={firstButtonModalAlert }
+        title={visibleModalFirst ? "Que pena ):" : "Aviso!"}
+        text={
+          visibleModalFirst
+            ? "O destino escolhido não está mais disponível, refaça a sua busca!"
+            : "Entre em contato pelo nosso email."
+        }
+        textFirstButton={visibleModalFirst ? "Voltar" : "Contato"}
+        firstButtonFunction={firstButtonModalAlert}
         secondButton={visibleModalSecond && true}
-        textSecondButton={visibleModalSecond && 'Voltar'}
+        textSecondButton={visibleModalSecond && "Voltar"}
         secondButtonFunction={visibleModalSecond && secondButtonModalAlert}
       />
       {/* Modal criado para o mecanismo de busca. */}
@@ -373,13 +382,20 @@ const BodyDashboard = ({
         title={searchTextModal.title}
         text={searchTextModal.message}
         firstButtonFunction={forceUpdateList}
-        textFirstButton={'Sim'}
-        textSecondButton={filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
-          ? "Limpar"
-          : "Não"}
-        secondButtonFunction={filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
-          ? () => {clearFilterOriginDestiny(); setSearchModalVisible(!searchModalVisible)}
-          : () => setSearchModalVisible(!searchModalVisible)}
+        textFirstButton={"Sim"}
+        textSecondButton={
+          filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+            ? "Limpar"
+            : "Não"
+        }
+        secondButtonFunction={
+          filterOrigin || filterDestiny || filterDays || filterMouth || filterYear
+            ? () => {
+                clearFilterOriginDestiny();
+                setSearchModalVisible(!searchModalVisible);
+              }
+            : () => setSearchModalVisible(!searchModalVisible)
+        }
         secondButton
       />
       <CustomIcon
